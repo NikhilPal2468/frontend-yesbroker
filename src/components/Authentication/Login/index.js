@@ -2,8 +2,8 @@ import React from "react";
 import styles from "./styles.module.css";
 
 import { Button, Form, Modal, Container, Row, Col } from "react-bootstrap";
+import AuthModal from "../AuthModal";
 
-import { ReactComponent as LoginSVG } from "../../../assets/loginSVG.svg";
 const stylingObject = {
   input: {
     borderTopRightRadius: "0",
@@ -13,13 +13,6 @@ const stylingObject = {
   button: {
     borderTopLeftRadius: "0",
     borderBottomLeftRadius: "0",
-  },
-
-  list: {
-    listStyle: "none",
-    padding: "0",
-    paddingRight: "4px",
-    marginTop: "2rem",
   },
 };
 
@@ -44,32 +37,7 @@ const Login = ({ showLogin = false, setShowLogin = () => {} }) => {
         <Modal.Body className="show-grid">
           <Container>
             <Row>
-              <Col xs={12} md={4}>
-                <Row>
-                  <Col xs={6} md={12}>
-                    <LoginSVG />
-                  </Col>
-                  <Col xs={6} md={12}>
-                    Login/Sign up
-                    <ul style={stylingObject.list}>
-                      <li className="d-flex flex-row">
-                        <p className="mb-0.5">✔</p>
-                        <p className="mb-0.5">Complete Assistance</p>
-                      </li>
-                      <li className="d-flex flex-col">
-                        <p className="mb-0.5">✔</p>
-                        <p className="mb-0.5">Authentic Brokers</p>
-                      </li>
-                      <li className="d-flex flex-row">
-                        <p className="mb-0.5">✔</p>
-                        <p className="mb-0.5">
-                          Thousands of new Listings daily
-                        </p>
-                      </li>
-                    </ul>
-                  </Col>
-                </Row>
-              </Col>
+              <AuthModal />
               <Col
                 xs={12}
                 md={8}

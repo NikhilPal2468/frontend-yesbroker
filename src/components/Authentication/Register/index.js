@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import styles from "./styles.module.css";
-
+import AuthModal from "../AuthModal";
 import { Button, Form, Modal, Container, Row, Col } from "react-bootstrap";
-
-import { ReactComponent as LoginSVG } from "../../../assets/loginSVG.svg";
 
 const stylingObject = {
   input: {
@@ -17,13 +15,6 @@ const stylingObject = {
     borderTopLeftRadius: "0",
     borderBottomLeftRadius: "0",
     minWidth: "fit-content",
-  },
-
-  list: {
-    listStyle: "none",
-    padding: "0",
-    paddingRight: "4px",
-    marginTop: "2rem",
   },
 };
 
@@ -49,30 +40,7 @@ const Register = ({ show = false, setShow = () => {} }) => {
         <Modal.Body className="show-grid">
           <Container>
             <Row className="my-2">
-              <Col xs={12} md={4}>
-                <Row>
-                  <Col xs={6} md={12}>
-                    <LoginSVG />
-                  </Col>
-                  <Col xs={6} md={12}>
-                    Login/Sign up
-                    <ul style={stylingObject.list}>
-                      <li className="d-flex flex-row">
-                        <p>✔</p>
-                        <p>Complete Assistance</p>
-                      </li>
-                      <li className="d-flex flex-col">
-                        <p>✔</p>
-                        <p>Authentic Brokers</p>
-                      </li>
-                      <li className="d-flex flex-row">
-                        <p>✔</p>
-                        <p>Thousands of new Listings daily</p>
-                      </li>
-                    </ul>
-                  </Col>
-                </Row>
-              </Col>
+              <AuthModal />
               <Col xs={12} md={8}>
                 <Form>
                   <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -83,14 +51,6 @@ const Register = ({ show = false, setShow = () => {} }) => {
                         className="mr-2 w-auto flex-grow-1"
                         style={stylingObject.input}
                       />
-                      <Button
-                        className="align-self-stretch"
-                        style={stylingObject.button}
-                      >
-                        <div className="d-flex align-items-center">
-                          <span>Get OTP</span>
-                        </div>
-                      </Button>
                     </div>
                   </Form.Group>
 
@@ -117,7 +77,7 @@ const Register = ({ show = false, setShow = () => {} }) => {
                     type="submit"
                     className="w-100 justify-content-end"
                   >
-                    Sign up
+                    Continue
                   </Button>
                 </Form>
                 <p className="text-center mt-4">
