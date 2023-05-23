@@ -1,29 +1,60 @@
 import React, { useState } from "react";
-import PhoneInput from "react-phone-input-2";
+
 import "react-phone-input-2/lib/style.css";
 import styles from "./styles.module.css";
 import AuthModal from "../AuthModal";
-import { Button, Form, Modal, Container, Row, Col } from "react-bootstrap";
+import { Button, Modal, Container, Row, Col } from "react-bootstrap";
 
-const stylingObject = {
-  input: {
-    borderTopRightRadius: "0",
-    borderBottomRightRadius: "0",
-  },
+import * as Yup from "yup";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import FormError from "../FormError";
 
-  button: {
-    borderTopLeftRadius: "0",
-    borderBottomLeftRadius: "0",
-    minWidth: "fit-content",
-  },
-};
+import axios from "axios";
+import CustomPhoneInput from "./CustomPhoneInput";
+import Otp from "../Otp";
 
 const Register = ({ show = false, setShow = () => {} }) => {
-  const [value, setValue] = useState();
+  const [displayOtp, setDisplayOtp] = useState(false);
+  const [userId, setUserId] = useState(null);
 
   const handleClose = () => {
     setShow(false);
   };
+
+  const initialValues = {
+    email: "",
+    name: "",
+    password: "",
+    phone_number: "",
+  };
+
+  const onSubmit = async (values) => {
+    try {
+      const { data } = await axios.post("/register", values);
+
+      if (data.success && data.success === true) {
+        setDisplayOtp(true);
+        setUserId(data.message.userId);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const validationSchema = Yup.object({
+    email: Yup.string()
+      .required("Email is required")
+      .email("Invalid email format"),
+    password: Yup.string()
+      .required("Password is required")
+      .min(6, "Weak Password"),
+    name: Yup.string().required("Name is required"),
+    phone_number: Yup.string()
+      .required("Phone number is required")
+      .min(8, "Invalid Phone number")
+      .max(13, "Invalid Phone number"),
+  });
+
   return (
     <div>
       <Modal
@@ -42,50 +73,93 @@ const Register = ({ show = false, setShow = () => {} }) => {
             <Row className="my-2">
               <AuthModal />
               <Col xs={12} md={8}>
-                <Form>
-                  <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <div className="d-flex w-100 align-items-stretch">
-                      <Form.Control
-                        type="email"
-                        placeholder="Enter email like name@gmail.com"
-                        className="mr-2 w-auto flex-grow-1"
-                        style={stylingObject.input}
-                      />
+                {displayOtp ? (
+                  <Otp userId={userId} />
+                ) : (
+                  <>
+                    <Formik
+                      initialValues={initialValues}
+                      validationSchema={validationSchema}
+                      onSubmit={onSubmit}
+                    >
+                      {({ values }) => (
+                        <Form>
+                          <div className="mb-3">
+                            <Field
+                              type="email"
+                              name="email"
+                              id="email"
+                              placeholder="Enter email like name@gmail.com"
+                              className="form-control"
+                            />
+                            <ErrorMessage name="email" component={FormError} />
+                          </div>
+
+                          <div className="mb-3">
+                            <Field
+                              type="text"
+                              name="name"
+                              id="name"
+                              placeholder="Name"
+                              className="form-control"
+                            />
+                            <ErrorMessage name="name" component={FormError} />
+                          </div>
+
+                          <div className="mb-3">
+                            <Field
+                              type="password"
+                              name="password"
+                              id="password"
+                              placeholder="Password"
+                              className="form-control"
+                            />
+                            <ErrorMessage
+                              name="password"
+                              component={FormError}
+                            />
+                          </div>
+
+                          <div className="mb-3">
+                            <Field
+                              name="phone_number"
+                              id="phone_number"
+                              type="tel"
+                              values={values}
+                              component={CustomPhoneInput}
+                            />
+                          </div>
+
+                          <Button
+                            variant="primary"
+                            type="submit"
+                            className="w-100 justify-content-end"
+                          >
+                            Continue
+                          </Button>
+                        </Form>
+                      )}
+                    </Formik>
+                    <div className="d-flex flex-row justify-content-between align-items-center">
+                      <p>
+                        <small>
+                          Have an account? <span>Login</span>
+                        </small>
+                      </p>
+                      <p>
+                        <small>Forgot Password?</small>
+                      </p>
                     </div>
-                  </Form.Group>
-
-                  <Form.Group className="mb-3" controlId="formBasicName">
-                    <Form.Control type="text" placeholder="Name" />
-                  </Form.Group>
-
-                  <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Control type="password" placeholder="Password" />
-                  </Form.Group>
-
-                  <Form.Group className="mb-3" controlId="formBasicPhone">
-                    <PhoneInput
-                      placeholder="Enter phone number"
-                      country="in"
-                      value={value}
-                      onChange={setValue}
-                      inputStyle={{ width: "100%" }}
-                    />
-                  </Form.Group>
-
-                  <Button
-                    variant="primary"
-                    type="submit"
-                    className="w-100 justify-content-end"
-                  >
-                    Continue
-                  </Button>
-                </Form>
-                <p className="text-center mt-4">
-                  <small>
-                    By continuing you agree to our{" "}
-                    <span className={styles["terms"]}>Terms & Conditions</span>
-                  </small>
-                </p>
+                    <p className="text-center mt-4">
+                      <small>
+                        By continuing you agree to our{" "}
+                        <span className={styles["terms"]}>
+                          Terms & Conditions
+                        </span>
+                      </small>
+                    </p>
+                  </>
+                )}
               </Col>
             </Row>
           </Container>

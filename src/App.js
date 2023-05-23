@@ -1,7 +1,11 @@
 import { useState } from "react";
 import "./App.css";
+import axios from "axios";
 import Register from "./components/Authentication/Register";
 import Login from "./components/Authentication/Login";
+
+axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.withCredentials = true;
 
 function App() {
   const [show, setShow] = useState(false);
