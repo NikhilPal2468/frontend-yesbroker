@@ -1,0 +1,21 @@
+.otpInput {
+  max-width: 50px;
+  max-height: 50px;
+  padding: 1.2rem 1rem;
+}
+
+.otpInput:focus {
+  border-color: blue;
+}
+
+.otpDiv {
+  margin: auto 5rem;
+}
+
+.otpForm {
+  max-width: 100%;
+}
+
+.otpContainer {
+  height: 100%;
+}
