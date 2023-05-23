@@ -7,24 +7,23 @@ import Login from "./components/Authentication/Login";
 import './App.css';
 
 import Navbar from './components/common/Navbar';
-import { Route, Routes } from 'react-router-dom';
 import HomePage from './components/HomePage';
-import Toast1 from './components/common/Toast';
 axios.defaults.baseURL = "http://localhost:5000";
 axios.defaults.withCredentials = true;
 function App() {
-  const [show, setShow] = useState(true)
+  const [showRegister, setShowRegister] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   return (
     <div className="App">
-      <Navbar />
-      <Routes>
-        <Route path="/home" element={<Navbar />} />
-      </Routes>
+      <Navbar showLogin={showLogin}
+        showRegister={showRegister}
+        setShowLogin={setShowLogin}
+        setShowRegister={setShowRegister}
+      />
       <HomePage />
-      <Register show={show} setShow={setShow} />
+      <Register show={showRegister} setShow={setShowRegister} />
       <Login showLogin={showLogin} setShowLogin={setShowLogin} />
-      <Toast1 show={show} setShow={setShow} />
+      {/* <Toast1 show={show} setShow={setShow} /> */}
     </div>
   );
 }
