@@ -1,14 +1,22 @@
 
 import { useState } from 'react';
 import './App.css';
-import Authentication from './components/Authentication';
 
+import Navbar from './components/common/Navbar';
+import { Route, Routes } from 'react-router-dom';
+import HomePage from './components/HomePage';
+import Toast1 from './components/common/Toast';
 function App() {
-  const [show, setShow] = useState(false)
+  const [show, setShow] = useState(true)
   return (
     <div className="App">
-      <button onClick={() => { setShow(true); }}>NIKHIL</button>
-      <Authentication show={show} setShow={setShow} />
+      <Navbar />
+      <Routes>
+        <Route path="/home" element={<Navbar />} />
+      </Routes>
+      <HomePage />
+      {/* <Authentication show={show} setShow={setShow} /> */}
+      <Toast1 show={show} setShow={setShow} />
     </div>
   );
 }

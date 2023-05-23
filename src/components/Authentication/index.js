@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Dropdown, DropdownButton, Form, InputGroup, Modal } from 'react-bootstrap'
 
 const Authentication = ({ show = false, setShow = () => { } }) => {
-    console.log(show);
+
     const handleClose = () => {
         setShow(false);
     }
