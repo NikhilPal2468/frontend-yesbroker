@@ -1,5 +1,4 @@
 import React from "react";
-import RecipeReviewCard from "../utils/card";
 import FlatFilters from "./Filters/FlatFilters";
 import HouseFilters from "./Filters/HouseFilters";
 import PGFilters from "./Filters/PGFilters";
