@@ -15,6 +15,7 @@ const CustomPhoneInput = ({ name, id, values, field }) => {
       <PhoneInput
         {...field}
         onChange={onValueChange}
+        onlyCountries={["in"]}
         id={id}
         name={name}
         value={values["phone_number"]}

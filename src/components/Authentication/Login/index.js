@@ -93,7 +93,7 @@ const Login = ({ showLogin = false, setShowLogin = () => {} }) => {
                     <Button
                       variant="primary"
                       type="submit"
-                      className="w-100 justify-content-end"
+                      className={`w-100 justify-content-end ${styles.primary_color}`}
                     >
                       Login
                     </Button>

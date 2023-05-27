@@ -134,7 +134,7 @@ const Register = ({ show = false, setShow = () => {} }) => {
                           <Button
                             variant="primary"
                             type="submit"
-                            className="w-100 justify-content-end"
+                            className={`w-100 justify-content-end ${styles.primary_color}`}
                           >
                             Continue
                           </Button>

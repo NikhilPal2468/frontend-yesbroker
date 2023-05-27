@@ -11,11 +11,14 @@ import HomePage from "./components/HomePage";
 import { Route, Routes } from "react-router-dom";
 import ForgotPassword from "./components/Authentication/ForgotPassword";
 import ResetPassword from "./components/Authentication/ResetPassword";
+import ListProperties from "./components/ListProperties";
 axios.defaults.baseURL = "http://localhost:5000";
 axios.defaults.withCredentials = true;
+
 function App() {
   const [showRegister, setShowRegister] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+
   return (
     <div className="App">
       <Navbar
@@ -26,6 +29,7 @@ function App() {
       />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/properties" element={<ListProperties />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/resetpassword/:id/:token" element={<ResetPassword />} />
       </Routes>

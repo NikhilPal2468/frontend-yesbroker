@@ -84,7 +84,7 @@ const Otp = ({ userId }) => {
         <Button
           variant="primary"
           type="submit"
-          className="w-100 justify-content-end mt-4"
+          className={`w-100 justify-content-end mt-4 ${styles.primary_color}`}
           disabled={disabled}
         >
           Verify
