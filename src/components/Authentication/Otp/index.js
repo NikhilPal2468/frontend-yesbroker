@@ -10,8 +10,6 @@ const Otp = ({ userId }) => {
   const handleChange = (element, index) => {
     if (isNaN(element.value)) return false;
 
-    console.log(element.value, index);
-
     setOtp((prevOtp) => {
       let newOtp = prevOtp.map((val, idx) => {
         if (idx === index) return element.value;
@@ -26,7 +24,8 @@ const Otp = ({ userId }) => {
     }
   };
 
-  const handleFormSubmit = async () => {
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
     if (userId === null) return;
 
     const fullOTP = otp.join("");

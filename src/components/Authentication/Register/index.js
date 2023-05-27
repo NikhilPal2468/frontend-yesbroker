@@ -29,8 +29,9 @@ const Register = ({ show = false, setShow = () => {} }) => {
   };
 
   const onSubmit = async (values) => {
+    console.log("values:", values);
     try {
-      const { data } = await axios.post("/register", values);
+      const { data } = await axios.post("/api/register", values);
 
       if (data.success && data.success === true) {
         setDisplayOtp(true);
@@ -146,16 +147,11 @@ const Register = ({ show = false, setShow = () => {} }) => {
                           Have an account? <span>Login</span>
                         </small>
                       </p>
-                      <p>
-                        <small>Forgot Password?</small>
-                      </p>
                     </div>
                     <p className="text-center mt-4">
                       <small>
                         By continuing you agree to our{" "}
-                        <span className={styles["terms"]}>
-                          Terms & Conditions
-                        </span>
+                        <span className={styles.terms}>Terms & Conditions</span>
                       </small>
                     </p>
                   </>

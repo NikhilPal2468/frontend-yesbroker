@@ -9,6 +9,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import FormError from "../FormError";
 
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const initialValues = {
   email: "",
@@ -98,10 +99,17 @@ const Login = ({ showLogin = false, setShowLogin = () => {} }) => {
                     </Button>
                   </Form>
                 </Formik>
+                <div className={styles.forgot_pwd}>
+                  <p>
+                    <Link to="/forgotpassword">
+                      <small>Forgot Password?</small>
+                    </Link>
+                  </p>
+                </div>
                 <p className="text-center mt-4">
                   <small>
                     By continuing you agree to our{" "}
-                    <span className={styles["terms"]}>Terms & Conditions</span>
+                    <span className={styles.terms}>Terms & Conditions</span>
                   </small>
                 </p>
               </Col>

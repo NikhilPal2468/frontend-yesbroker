@@ -1,3 +1,7 @@
+.terms {
+  cursor: pointer;
+}
+
 .terms:hover {
   text-decoration: underline;
 }

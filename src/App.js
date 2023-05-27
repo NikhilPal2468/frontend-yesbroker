@@ -1,13 +1,16 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import axios from "axios";
 import Register from "./components/Authentication/Register";
 import Login from "./components/Authentication/Login";
 
-import './App.css';
+import "./App.css";
 
-import Navbar from './components/common/Navbar';
-import HomePage from './components/HomePage';
+import Navbar from "./components/common/Navbar";
+import HomePage from "./components/HomePage";
+import { Route, Routes } from "react-router-dom";
+import ForgotPassword from "./components/Authentication/ForgotPassword";
+import ResetPassword from "./components/Authentication/ResetPassword";
 axios.defaults.baseURL = "http://localhost:5000";
 axios.defaults.withCredentials = true;
 function App() {
@@ -15,15 +18,19 @@ function App() {
   const [showLogin, setShowLogin] = useState(false);
   return (
     <div className="App">
-      <Navbar showLogin={showLogin}
+      <Navbar
+        showLogin={showLogin}
         showRegister={showRegister}
         setShowLogin={setShowLogin}
         setShowRegister={setShowRegister}
       />
-      <HomePage />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route path="/resetpassword/:id/:token" element={<ResetPassword />} />
+      </Routes>
       <Register show={showRegister} setShow={setShowRegister} />
       <Login showLogin={showLogin} setShowLogin={setShowLogin} />
-      {/* <Toast1 show={show} setShow={setShow} /> */}
     </div>
   );
 }

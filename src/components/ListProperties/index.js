@@ -1,12 +1,7 @@
-
-import React from 'react';
+import React from "react";
 
 const ListProperties = () => {
-    return (
-        <div>
-            List Properties
-        </div>
-    );
+  return <div>List Properties</div>;
 };
 
 export default ListProperties;
