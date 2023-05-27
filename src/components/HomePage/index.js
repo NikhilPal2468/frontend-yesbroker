@@ -1,12 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./styles.module.css";
-import {
-  Button,
-  Dropdown,
-  DropdownButton,
-  Form,
-  InputGroup,
-} from "react-bootstrap";
+import { Button, Dropdown, DropdownButton, InputGroup } from "react-bootstrap";
 import { BsSearch } from "react-icons/bs";
 
 import OutlinedInput from "@mui/material/OutlinedInput";

@@ -7,7 +7,7 @@ function PGFilters() {
     <div className="container">
       <div className="row">
         <div className="col-12 col-md-6 col-lg-4">
-          <div className="card p-2">
+          <div className={`card p-2 ${styles.sticky_card}`}>
             <div className="d-flex flex-row justify-content-between align-items-center pb-2 border-bottom border-3 border-dark">
               <h5 className="card-title my-auto">Filters</h5>
               <p className="my-auto">

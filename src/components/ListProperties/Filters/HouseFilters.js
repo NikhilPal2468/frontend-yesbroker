@@ -7,7 +7,7 @@ import { GiFamilyHouse } from "react-icons/gi";
 import { TbSofa } from "react-icons/tb";
 import { VscKey } from "react-icons/vsc";
 import { Link } from "react-router-dom";
-import { HiOutlineHeart, HiHeart } from "react-icons/hi";
+import { HiOutlineHeart } from "react-icons/hi";
 
 function HouseFilters() {
   const houses = [
@@ -129,14 +129,14 @@ function HouseFilters() {
     },
   ];
 
-  const propertyAmmenities = [
-    {
-      id: "vfjvndfjvnfd3323",
-      property_id: "djdj3r23r32mv",
-      fridge: "true",
-      ac: "true",
-    },
-  ];
+  // const propertyAmmenities = [
+  //   {
+  //     id: "vfjvndfjvnfd3323",
+  //     property_id: "djdj3r23r32mv",
+  //     fridge: "true",
+  //     ac: "true",
+  //   },
+  // ];
 
   const renderBHKType = (type) => {
     switch (type) {
@@ -181,7 +181,7 @@ function HouseFilters() {
     <div className="container">
       <div className="row">
         <div className="col-12 col-md-5 col-lg-4">
-          <div className="card p-2">
+          <div className={`card p-2 ${styles.sticky_card}`}>
             <div className="d-flex flex-row justify-content-between align-items-center pb-2 border-bottom border-3 border-dark">
               <h5 className="card-title my-auto">Filters</h5>
               <p className="my-auto">
@@ -411,7 +411,7 @@ function HouseFilters() {
         <div className="col-12 col-md-7 col-lg-8">
           {houses.map((house) => {
             return (
-              <div className="mb-4">
+              <div className="mb-4" key={house?.id}>
                 <div className="card border-bottom-0 rounded-bottom-0">
                   <div className="card-body">
                     <h5 className="card-title text-start">{house.title}</h5>

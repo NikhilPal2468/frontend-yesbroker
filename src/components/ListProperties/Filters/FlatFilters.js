@@ -7,7 +7,7 @@ function FlatFilters() {
     <div className="container">
       <div className="row">
         <div className="col-12 col-md-6 col-lg-5">
-          <div className="card p-2">
+          <div className={`card p-2 ${styles.sticky_card}`}>
             <div className="d-flex flex-row justify-content-between align-items-center pb-2 border-bottom border-3 border-dark">
               <h5 className="card-title my-auto">Filters</h5>
               <p className="my-auto">
@@ -87,7 +87,10 @@ function FlatFilters() {
               </div>
               <div className="input-group d-flex flex-column mt-2 pt-1 border-bottom border-1 border-dark">
                 <div className="flex-grow-1 mb-0">
-                  <label htmlFor="price" class="form-label w-100 text-start">
+                  <label
+                    htmlFor="price"
+                    className="form-label w-100 text-start"
+                  >
                     <h6 className="w-100 mb-0">Price</h6>
                   </label>
                   <input

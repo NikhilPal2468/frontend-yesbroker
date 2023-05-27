@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
 import { Button } from "react-bootstrap";
 import { FaHouseUser } from "react-icons/fa";
 
 const Navbar = ({ setShowLogin, setShowRegister }) => {
-  const [isLogedIn, setIsLogedIn] = useState(false);
+  // const [isLogedIn, setIsLogedIn] = useState(false);
+  const isLogedIn = false;
 
   const user = {
     name: "Aryan",
