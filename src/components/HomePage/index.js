@@ -24,7 +24,7 @@ const MenuProps = {
 };
 
 const BHKTypes = ["1 BHK", "2 BHK", "3 BHK", "4 BHK", "4+ BHK"];
-const TenantTypes = ["Male", "Female"];
+const TenantTypes = ["Male", "Female", "Both"];
 const RoomTypesPG = [
   "Single Room",
   "Double Sharing",
@@ -145,13 +145,13 @@ const HomePage = () => {
                   <input
                     className="form-check-input"
                     type="radio"
-                    name="property_type"
-                    id="inlineRadio1"
+                    name="property_type1"
+                    id="property_type1"
                     value="house"
                     checked={propertyType === "house"}
                     onChange={handlePropertyTypeChange}
                   />
-                  <label className="form-check-label" htmlFor="inlineRadio1">
+                  <label className="form-check-label" htmlFor="property_type1">
                     House
                   </label>
                 </div>
@@ -161,13 +161,13 @@ const HomePage = () => {
                   <input
                     className="form-check-input"
                     type="radio"
-                    name="property_type"
-                    id="inlineRadio2"
+                    name="property_type2"
+                    id="property_type2"
                     value="pg"
                     checked={propertyType === "pg"}
                     onChange={handlePropertyTypeChange}
                   />
-                  <label className="form-check-label" htmlFor="inlineRadio1">
+                  <label className="form-check-label" htmlFor="property_type2">
                     PG/Hostel
                   </label>
                 </div>
@@ -177,13 +177,13 @@ const HomePage = () => {
                   <input
                     className="form-check-input"
                     type="radio"
-                    name="property_type"
-                    id="inlineRadio3"
+                    name="property_type3"
+                    id="property_type3"
                     value="flat"
                     checked={propertyType === "flat"}
                     onChange={handlePropertyTypeChange}
                   />
-                  <label className="form-check-label" htmlFor="inlineRadio3">
+                  <label className="form-check-label" htmlFor="property_type3">
                     Flatmates
                   </label>
                 </div>
@@ -192,7 +192,7 @@ const HomePage = () => {
           </div>
           <div className="col-12 col-md-5 gap-2 justify-content-center align-items-center">
             {propertyType === "house" ? (
-              <FormControl className={`${styles.selectForm}`}>
+              <FormControl fullWidth className={`${styles.selectForm}`}>
                 <InputLabel id="demo-multiple-checkbox-label">
                   BHK Type
                 </InputLabel>
@@ -217,7 +217,7 @@ const HomePage = () => {
             ) : (
               <div className="row">
                 <div className="col-12 col-md-6">
-                  <FormControl className={`${styles.selectForm}`}>
+                  <FormControl fullWidth className={`${styles.selectForm}`}>
                     <InputLabel id="demo-multiple-checkbox-label">
                       Tenant Type
                     </InputLabel>
@@ -242,7 +242,7 @@ const HomePage = () => {
                 </div>
                 <div className="col-12 col-md-6">
                   {propertyType === "pg" ? (
-                    <FormControl className={`${styles.selectForm}`}>
+                    <FormControl fullWidth className={`${styles.selectForm}`}>
                       <InputLabel id="demo-multiple-checkbox-label">
                         Room Type
                       </InputLabel>
@@ -267,7 +267,7 @@ const HomePage = () => {
                       </Select>
                     </FormControl>
                   ) : (
-                    <FormControl className={`${styles.selectForm}`}>
+                    <FormControl fullWidth className={`${styles.selectForm}`}>
                       <InputLabel id="demo-multiple-checkbox-label">
                         Room Type
                       </InputLabel>
