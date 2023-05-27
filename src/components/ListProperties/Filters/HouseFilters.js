@@ -574,10 +574,11 @@ function HouseFilters() {
                         <div className="col-12 d-flex flex-row my-2">
                           <div className="d-flex flex-row justify-content-center align-items-center w-100">
                             <div
-                              className={`flex-grow-1 p-2 text-white ${styles.primary_color}`}
+                              className={`flex-grow-1 p-2 text-white text-center rounded ${styles.primary_color}`}
                               role="button"
                             >
-                              <h6 className="mb-0">Get Owner Details</h6>
+                              Get Owner Details
+                              {/* <h6 className="mb-0">Get Owner Details</h6> */}
                             </div>
                             <div
                               className={`p-1 rounded ms-2 ${styles.likeBorder}`}
