@@ -31,7 +31,7 @@ const Register = ({ show = false, setShow = () => {} }) => {
   const onSubmit = async (values) => {
     console.log("values:", values);
     try {
-      const { data } = await axios.post("/api/register", values);
+      const { data } = await axios.post("/public/api/register", values);
 
       if (data.success && data.success === true) {
         setDisplayOtp(true);
@@ -75,7 +75,7 @@ const Register = ({ show = false, setShow = () => {} }) => {
               <AuthModal />
               <Col xs={12} md={8}>
                 {displayOtp ? (
-                  <Otp userId={userId} />
+                  <Otp setShow={setShow} userId={userId} />
                 ) : (
                   <>
                     <Formik

@@ -10,20 +10,12 @@ import FormError from "../FormError";
 
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUserDetails } from "../../../store/actions";
 
 const initialValues = {
   email: "",
   password: "",
-};
-
-const onSubmit = async (values) => {
-  console.log(values);
-  try {
-    const { data } = await axios.post("/login", values);
-    console.log(data);
-  } catch (e) {
-    console.log(e);
-  }
 };
 
 const validationSchema = Yup.object({
@@ -36,8 +28,21 @@ const validationSchema = Yup.object({
 });
 
 const Login = ({ showLogin = false, setShowLogin = () => {} }) => {
+  const dispatch = useDispatch();
   const handleClose = () => {
     setShowLogin(false);
+  };
+  const onSubmit = async (values) => {
+    try {
+      const { data } = await axios.post("/public/api/login", values);
+      const { success = false, user = {} } = data;
+      if (success) {
+        dispatch(setUserDetails(user));
+        setShowLogin(false);
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (

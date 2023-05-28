@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import styles from "./styles.module.css";
 import { Button } from "react-bootstrap";
 import axios from "axios";
+import { setUserDetails } from "../../../store/actions";
+import { useDispatch } from "react-redux";
 
-const Otp = ({ userId }) => {
+const Otp = ({ userId, setShow = () => {} }) => {
+  const dispatch = useDispatch();
   const [otp, setOtp] = useState(new Array(4).fill(""));
   const [disabled, setDisabled] = useState(true);
 
@@ -36,8 +39,13 @@ const Otp = ({ userId }) => {
     };
 
     try {
-      const { data } = await axios.post("/verify-token", values);
+      const { data } = await axios.post("/public/api/verify-token", values);
       console.log(data);
+      const { success = false, user = {} } = data;
+      if (success) {
+        setShow(false);
+        dispatch(setUserDetails(user));
+      }
     } catch (e) {
       console.log(e);
     }

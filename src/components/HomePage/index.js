@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import { Button, Dropdown, DropdownButton, InputGroup } from "react-bootstrap";
 import { BsSearch } from "react-icons/bs";
@@ -10,33 +10,21 @@ import FormControl from "@mui/material/FormControl";
 import ListItemText from "@mui/material/ListItemText";
 import Select from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
-
-const BHKTypes = ["1 BHK", "2 BHK", "3 BHK", "4 BHK", "4+ BHK"];
-const TenantTypes = ["Male", "Female", "Both"];
-const RoomTypesPG = [
-  "Single Room",
-  "Double Sharing",
-  "Triple Sharing",
-  "Four Sharing",
-];
-const RoomTypesFlat = ["Single Room", "Shared Room"];
+import {
+  BHKTypes,
+  CITIES,
+  MenuProps,
+  RoomTypesFlat,
+  RoomTypesPG,
+  TenantTypes,
+} from "../constants";
+import axios from "axios";
 
 const HomePage = () => {
-  const [selectedCity, setSelectedCity] = useState("Banglore");
+  const [selectedCity, setSelectedCity] = useState("Bangalore");
   const [searchValue, setSearchValue] = useState("");
   const [propertyType, setPropertyType] = useState("house");
+  const [suggestionList, setSuggestionList] = useState([]);
 
   const [bhkType, setbhkType] = useState([]);
   const [tenantTypes, setTenantTypes] = useState([]);
@@ -75,6 +63,26 @@ const HomePage = () => {
     setPropertyType(event.target.value);
   };
 
+  useEffect(() => {
+    const autoCompleteApi = async () => {
+      await axios
+        .get(
+          `/secure/api/autocomplete?city=${selectedCity}&text=${searchValue}`
+        )
+        .then((response) => {
+          console.log(response.data);
+          setSuggestionList(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+    autoCompleteApi();
+  }, [searchValue]);
+
+  const autoCompleteLocalities = (e) => {
+    setSearchValue(e.target.value);
+  };
   return (
     <div className={styles.homepage}>
       <div className={styles.homepage_heading}>
@@ -90,51 +98,37 @@ const HomePage = () => {
             id="input-group-dropdown"
             className="outline-none"
           >
-            <Dropdown.Item
-              onClick={() => {
-                setSelectedCity("Banglore");
-              }}
-              href="#"
-            >
-              Banglore
-            </Dropdown.Item>
-            <Dropdown.Item
-              onClick={() => {
-                setSelectedCity("Mumbai");
-              }}
-              href="#"
-            >
-              Mumbai
-            </Dropdown.Item>
-            <Dropdown.Item
-              onClick={() => {
-                setSelectedCity("Hyderabad");
-              }}
-              href="#"
-            >
-              Hyderabad
-            </Dropdown.Item>
-            <Dropdown.Item
-              onClick={() => {
-                setSelectedCity("Gurgaon");
-              }}
-              href="#"
-            >
-              Gurgaon
-            </Dropdown.Item>
+            {CITIES.map((city) => (
+              <Dropdown.Item
+                key={city}
+                onClick={() => {
+                  setSelectedCity(city);
+                }}
+                href="#"
+              >
+                {city}
+              </Dropdown.Item>
+            ))}
           </DropdownButton>
           <input
             type="text"
             className={`shadow-none form-control ${styles.custom_width}`}
             aria-label="Text input with dropdown button"
-            onChange={(e) => setSearchValue(e.target.value)}
             value={searchValue}
+            onChange={autoCompleteLocalities}
           />
           <Button className="d-flex flex-row justify-content-center align-items-center gap-2">
             <BsSearch />
             <p className="my-auto">Search</p>
           </Button>
         </InputGroup>
+        <div className={styles.autocomplete_dropdown_container}>
+          {suggestionList.map((place, index) => (
+            <div key={index} className={styles.suggestion_item} role="option">
+              <span>{place}</span>
+            </div>
+          ))}
+        </div>
         <div
           className={`input-group p-2 w-75 row align-items-center rounded-bottom ${styles.filterGroup}`}
         >
