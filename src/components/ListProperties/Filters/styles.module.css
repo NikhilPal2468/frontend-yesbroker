@@ -38,3 +38,8 @@
   position: sticky !important;
   top: 10px;
 }
+@media screen and (max-width: 767px) {
+  .hideOnSmall {
+    display: none; /* Hide the element on screens with a maximum width of 767px (small screens) */
+  }
+}

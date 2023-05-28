@@ -423,7 +423,7 @@ function HouseFilters() {
                 <div className="card rounded-top-0 rounded-bottom-0">
                   <div className="card-body row">
                     <div
-                      className={`col-sm d-flex flex-column ${styles.borderOpt2}`}
+                      className={`col-6 col-md d-flex flex-column ${styles.borderOpt2}`}
                     >
                       <h6 className="card-title mb-0">{house.rent}</h6>
                       <p className="mb-0">
@@ -435,14 +435,14 @@ function HouseFilters() {
                       </p>
                     </div>
                     <div
-                      className={`col-sm d-flex flex-column ${styles.borderOpt2}`}
+                      className={`col-6 col-md d-flex flex-column ${styles.borderOpt2}`}
                     >
                       <h6 className="card-title mb-0">{house.deposit}</h6>
                       <p className="mb-0">
                         <small>Deposit</small>
                       </p>
                     </div>
-                    <div className="col-sm d-flex flex-column">
+                    <div className="col-12 col-md d-flex flex-column d-none d-md-flex">
                       <h6 className="card-title mb-0">{house.builtup_area}</h6>
                       <p className="mb-0">
                         <small>Builtup</small>
