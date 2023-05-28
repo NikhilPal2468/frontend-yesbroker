@@ -33,3 +33,9 @@
   border: 1px solid;
   border-color: #6c63ff;
 }
+
+@media screen and (max-width: 767px) {
+  .hideOnSmall {
+    display: none; /* Hide the element on screens with a maximum width of 767px (small screens) */
+  }
+}
