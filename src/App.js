@@ -12,6 +12,12 @@ import { Route, Routes } from "react-router-dom";
 import ForgotPassword from "./components/Authentication/ForgotPassword";
 import ResetPassword from "./components/Authentication/ResetPassword";
 import ListProperties from "./components/ListProperties";
+
+import ProfilePage from "./components/UserDashboard/otherPages/ProfilePage";
+import YourProperties from "./components/UserDashboard/otherPages/YourProperties";
+import YourShortlists from "./components/UserDashboard/otherPages/YourShortlists";
+import OwnersContacted from "./components/UserDashboard/otherPages/OwnersContacted";
+
 axios.defaults.baseURL = "http://localhost:5000";
 axios.defaults.withCredentials = true;
 
@@ -32,9 +38,16 @@ function App() {
         <Route path="/properties" element={<ListProperties />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/resetpassword/:id/:token" element={<ResetPassword />} />
+        <Route path="/user/myprofile" element={<ProfilePage />} />
+        <Route path="/user/mylistings/flats" element={<YourProperties />} />
+        <Route path="/user/mylistings/pgs" element={<YourProperties />} />
+        <Route path="/user/myshortlists" element={<YourShortlists />} />
+        <Route path="/user/ownerscontacted" element={<OwnersContacted />} />
       </Routes>
-      <Register show={showRegister} setShow={setShowRegister} />
-      <Login showLogin={showLogin} setShowLogin={setShowLogin} />
+      {showRegister && (
+        <Register show={showRegister} setShow={setShowRegister} />
+      )}
+      {showLogin && <Login showLogin={showLogin} setShowLogin={setShowLogin} />}
     </div>
   );
 }

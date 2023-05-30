@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { BsArrowCounterclockwise } from "react-icons/bs";
 import styles from "./styles.module.css";
@@ -8,6 +8,7 @@ import { TbSofa } from "react-icons/tb";
 import { VscKey } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 import { HiOutlineHeart } from "react-icons/hi";
+import axios from "axios";
 
 function HouseFilters() {
   const houses = [
@@ -137,6 +138,28 @@ function HouseFilters() {
   //     ac: "true",
   //   },
   // ];
+
+  useEffect(() => {
+    const fetchData = async () => {
+      let payload = {
+        city: "Hyderabad",
+        text: [
+          "Atul Kataria Chowk, Sukhrali Enclave, Sector 17, Gurugram, Haryana, India",
+        ],
+        pgNo: "0",
+        type: "house",
+      };
+
+      try {
+        const { data } = await axios.get("/public/api/listProperties", payload);
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const renderBHKType = (type) => {
     switch (type) {
