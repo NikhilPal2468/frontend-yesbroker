@@ -9,7 +9,12 @@ import "./App.css";
 import Navbar from "./components/common/Navbar";
 import HomePage from "./components/HomePage";
 import ListProperties from "./components/ListProperties";
-import { Routes as Switch, Route, Link } from "react-router-dom";
+
+import { Routes as Switch, Route } from "react-router-dom";
+import ProfilePage from "./components/UserDashboard/otherPages/ProfilePage";
+import YourProperties from "./components/UserDashboard/otherPages/YourProperties";
+import YourShortlists from "./components/UserDashboard/otherPages/YourShortlists";
+import OwnersContacted from "./components/UserDashboard/otherPages/OwnersContacted";
 
 axios.defaults.baseURL = "http://localhost:5000";
 axios.defaults.withCredentials = true;
@@ -26,12 +31,18 @@ function App() {
         setShowLogin={setShowLogin}
         setShowRegister={setShowRegister}
       />
-      <Register show={showRegister} setShow={setShowRegister} />
-      <Login showLogin={showLogin} setShowLogin={setShowLogin} />
+      {showRegister && (
+        <Register show={showRegister} setShow={setShowRegister} />
+      )}
+      {showLogin && <Login showLogin={showLogin} setShowLogin={setShowLogin} />}
       <Switch>
         <Route path="/" element={<HomePage />} />
         <Route path="/properties" element={<ListProperties />} />
-        {/* <Toast1 show={show} setShow={setShow} /> */}
+        <Route path="/user/myprofile" element={<ProfilePage />} />
+        <Route path="/user/mylistings/flats" element={<YourProperties />} />
+        <Route path="/user/mylistings/pgs" element={<YourProperties />} />
+        <Route path="/user/myshortlists" element={<YourShortlists />} />
+        <Route path="/user/ownerscontacted" element={<OwnersContacted />} />
       </Switch>
     </div>
   );

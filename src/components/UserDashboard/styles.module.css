@@ -1,0 +1,22 @@
+.primary {
+  background-color: #bab7ff;
+}
+
+.linkStyle {
+  text-decoration: none;
+  color: black;
+  text-align: left;
+  width: 80%;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.active {
+  background-color: #938fff;
+  color: white;
+}
+
+.linkStyle:hover {
+  background-color: #ada8fd;
+  color: white;
+}

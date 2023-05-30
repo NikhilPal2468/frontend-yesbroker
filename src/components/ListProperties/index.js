@@ -25,7 +25,11 @@ const properties = [
 ];
 
 const ListProperties = () => {
-  return <HouseFilters />;
+  return (
+    <div className="mt-5">
+      <HouseFilters />
+    </div>
+  );
 };
 
 export default ListProperties;

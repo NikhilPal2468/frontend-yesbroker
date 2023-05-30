@@ -13,7 +13,7 @@ const Navbar = ({ setShowLogin, setShowRegister }) => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light card shadow-sm p-3 mb-5 bg-white rounded">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light card shadow-sm p-3 bg-white rounded">
       <div className="container-fluid">
         <div className={styles.navbar_left}>
           <img src="/images/logo.png" alt="logo" />
