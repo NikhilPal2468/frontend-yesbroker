@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { BsArrowCounterclockwise } from "react-icons/bs";
 import styles from "./styles.module.css";
@@ -11,124 +11,7 @@ import { HiOutlineHeart } from "react-icons/hi";
 import axios from "axios";
 
 function HouseFilters() {
-  const houses = [
-    {
-      id: "djdj3r23r32mv",
-      ownerId: "fvnfdvdfvfbvfdb",
-      title: "1 RK For Rent in sector 24",
-      headline:
-        "Standalone building, U Block, DLF Phase 3 near ASHA MULTI SPECIALITY CLINIC",
-      description: `This fully furnished 1BHK is available for rent in Sector 24 with parking space for car and bike. Take a look before it's gone. All families & bachelors looking for an apartment will find this home attractive at Rs. 20,000. This home is 600 sqft & is situated on the 1st floor of the building,
-      With a subway station located nearby, this home is well connected & offers many transit options.With an ATM, petrol pump & super market near this home, you'll never have to go far for these essentials.
-      Never miss out on lifestyle as City Centre, Sahara Mall and JMD Regent Plaza Mall are so close by. With VR Sahara, PVR Cinemas Pvt Ltd & Invasion Films close by, you can catch your favourite movies running & never worry about missing a show because of traffic.
-      With Govt Sr Sec School Chakkarpur, Rack Up Cambridge School and KLAY Prep Schools and DayCare close to this home, you'll be able to provide your children with many options to choose from. St Stephen's Hospital Health Care Facility and Narayana Superspeciality Hospital, Gurugram are close by and are known for providing exceptional medical care.`,
-      rent: "17000",
-      rent_negotiable: "false",
-      deposit: "17000",
-      lockin_period: "2 months",
-      furnishing: "full",
-      preferred_tenants: "all",
-      builtup_area: "200 sqft",
-      bhk_type: "1rk",
-      parking: "Bike and Car",
-      street: "1 A, ram verma street",
-      colony: "dlf phase 3",
-      city: "delhi",
-      state: "delhi",
-      country: "india",
-      property_age: "5",
-      bedrooms: "1",
-      bathrooms: "1",
-      available_from: "2 June, 2023",
-    },
-    {
-      id: "djdj3r23r32mv",
-      ownerId: "fvnfdvdfvfbvfdb",
-      title: "1 RK For Rent in sector 24",
-      headline:
-        "Standalone building, U Block, DLF Phase 3 near ASHA MULTI SPECIALITY CLINIC",
-      description: `This fully furnished 1BHK is available for rent in Sector 24 with parking space for car and bike. Take a look before it's gone. All families & bachelors looking for an apartment will find this home attractive at Rs. 20,000. This home is 600 sqft & is situated on the 1st floor of the building,
-      With a subway station located nearby, this home is well connected & offers many transit options.With an ATM, petrol pump & super market near this home, you'll never have to go far for these essentials.
-      Never miss out on lifestyle as City Centre, Sahara Mall and JMD Regent Plaza Mall are so close by. With VR Sahara, PVR Cinemas Pvt Ltd & Invasion Films close by, you can catch your favourite movies running & never worry about missing a show because of traffic.
-      With Govt Sr Sec School Chakkarpur, Rack Up Cambridge School and KLAY Prep Schools and DayCare close to this home, you'll be able to provide your children with many options to choose from. St Stephen's Hospital Health Care Facility and Narayana Superspeciality Hospital, Gurugram are close by and are known for providing exceptional medical care.`,
-      rent: "17000",
-      rent_negotiable: "false",
-      deposit: "17000",
-      lockin_period: "2 months",
-      furnishing: "full",
-      preferred_tenants: "all",
-      builtup_area: "200 sqft",
-      bhk_type: "1 RK",
-      parking: "Bike and Car",
-      street: "1 A, ram verma street",
-      colony: "dlf phase 3",
-      city: "delhi",
-      state: "delhi",
-      country: "india",
-      property_age: "5",
-      bedrooms: "1",
-      bathrooms: "1",
-      available_from: "22 May, 2023",
-    },
-    {
-      id: "djdj3r23r32mv",
-      ownerId: "fvnfdvdfvfbvfdb",
-      title: "1 RK For Rent in sector 24",
-      headline:
-        "Standalone building, U Block, DLF Phase 3 near ASHA MULTI SPECIALITY CLINIC",
-      description: `This fully furnished 1BHK is available for rent in Sector 24 with parking space for car and bike. Take a look before it's gone. All families & bachelors looking for an apartment will find this home attractive at Rs. 20,000. This home is 600 sqft & is situated on the 1st floor of the building,
-      With a subway station located nearby, this home is well connected & offers many transit options.With an ATM, petrol pump & super market near this home, you'll never have to go far for these essentials.
-      Never miss out on lifestyle as City Centre, Sahara Mall and JMD Regent Plaza Mall are so close by. With VR Sahara, PVR Cinemas Pvt Ltd & Invasion Films close by, you can catch your favourite movies running & never worry about missing a show because of traffic.
-      With Govt Sr Sec School Chakkarpur, Rack Up Cambridge School and KLAY Prep Schools and DayCare close to this home, you'll be able to provide your children with many options to choose from. St Stephen's Hospital Health Care Facility and Narayana Superspeciality Hospital, Gurugram are close by and are known for providing exceptional medical care.`,
-      rent: "17000",
-      rent_negotiable: "false",
-      deposit: "17000",
-      lockin_period: "2 months",
-      furnishing: "full",
-      preferred_tenants: "all",
-      builtup_area: "200 sqft",
-      bhk_type: "1 RK",
-      parking: "Bike and Car",
-      street: "1 A, ram verma street",
-      colony: "dlf phase 3",
-      city: "delhi",
-      state: "delhi",
-      country: "india",
-      property_age: "5",
-      bedrooms: "1",
-      bathrooms: "1",
-      available_from: "22 August, 2023",
-    },
-    {
-      id: "djdj3r23r32mv",
-      ownerId: "fvnfdvdfvfbvfdb",
-      title: "1 RK For Rent in sector 24",
-      headline:
-        "Standalone building, U Block, DLF Phase 3 near ASHA MULTI SPECIALITY CLINIC",
-      description: `This fully furnished 1BHK is available for rent in Sector 24 with parking space for car and bike. Take a look before it's gone. All families & bachelors looking for an apartment will find this home attractive at Rs. 20,000. This home is 600 sqft & is situated on the 1st floor of the building,
-      With a subway station located nearby, this home is well connected & offers many transit options.With an ATM, petrol pump & super market near this home, you'll never have to go far for these essentials.
-      Never miss out on lifestyle as City Centre, Sahara Mall and JMD Regent Plaza Mall are so close by. With VR Sahara, PVR Cinemas Pvt Ltd & Invasion Films close by, you can catch your favourite movies running & never worry about missing a show because of traffic.
-      With Govt Sr Sec School Chakkarpur, Rack Up Cambridge School and KLAY Prep Schools and DayCare close to this home, you'll be able to provide your children with many options to choose from. St Stephen's Hospital Health Care Facility and Narayana Superspeciality Hospital, Gurugram are close by and are known for providing exceptional medical care.`,
-      rent: "17000",
-      rent_negotiable: "false",
-      deposit: "17000",
-      lockin_period: "2 months",
-      furnishing: "full",
-      preferred_tenants: "all",
-      builtup_area: "200 sqft",
-      bhk_type: "1 RK",
-      parking: "Bike and Car",
-      street: "1 A, ram verma street",
-      colony: "dlf phase 3",
-      city: "delhi",
-      state: "delhi",
-      country: "india",
-      property_age: "5",
-      bedrooms: "1",
-      bathrooms: "1",
-      available_from: "2 June, 2023",
-    },
-  ];
+  const [houses, setHouses] = useState([]);
 
   // const propertyAmmenities = [
   //   {
@@ -142,17 +25,21 @@ function HouseFilters() {
   useEffect(() => {
     const fetchData = async () => {
       let payload = {
-        city: "Hyderabad",
+        city: "Gurgaon",
         text: [
           "Atul Kataria Chowk, Sukhrali Enclave, Sector 17, Gurugram, Haryana, India",
         ],
         pgNo: "0",
-        type: "house",
+        propertyType: "House",
       };
 
       try {
-        const { data } = await axios.get("/public/api/listProperties", payload);
-        console.log(data);
+        const { data } = await axios.post(
+          "/public/api/listProperties",
+          payload
+        );
+        console.log("fadsa", data);
+        setHouses(data);
       } catch (error) {
         console.error(error);
       }
@@ -433,13 +320,14 @@ function HouseFilters() {
         </div>
         <div className="col-12 col-md-7 col-lg-8">
           {houses.map((house) => {
+            console.log("nikhil", house);
             return (
               <div className="mb-4" key={house?.id}>
                 <div className="card border-bottom-0 rounded-bottom-0">
                   <div className="card-body">
-                    <h5 className="card-title text-start">{house.title}</h5>
+                    <h5 className="card-title text-start">{house?.title}</h5>
                     <h6 className="font-weight-light mb-2 text-muted text-start">
-                      <small>{house.headline}</small>
+                      <small>{house?.headline}</small>
                     </h6>
                   </div>
                 </div>
@@ -543,7 +431,7 @@ function HouseFilters() {
                             </div>
                             <div>
                               <p className="mb-0">
-                                {renderFurnishing(house.furnishing)}
+                                {renderFurnishing(house?.furnishing_type)}
                               </p>
                               <p className="card-title mb-0 text-bold">
                                 <small>Furnishing</small>
@@ -556,7 +444,7 @@ function HouseFilters() {
                             </div>
                             <div>
                               <p className="mb-0">
-                                {renderBHKType(house.bhk_type)}
+                                {renderBHKType(house?.bhk_type)}
                               </p>
                               <p className="card-title mb-0 text-bold">
                                 <small>Apartment Type</small>

@@ -55,7 +55,13 @@ const Navbar = ({ setShowLogin, setShowRegister }) => {
             </div>
             {/* </button> */}
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a className="dropdown-item" href="#">
+              <a
+                className="dropdown-item"
+                href="#"
+                onClick={() => {
+                  navigate("/user/myprofile");
+                }}
+              >
                 Profile
               </a>
               <a className="dropdown-item" href="#" onClick={handleLogout}>
