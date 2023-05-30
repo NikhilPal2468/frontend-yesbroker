@@ -19,12 +19,18 @@ import {
   TenantTypes,
 } from "../constants";
 import axios from "axios";
+import Toast1 from "../common/Toast";
+import { Chip } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const [selectedCity, setSelectedCity] = useState("Bangalore");
   const [searchValue, setSearchValue] = useState("");
   const [propertyType, setPropertyType] = useState("house");
   const [suggestionList, setSuggestionList] = useState([]);
+  const [selectedLocality, setSelectedLocality] = useState([]);
+  const [showToast, setShowToast] = useState(false);
 
   const [bhkType, setbhkType] = useState([]);
   const [tenantTypes, setTenantTypes] = useState([]);
@@ -65,17 +71,18 @@ const HomePage = () => {
 
   useEffect(() => {
     const autoCompleteApi = async () => {
-      await axios
-        .get(
-          `/secure/api/autocomplete?city=${selectedCity}&text=${searchValue}`
-        )
-        .then((response) => {
-          console.log(response.data);
-          setSuggestionList(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      if (searchValue)
+        await axios
+          .get(
+            `/public/api/autocomplete?city=${selectedCity}&text=${searchValue}`
+          )
+          .then((response) => {
+            console.log(response.data);
+            setSuggestionList(response.data);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
     };
     autoCompleteApi();
   }, [searchValue]);
@@ -83,15 +90,39 @@ const HomePage = () => {
   const autoCompleteLocalities = (e) => {
     setSearchValue(e.target.value);
   };
+
+  const addLocality = (place) => {
+    console.log("place:", place);
+    const checker = selectedLocality.includes(place);
+    console.log(checker);
+    if (checker === false) {
+      setSelectedLocality([...selectedLocality, place]);
+      setSuggestionList([]);
+      setSearchValue("");
+    } else {
+      setShowToast(true);
+    }
+  };
+  const listProperties = () => {
+    navigate("/properties");
+  };
   return (
     <div className={styles.homepage}>
+      <Toast1
+        show={showToast}
+        setShow={setShowToast}
+        bg="danger"
+        body="Locality already selected"
+      />
       <div className={styles.homepage_heading}>
         World&apos;s Largest Brokerage Property Site
       </div>
       <div
         className={`${styles.input_group} d-flex flex-column justify-content-center align-items-center`}
       >
-        <InputGroup className="w-75 rounded-top d-flex flex-column flex-sm-row flex-xs-row">
+        <InputGroup
+          className={`w-75 rounded-top d-flex flex-column flex-sm-row flex-xs-row `}
+        >
           <DropdownButton
             variant="outline-primary"
             title={selectedCity}
@@ -112,20 +143,61 @@ const HomePage = () => {
           </DropdownButton>
           <input
             type="text"
-            className={`shadow-none form-control ${styles.custom_width}`}
+            className={`shadow-none form-control ${styles.custom_width} ${styles.input_group_bs}`}
             aria-label="Text input with dropdown button"
             value={searchValue}
             onChange={autoCompleteLocalities}
+            disabled={selectedLocality.length >= 3}
+            placeholder={
+              selectedLocality.length >= 3
+                ? "you can add upto 3 localities for search"
+                : "search locality..."
+            }
           />
-          <Button className="d-flex flex-row justify-content-center align-items-center gap-2">
+          <Button
+            className="d-flex flex-row justify-content-center align-items-center gap-2"
+            disabled={selectedLocality.length === 0}
+            onClick={listProperties}
+          >
             <BsSearch />
             <p className="my-auto">Search</p>
           </Button>
         </InputGroup>
-        <div className={styles.autocomplete_dropdown_container}>
-          {suggestionList.map((place, index) => (
-            <div key={index} className={styles.suggestion_item} role="option">
-              <span>{place}</span>
+        <div className={styles.chip_container}>
+          {selectedLocality.map(({ placeId = "", terms = [] }) => {
+            // const { main_text } = structured_formatting;
+            const [chip_text] = terms;
+            const { value: chip_text_value } = chip_text;
+            // <div key={chip?.placeId} className="chip">
+            //   {chip?.description}
+            //   <span className="remove-icon" onClick={() => {}}>
+            //     x
+            //   </span>
+            // </div>
+            return (
+              <Chip
+                key={placeId}
+                label={chip_text_value}
+                variant="outlined"
+                onDelete={() => {}}
+                className={styles.chips}
+              />
+            );
+          })}
+        </div>
+        <div
+          className={`${styles.autocomplete_dropdown_container} ${
+            suggestionList.length === 0 ? styles.remove_dropdown_container : ""
+          }`}
+        >
+          {suggestionList.map((place) => (
+            <div
+              key={place?.placeId}
+              className={styles.suggestion_item}
+              onClick={() => addLocality(place)}
+              role="option"
+            >
+              {place?.description}
             </div>
           ))}
         </div>
@@ -292,6 +364,14 @@ const HomePage = () => {
           </div>
         </div>
       </div>
+      <div className={styles.property_owner}>Are you a Property Owner?</div>
+      <Button
+        onClick={() => {
+          navigate("/post_property");
+        }}
+      >
+        Post your property
+      </Button>
     </div>
   );
 };

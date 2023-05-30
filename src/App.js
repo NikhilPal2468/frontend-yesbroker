@@ -12,7 +12,7 @@ import { Route, Routes } from "react-router-dom";
 import ForgotPassword from "./components/Authentication/ForgotPassword";
 import ResetPassword from "./components/Authentication/ResetPassword";
 import ListProperties from "./components/ListProperties";
-axios.defaults.baseURL = "http://localhost:5001";
+axios.defaults.baseURL = "http://localhost:5000";
 axios.defaults.withCredentials = true;
 
 function App() {

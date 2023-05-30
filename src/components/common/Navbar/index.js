@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
 import { Button } from "react-bootstrap";
 import { FaHouseUser } from "react-icons/fa";
@@ -18,6 +18,11 @@ const Navbar = ({ setShowLogin, setShowRegister }) => {
     }
   }, []);
 
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("userDetails");
+    navigate("/");
+  };
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light card shadow-sm p-3 mb-5 bg-white rounded">
       <div className="container-fluid">
@@ -28,13 +33,35 @@ const Navbar = ({ setShowLogin, setShowRegister }) => {
           </Link>
         </div>
         {user ? (
-          <div
-            className={`d-flex flex-row border border-dark pe-2 rounded-5 border-1 border-left-0 align-items-center justify-content-center gap-2 ${styles.userIcon}`}
-          >
-            <div className="border border-2 px-2 py-1 border-gray rounded-circle">
-              <FaHouseUser />
+          <div className="dropdown">
+            {/* <button
+              // className="btn btn-secondary dropdown-toggle"
+              // type="button"
+              // id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            > */}
+            <div
+              className={`d-flex flex-row border border-dark pe-2 rounded-5 border-1 border-left-0 align-items-center justify-content-center gap-2  ${styles.userIcon}`}
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <div className="border border-2 px-2 py-1 border-gray rounded-circle">
+                <FaHouseUser />
+              </div>
+              <p className="my-auto">{user?.name}</p>
             </div>
-            <p className="my-auto">{user?.name}</p>
+            {/* </button> */}
+            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a className="dropdown-item" href="#">
+                Profile
+              </a>
+              <a className="dropdown-item" href="#" onClick={handleLogout}>
+                Logout
+              </a>
+            </div>
           </div>
         ) : (
           <div className={styles.navbar_right}>

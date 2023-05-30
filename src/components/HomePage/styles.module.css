@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   width: 75%;
+  position: relative;
 }
 
 .homepage {
@@ -32,4 +33,41 @@
   .custom_width {
     width: 100%;
   }
+}
+
+.autocomplete_dropdown_container{
+  border-radius: 10px;
+  width: 54%;
+  position: absolute;
+  z-index: 100;
+  background-color: #fbf2f2;
+  top: 38px;
+  overflow-x: auto;
+  height: 197px;
+}
+.remove_dropdown_container{
+  height: 0px;
+}
+
+.suggestion_item{
+  margin: 5px 0px;
+  cursor: pointer;
+  padding: 5px;
+}
+.suggestion_item:hover{
+  background-color: #e8e4e4;
+}
+.input_group_bs{
+  position: relative;
+}
+.chips{
+  /* position: absolute; */
+  z-index: 100;
+}
+.chip_container{
+  /* position: absolute; */
+}
+
+.property_owner{
+  margin: 100px 0px 20px 0px;
 }
