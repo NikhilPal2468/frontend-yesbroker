@@ -365,13 +365,7 @@ const HomePage = () => {
         </div>
       </div>
       <div className={styles.property_owner}>Are you a Property Owner?</div>
-      <Button
-        onClick={() => {
-          navigate("/post_property");
-        }}
-      >
-        Post your property
-      </Button>
+      <Button>Post your property</Button>
     </div>
   );
 };
