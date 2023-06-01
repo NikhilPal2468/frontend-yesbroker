@@ -7,12 +7,11 @@ import { GiFamilyHouse } from "react-icons/gi";
 import { TbSofa } from "react-icons/tb";
 import { VscKey } from "react-icons/vsc";
 import { Link } from "react-router-dom";
-import { HiOutlineHeart } from "react-icons/hi";
+import { HiOutlineHeart, HiHeart } from "react-icons/hi";
 import axios from "axios";
 
 function HouseFilters() {
   const [houses, setHouses] = useState([]);
-
   // const propertyAmmenities = [
   //   {
   //     id: "vfjvndfjvnfd3323",
@@ -38,7 +37,6 @@ function HouseFilters() {
           "/public/api/listProperties",
           payload
         );
-        console.log("fadsa", data);
         setHouses(data);
       } catch (error) {
         console.error(error);
@@ -85,6 +83,25 @@ function HouseFilters() {
       default:
         return "Any";
     }
+  };
+  const testing = (id) => {
+    console.log("id:", id);
+    // for (let i = 0; i < houses.length; i++) {
+    //   if (id === houses[i].id) {
+    //     houses[i].gym = true;
+    //   }
+    // }
+    setHouses((prev) => {
+      let newhouses = prev.map((h) => {
+        let house = h;
+        if (id === 1) {
+          house.gym = true;
+        }
+        return house;
+      });
+      console.log("newhouses:", newhouses);
+      return newhouses;
+    });
   };
 
   return (
@@ -320,7 +337,6 @@ function HouseFilters() {
         </div>
         <div className="col-12 col-md-7 col-lg-8">
           {houses.map((house) => {
-            console.log("nikhil", house);
             return (
               <div className="mb-4" key={house?.id}>
                 <div className="card border-bottom-0 rounded-bottom-0">
@@ -336,10 +352,10 @@ function HouseFilters() {
                     <div
                       className={`col-6 col-md d-flex flex-column ${styles.borderOpt2}`}
                     >
-                      <h6 className="card-title mb-0">{house.rent}</h6>
+                      <h6 className="card-title mb-0">{house?.rent}</h6>
                       <p className="mb-0">
                         <small>{`Rent (${
-                          house.rent_negotiable === "true"
+                          house?.rent_negotiable === "true"
                             ? "Negotiable"
                             : "Non-Negotiable"
                         })`}</small>
@@ -348,13 +364,13 @@ function HouseFilters() {
                     <div
                       className={`col-6 col-md d-flex flex-column ${styles.borderOpt2}`}
                     >
-                      <h6 className="card-title mb-0">{house.deposit}</h6>
+                      <h6 className="card-title mb-0">{house?.deposit}</h6>
                       <p className="mb-0">
                         <small>Deposit</small>
                       </p>
                     </div>
                     <div className="col-12 col-md d-flex flex-column d-none d-md-flex">
-                      <h6 className="card-title mb-0">{house.builtup_area}</h6>
+                      <h6 className="card-title mb-0">{house?.builtup_area}</h6>
                       <p className="mb-0">
                         <small>Builtup</small>
                       </p>
@@ -463,7 +479,9 @@ function HouseFilters() {
                             </div>
                             <div>
                               <p className="mb-0">
-                                {renderPreferedTenants(house.preferred_tenants)}
+                                {renderPreferedTenants(
+                                  house?.preferred_tenants
+                                )}
                               </p>
                               <p className="card-title mb-0 text-bold">
                                 <small>Preferred Tenants</small>
@@ -475,7 +493,7 @@ function HouseFilters() {
                               <VscKey size={28} />
                             </div>
                             <div>
-                              <p className="mb-0">{house.available_from}</p>
+                              <p className="mb-0">{house?.available_from}</p>
                               <p className="card-title mb-0 text-bold">
                                 <small>Available From</small>
                               </p>
@@ -495,7 +513,14 @@ function HouseFilters() {
                               className={`p-1 rounded ms-2 ${styles.likeBorder}`}
                               role="button"
                             >
-                              <HiOutlineHeart size={28} color="#6c63ff" />
+                              <HiOutlineHeart
+                                onClick={() => {
+                                  testing(house?.id);
+                                }}
+                                size={28}
+                                color="#6c63ff"
+                              />
+                              {house?.gym === true && <HiHeart />}
                             </div>
                           </div>
                         </div>

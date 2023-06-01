@@ -7,11 +7,11 @@ const ForgotPassword = () => {
   const validateEmail = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("/api/forgot-password", {
+      await axios.post("/api/forgot-password", {
         email,
       });
 
-      console.log(data);
+      // console.log(data);
     } catch (e) {
       console.log(e);
     }

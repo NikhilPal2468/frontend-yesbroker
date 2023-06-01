@@ -9,7 +9,6 @@ import { setUserDetails } from "../../../store/actions";
 const Navbar = ({ setShowLogin, setShowRegister }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.userDetails);
-  console.log("user:", user);
   useEffect(() => {
     // Retrieve user details from browser storage on component mount
     const storedUserDetails = JSON.parse(localStorage.getItem("userDetails"));

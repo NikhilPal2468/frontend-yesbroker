@@ -71,18 +71,17 @@ const HomePage = () => {
 
   useEffect(() => {
     const autoCompleteApi = async () => {
-      if (searchValue)
-        await axios
-          .get(
-            `/public/api/autocomplete?city=${selectedCity}&text=${searchValue}`
-          )
-          .then((response) => {
-            console.log(response.data);
-            setSuggestionList(response.data);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
+      // if (searchValue)
+      await axios
+        .get(
+          `/public/api/autocomplete?city=${selectedCity}&text=${searchValue}`
+        )
+        .then((response) => {
+          setSuggestionList(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     };
     autoCompleteApi();
   }, [searchValue]);
@@ -92,9 +91,10 @@ const HomePage = () => {
   };
 
   const addLocality = (place) => {
-    console.log("place:", place);
-    const checker = selectedLocality.includes(place);
-    console.log(checker);
+    const checker = selectedLocality.some(
+      (locality) => locality.place_id === place.place_id
+    );
+
     if (checker === false) {
       setSelectedLocality([...selectedLocality, place]);
       setSuggestionList([]);
@@ -104,7 +104,12 @@ const HomePage = () => {
     }
   };
   const listProperties = () => {
-    navigate("/properties");
+    navigate(`/properties`);
+  };
+  const removeChip = (place_id) => {
+    setSelectedLocality((prevChips) =>
+      prevChips.filter((chip) => chip.place_id !== place_id)
+    );
   };
   return (
     <div className={styles.homepage}>
@@ -164,22 +169,17 @@ const HomePage = () => {
           </Button>
         </InputGroup>
         <div className={styles.chip_container}>
-          {selectedLocality.map(({ placeId = "", terms = [] }) => {
-            // const { main_text } = structured_formatting;
+          {selectedLocality.map(({ place_id = "", terms = [] }) => {
             const [chip_text] = terms;
             const { value: chip_text_value } = chip_text;
-            // <div key={chip?.placeId} className="chip">
-            //   {chip?.description}
-            //   <span className="remove-icon" onClick={() => {}}>
-            //     x
-            //   </span>
-            // </div>
             return (
               <Chip
-                key={placeId}
+                key={place_id}
                 label={chip_text_value}
                 variant="outlined"
-                onDelete={() => {}}
+                onDelete={() => {
+                  removeChip(place_id);
+                }}
                 className={styles.chips}
               />
             );
@@ -192,7 +192,7 @@ const HomePage = () => {
         >
           {suggestionList.map((place) => (
             <div
-              key={place?.placeId}
+              key={place?.place_id}
               className={styles.suggestion_item}
               onClick={() => addLocality(place)}
               role="option"

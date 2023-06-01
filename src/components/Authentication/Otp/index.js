@@ -40,7 +40,6 @@ const Otp = ({ userId, setShow = () => {} }) => {
 
     try {
       const { data } = await axios.post("/public/api/verify-token", values);
-      console.log(data);
       const { success = false, user = {} } = data;
       if (success) {
         setShow(false);

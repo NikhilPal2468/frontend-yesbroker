@@ -29,7 +29,6 @@ const Register = ({ show = false, setShow = () => {} }) => {
   };
 
   const onSubmit = async (values) => {
-    console.log("values:", values);
     try {
       const { data } = await axios.post("/public/api/register", values);
 

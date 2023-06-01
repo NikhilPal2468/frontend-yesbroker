@@ -39,6 +39,7 @@ function App() {
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/resetpassword/:id/:token" element={<ResetPassword />} />
         <Route path="/user/myprofile" element={<ProfilePage />} />
+        <Route path="/user/mylistings" element={<YourProperties />} />
         <Route path="/user/mylistings/flats" element={<YourProperties />} />
         <Route path="/user/mylistings/pgs" element={<YourProperties />} />
         <Route path="/user/myshortlists" element={<YourShortlists />} />

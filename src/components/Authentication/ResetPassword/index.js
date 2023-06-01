@@ -6,8 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Toast1 from "../../common/Toast";
 const ResetPassword = () => {
   const { id, token } = useParams();
-  console.log("token:", token);
-  console.log("email:", id);
+
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showToast, setShowToast] = useState(false);
@@ -19,10 +18,10 @@ const ResetPassword = () => {
       return null;
     }
     try {
-      const { data } = await axios.post(`/api/reset-password/${id}/${token}`, {
+      await axios.post(`/api/reset-password/${id}/${token}`, {
         newPassword,
       });
-      console.log("data:", data);
+      // console.log("data:", data);
 
       setTimeout(() => {
         navigate("/");
