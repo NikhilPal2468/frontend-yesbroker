@@ -17,6 +17,8 @@ import ProfilePage from "./components/UserDashboard/otherPages/ProfilePage";
 import YourProperties from "./components/UserDashboard/otherPages/YourProperties";
 import YourShortlists from "./components/UserDashboard/otherPages/YourShortlists";
 import OwnersContacted from "./components/UserDashboard/otherPages/OwnersContacted";
+import MainPage from "./components/PostProperty/MainPage";
+import PropertyDetails from "./components/PostProperty/PropertyDetails";
 
 axios.defaults.baseURL = "http://localhost:5000";
 axios.defaults.withCredentials = true;
@@ -43,6 +45,11 @@ function App() {
         <Route path="/user/mylistings/pgs" element={<YourProperties />} />
         <Route path="/user/myshortlists" element={<YourShortlists />} />
         <Route path="/user/ownerscontacted" element={<OwnersContacted />} />
+        <Route path="/list-your-property-for-rent" element={<MainPage />} />
+        <Route
+          path="/property/manage/house/:id/property"
+          element={<PropertyDetails />}
+        />
       </Routes>
       {showRegister && (
         <Register show={showRegister} setShow={setShowRegister} />

@@ -9,18 +9,13 @@ import { VscKey } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 import { HiOutlineHeart } from "react-icons/hi";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 
 function HouseFilters() {
-  const [houses, setHouses] = useState([]);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.userDetails);
 
-  // const propertyAmmenities = [
-  //   {
-  //     id: "vfjvndfjvnfd3323",
-  //     property_id: "djdj3r23r32mv",
-  //     fridge: "true",
-  //     ac: "true",
-  //   },
-  // ];
+  const [houses, setHouses] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,7 +33,7 @@ function HouseFilters() {
           "/public/api/listProperties",
           payload
         );
-        console.log("fadsa", data);
+
         setHouses(data);
       } catch (error) {
         console.error(error);
@@ -47,6 +42,19 @@ function HouseFilters() {
 
     fetchData();
   }, []);
+  // const propertyAmmenities = [
+  //   {
+  //     id: "vfjvndfjvnfd3323",
+  //     property_id: "djdj3r23r32mv",
+  //     fridge: "true",
+  //     ac: "true",
+  //   },
+  // ];
+
+  const likeHandler = (houseId) => {
+    
+  }
+  
 
   const renderBHKType = (type) => {
     switch (type) {
@@ -494,6 +502,7 @@ function HouseFilters() {
                             <div
                               className={`p-1 rounded ms-2 ${styles.likeBorder}`}
                               role="button"
+                              onClick={() => {likeHandler(house.id)}}
                             >
                               <HiOutlineHeart size={28} color="#6c63ff" />
                             </div>
