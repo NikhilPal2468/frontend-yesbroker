@@ -11,3 +11,12 @@
 .remove_dropdown_container {
   height: 0px;
 }
+
+.container {
+  background-color: #ffffff;
+}
+
+.sticky_city {
+  position: sticky !important;
+  top: 10px;
+}

@@ -12,6 +12,20 @@ code {
     monospace;
 }
 
-.primary-color {
-  background-color: rgb(198, 137, 255);
+.app-background {
+  background-color: #fbf2f2;
+}
+.primary-color-1 {
+  background-color: #28438a;
+}
+.primary-color-2 {
+  background-color: #3356b2;
+}
+
+.primary-color-3 {
+  background-color: #758fd7;
+}
+
+.primary-color-4 {
+  background-color: #c4cfee;
 }

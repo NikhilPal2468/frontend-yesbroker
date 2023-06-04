@@ -31,7 +31,7 @@ function App() {
   const [showLogin, setShowLogin] = useState(false);
 
   return (
-    <div className="App">
+    <div className="App app-background">
       <Navbar
         showLogin={showLogin}
         showRegister={showRegister}

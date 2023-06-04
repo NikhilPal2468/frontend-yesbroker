@@ -5,6 +5,8 @@ import { Button } from "react-bootstrap";
 import PostFormError from "../PostFormError";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
+import Sidebar from "./SideBar/sidebar";
+import styles from "./styles.module.css";
 
 const initialValues = {
   property_type: "",
@@ -210,173 +212,196 @@ function PropertyDetails() {
   };
 
   return (
-    <div className="">
-      <h5>Property Details</h5>
-      <Formik
-        initialValues={formValues}
-        validationSchema={validationSchema}
-        onSubmit={onSubmit}
-        enableReinitialize
-      >
-        {({ values }) => (
-          <Form className="w-100 p-2">
-            {/* Property Type */}
-            <div className="mb-3">
-              <label htmlFor="property_type">Property Type</label>
-              <Field
-                component="select"
-                id="property_type"
-                name="property_type"
-                className="form-control"
-                value={propertyTypeValue}
-                onChange={(event) => {
-                  handleSelectChange(event, values);
-                }}
-              >
-                <option value="">Select</option>
-                {PROPERTY_TYPES.map((type) => (
-                  <option key={type.value} value={type.value}>
-                    {type.key}
-                  </option>
-                ))}
-              </Field>
-              <ErrorMessage name="property_type" component={PostFormError} />
-            </div>
+    <div className={`container`}>
+      <div className={`d-flex flex-row justify-content-center`}>
+        <div className={`w-20 ${styles.container}`}>
+          <Sidebar pathname={location.pathname} />
+        </div>
+        <div
+          className={`w-75 ms-2 px-4 d-flex flex-column ${styles.container}`}
+        >
+          <h5 className="ps-4 py-4 border-bottom">Property Details</h5>
+          <Formik
+            initialValues={formValues}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+            enableReinitialize
+          >
+            {({ values }) => (
+              <Form className="w-100 p-2 px-4">
+                {/* Property Type */}
+                <div className="d-flex flex-column flex-sm-row align-items-center justify-content-around w-100 gap-4">
+                  <div className="mb-3 w-100">
+                    <label htmlFor="property_type">Property Type</label>
+                    <Field
+                      component="select"
+                      id="property_type"
+                      name="property_type"
+                      className="form-control"
+                      value={propertyTypeValue}
+                      onChange={(event) => {
+                        handleSelectChange(event, values);
+                      }}
+                    >
+                      <option value="">Select</option>
+                      {PROPERTY_TYPES.map((type) => (
+                        <option key={type.value} value={type.value}>
+                          {type.key}
+                        </option>
+                      ))}
+                    </Field>
+                    <ErrorMessage
+                      name="property_type"
+                      component={PostFormError}
+                    />
+                  </div>
 
-            {propertyTypeValue === "apartment" ? (
-              <div className="mb-3">
-                <label htmlFor="apartment_name">Apartment Name</label>
-                <Field
-                  type="text"
-                  id="apartment_name"
-                  name="apartment_name"
-                  className="form-control"
-                />
-                <ErrorMessage name="apartment_name" component={PostFormError} />
-              </div>
-            ) : (
-              ""
+                  {propertyTypeValue === "apartment" ? (
+                    <div className="mb-3 w-100">
+                      <label htmlFor="apartment_name">Apartment Name</label>
+                      <Field
+                        type="text"
+                        id="apartment_name"
+                        name="apartment_name"
+                        className="form-control"
+                      />
+                      <ErrorMessage
+                        name="apartment_name"
+                        component={PostFormError}
+                      />
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+
+                <div className="d-flex flex-column flex-md-row align-items-center justify-content-around w-100 gap-4">
+                  {/* Bhk Type */}
+                  <div className="mb-3 w-100 pb-2">
+                    <label htmlFor="bhk_type">BHK Type</label>
+                    <Field
+                      component="select"
+                      id="bhk_type"
+                      name="bhk_type"
+                      className="form-control"
+                    >
+                      <option value="">Select</option>
+                      {BHK_TYPES.map((type) => (
+                        <option key={type.value} value={type.value}>
+                          {type.key}
+                        </option>
+                      ))}
+                    </Field>
+                    <ErrorMessage name="bhk_type" component={PostFormError} />
+                  </div>
+
+                  <div className="mb-3 w-100 d-flex flex-row align-items-center justify-content-around gap-2 mt-3 pb-2">
+                    {/* Floor */}
+                    <div className="mb-3 w-100">
+                      <label htmlFor="floor">FLoor</label>
+                      <Field
+                        component="select"
+                        id="floor"
+                        name="floor"
+                        className="form-control h-25"
+                      >
+                        <option value="">Select</option>
+                        {FLOORS.map((type) => (
+                          <option key={type.value} value={type.value}>
+                            {type.key}
+                          </option>
+                        ))}
+                      </Field>
+                      <ErrorMessage name="floor" component={PostFormError} />
+                    </div>
+                    {/* Total Floors */}
+                    <div className="mb-3 w-100">
+                      <label htmlFor="total_floors">Total Floors</label>
+                      <Field
+                        component="select"
+                        id="total_floors"
+                        name="total_floors"
+                        className="form-control"
+                      >
+                        <option value="">Select</option>
+                        {FLOORS.map((type) => (
+                          <option key={type.value} value={type.value}>
+                            {type.key}
+                          </option>
+                        ))}
+                      </Field>
+                      <ErrorMessage
+                        name="total_floors"
+                        component={PostFormError}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Property age */}
+                <div className="mb-3">
+                  <label htmlFor="property_age">Property Age</label>
+                  <Field
+                    component="select"
+                    id="property_age"
+                    name="property_age"
+                    className="form-control"
+                  >
+                    <option value="">Select</option>
+                    {PROPERTY_AGE.map((type) => (
+                      <option key={type.value} value={type.value}>
+                        {type.key}
+                      </option>
+                    ))}
+                  </Field>
+                  <ErrorMessage name="property_age" component={PostFormError} />
+                </div>
+
+                {/* Facing */}
+                <div className="mb-3">
+                  <label htmlFor="facing">Facing</label>
+                  <Field
+                    component="select"
+                    id="facing"
+                    name="facing"
+                    className="form-control"
+                  >
+                    <option value="">Select</option>
+                    {FACING.map((type) => (
+                      <option key={type.value} value={type.value}>
+                        {type.key}
+                      </option>
+                    ))}
+                  </Field>
+                  <ErrorMessage name="facing" component={PostFormError} />
+                </div>
+
+                {/* Bulitup Area */}
+                <div className="mb-3">
+                  <div>
+                    <label>Builtup Area(in Sq.ft)</label>
+                    <Field
+                      type="number"
+                      id="builtup_area"
+                      name="builtup_area"
+                      className="form-control"
+                    />
+                  </div>
+                  <ErrorMessage name="builtup_area" component={PostFormError} />
+                </div>
+
+                <Button
+                  variant="primary"
+                  type="submit"
+                  className={`w-100 justify-content-end primary-color mt-2`}
+                >
+                  Save & Continue
+                </Button>
+              </Form>
             )}
-
-            {/* Bhk Type */}
-            <div className="mb-3">
-              <label htmlFor="bhk_type">BHK Type</label>
-              <Field
-                component="select"
-                id="bhk_type"
-                name="bhk_type"
-                className="form-control"
-              >
-                <option value="">Select</option>
-                {BHK_TYPES.map((type) => (
-                  <option key={type.value} value={type.value}>
-                    {type.key}
-                  </option>
-                ))}
-              </Field>
-              <ErrorMessage name="bhk_type" component={PostFormError} />
-            </div>
-
-            {/* Property age */}
-            <div className="mb-3">
-              <label htmlFor="property_age">Property Age</label>
-              <Field
-                component="select"
-                id="property_age"
-                name="property_age"
-                className="form-control"
-              >
-                <option value="">Select</option>
-                {PROPERTY_AGE.map((type) => (
-                  <option key={type.value} value={type.value}>
-                    {type.key}
-                  </option>
-                ))}
-              </Field>
-              <ErrorMessage name="property_age" component={PostFormError} />
-            </div>
-
-            {/* Facing */}
-            <div className="mb-3">
-              <label htmlFor="facing">Facing</label>
-              <Field
-                component="select"
-                id="facing"
-                name="facing"
-                className="form-control"
-              >
-                <option value="">Select</option>
-                {FACING.map((type) => (
-                  <option key={type.value} value={type.value}>
-                    {type.key}
-                  </option>
-                ))}
-              </Field>
-              <ErrorMessage name="facing" component={PostFormError} />
-            </div>
-
-            {/* Floor */}
-            <div className="mb-3">
-              <label htmlFor="floor">FLoor</label>
-              <Field
-                component="select"
-                id="floor"
-                name="floor"
-                className="form-control h-25"
-              >
-                <option value="">Select</option>
-                {FLOORS.map((type) => (
-                  <option key={type.value} value={type.value}>
-                    {type.key}
-                  </option>
-                ))}
-              </Field>
-              <ErrorMessage name="floor" component={PostFormError} />
-            </div>
-
-            {/* Total Floors */}
-            <div className="mb-3">
-              <label htmlFor="total_floors">Total Floors</label>
-              <Field
-                component="select"
-                id="total_floors"
-                name="total_floors"
-                className="form-control"
-              >
-                <option value="">Select</option>
-                {FLOORS.map((type) => (
-                  <option key={type.value} value={type.value}>
-                    {type.key}
-                  </option>
-                ))}
-              </Field>
-              <ErrorMessage name="total_floors" component={PostFormError} />
-            </div>
-
-            {/* Bulitup Area */}
-            <div className="mb-3">
-              <div>
-                <label>Builtup Area(in Sq.ft)</label>
-                <Field
-                  type="number"
-                  id="builtup_area"
-                  name="builtup_area"
-                  className="form-control"
-                />
-              </div>
-              <ErrorMessage name="builtup_area" component={PostFormError} />
-            </div>
-
-            <Button
-              variant="primary"
-              type="submit"
-              className={`w-100 justify-content-end primary-color`}
-            >
-              Save & Continue
-            </Button>
-          </Form>
-        )}
-      </Formik>
+          </Formik>
+        </div>
+      </div>
     </div>
   );
 }
