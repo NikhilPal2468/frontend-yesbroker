@@ -21,8 +21,9 @@ const Navbar = ({
     if (storedUserDetails) {
       dispatch(setUserDetails(storedUserDetails));
       setUser(storedUserDetails);
+    } else {
+      setUser(userDetails);
     }
-    setUser(userDetails);
   }, []);
 
   const navigate = useNavigate();
@@ -41,16 +42,30 @@ const Navbar = ({
             HomeWale
           </Link>
         </div>
+        <div className="collapse navbar-collapse" id="navbarText">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <li className="nav-item">
+              <a className="nav-link active" aria-current="page" href="#">
+                Home
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#">
+                Features
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="#">
+                Pricing
+              </a>
+            </li>
+          </ul>
+          {/* <span className="navbar-text">
+            Navbar text with an inline element
+          </span> */}
+        </div>
         {user ? (
           <div className="dropdown">
-            {/* <button
-              // className="btn btn-secondary dropdown-toggle"
-              // type="button"
-              // id="dropdownMenuButton"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            > */}
             <div
               className={`d-flex flex-row border border-dark pe-2 rounded-5 border-1 border-left-0 align-items-center justify-content-center gap-2  ${styles.userIcon}`}
               data-toggle="dropdown"
@@ -63,19 +78,16 @@ const Navbar = ({
               <p className="my-auto">{user?.name}</p>
             </div>
             {/* </button> */}
-            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a
-                className="dropdown-item"
-                href="#"
-                onClick={() => {
-                  navigate("/user/myprofile");
-                }}
-              >
+            <div
+              className={`dropdown-menu`}
+              aria-labelledby="dropdownMenuButton"
+            >
+              <Link className="dropdown-item" to={"/user/myprofile"}>
                 Profile
-              </a>
-              <a className="dropdown-item" href="#" onClick={handleLogout}>
+              </Link>
+              <Link className="dropdown-item" onClick={handleLogout} to={"/"}>
                 Logout
-              </a>
+              </Link>
             </div>
           </div>
         ) : (

@@ -9,8 +9,8 @@
 .userIcon {
   min-width: fit-content;
   cursor: pointer;
-  margin-right: 50px;
+  margin-right: 80px;
 }
-.dropdown-item{
+.dropdown-items{
   cursor: pointer;
 }

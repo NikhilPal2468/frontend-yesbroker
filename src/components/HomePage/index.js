@@ -200,7 +200,6 @@ const HomePage = () => {
               key={place?.place_id}
               className={styles.suggestion_item}
               onClick={() => addLocality(place)}
-              role="option"
             >
               {place?.description}
             </div>
