@@ -10,8 +10,8 @@ function ProfilePage() {
   };
 
   return (
-    <div>
-      <div className="row">
+    <div className="h-100">
+      <div className="row h-100">
         <div className="col-12 col-lg-3">
           <SideBar />
         </div>

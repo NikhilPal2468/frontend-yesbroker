@@ -11,15 +11,9 @@ import { HiOutlineHeart, HiHeart } from "react-icons/hi";
 import axios from "axios";
 
 function HouseFilters() {
+
+
   const [houses, setHouses] = useState([]);
-  // const propertyAmmenities = [
-  //   {
-  //     id: "vfjvndfjvnfd3323",
-  //     property_id: "djdj3r23r32mv",
-  //     fridge: "true",
-  //     ac: "true",
-  //   },
-  // ];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,6 +39,19 @@ function HouseFilters() {
 
     fetchData();
   }, []);
+  // const propertyAmmenities = [
+  //   {
+  //     id: "vfjvndfjvnfd3323",
+  //     property_id: "djdj3r23r32mv",
+  //     fridge: "true",
+  //     ac: "true",
+  //   },
+  // ];
+
+  const likeHandler = (houseId) => {
+    
+  }
+  
 
   const renderBHKType = (type) => {
     switch (type) {
@@ -512,6 +519,7 @@ function HouseFilters() {
                             <div
                               className={`p-1 rounded ms-2 ${styles.likeBorder}`}
                               role="button"
+                              onClick={() => {likeHandler(house.id)}}
                             >
                               <HiOutlineHeart
                                 onClick={() => {
