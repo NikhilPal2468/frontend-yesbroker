@@ -6,21 +6,31 @@ import { FaHouseUser } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserDetails } from "../../../store/actions";
 
-const Navbar = ({ setShowLogin, setShowRegister }) => {
+const Navbar = ({
+  setShowLogin,
+  setShowRegister,
+  user = {},
+  setUser = () => {},
+}) => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.userDetails);
+  const userDetails = useSelector((state) => state.user?.userDetails);
+  // const [user, setUser] = useState(userDetails);
   useEffect(() => {
     // Retrieve user details from browser storage on component mount
     const storedUserDetails = JSON.parse(localStorage.getItem("userDetails"));
     if (storedUserDetails) {
       dispatch(setUserDetails(storedUserDetails));
+      setUser(storedUserDetails);
     }
+    setUser(userDetails);
   }, []);
 
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("userDetails");
     navigate("/");
+    dispatch(setUserDetails(null));
+    setUser(null);
   };
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light card shadow-sm p-3 bg-white rounded">
@@ -28,7 +38,7 @@ const Navbar = ({ setShowLogin, setShowRegister }) => {
         <div className={styles.navbar_left}>
           <img src="/images/logo.png" alt="logo" />
           <Link to={`/`} className="navbar-brand">
-            YesBroker
+            HomeWale
           </Link>
         </div>
         {user ? (

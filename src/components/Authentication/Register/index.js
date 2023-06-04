@@ -12,8 +12,18 @@ import FormError from "../FormError";
 import axios from "axios";
 import CustomPhoneInput from "./CustomPhoneInput";
 import Otp from "../Otp";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useDispatch } from "react-redux";
+import { setUserDetails } from "../../../store/actions";
 
-const Register = ({ show = false, setShow = () => {} }) => {
+const Register = ({
+  show = false,
+  setShow = () => {},
+  setUser = () => {},
+  setShowLogin = () => {},
+}) => {
+  const dispatch = useDispatch();
   const [displayOtp, setDisplayOtp] = useState(false);
   const [userId, setUserId] = useState(null);
 
@@ -31,13 +41,28 @@ const Register = ({ show = false, setShow = () => {} }) => {
   const onSubmit = async (values) => {
     try {
       const { data } = await axios.post("/public/api/register", values);
+      const { user = {}, success = false } = data || {};
+      console.log("data:", data);
 
-      if (data.success && data.success === true) {
+      if (success === true) {
+        dispatch(setUserDetails(user));
+        console.log("first");
         setDisplayOtp(true);
-        setUserId(data.message.userId);
+        setUserId(user?.id);
+        setUser(user);
       }
     } catch (e) {
-      console.log(e);
+      console.log(e?.response?.data?.message);
+      toast.error(e?.response?.data?.message, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   };
 
@@ -55,8 +80,14 @@ const Register = ({ show = false, setShow = () => {} }) => {
       .max(13, "Invalid Phone number"),
   });
 
+  const openLogin = () => {
+    setShow(false);
+    setShowLogin(true);
+  };
+
   return (
     <div>
+      <ToastContainer />
       <Modal
         show={show}
         onHide={handleClose}
@@ -140,10 +171,13 @@ const Register = ({ show = false, setShow = () => {} }) => {
                         </Form>
                       )}
                     </Formik>
-                    <div className="d-flex flex-row justify-content-between align-items-center">
+                    <div className="d-flex flex-row justify-content-between align-items-center ">
                       <p>
                         <small>
-                          Have an account? <span>Login</span>
+                          Have an account?{" "}
+                          <span onClick={openLogin} role="button">
+                            Login
+                          </span>
                         </small>
                       </p>
                     </div>

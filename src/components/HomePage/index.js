@@ -19,7 +19,8 @@ import {
   TenantTypes,
 } from "../constants";
 import axios from "axios";
-import Toast1 from "../common/Toast";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Chip } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
@@ -30,7 +31,6 @@ const HomePage = () => {
   const [propertyType, setPropertyType] = useState("house");
   const [suggestionList, setSuggestionList] = useState([]);
   const [selectedLocality, setSelectedLocality] = useState([]);
-  const [showToast, setShowToast] = useState(false);
 
   const [bhkType, setbhkType] = useState([]);
   const [tenantTypes, setTenantTypes] = useState([]);
@@ -100,7 +100,16 @@ const HomePage = () => {
       setSuggestionList([]);
       setSearchValue("");
     } else {
-      setShowToast(true);
+      toast.error("Locality already selected", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   };
   const listProperties = () => {
@@ -113,12 +122,7 @@ const HomePage = () => {
   };
   return (
     <div className={styles.homepage}>
-      <Toast1
-        show={showToast}
-        setShow={setShowToast}
-        bg="danger"
-        body="Locality already selected"
-      />
+      <ToastContainer />
       <div className={styles.homepage_heading}>
         World&apos;s Largest Brokerage Property Site
       </div>

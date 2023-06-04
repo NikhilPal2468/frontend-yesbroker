@@ -4,7 +4,8 @@ import { Button } from "react-bootstrap";
 import axios from "axios";
 import { setUserDetails } from "../../../store/actions";
 import { useDispatch } from "react-redux";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Otp = ({ userId, setShow = () => {} }) => {
   const dispatch = useDispatch();
   const [otp, setOtp] = useState(new Array(4).fill(""));
@@ -44,9 +45,29 @@ const Otp = ({ userId, setShow = () => {} }) => {
       if (success) {
         setShow(false);
         dispatch(setUserDetails(user));
+        toast.success("Account verified", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       }
     } catch (e) {
       console.log(e);
+      toast.error(e?.response?.data?.message, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   };
 
@@ -64,6 +85,7 @@ const Otp = ({ userId, setShow = () => {} }) => {
     <div
       className={`d-flex text-center flex-column justify-content-center align-items-center ${styles.otpContainer}`}
     >
+      <ToastContainer />
       <h2>Please verify your account</h2>
       <p>Enter OTP</p>
       <form

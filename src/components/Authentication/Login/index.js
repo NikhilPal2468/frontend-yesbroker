@@ -12,6 +12,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUserDetails } from "../../../store/actions";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const initialValues = {
   email: "",
@@ -27,11 +29,16 @@ const validationSchema = Yup.object({
     .min(6, "Weak Password"),
 });
 
-const Login = ({ showLogin = false, setShowLogin = () => {} }) => {
+const Login = ({
+  showLogin = false,
+  setShowLogin = () => {},
+  setUser = () => {},
+}) => {
   const dispatch = useDispatch();
   const handleClose = () => {
     setShowLogin(false);
   };
+
   const onSubmit = async (values) => {
     try {
       const { data } = await axios.post("/public/api/login", values);
@@ -39,9 +46,30 @@ const Login = ({ showLogin = false, setShowLogin = () => {} }) => {
       if (success) {
         dispatch(setUserDetails(user));
         setShowLogin(false);
+        setUser(user);
+        toast.success("Login Successful", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       }
     } catch (e) {
       console.log(e);
+      toast.error(e?.response?.data?.message, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   };
 
@@ -104,7 +132,7 @@ const Login = ({ showLogin = false, setShowLogin = () => {} }) => {
                     </Button>
                   </Form>
                 </Formik>
-                <div className={styles.forgot_pwd}>
+                <div className={styles.forgot_pwd} onClick={handleClose}>
                   <p>
                     <Link to="/forgotpassword">
                       <small>Forgot Password?</small>
@@ -122,6 +150,8 @@ const Login = ({ showLogin = false, setShowLogin = () => {} }) => {
           </Container>
         </Modal.Body>
       </Modal>
+
+      <ToastContainer />
     </div>
   );
 };

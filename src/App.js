@@ -24,6 +24,7 @@ axios.defaults.withCredentials = true;
 function App() {
   const [showRegister, setShowRegister] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  const [user, setUser] = useState(null);
 
   return (
     <div className="App">
@@ -32,6 +33,8 @@ function App() {
         showRegister={showRegister}
         setShowLogin={setShowLogin}
         setShowRegister={setShowRegister}
+        user={user}
+        setUser={setUser}
       />
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -46,9 +49,22 @@ function App() {
         <Route path="/user/ownerscontacted" element={<OwnersContacted />} />
       </Routes>
       {showRegister && (
-        <Register show={showRegister} setShow={setShowRegister} />
+        <Register
+          show={showRegister}
+          setShow={setShowRegister}
+          user={user}
+          setUser={setUser}
+          setShowLogin={setShowLogin}
+        />
       )}
-      {showLogin && <Login showLogin={showLogin} setShowLogin={setShowLogin} />}
+      {showLogin && (
+        <Login
+          showLogin={showLogin}
+          setShowLogin={setShowLogin}
+          user={user}
+          setUser={setUser}
+        />
+      )}
     </div>
   );
 }

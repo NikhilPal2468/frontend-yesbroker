@@ -2,18 +2,51 @@ import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import styles from "./styles.module.css";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 const ForgotPassword = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
+
   const validateEmail = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/api/forgot-password", {
+      const { data } = await axios.post("/public/api/forgot-password", {
         email,
       });
-
-      // console.log(data);
+      const { success = false } = data || {};
+      console.log(data);
+      if (success === true) {
+        setTimeout(() => {
+          navigate("/");
+        }, 3000);
+        toast.success(
+          "Link for changing the password has been sent to your email",
+          {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          }
+        );
+      }
     } catch (e) {
       console.log(e);
+      toast.error(e?.response?.data?.message, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   };
   return (
@@ -37,6 +70,7 @@ const ForgotPassword = () => {
           Submit
         </Button>
       </Form>
+      <ToastContainer />
     </div>
   );
 };
