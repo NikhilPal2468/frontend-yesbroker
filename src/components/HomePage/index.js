@@ -21,7 +21,7 @@ import {
 import axios from "axios";
 import Toast1 from "../common/Toast";
 import { Chip } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -85,7 +85,7 @@ const HomePage = () => {
           });
     };
     autoCompleteApi();
-  }, [searchValue]);
+  }, [searchValue, selectedCity]);
 
   const autoCompleteLocalities = (e) => {
     setSearchValue(e.target.value);
@@ -103,6 +103,7 @@ const HomePage = () => {
       setShowToast(true);
     }
   };
+
   const listProperties = () => {
     navigate("/properties");
   };
@@ -365,7 +366,9 @@ const HomePage = () => {
         </div>
       </div>
       <div className={styles.property_owner}>Are you a Property Owner?</div>
-      <Button>Post your property</Button>
+      <Link to="/list-your-property-for-rent">
+        <Button>Post your property</Button>
+      </Link>
     </div>
   );
 };

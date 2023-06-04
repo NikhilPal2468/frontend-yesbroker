@@ -34,7 +34,7 @@ function MainPage() {
         navigate(`/property/manage/house/${house.id}/property`, {
           state: { ...house },
         });
-      } else if (values.propertyType === "house") {
+      } else if (values.propertyType === "pg") {
         const { data } = await axios.post(
           "/secure/api/newProperty/pg/create",
           values

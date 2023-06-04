@@ -1,0 +1,13 @@
+.autocomplete_dropdown_container {
+  border-radius: 10px;
+  width: 54%;
+  position: absolute;
+  z-index: 100;
+  background-color: #fbf2f2;
+  top: 38px;
+  overflow-x: auto;
+  height: 197px;
+}
+.remove_dropdown_container {
+  height: 0px;
+}

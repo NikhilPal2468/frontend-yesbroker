@@ -7,7 +7,7 @@ const ForgotPassword = () => {
   const validateEmail = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("/api/forgot-password", {
+      const { data } = await axios.post("/public/api/forgot-password", {
         email,
       });
 
