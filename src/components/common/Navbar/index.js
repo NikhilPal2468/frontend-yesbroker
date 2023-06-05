@@ -1,17 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
 import { Button } from "react-bootstrap";
 import { FaHouseUser } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserDetails } from "../../../store/actions";
-
-const Navbar = ({
-  setShowLogin,
-  setShowRegister,
-  user = {},
-  setUser = () => {},
-}) => {
+import Register from "../../Authentication/Register";
+import Login from "../../Authentication/Login";
+const Navbar = () => {
+  const [user, setUser] = useState(null);
+  const [showRegister, setShowRegister] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.user?.userDetails);
   // const [user, setUser] = useState(userDetails);
@@ -122,6 +121,23 @@ const Navbar = ({
           <span className="navbar-toggler-icon"></span>
         </button>
       </div>
+      {showRegister && (
+        <Register
+          show={showRegister}
+          setShow={setShowRegister}
+          user={user}
+          setUser={setUser}
+          setShowLogin={setShowLogin}
+        />
+      )}
+      {showLogin && (
+        <Login
+          showLogin={showLogin}
+          setShowLogin={setShowLogin}
+          user={user}
+          setUser={setUser}
+        />
+      )}
     </nav>
   );
 };

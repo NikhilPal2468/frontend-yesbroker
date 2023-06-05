@@ -114,7 +114,11 @@ const HomePage = () => {
   };
 
   const listProperties = () => {
-    navigate(`/properties`);
+    const localityArray = selectedLocality.map((loc) => loc.description);
+    const combinedLocality = localityArray.join(", ");
+    navigate(
+      `/properties?city=${selectedCity}&propertyType=${propertyType}&locality=${combinedLocality}`
+    );
   };
   const removeChip = (place_id) => {
     setSelectedLocality((prevChips) =>

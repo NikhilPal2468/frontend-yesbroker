@@ -58,9 +58,12 @@ function RentDetails() {
 
   const formValues = Object.entries(initialValues).reduce(
     (result, [key, value]) => {
+      console.log(value);
       if (
         houseObject &&
+        // eslint-disable-next-line no-prototype-builtins
         houseObject.hasOwnProperty(key) &&
+        // eslint-disable-next-line no-prototype-builtins
         initialValues.hasOwnProperty(key)
       ) {
         if (houseObject[key] === null) result[key] = "";

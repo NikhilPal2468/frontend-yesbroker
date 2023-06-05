@@ -36,7 +36,7 @@ function YourShortlists() {
           </div>
           <div>
             {shortlistedProperty.map((property) => {
-              return <p>{property}</p>;
+              return <p key={property}>{property}</p>;
             })}
           </div>
         </div>

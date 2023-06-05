@@ -1,6 +1,8 @@
 import React from "react";
 
 import HouseFilters from "./Filters/HouseFilters";
+import { useLocation } from "react-router-dom";
+import HouseList from "./HouseList";
 
 // const properties = [
 //   {
@@ -24,9 +26,15 @@ import HouseFilters from "./Filters/HouseFilters";
 // ];
 
 const ListProperties = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const city = searchParams.get("city");
+  const propertyType = searchParams.get("propertyType");
+  const locality = searchParams.get("locality");
   return (
     <div className="mt-5">
       <HouseFilters />
+      <HouseList city={city} propertyType={propertyType} locality={locality} />
     </div>
   );
 };

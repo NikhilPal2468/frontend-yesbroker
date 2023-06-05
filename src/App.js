@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
 import axios from "axios";
-import Register from "./components/Authentication/Register";
-import Login from "./components/Authentication/Login";
 
 import "./App.css";
 
@@ -27,20 +25,10 @@ axios.defaults.baseURL = "http://localhost:5000";
 axios.defaults.withCredentials = true;
 
 function App() {
-  const [showRegister, setShowRegister] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
-  const [user, setUser] = useState(null);
-
+  console.log("NIKHIL");
   return (
     <div className="App">
-      <Navbar
-        showLogin={showLogin}
-        showRegister={showRegister}
-        setShowLogin={setShowLogin}
-        setShowRegister={setShowRegister}
-        user={user}
-        setUser={setUser}
-      />
+      <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/properties" element={<ListProperties />} />
@@ -73,23 +61,6 @@ function App() {
           element={<Amenities />}
         />
       </Routes>
-      {showRegister && (
-        <Register
-          show={showRegister}
-          setShow={setShowRegister}
-          user={user}
-          setUser={setUser}
-          setShowLogin={setShowLogin}
-        />
-      )}
-      {showLogin && (
-        <Login
-          showLogin={showLogin}
-          setShowLogin={setShowLogin}
-          user={user}
-          setUser={setUser}
-        />
-      )}
     </div>
   );
 }

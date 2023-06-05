@@ -1,44 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { BsArrowCounterclockwise } from "react-icons/bs";
 import styles from "./styles.module.css";
-import { GrUserManager } from "react-icons/gr";
-import { GiFamilyHouse } from "react-icons/gi";
-import { TbSofa } from "react-icons/tb";
-import { VscKey } from "react-icons/vsc";
-import { Link } from "react-router-dom";
-import { HiOutlineHeart, HiHeart } from "react-icons/hi";
-import axios from "axios";
 
 function HouseFilters() {
+  // const [houses, setHouses] = useState([]);
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     let payload = {
+  //       city: city,
+  //       text: ["bangalore"],
+  //       pgNo: "1",
+  //       propertyType: propertyType,
+  //     };
 
-  const [houses, setHouses] = useState([]);
+  //     try {
+  //       const { data } = await axios.post(
+  //         "/public/api/listProperties",
+  //         payload
+  //       );
+  //       const { allhouses = [], count = 0 } = data || {};
+  //       console.log("count:", count);
+  //       setHouses(allhouses);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      let payload = {
-        city: "Gurgaon",
-        text: [
-          "Atul Kataria Chowk, Sukhrali Enclave, Sector 17, Gurugram, Haryana, India",
-        ],
-        pgNo: "0",
-        propertyType: "House",
-      };
-
-      try {
-        const { data } = await axios.post(
-          "/public/api/listProperties",
-          payload
-        );
-        setHouses(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
   // const propertyAmmenities = [
   //   {
   //     id: "vfjvndfjvnfd3323",
@@ -48,68 +39,25 @@ function HouseFilters() {
   //   },
   // ];
 
-  const likeHandler = (houseId) => {
-    
-  }
-  
-
-  const renderBHKType = (type) => {
-    switch (type) {
-      case "1rk":
-        return "1 RK";
-      case "1bhk":
-        return "1 BHK";
-      case "2bhk":
-        return "2 BHK";
-      case "3bhk":
-        return "3 BHK";
-      case "4bhk":
-        return "4 BHK";
-      default:
-        return "4+ BHK";
-    }
-  };
-
-  const renderFurnishing = (type) => {
-    switch (type) {
-      case "full":
-        return "Fully Furnished";
-      case "semi":
-        return "Semi Furnished";
-      default:
-        return "None";
-    }
-  };
-
-  const renderPreferedTenants = (type) => {
-    switch (type) {
-      case "bachelor":
-        return "Bachelor";
-      case "family":
-        return "Family";
-      default:
-        return "Any";
-    }
-  };
-  const testing = (id) => {
-    console.log("id:", id);
-    // for (let i = 0; i < houses.length; i++) {
-    //   if (id === houses[i].id) {
-    //     houses[i].gym = true;
-    //   }
-    // }
-    setHouses((prev) => {
-      let newhouses = prev.map((h) => {
-        let house = h;
-        if (id === 1) {
-          house.gym = true;
-        }
-        return house;
-      });
-      console.log("newhouses:", newhouses);
-      return newhouses;
-    });
-  };
+  // const testing = (id) => {
+  //   console.log("id:", id);
+  //   // for (let i = 0; i < houses.length; i++) {
+  //   //   if (id === houses[i].id) {
+  //   //     houses[i].gym = true;
+  //   //   }
+  //   // }
+  //   setHouses((prev) => {
+  //     let newhouses = prev.map((h) => {
+  //       let house = h;
+  //       if (id === 1) {
+  //         house.gym = true;
+  //       }
+  //       return house;
+  //     });
+  //     console.log("newhouses:", newhouses);
+  //     return newhouses;
+  //   });
+  // };
 
   return (
     <div className="container">
@@ -342,13 +290,26 @@ function HouseFilters() {
             </div>
           </div>
         </div>
-        <div className="col-12 col-md-7 col-lg-8">
+        {/* <div className="col-12 col-md-7 col-lg-8">
           {houses.map((house) => {
+            const {
+              house_id = "",
+              apartment_name = "",
+              locality = "",
+              rent = 0,
+              rent_negotiable = false,
+              deposit = 0,
+              builtup_area = "",
+              furnishing_type = "",
+              bhk_type = "",
+              preferred_tenants = "",
+              available_from = "",
+            } = house || {};
             return (
-              <div className="mb-4" key={house?.id}>
+              <div className="mb-4" key={house_id}>
                 <div className="card border-bottom-0 rounded-bottom-0">
                   <div className="card-body">
-                    <h5 className="card-title text-start">{house?.title}</h5>
+                    <h5 className="card-title text-start">{`${apartment_name} in ${locality}`}</h5>
                     <h6 className="font-weight-light mb-2 text-muted text-start">
                       <small>{house?.headline}</small>
                     </h6>
@@ -359,25 +320,23 @@ function HouseFilters() {
                     <div
                       className={`col-6 col-md d-flex flex-column ${styles.borderOpt2}`}
                     >
-                      <h6 className="card-title mb-0">{house?.rent}</h6>
+                      <h6 className="card-title mb-0">{rent}</h6>
                       <p className="mb-0">
                         <small>{`Rent (${
-                          house?.rent_negotiable === "true"
-                            ? "Negotiable"
-                            : "Non-Negotiable"
+                          rent_negotiable ? "Negotiable" : "Non-Negotiable"
                         })`}</small>
                       </p>
                     </div>
                     <div
                       className={`col-6 col-md d-flex flex-column ${styles.borderOpt2}`}
                     >
-                      <h6 className="card-title mb-0">{house?.deposit}</h6>
+                      <h6 className="card-title mb-0">{deposit}</h6>
                       <p className="mb-0">
                         <small>Deposit</small>
                       </p>
                     </div>
                     <div className="col-12 col-md d-flex flex-column d-none d-md-flex">
-                      <h6 className="card-title mb-0">{house?.builtup_area}</h6>
+                      <h6 className="card-title mb-0">{builtup_area}</h6>
                       <p className="mb-0">
                         <small>Builtup</small>
                       </p>
@@ -454,7 +413,7 @@ function HouseFilters() {
                             </div>
                             <div>
                               <p className="mb-0">
-                                {renderFurnishing(house?.furnishing_type)}
+                                {renderFurnishing(furnishing_type)}
                               </p>
                               <p className="card-title mb-0 text-bold">
                                 <small>Furnishing</small>
@@ -466,9 +425,7 @@ function HouseFilters() {
                               <GiFamilyHouse size={28} />
                             </div>
                             <div>
-                              <p className="mb-0">
-                                {renderBHKType(house?.bhk_type)}
-                              </p>
+                              <p className="mb-0">{renderBHKType(bhk_type)}</p>
                               <p className="card-title mb-0 text-bold">
                                 <small>Apartment Type</small>
                               </p>
@@ -486,9 +443,7 @@ function HouseFilters() {
                             </div>
                             <div>
                               <p className="mb-0">
-                                {renderPreferedTenants(
-                                  house?.preferred_tenants
-                                )}
+                                {renderPreferedTenants(preferred_tenants)}
                               </p>
                               <p className="card-title mb-0 text-bold">
                                 <small>Preferred Tenants</small>
@@ -500,7 +455,7 @@ function HouseFilters() {
                               <VscKey size={28} />
                             </div>
                             <div>
-                              <p className="mb-0">{house?.available_from}</p>
+                              <p className="mb-0">{available_from}</p>
                               <p className="card-title mb-0 text-bold">
                                 <small>Available From</small>
                               </p>
@@ -514,16 +469,18 @@ function HouseFilters() {
                               role="button"
                             >
                               Get Owner Details
-                              {/* <h6 className="mb-0">Get Owner Details</h6> */}
+
                             </div>
                             <div
                               className={`p-1 rounded ms-2 ${styles.likeBorder}`}
                               role="button"
-                              onClick={() => {likeHandler(house.id)}}
+                              onClick={() => {
+                                likeHandler(house_id);
+                              }}
                             >
                               <HiOutlineHeart
                                 onClick={() => {
-                                  testing(house?.id);
+                                  testing(house_id);
                                 }}
                                 size={28}
                                 color="#6c63ff"
@@ -539,7 +496,7 @@ function HouseFilters() {
               </div>
             );
           })}
-        </div>
+        </div> */}
       </div>
     </div>
   );
