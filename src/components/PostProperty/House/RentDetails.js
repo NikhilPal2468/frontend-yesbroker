@@ -9,24 +9,27 @@ import Sidebar from "./SideBar/sidebar";
 import styles from "./styles.module.css";
 
 const FURNISHING_TYPE = [
-  { key: "Fully Furnished", value: "full" },
-  { key: "Semi Furnished", value: "semi" },
-  { key: "Unfurnished", value: "unfurnished" },
+  { key: "Fully Furnished" },
+  { key: "Semi Furnished" },
+  { key: "Unfurnished" },
 ];
+
 const PREFERRED_TENANTS = [
-  { key: "Bachelor", value: "bachelor" },
-  { key: "Family", value: "family" },
-  { key: "Both", value: "both" },
+  { key: "Bachelor" },
+  { key: "Family" },
+  { key: "Both" },
 ];
+
 const PARKING = [
-  { key: "Car", value: "car" },
-  { key: "Bike", value: "bike" },
-  { key: "Both", value: "both" },
-  { key: "None", value: "none" },
+  { key: "Car" },
+  { key: "Bike" },
+  { key: "Both" },
+  { key: "None" },
 ];
+
 const MAINTENANCE = [
-  { key: "Maintenance Included", value: "included" },
-  { key: "Maintenance Extra", value: "extra" },
+  { key: "Maintenance Included" },
+  { key: "Maintenance Extra" },
 ];
 
 const initialValues = {
@@ -34,7 +37,7 @@ const initialValues = {
   rent_negotiable: "",
   deposit: "",
   monthly_maintenance: "",
-  maintenance_amount: "",
+  maintenance_amount: 0,
   available_from: "",
   furnishing_type: "",
   parking: "",
@@ -171,7 +174,7 @@ function RentDetails() {
                     >
                       <option value="">Select</option>
                       {MAINTENANCE.map((type) => (
-                        <option key={type.value} value={type.value}>
+                        <option key={type.key} value={type.key}>
                           {type.key}
                         </option>
                       ))}
@@ -183,7 +186,7 @@ function RentDetails() {
                   </div>
 
                   {/* Maintenance amount */}
-                  {maintenanceType === "extra" && (
+                  {maintenanceType === "Maintenance Extra" && (
                     <div className="mb-3 w-100">
                       <label htmlFor="maintenance_amount">
                         Maintenance amount
@@ -230,7 +233,7 @@ function RentDetails() {
                     >
                       <option value="">Select</option>
                       {FURNISHING_TYPE.map((type) => (
-                        <option key={type.value} value={type.value}>
+                        <option key={type.key} value={type.key}>
                           {type.key}
                         </option>
                       ))}
@@ -254,7 +257,7 @@ function RentDetails() {
                     >
                       <option value="">Select</option>
                       {PARKING.map((type) => (
-                        <option key={type.value} value={type.value}>
+                        <option key={type.key} value={type.key}>
                           {type.key}
                         </option>
                       ))}
@@ -273,7 +276,7 @@ function RentDetails() {
                     >
                       <option value="">Select</option>
                       {PREFERRED_TENANTS.map((type) => (
-                        <option key={type.value} value={type.value}>
+                        <option key={type.key} value={type.key}>
                           {type.key}
                         </option>
                       ))}

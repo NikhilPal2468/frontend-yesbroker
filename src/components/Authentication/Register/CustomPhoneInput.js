@@ -3,11 +3,11 @@ import PhoneInput from "react-phone-input-2";
 import FormError from "../FormError";
 import { ErrorMessage, useFormikContext } from "formik";
 
-const CustomPhoneInput = ({ name, id, values, field }) => {
+const CustomPhoneInput = ({ name, id, values, field, variable }) => {
   const { setFieldValue } = useFormikContext();
 
   const onValueChange = (phone) => {
-    setFieldValue("phone_number", phone);
+    setFieldValue(variable, phone);
   };
 
   return (
@@ -18,12 +18,12 @@ const CustomPhoneInput = ({ name, id, values, field }) => {
         onlyCountries={["in"]}
         id={id}
         name={name}
-        value={values["phone_number"]}
+        value={values[variable]}
         placeholder="Enter phone number"
         country="in"
         inputStyle={{ width: "100%" }}
       />
-      <ErrorMessage name="phone_number" component={FormError} />
+      <ErrorMessage name={variable} component={FormError} />
     </div>
   );
 };
