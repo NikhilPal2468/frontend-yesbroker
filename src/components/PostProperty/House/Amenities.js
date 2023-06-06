@@ -207,15 +207,13 @@ function Amenities() {
         houseObject.hasOwnProperty(key) &&
         initialValues.hasOwnProperty(key)
       ) {
-        if (houseObject[key] === null) result[key] = "";
+        if (houseObject[key] === null) result[key] = null;
         else result[key] = houseObject[key];
       }
       return result;
     },
     {}
   );
-
-  console.log({ location: location.state });
 
   if (!formValues.balcony_count) formValues.balcony_count = 0;
   if (!formValues.bathrooms_count) formValues.bathrooms_count = 0;

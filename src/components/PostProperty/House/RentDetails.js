@@ -37,7 +37,7 @@ const initialValues = {
   rent_negotiable: "",
   deposit: "",
   monthly_maintenance: "",
-  maintenance_amount: 0,
+  maintenance_amount: "",
   available_from: "",
   furnishing_type: "",
   parking: "",
@@ -49,6 +49,7 @@ const validationSchema = Yup.object({
   deposit: Yup.number().required("Deposit is required"),
   rent_negotiable: Yup.boolean(),
   monthly_maintenance: Yup.string().required("Information required"),
+  maintenance_amount: Yup.number(),
   available_from: Yup.string().required("information required"),
   furnishing_type: Yup.string().required("Information required"),
   parking: Yup.string().required("Information required"),
@@ -61,7 +62,7 @@ function RentDetails() {
 
   const houseObject = location.state;
 
-  const formValues = Object.entries(initialValues).reduce(
+  let formValues = Object.entries(initialValues).reduce(
     (result, [key, value]) => {
       if (
         houseObject &&
@@ -75,6 +76,14 @@ function RentDetails() {
     },
     {}
   );
+
+  if (Object.keys(formValues).length === 0) {
+    formValues = initialValues;
+  }
+
+  if (formValues.maintenance_amount === "") {
+    formValues.maintenance_amount = 0;
+  }
 
   const onSubmit = async (values) => {
     console.log(values);

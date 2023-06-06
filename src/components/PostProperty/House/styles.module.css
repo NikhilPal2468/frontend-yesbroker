@@ -20,3 +20,7 @@
   position: sticky !important;
   top: 10px;
 }
+
+.image_input {
+  display: none;
+}
