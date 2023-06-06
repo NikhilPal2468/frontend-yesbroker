@@ -22,5 +22,6 @@
 }
 
 .image_input {
-  display: none;
+  background-color: blue;
+  color: #ffffff;
 }
