@@ -266,7 +266,7 @@ function Amenities() {
                   name={AMENITIES[i].key}
                   id={AMENITIES[i].key}
                 />
-                <label className="ms-2">
+                <label className="ms-2" htmlFor={AMENITIES[i].key}>
                   {AMENITIES[i].icon} {AMENITIES[i].label}
                 </label>
               </div>
@@ -276,7 +276,7 @@ function Amenities() {
                   name={AMENITIES[i + 1].key}
                   id={AMENITIES[i + 1].key}
                 />
-                <label className="ms-2">
+                <label className="ms-2" htmlFor={AMENITIES[i+1].key}>
                   {AMENITIES[i + 1].icon} {AMENITIES[i + 1].label}
                 </label>
               </div>
@@ -288,7 +288,7 @@ function Amenities() {
                   name={AMENITIES[i + 2].key}
                   id={AMENITIES[i + 2].key}
                 />
-                <label className="ms-2">
+                <label className="ms-2" htmlFor={AMENITIES[i+2].key}>
                   {AMENITIES[i + 2].icon} {AMENITIES[i + 2].label}
                 </label>
               </div>
@@ -298,7 +298,7 @@ function Amenities() {
                   name={AMENITIES[i + 3].key}
                   id={AMENITIES[i + 3].key}
                 />
-                <label className="ms-2">
+                <label className="ms-2" htmlFor={AMENITIES[i+3].key}>
                   {AMENITIES[i + 3].icon} {AMENITIES[i + 3].label}
                 </label>
               </div>
