@@ -7,20 +7,56 @@ import { TbSofa } from "react-icons/tb";
 import { VscKey } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 import { HiOutlineHeart } from "react-icons/hi";
-const HouseList = ({ city = "", propertyType = "", locality = "" }) => {
+const HouseList = ({
+  city = "",
+  propertyType = "",
+  locality = "",
+  bhkType = [],
+  preferredTenants = [],
+  price = [],
+  furnishing = [],
+  twoWheelerParking = false,
+  fourWheelerParking = false,
+  withImage = false,
+}) => {
   console.log("locality:", locality);
   const [houses, setHouses] = useState([]);
+  if (bhkType === []) {
+    console.log("first");
+  }
+
+  function debounce(func, delay) {
+    let timeoutId;
+
+    return function (...args) {
+      clearTimeout(timeoutId);
+
+      timeoutId = setTimeout(() => {
+        func.apply(this, args);
+      }, delay);
+    };
+  }
 
   useEffect(() => {
     const fetchData = async () => {
       let payload = {
         city: city,
         // text: ["bangalore"],
-        text: ["mum"],
+        text: [locality],
         pgNo: "1",
         propertyType: propertyType,
         filters: {
-          bhk_type: "1 RK",
+          bhk_type: bhkType.length === 0 ? undefined : bhkType,
+          preferred_tenants:
+            preferredTenants.length === 1 ? undefined : preferredTenants,
+          price_greater_than: price[0],
+          price_less_than: price[1],
+          furnishing_type: furnishing.length === 0 ? undefined : furnishing,
+          two_wheeler_parking:
+            twoWheelerParking === false ? undefined : twoWheelerParking,
+          four_wheeler_parking:
+            fourWheelerParking === false ? undefined : fourWheelerParking,
+          property_with_image: withImage === false ? undefined : withImage,
         },
       };
 
@@ -37,8 +73,25 @@ const HouseList = ({ city = "", propertyType = "", locality = "" }) => {
       }
     };
 
-    fetchData();
-  }, []);
+    // fetchData();
+    const debouncedAPIRequest = debounce(fetchData, 300);
+    debouncedAPIRequest();
+    return () => {
+      clearTimeout(debouncedAPIRequest);
+    };
+  }, [
+    city,
+    propertyType,
+    locality,
+    bhkType,
+    preferredTenants,
+    price,
+    furnishing,
+    twoWheelerParking,
+    fourWheelerParking,
+    withImage,
+  ]);
+
   const likeHandler = (houseId) => {
     console.log(houseId);
   };

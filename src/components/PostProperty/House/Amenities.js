@@ -202,9 +202,12 @@ function Amenities() {
 
   let formValues = Object.entries(initialValues).reduce(
     (result, [key, value]) => {
+      console.log("value:", value);
       if (
         houseObject &&
+        // eslint-disable-next-line no-prototype-builtins
         houseObject.hasOwnProperty(key) &&
+        // eslint-disable-next-line no-prototype-builtins
         initialValues.hasOwnProperty(key)
       ) {
         if (houseObject[key] === null) result[key] = null;
@@ -276,7 +279,7 @@ function Amenities() {
                   name={AMENITIES[i + 1].key}
                   id={AMENITIES[i + 1].key}
                 />
-                <label className="ms-2" htmlFor={AMENITIES[i+1].key}>
+                <label className="ms-2" htmlFor={AMENITIES[i + 1].key}>
                   {AMENITIES[i + 1].icon} {AMENITIES[i + 1].label}
                 </label>
               </div>
@@ -288,7 +291,7 @@ function Amenities() {
                   name={AMENITIES[i + 2].key}
                   id={AMENITIES[i + 2].key}
                 />
-                <label className="ms-2" htmlFor={AMENITIES[i+2].key}>
+                <label className="ms-2" htmlFor={AMENITIES[i + 2].key}>
                   {AMENITIES[i + 2].icon} {AMENITIES[i + 2].label}
                 </label>
               </div>
@@ -298,7 +301,7 @@ function Amenities() {
                   name={AMENITIES[i + 3].key}
                   id={AMENITIES[i + 3].key}
                 />
-                <label className="ms-2" htmlFor={AMENITIES[i+3].key}>
+                <label className="ms-2" htmlFor={AMENITIES[i + 3].key}>
                   {AMENITIES[i + 3].icon} {AMENITIES[i + 3].label}
                 </label>
               </div>
