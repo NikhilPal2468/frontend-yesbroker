@@ -70,7 +70,6 @@ function LocalityDetails() {
         await axios
           .get(`/public/api/autocomplete?city=${city}&text=${locality}`)
           .then((response) => {
-            console.log(response.data);
             setSuggestionList(response.data);
           })
           .catch((error) => {

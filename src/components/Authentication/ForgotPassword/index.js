@@ -16,7 +16,6 @@ const ForgotPassword = () => {
         email,
       });
       const { success = false } = data || {};
-      console.log(data);
       if (success === true) {
         setTimeout(() => {
           navigate("/");
@@ -36,7 +35,6 @@ const ForgotPassword = () => {
         );
       }
     } catch (e) {
-      console.log(e);
       toast.error(e?.response?.data?.message, {
         position: "top-center",
         autoClose: 2000,

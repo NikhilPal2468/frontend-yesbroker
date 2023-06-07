@@ -75,7 +75,6 @@ function RentDetails() {
   );
 
   const onSubmit = async (values) => {
-    console.log(values);
     try {
       const { data } = await axios.post(
         `secure/api/newProperty/house/update/${location.state.id}`,

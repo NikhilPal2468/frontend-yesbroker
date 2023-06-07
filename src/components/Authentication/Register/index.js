@@ -42,17 +42,14 @@ const Register = ({
     try {
       const { data } = await axios.post("/public/api/register", values);
       const { user = {}, success = false } = data || {};
-      console.log("data:", data);
 
       if (success === true) {
         dispatch(setUserDetails(user));
-        console.log("first");
         setDisplayOtp(true);
         setUserId(user?.id);
         setUser(user);
       }
     } catch (e) {
-      console.log(e?.response?.data?.message);
       toast.error(e?.response?.data?.message, {
         position: "top-center",
         autoClose: 2000,

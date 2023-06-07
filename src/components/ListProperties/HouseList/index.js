@@ -16,12 +16,11 @@ const HouseList = ({ city = "", propertyType = "", locality = "" }) => {
       let payload = {
         city: city,
         // text: ["bangalore"],
-        text: ["bangalore"],
+        text: ["mum"],
         pgNo: "1",
         propertyType: propertyType,
         filters: {
-          bhk_type: "2bhk",
-          facing: "N",
+          bhk_type: "1 RK",
         },
       };
 
@@ -44,46 +43,47 @@ const HouseList = ({ city = "", propertyType = "", locality = "" }) => {
     console.log(houseId);
   };
 
-  const renderBHKType = (type) => {
-    switch (type) {
-      case "1rk":
-        return "1 RK";
-      case "1bhk":
-        return "1 BHK";
-      case "2bhk":
-        return "2 BHK";
-      case "3bhk":
-        return "3 BHK";
-      case "4bhk":
-        return "4 BHK";
-      default:
-        return "4+ BHK";
-    }
-  };
+  // const renderBHKType = (type) => {
+  //   console.log("type:", type);
+  //   switch (type) {
+  //     case "1rk":
+  //       return "1 RK";
+  //     case "1bhk":
+  //       return "1 BHK";
+  //     case "2bhk":
+  //       return "2 BHK";
+  //     case "3bhk":
+  //       return "3 BHK";
+  //     case "4bhk":
+  //       return "4 BHK";
+  //     default:
+  //       return "4+ BHK";
+  //   }
+  // };
 
-  const renderFurnishing = (type) => {
-    switch (type) {
-      case "full":
-        return "Fully Furnished";
-      case "semi":
-        return "Semi Furnished";
-      default:
-        return "None";
-    }
-  };
+  // const renderFurnishing = (type) => {
+  //   switch (type) {
+  //     case "full":
+  //       return "Fully Furnished";
+  //     case "semi":
+  //       return "Semi Furnished";
+  //     default:
+  //       return "None";
+  //   }
+  // };
 
-  const renderPreferedTenants = (type) => {
-    switch (type) {
-      case "bachelor":
-        return "Bachelor";
-      case "family":
-        return "Family";
-      default:
-        return "Any";
-    }
-  };
+  // const renderPreferedTenants = (type) => {
+  //   switch (type) {
+  //     case "bachelor":
+  //       return "Bachelor";
+  //     case "family":
+  //       return "Family";
+  //     default:
+  //       return "Any";
+  //   }
+  // };
   return (
-    <div className="col-12 col-md-7 col-lg-8">
+    <div className="p-1 col-12 col-md-7 col-lg-8">
       {houses.map((house) => {
         const {
           house_id = "",
@@ -205,9 +205,7 @@ const HouseList = ({ city = "", propertyType = "", locality = "" }) => {
                           <TbSofa size={28} />
                         </div>
                         <div>
-                          <p className="mb-0">
-                            {renderFurnishing(furnishing_type)}
-                          </p>
+                          <p className="mb-0">{furnishing_type}</p>
                           <p className="card-title mb-0 text-bold">
                             <small>Furnishing</small>
                           </p>
@@ -218,7 +216,7 @@ const HouseList = ({ city = "", propertyType = "", locality = "" }) => {
                           <GiFamilyHouse size={28} />
                         </div>
                         <div>
-                          <p className="mb-0">{renderBHKType(bhk_type)}</p>
+                          <p className="mb-0">{bhk_type}</p>
                           <p className="card-title mb-0 text-bold">
                             <small>Apartment Type</small>
                           </p>
@@ -235,9 +233,7 @@ const HouseList = ({ city = "", propertyType = "", locality = "" }) => {
                           <GrUserManager size={28} />
                         </div>
                         <div>
-                          <p className="mb-0">
-                            {renderPreferedTenants(preferred_tenants)}
-                          </p>
+                          <p className="mb-0">{preferred_tenants}</p>
                           <p className="card-title mb-0 text-bold">
                             <small>Preferred Tenants</small>
                           </p>

@@ -34,7 +34,6 @@ const ResetPassword = () => {
           newPassword,
         }
       );
-      console.log("data:", data);
       const { success = false, message = "" } = data || {};
       if (success === true) {
         setTimeout(() => {
@@ -53,7 +52,6 @@ const ResetPassword = () => {
         });
       }
     } catch (e) {
-      console.log(e);
       toast.error(e?.response?.data?.message, {
         position: "top-center",
         autoClose: 2000,

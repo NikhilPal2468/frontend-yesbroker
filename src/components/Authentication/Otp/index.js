@@ -57,7 +57,6 @@ const Otp = ({ userId, setShow = () => {} }) => {
         });
       }
     } catch (e) {
-      console.log(e);
       toast.error(e?.response?.data?.message, {
         position: "top-center",
         autoClose: 2000,
