@@ -12,8 +12,11 @@ const Navbar = () => {
   const [showRegister, setShowRegister] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const dispatch = useDispatch();
-  const userDetails = useSelector((state) => state.user?.userDetails);
-  // const [user, setUser] = useState(userDetails);
+  const userDetails = useSelector((state) => state.user.userDetails);
+
+  const [showListings, setShowListings] = useState(false);
+  const [showShortlists, setShowShortlists] = useState(false);
+
   useEffect(() => {
     // Retrieve user details from browser storage on component mount
     const storedUserDetails = JSON.parse(localStorage.getItem("userDetails"));
@@ -32,6 +35,19 @@ const Navbar = () => {
     dispatch(setUserDetails(null));
     setUser(null);
   };
+
+  const handleListings = (e) => {
+    e.preventDefault();
+    setShowListings((prev) => !prev);
+    e.stopPropagation();
+  };
+
+  const handleShortlists = (e) => {
+    e.preventDefault();
+    setShowShortlists((prev) => !prev);
+    e.stopPropagation();
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light card shadow-sm p-3 bg-white rounded">
       <div className="container-fluid">
@@ -77,14 +93,52 @@ const Navbar = () => {
               <p className="my-auto">{user?.name}</p>
             </div>
             {/* </button> */}
-            <div
-              className={`dropdown-menu`}
-              aria-labelledby="dropdownMenuButton"
-            >
-              <Link className="dropdown-item" to={"/user/myprofile"}>
+            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <Link className="dropdown-item" to="/user/myprofile">
                 Profile
               </Link>
-              <Link className="dropdown-item" onClick={handleLogout} to={"/"}>
+              <a
+                className="dropdown-item"
+                href="#"
+                onClick={(e) => {
+                  handleListings(e);
+                }}
+              >
+                My listings
+              </a>
+              {showListings && (
+                <div>
+                  <Link className="dropdown-item" to="/user/mylistings/houses">
+                    Houses
+                  </Link>
+                  <Link className="dropdown-item" to="/user/mylistings/pgs">
+                    Pgs
+                  </Link>
+                </div>
+              )}
+              <a
+                className="dropdown-item"
+                href="#"
+                onClick={(e) => {
+                  handleShortlists(e);
+                }}
+              >
+                My Shortlists
+              </a>
+              {showShortlists && (
+                <div>
+                  <Link
+                    className="dropdown-item"
+                    to="/user/myshortlists/houses"
+                  >
+                    Houses
+                  </Link>
+                  <Link className="dropdown-item" to="/user/myshortlists/pgs">
+                    Pgs
+                  </Link>
+                </div>
+              )}
+              <Link className="dropdown-item" href="#" onClick={handleLogout}>
                 Logout
               </Link>
             </div>

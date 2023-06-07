@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Button } from "react-bootstrap";
 import PostFormError from "../PostFormError";
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Sidebar from "./SideBar/sidebar";
 import styles from "./styles.module.css";
 
 const initialValues = {
+  partNo: "1",
   property_type: "",
   apartment_name: "",
   bhk_type: "",
@@ -55,106 +56,106 @@ const FACING = [
 ];
 
 const FLOORS = [
-  { key: "Ground" },
-  { key: "1" },
-  { key: "2" },
-  { key: "3" },
-  { key: "4" },
-  { key: "5" },
-  { key: "6" },
-  { key: "7" },
-  { key: "8" },
-  { key: "9" },
-  { key: "10" },
-  { key: "11" },
-  { key: "12" },
-  { key: "13" },
-  { key: "14" },
-  { key: "15" },
-  { key: "16" },
-  { key: "17" },
-  { key: "18" },
-  { key: "19" },
-  { key: "20" },
-  { key: "21" },
-  { key: "22" },
-  { key: "23" },
-  { key: "24" },
-  { key: "25" },
-  { key: "26" },
-  { key: "27" },
-  { key: "28" },
-  { key: "29" },
-  { key: "30" },
-  { key: "31" },
-  { key: "32" },
-  { key: "33" },
-  { key: "34" },
-  { key: "35" },
-  { key: "36" },
-  { key: "37" },
-  { key: "38" },
-  { key: "39" },
-  { key: "40" },
-  { key: "41" },
-  { key: "42" },
-  { key: "43" },
-  { key: "44" },
-  { key: "45" },
-  { key: "46" },
-  { key: "47" },
-  { key: "48" },
-  { key: "49" },
-  { key: "50" },
-  { key: "51" },
-  { key: "52" },
-  { key: "53" },
-  { key: "54" },
-  { key: "55" },
-  { key: "56" },
-  { key: "57" },
-  { key: "58" },
-  { key: "59" },
-  { key: "60" },
-  { key: "61" },
-  { key: "62" },
-  { key: "63" },
-  { key: "64" },
-  { key: "65" },
-  { key: "66" },
-  { key: "67" },
-  { key: "68" },
-  { key: "69" },
-  { key: "70" },
-  { key: "71" },
-  { key: "72" },
-  { key: "73" },
-  { key: "74" },
-  { key: "75" },
-  { key: "76" },
-  { key: "77" },
-  { key: "78" },
-  { key: "79" },
-  { key: "80" },
-  { key: "81" },
-  { key: "82" },
-  { key: "83" },
-  { key: "84" },
-  { key: "85" },
-  { key: "86" },
-  { key: "87" },
-  { key: "88" },
-  { key: "89" },
-  { key: "90" },
-  { key: "91" },
-  { key: "92" },
-  { key: "93" },
-  { key: "94" },
-  { key: "95" },
-  { key: "96" },
-  { key: "97" },
-  { key: "98" },
-  { key: "99" },
+  { key: "Ground", value: 0 },
+  { key: "1", value: 1 },
+  { key: "2", value: 2 },
+  { key: "3", value: 3 },
+  { key: "4", value: 4 },
+  { key: "5", value: 5 },
+  { key: "6", value: 6 },
+  { key: "7", value: 7 },
+  { key: "8", value: 8 },
+  { key: "9", value: 9 },
+  { key: "10", value: 10 },
+  { key: "11", value: 11 },
+  { key: "12", value: 12 },
+  { key: "13", value: 13 },
+  { key: "14", value: 14 },
+  { key: "15", value: 15 },
+  { key: "16", value: 16 },
+  { key: "17", value: 17 },
+  { key: "18", value: 18 },
+  { key: "19", value: 19 },
+  { key: "20", value: 20 },
+  { key: "21", value: 21 },
+  { key: "22", value: 22 },
+  { key: "23", value: 23 },
+  { key: "24", value: 24 },
+  { key: "25", value: 25 },
+  { key: "26", value: 26 },
+  { key: "27", value: 27 },
+  { key: "28", value: 28 },
+  { key: "29", value: 29 },
+  { key: "30", value: 30 },
+  { key: "31", value: 31 },
+  { key: "32", value: 32 },
+  { key: "33", value: 33 },
+  { key: "34", value: 34 },
+  { key: "35", value: 35 },
+  { key: "36", value: 36 },
+  { key: "37", value: 37 },
+  { key: "38", value: 38 },
+  { key: "39", value: 39 },
+  { key: "40", value: 40 },
+  { key: "41", value: 41 },
+  { key: "42", value: 42 },
+  { key: "43", value: 43 },
+  { key: "44", value: 44 },
+  { key: "45", value: 45 },
+  { key: "46", value: 46 },
+  { key: "47", value: 47 },
+  { key: "48", value: 48 },
+  { key: "49", value: 49 },
+  { key: "50", value: 50 },
+  { key: "51", value: 51 },
+  { key: "52", value: 52 },
+  { key: "53", value: 53 },
+  { key: "54", value: 54 },
+  { key: "55", value: 55 },
+  { key: "56", value: 56 },
+  { key: "57", value: 57 },
+  { key: "58", value: 58 },
+  { key: "59", value: 59 },
+  { key: "60", value: 60 },
+  { key: "61", value: 61 },
+  { key: "62", value: 62 },
+  { key: "63", value: 63 },
+  { key: "64", value: 64 },
+  { key: "65", value: 65 },
+  { key: "66", value: 66 },
+  { key: "67", value: 67 },
+  { key: "68", value: 68 },
+  { key: "69", value: 69 },
+  { key: "70", value: 70 },
+  { key: "71", value: 71 },
+  { key: "72", value: 72 },
+  { key: "73", value: 73 },
+  { key: "74", value: 74 },
+  { key: "75", value: 75 },
+  { key: "76", value: 76 },
+  { key: "77", value: 77 },
+  { key: "78", value: 78 },
+  { key: "79", value: 79 },
+  { key: "80", value: 80 },
+  { key: "81", value: 81 },
+  { key: "82", value: 82 },
+  { key: "83", value: 83 },
+  { key: "84", value: 84 },
+  { key: "85", value: 85 },
+  { key: "86", value: 86 },
+  { key: "87", value: 87 },
+  { key: "88", value: 88 },
+  { key: "89", value: 89 },
+  { key: "90", value: 90 },
+  { key: "91", value: 91 },
+  { key: "92", value: 92 },
+  { key: "93", value: 93 },
+  { key: "94", value: 94 },
+  { key: "95", value: 95 },
+  { key: "96", value: 96 },
+  { key: "97", value: 97 },
+  { key: "98", value: 98 },
+  { key: "99", value: 99 },
 ];
 
 const validationSchema = Yup.object({
@@ -169,40 +170,59 @@ const validationSchema = Yup.object({
 });
 
 function PropertyDetails() {
-  const location = useLocation();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const houseObject = location.state;
+  const [houseObject, setHouseObject] = useState(null);
+  const { id: houseId } = useParams();
 
-  const formValues = Object.entries(initialValues).reduce(
-    (result, [key, value]) => {
-      console.log(value);
-      if (
-        houseObject &&
-        // eslint-disable-next-line no-prototype-builtins
-        houseObject.hasOwnProperty(key) &&
-        // eslint-disable-next-line no-prototype-builtins
-        initialValues.hasOwnProperty(key)
-      ) {
-        if (houseObject[key] === null) result[key] = "";
-        else result[key] = houseObject[key];
-      }
-      return result;
-    },
-    {}
-  );
+  useEffect(() => {
+    try {
+      const fetchData = async (houseId) => {
+        const { data } = await axios.get(
+          `/secure/api/gethouse?houseId=${houseId}`
+        );
+
+        console.log(houseId, data);
+        setHouseObject(data);
+      };
+      fetchData(houseId);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [houseId]);
+
+  let formValues = {};
+
+  if (houseObject) {
+    formValues = Object.entries(initialValues).reduce(
+      (result, [key, value]) => {
+        if (
+          // eslint-disable-next-line no-prototype-builtins
+          houseObject.hasOwnProperty(key) &&
+          // eslint-disable-next-line no-prototype-builtins
+          initialValues.hasOwnProperty(key)
+        ) {
+          if (houseObject[key] === null) result[key] = value;
+          else result[key] = houseObject[key];
+        }
+        return result;
+      },
+      {}
+    );
+  } else {
+    formValues = initialValues;
+  }
+
+  formValues.partNo = "1";
 
   const onSubmit = async (values) => {
     try {
-      const { data } = await axios.post(
-        `secure/api/newProperty/house/update/${location.state.id}`,
+      await axios.post(
+        `secure/api/newProperty/house/update/${houseId}`,
         values
       );
-
-      const { house } = data;
-      navigate(`/property/manage/house/${house.id}/locality`, {
-        state: { ...house },
-      });
+      navigate(`/property/manage/house/${houseId}/locality`);
     } catch (err) {
       console.log(err);
     }
@@ -308,7 +328,7 @@ function PropertyDetails() {
                       >
                         <option value="">Select</option>
                         {FLOORS.map((type) => (
-                          <option key={type.key} value={type.key}>
+                          <option key={type.key} value={type.value}>
                             {type.key}
                           </option>
                         ))}
@@ -326,7 +346,7 @@ function PropertyDetails() {
                       >
                         <option value="">Select</option>
                         {FLOORS.map((type) => (
-                          <option key={type.key} value={type.key}>
+                          <option key={type.key} value={type.value}>
                             {type.key}
                           </option>
                         ))}
