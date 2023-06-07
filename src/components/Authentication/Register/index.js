@@ -154,6 +154,7 @@ const Register = ({
                               id="phone_number"
                               type="tel"
                               values={values}
+                              variable="phone_number"
                               component={CustomPhoneInput}
                             />
                           </div>

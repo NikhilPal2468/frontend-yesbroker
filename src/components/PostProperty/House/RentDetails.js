@@ -5,26 +5,31 @@ import { Button } from "react-bootstrap";
 import PostFormError from "../PostFormError";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
+import Sidebar from "./SideBar/sidebar";
+import styles from "./styles.module.css";
 
 const FURNISHING_TYPE = [
-  { key: "Fully Furnished", value: "full" },
-  { key: "Semi Furnished", value: "semi" },
-  { key: "Unfurnished", value: "unfurnished" },
+  { key: "Fully Furnished" },
+  { key: "Semi Furnished" },
+  { key: "Unfurnished" },
 ];
+
 const PREFERRED_TENANTS = [
-  { key: "Bachelor", value: "bachelor" },
-  { key: "Family", value: "family" },
-  { key: "Both", value: "both" },
+  { key: "Bachelor" },
+  { key: "Family" },
+  { key: "Both" },
 ];
+
 const PARKING = [
-  { key: "Car", value: "car" },
-  { key: "Bike", value: "bike" },
-  { key: "Both", value: "both" },
-  { key: "None", value: "none" },
+  { key: "Car" },
+  { key: "Bike" },
+  { key: "Both" },
+  { key: "None" },
 ];
+
 const MAINTENANCE = [
-  { key: "Maintenance Included", value: "included" },
-  { key: "Maintenance Extra", value: "extra" },
+  { key: "Maintenance Included" },
+  { key: "Maintenance Extra" },
 ];
 
 const initialValues = {
@@ -44,6 +49,7 @@ const validationSchema = Yup.object({
   deposit: Yup.number().required("Deposit is required"),
   rent_negotiable: Yup.boolean(),
   monthly_maintenance: Yup.string().required("Information required"),
+  maintenance_amount: Yup.number(),
   available_from: Yup.string().required("information required"),
   furnishing_type: Yup.string().required("Information required"),
   parking: Yup.string().required("Information required"),
@@ -56,7 +62,7 @@ function RentDetails() {
 
   const houseObject = location.state;
 
-  const formValues = Object.entries(initialValues).reduce(
+  let formValues = Object.entries(initialValues).reduce(
     (result, [key, value]) => {
       console.log(value);
       if (
@@ -73,6 +79,14 @@ function RentDetails() {
     },
     {}
   );
+
+  if (Object.keys(formValues).length === 0) {
+    formValues = initialValues;
+  }
+
+  if (formValues.maintenance_amount === "") {
+    formValues.maintenance_amount = 0;
+  }
 
   const onSubmit = async (values) => {
     try {
@@ -100,176 +114,203 @@ function RentDetails() {
   };
 
   return (
-    <div className="">
-      <h5>Property Details</h5>
-      <Formik
-        initialValues={formValues}
-        validationSchema={validationSchema}
-        onSubmit={onSubmit}
-        enableReinitialize
-      >
-        {({ values }) => (
-          <Form className="w-100 p-2">
-            {/* Expected Rent */}
-            <div>
-              <div className="mb-3">
-                <label htmlFor="rent">Expected Rent</label>
-                <Field
-                  type="number"
-                  id="rent"
-                  name="rent"
-                  className="form-control"
-                />
-                <ErrorMessage name="rent" component={PostFormError} />
-              </div>
-              <div>
-                <Field
-                  type="checkbox"
-                  name="rent_negotiable"
-                  id="rent_negotiable"
-                />
-                <label htmlFor="rent_negotiable">Rent negotiable</label>
-              </div>
-            </div>
+    <div className={`container`}>
+      <div className={`d-flex flex-row justify-content-center`}>
+        <div className={`w-20 ${styles.container}`}>
+          <Sidebar pathname={location.pathname} />
+        </div>
+        <div
+          className={`w-75 ms-2 px-4 d-flex flex-column ${styles.container}`}
+        >
+          <h5>Property Details</h5>
+          <Formik
+            initialValues={formValues}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+            enableReinitialize
+          >
+            {({ values }) => (
+              <Form className="w-100 p-2">
+                <div className="d-flex flex-column flex-md-row w-100 justify-content-center gap-4">
+                  {/* Expected Rent */}
+                  <div className="w-100 mb-3">
+                    <div className="mb-2">
+                      <label htmlFor="rent">Expected Rent</label>
+                      <Field
+                        type="number"
+                        id="rent"
+                        name="rent"
+                        className="form-control"
+                      />
+                      <ErrorMessage name="rent" component={PostFormError} />
+                    </div>
+                    <div>
+                      <Field
+                        type="checkbox"
+                        name="rent_negotiable"
+                        id="rent_negotiable"
+                      />
+                      <label htmlFor="rent_negotiable">Rent negotiable</label>
+                    </div>
+                  </div>
 
-            {/* Expected Deposit */}
-            <div className="mb-3">
-              <label htmlFor="deposit">Expected Deposit</label>
-              <Field
-                type="number"
-                id="deposit"
-                name="deposit"
-                className="form-control"
-              />
-              <ErrorMessage name="deposit" component={PostFormError} />
-            </div>
+                  {/* Expected Deposit */}
+                  <div className="mb-3 w-100">
+                    <label htmlFor="deposit">Expected Deposit</label>
+                    <Field
+                      type="number"
+                      id="deposit"
+                      name="deposit"
+                      className="form-control"
+                    />
+                    <ErrorMessage name="deposit" component={PostFormError} />
+                  </div>
+                </div>
 
-            {/* Maintenance */}
-            <div className="mb-3">
-              <label htmlFor="monthly_maintenance">Monthly Maintenace</label>
-              <Field
-                component="select"
-                id="monthly_maintenance"
-                name="monthly_maintenance"
-                value={maintenanceType}
-                onChange={(event) => {
-                  handleMaintenanceChange(event, values);
-                }}
-                className="form-control"
-              >
-                <option value="">Select</option>
-                {MAINTENANCE.map((type) => (
-                  <option key={type.value} value={type.value}>
-                    {type.key}
-                  </option>
-                ))}
-              </Field>
-              <ErrorMessage
-                name="monthly_maintenance"
-                component={PostFormError}
-              />
-            </div>
+                <div className="d-flex flex-column flex-md-row w-100 justify-content-center gap-4">
+                  {/* Maintenance */}
+                  <div className="mb-3 w-100">
+                    <label htmlFor="monthly_maintenance">
+                      Monthly Maintenace
+                    </label>
+                    <Field
+                      component="select"
+                      id="monthly_maintenance"
+                      name="monthly_maintenance"
+                      value={maintenanceType}
+                      onChange={(event) => {
+                        handleMaintenanceChange(event, values);
+                      }}
+                      className="form-control"
+                    >
+                      <option value="">Select</option>
+                      {MAINTENANCE.map((type) => (
+                        <option key={type.key} value={type.key}>
+                          {type.key}
+                        </option>
+                      ))}
+                    </Field>
+                    <ErrorMessage
+                      name="monthly_maintenance"
+                      component={PostFormError}
+                    />
+                  </div>
 
-            {/* Maintenance amount */}
-            {maintenanceType === "extra" && (
-              <div className="mb-3">
-                <label htmlFor="maintenance_amount">Maintenance amount</label>
-                <Field
-                  type="number"
-                  id="maintenance_amount"
-                  name="maintenance_amount"
-                  className="form-control"
-                  required
-                />
-                <ErrorMessage
-                  name="maintenance_amount"
-                  component={PostFormError}
-                />
-              </div>
+                  {/* Maintenance amount */}
+                  {maintenanceType === "Maintenance Extra" && (
+                    <div className="mb-3 w-100">
+                      <label htmlFor="maintenance_amount">
+                        Maintenance amount
+                      </label>
+                      <Field
+                        type="number"
+                        id="maintenance_amount"
+                        name="maintenance_amount"
+                        className="form-control"
+                        required
+                      />
+                      <ErrorMessage
+                        name="maintenance_amount"
+                        component={PostFormError}
+                      />
+                    </div>
+                  )}
+                </div>
+
+                <div className="d-flex flex-column flex-md-row w-100 justify-content-center gap-4">
+                  {/* Available from */}
+                  <div className="mb-3 w-100">
+                    <label htmlFor="available_from">Available From</label>
+                    <Field
+                      type="date"
+                      id="available_from"
+                      name="available_from"
+                      className="form-control"
+                    />
+                    <ErrorMessage
+                      name="available_from"
+                      component={PostFormError}
+                    />
+                  </div>
+
+                  {/* FURNISHING TYPE */}
+                  <div className="mb-3 w-100">
+                    <label htmlFor="furnishing_type">Furnishing</label>
+                    <Field
+                      component="select"
+                      id="furnishing_type"
+                      name="furnishing_type"
+                      className="form-control"
+                    >
+                      <option value="">Select</option>
+                      {FURNISHING_TYPE.map((type) => (
+                        <option key={type.key} value={type.key}>
+                          {type.key}
+                        </option>
+                      ))}
+                    </Field>
+                    <ErrorMessage
+                      name="furnishing_type"
+                      component={PostFormError}
+                    />
+                  </div>
+                </div>
+
+                <div className="d-flex flex-column flex-md-row w-100 justify-content-center gap-4">
+                  {/* Parking */}
+                  <div className="mb-3 w-100">
+                    <label htmlFor="parking">Parking</label>
+                    <Field
+                      component="select"
+                      id="parking"
+                      name="parking"
+                      className="form-control"
+                    >
+                      <option value="">Select</option>
+                      {PARKING.map((type) => (
+                        <option key={type.key} value={type.key}>
+                          {type.key}
+                        </option>
+                      ))}
+                    </Field>
+                    <ErrorMessage name="parking" component={PostFormError} />
+                  </div>
+
+                  {/* Preferred tenants */}
+                  <div className="mb-3 w-100">
+                    <label htmlFor="preferred_tenants">Preferred Tenants</label>
+                    <Field
+                      component="select"
+                      id="preferred_tenants"
+                      name="preferred_tenants"
+                      className="form-control"
+                    >
+                      <option value="">Select</option>
+                      {PREFERRED_TENANTS.map((type) => (
+                        <option key={type.key} value={type.key}>
+                          {type.key}
+                        </option>
+                      ))}
+                    </Field>
+                    <ErrorMessage
+                      name="preferred_tenants"
+                      component={PostFormError}
+                    />
+                  </div>
+                </div>
+
+                <Button
+                  variant="primary"
+                  type="submit"
+                  className={`w-100 justify-content-end primary-color`}
+                >
+                  Save & Continue
+                </Button>
+              </Form>
             )}
-
-            {/* Available from */}
-            <div className="mb-3">
-              <label htmlFor="available_from">Available From</label>
-              <Field
-                type="date"
-                id="available_from"
-                name="available_from"
-                className="form-control"
-              />
-              <ErrorMessage name="available_from" component={PostFormError} />
-            </div>
-
-            {/* FURNISHING TYPE */}
-            <div className="mb-3">
-              <label htmlFor="furnishing_type">Furnishing</label>
-              <Field
-                component="select"
-                id="furnishing_type"
-                name="furnishing_type"
-                className="form-control"
-              >
-                <option value="">Select</option>
-                {FURNISHING_TYPE.map((type) => (
-                  <option key={type.value} value={type.value}>
-                    {type.key}
-                  </option>
-                ))}
-              </Field>
-              <ErrorMessage name="furnishing_type" component={PostFormError} />
-            </div>
-
-            {/* Parking */}
-            <div className="mb-3">
-              <label htmlFor="parking">Parking</label>
-              <Field
-                component="select"
-                id="parking"
-                name="parking"
-                className="form-control h-25"
-              >
-                <option value="">Select</option>
-                {PARKING.map((type) => (
-                  <option key={type.value} value={type.value}>
-                    {type.key}
-                  </option>
-                ))}
-              </Field>
-              <ErrorMessage name="parking" component={PostFormError} />
-            </div>
-
-            {/* Preferred tenants */}
-            <div className="mb-3">
-              <label htmlFor="preferred_tenants">Preferred Tenants</label>
-              <Field
-                component="select"
-                id="preferred_tenants"
-                name="preferred_tenants"
-                className="form-control"
-              >
-                <option value="">Select</option>
-                {PREFERRED_TENANTS.map((type) => (
-                  <option key={type.value} value={type.value}>
-                    {type.key}
-                  </option>
-                ))}
-              </Field>
-              <ErrorMessage
-                name="preferred_tenants"
-                component={PostFormError}
-              />
-            </div>
-
-            <Button
-              variant="primary"
-              type="submit"
-              className={`w-100 justify-content-end primary-color`}
-            >
-              Save & Continue
-            </Button>
-          </Form>
-        )}
-      </Formik>
+          </Formik>
+        </div>
+      </div>
     </div>
   );
 }

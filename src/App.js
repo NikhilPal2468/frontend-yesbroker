@@ -20,6 +20,7 @@ import PropertyDetails from "./components/PostProperty/House/PropertyDetails";
 import LocalityDetails from "./components/PostProperty/House/LocalityDetails";
 import RentDetails from "./components/PostProperty/House/RentDetails";
 import Amenities from "./components/PostProperty/House/Amenities";
+import Gallery from "./components/PostProperty/House/Gallery";
 
 axios.defaults.baseURL = "http://localhost:5000";
 axios.defaults.withCredentials = true;
@@ -58,6 +59,10 @@ function App() {
         <Route
           path="/property/manage/house/:id/amenities"
           element={<Amenities />}
+        />
+        <Route
+          path="/property/manage/house/:id/gallery"
+          element={<Gallery />}
         />
       </Routes>
     </div>

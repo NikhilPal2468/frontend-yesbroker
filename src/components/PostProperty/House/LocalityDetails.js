@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
-// import * as Yup from "yup";
-// import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Button } from "react-bootstrap";
-// import PostFormError from "../PostFormError";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
+import Sidebar from "./SideBar/sidebar";
 
 const initialValues = {
   city: "",
@@ -110,73 +108,97 @@ function LocalityDetails() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleFormSubmit}>
-        <div className="mb-3">
-          <label htmlFor="city">Select City</label>
-          <select
-            name="city"
-            id="city"
-            value={city}
-            onChange={handleCityChange}
-            required
-          >
-            <option value="">Select</option>
-            {CITIES &&
-              CITIES.map((city) => {
-                return (
-                  <option value={city} key={city}>
-                    {city}
-                  </option>
-                );
-              })}
-          </select>
+    <div className="container h-100">
+      <div className={`d-flex flex-row justify-content-center`}>
+        <div className={`w-20 ${styles.container}`}>
+          <Sidebar pathname={location.pathname} />
         </div>
-        <div className="mb-3">
-          <label htmlFor="locality">Locality</label>
-          <input
-            type="text"
-            name="locality"
-            id="locality"
-            value={locality}
-            onChange={handleLocalityChange}
-            required
-          />
-          {suggestionList &&
-            suggestionList.map((place) => {
-              return (
-                <div
-                  key={place?.placeId}
-                  className={styles.suggestion_item}
-                  role="button"
-                  onClick={() => {
-                    handleCitySelect(place?.description);
-                  }}
-                >
-                  {place?.description}
-                </div>
-              );
-            })}
-        </div>
-        <div className="mb-3">
-          <label htmlFor="city">Landmark/Street</label>
-          <input
-            type="text"
-            name="street"
-            id="street"
-            value={street}
-            onChange={handleStreetChange}
-            required
-          />
-        </div>
-        <Button
-          variant="primary"
-          type="submit"
-          className={`w-100 justify-content-end primary-color`}
+        <div
+          className={`w-75 ms-2 px-4 d-flex flex-column ${styles.container}`}
         >
-          Save & Continue
-        </Button>
-      </form>
+          <h5 className="ps-4 py-4 border-bottom">Property Details</h5>
+          <form
+            onSubmit={handleFormSubmit}
+            className="h-100 d-flex flex-column"
+          >
+            <div className="d-flex flex-row w-100 justify-content-center align-items-center gap-4">
+              <div className={`mb-3 w-100 ${styles.sticky_city}`}>
+                <label htmlFor="city">Select City</label>
+                <select
+                  name="city"
+                  id="city"
+                  value={city}
+                  onChange={handleCityChange}
+                  className="form-control"
+                  required
+                >
+                  <option value="">Select</option>
+                  {CITIES &&
+                    CITIES.map((city) => {
+                      return (
+                        <option value={city} key={city}>
+                          {city}
+                        </option>
+                      );
+                    })}
+                </select>
+              </div>
+              <div className="mb-3 w-100">
+                <label htmlFor="locality">Locality</label>
+                <input
+                  type="text"
+                  name="locality"
+                  id="locality"
+                  className="form-control"
+                  value={locality}
+                  onChange={handleLocalityChange}
+                  required
+                />
+                {suggestionList &&
+                  suggestionList.map((place) => {
+                    return (
+                      <div
+                        key={place?.placeId}
+                        className={styles.suggestion_item}
+                        role="button"
+                        onClick={() => {
+                          handleCitySelect(place?.description);
+                        }}
+                      >
+                        {place?.description}
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+            <div className="d-flex flex-row w-100 justify-content-center align-items-center gap-4">
+              <div className="mb-3 w-100">
+                <label htmlFor="city">Landmark/Street</label>
+                <input
+                  type="text"
+                  name="street"
+                  id="street"
+                  value={street}
+                  className="form-control"
+                  onChange={handleStreetChange}
+                  required
+                />
+              </div>
+              <div className="w-100"></div>
+            </div>
+
+            <div className="">
+              <Button
+                variant="primary"
+                type="submit"
+                className={`w-100 justify-content-end primary-color align-self-end`}
+              >
+                Save & Continue
+              </Button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }
