@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Button } from "react-bootstrap";
 import PostFormError from "../PostFormError";
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Sidebar from "./SideBar/sidebar";
 import styles from "./styles.module.css";
 
@@ -33,6 +33,7 @@ const MAINTENANCE = [
 ];
 
 const initialValues = {
+  partNo: "3",
   rent: "",
   rent_negotiable: "",
   deposit: "",
@@ -57,45 +58,60 @@ const validationSchema = Yup.object({
 });
 
 function RentDetails() {
-  const location = useLocation();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const houseObject = location.state;
+  const [houseObject, setHouseObject] = useState(null);
+  const { id: houseId } = useParams();
 
-  let formValues = Object.entries(initialValues).reduce(
-    (result, [key, value]) => {
-      if (
-        houseObject &&
-        houseObject.hasOwnProperty(key) &&
-        initialValues.hasOwnProperty(key)
-      ) {
-        if (houseObject[key] === null) result[key] = "";
-        else result[key] = houseObject[key];
-      }
-      return result;
-    },
-    {}
-  );
+  useEffect(() => {
+    try {
+      const fetchData = async (houseId) => {
+        const { data } = await axios.get(
+          `/secure/api/gethouse?houseId=${houseId}`
+        );
+        setHouseObject(data);
+      };
 
-  if (Object.keys(formValues).length === 0) {
+      fetchData(houseId);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [houseId]);
+
+  let formValues = {};
+
+  if (houseObject) {
+    formValues = Object.entries(initialValues).reduce(
+      (result, [key, value]) => {
+        if (
+          houseObject.hasOwnProperty(key) &&
+          initialValues.hasOwnProperty(key)
+        ) {
+          if (houseObject[key] === null) result[key] = value;
+          else result[key] = houseObject[key];
+        }
+        return result;
+      },
+      {}
+    );
+  } else {
     formValues = initialValues;
   }
+
+  formValues.partNo = "3";
 
   if (formValues.maintenance_amount === "") {
     formValues.maintenance_amount = 0;
   }
 
   const onSubmit = async (values) => {
-    console.log(values);
     try {
-      const { data } = await axios.post(
-        `secure/api/newProperty/house/update/${location.state.id}`,
+      await axios.post(
+        `secure/api/newProperty/house/update/${houseId}`,
         values
       );
-      const { house } = data;
-      navigate(`/property/manage/house/${house.id}/amenities`, {
-        state: { ...house },
-      });
+      navigate(`/property/manage/house/${houseId}/amenities`);
     } catch (err) {
       console.log(err);
     }

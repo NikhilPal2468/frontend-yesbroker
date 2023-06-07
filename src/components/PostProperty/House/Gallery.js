@@ -3,16 +3,28 @@ import Sidebar from "./SideBar/sidebar";
 import styles from "./styles.module.css";
 import { BsCameraFill } from "react-icons/bs";
 import { MdDelete } from "react-icons/md";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
+import { Button } from "react-bootstrap";
+import FinalModal from "../FinalModal";
+const PICTURE_TYPES = [
+  "Kitchen",
+  "Bedroom",
+  "Hall",
+  "Dining",
+  "Outside",
+  "Bathroom",
+  "Balcony",
+];
 
 function Gallery() {
   const location = useLocation();
-
+  const { id: houseId } = useParams();
   const [imageFiles, setImageFiles] = useState([]);
   const [uploadedImages, setUploadedImages] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
-  const handleChange = async (e) => {
+  const handleInputChange = async (e) => {
     if (!e.target.files || e.target.files.length === 0) return;
 
     const filesArray = Array.from(e.target.files);
@@ -25,17 +37,29 @@ function Gallery() {
     }
   };
 
-  const PICTURE_TYPES = [
-    "Kitchen",
-    "Bedroom",
-    "Hall",
-    "Dining",
-    "Outside",
-    "Bathroom",
-    "Balcony",
-    "Outside",
-  ];
+  const handleSubmit = (e) => {
+    setShowModal(true);
+  };
 
+  // To load images saved in db on intial load or refresh
+  useEffect(() => {
+    try {
+      const fetchImageData = async (houseId) => {
+        const response = await axios.get(
+          `/secure/api/getHouseImage/:${houseId}`
+        );
+        if (response.data) {
+          setUploadedImages([...response.data]);
+        }
+      };
+
+      fetchImageData(houseId);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [houseId]);
+
+  // To update uploaded images state on new image upload
   useEffect(() => {
     if (!imageFiles || imageFiles.length === 0) return;
 
@@ -48,7 +72,7 @@ function Gallery() {
     const uploadImages = async () => {
       try {
         const response = await axios.post(
-          "secure/api/newProperty/house/uploadImage/0ae5596a-4813-4fd8-8540-2dde576a2512",
+          `secure/api/newProperty/house/uploadImage/${houseId}`,
           formData,
           {
             headers: {
@@ -59,7 +83,7 @@ function Gallery() {
 
         if (response.data) {
           setUploadedImages((prev) => {
-            if (prev.length > 0) return [...prev, ...response.data];
+            if (prev) return [...prev, ...response.data];
             else return [...response.data];
           });
         }
@@ -71,8 +95,9 @@ function Gallery() {
     };
 
     uploadImages();
-  }, [imageFiles]);
+  }, [imageFiles, houseId]);
 
+  // To handle description change for each image
   const handleDescriptionChange = async (e, imageId) => {
     const description = e.target.value;
 
@@ -97,21 +122,17 @@ function Gallery() {
     }
   };
 
+  // To handle deletion of image
   const handleDelete = async (e, imageId) => {
     try {
-      console.log(imageId);
       await axios.delete(`/secure/api/house/deleteImage/${imageId}`);
       setUploadedImages((prevImages) => {
-        prevImages.map((curPhoto) => {
-          return curPhoto.id !== imageId;
-        });
+        return prevImages.filter((curPhoto) => curPhoto.id !== imageId);
       });
     } catch (err) {
       console.log(err);
     }
   };
-
-  console.log(uploadedImages);
 
   return (
     <div className="container">
@@ -143,58 +164,69 @@ function Gallery() {
               id="image"
               style={{ display: "none" }}
               className={`${styles.image_input}`}
-              onChange={handleChange}
+              onChange={handleInputChange}
               multiple
             />
           </div>
-          {uploadedImages &&
-            uploadedImages.map((image) => {
-              return (
-                <div
-                  className="card"
-                  style={{ width: "18rem" }}
-                  key={image.filename}
-                >
-                  <img
-                    className="card-img-top"
-                    src={image.media_url}
-                    alt={image.filename}
-                  />
-                  <div className="card-body border d-flex align-items-center justify-content-center">
-                    <select
-                      name="description"
-                      id="description"
-                      onChange={(e) => {
-                        handleDescriptionChange(e, image.id);
-                      }}
-                      className="form-control"
-                    >
-                      <option value="">Picture Type</option>
-                      {PICTURE_TYPES.map((cur) => {
-                        return (
-                          <option key={cur} value={cur}>
-                            {cur}
-                          </option>
-                        );
-                      })}
-                    </select>
-                    <p
-                      className="my-auto ms-2"
-                      role="button"
-                      onClick={(e) => {
-                        handleDelete(e, image.id);
-                      }}
-                    >
-                      {<MdDelete size={30} />}
-                    </p>
+          <div className="d-flex align-items-center justify-content-center gap-2">
+            {uploadedImages &&
+              uploadedImages.map((image) => {
+                return (
+                  <div
+                    className="card"
+                    style={{ width: "18rem" }}
+                    key={image.filename}
+                  >
+                    <img
+                      className="card-img-top"
+                      src={image.media_url}
+                      alt={image.filename}
+                    />
+                    <div className="card-body border d-flex align-items-center justify-content-center">
+                      <select
+                        name="description"
+                        id="description"
+                        onChange={(e) => {
+                          handleDescriptionChange(e, image.id);
+                        }}
+                        className="form-control"
+                      >
+                        <option value="">Picture Type</option>
+                        {PICTURE_TYPES.map((cur) => {
+                          return (
+                            <option key={cur} value={cur}>
+                              {cur}
+                            </option>
+                          );
+                        })}
+                      </select>
+                      <p
+                        className="my-auto ms-2"
+                        role="button"
+                        onClick={(e) => {
+                          handleDelete(e, image.id);
+                        }}
+                      >
+                        {<MdDelete size={30} />}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+          </div>
 
-          <div></div>
+          <Button
+            variant="primary"
+            onClick={(e) => handleSubmit(e)}
+            className={`w-100 justify-content-end primary-color align-self-end`}
+          >
+            Finish Posting
+          </Button>
         </div>
       </div>
+      {showModal && (
+        <FinalModal showModal={showModal} setShowModal={setShowModal} />
+      )}
     </div>
   );
 }

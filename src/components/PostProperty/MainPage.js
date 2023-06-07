@@ -31,18 +31,14 @@ function MainPage() {
         );
 
         const house = data.house;
-        navigate(`/property/manage/house/${house.id}/property`, {
-          state: { ...house },
-        });
+        navigate(`/property/manage/house/${house.id}/property`);
       } else if (values.propertyType === "pg") {
         const { data } = await axios.post(
           "/secure/api/newProperty/pg/create",
           values
         );
         const pg = data.house;
-        navigate(`/property/manage/pg/${pg.id}/property`, {
-          state: { ...pg },
-        });
+        navigate(`/property/manage/pg/${pg.id}/property`);
       }
     } catch (err) {
       console.log(err);

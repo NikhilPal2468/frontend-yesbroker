@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "./SideBar/sidebar";
 import styles from "./styles.module.css";
 import * as Yup from "yup";
@@ -6,7 +6,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Button } from "react-bootstrap";
 import PostFormError from "../PostFormError";
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import CustomPhoneInput from "../../Authentication/Register/CustomPhoneInput";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -147,25 +147,25 @@ const initialValues = {
   balcony_count: 0,
   water_supply: "",
   secondary_number: "",
-  gym: "",
-  gated_security: "",
-  lift: "",
-  ac: "",
-  geyser: "",
-  washing_machine: "",
-  water_filter: "",
-  cctv: "",
-  fridge: "",
-  swimming_pool: "",
-  tv: "",
-  power_backup: "",
-  gas_pipeline: "",
-  fire_safety: "",
-  club_house: "",
-  wifi: "",
-  park: "",
-  visitor_parking: "",
-  shopping_center: "",
+  gym: false,
+  gated_security: false,
+  lift: false,
+  ac: false,
+  geyser: false,
+  washing_machine: false,
+  water_filter: false,
+  cctv: false,
+  fridge: false,
+  swimming_pool: false,
+  tv: false,
+  power_backup: false,
+  gas_pipeline: false,
+  fire_safety: false,
+  club_house: false,
+  wifi: false,
+  park: false,
+  visitor_parking: false,
+  shopping_center: false,
 };
 
 const validationSchema = Yup.object({
@@ -195,42 +195,60 @@ const validationSchema = Yup.object({
 });
 
 function Amenities() {
-  const location = useLocation();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const houseObject = location.state;
+  const [houseObject, setHouseObject] = useState(null);
+  const { id: houseId } = useParams();
 
-  let formValues = Object.entries(initialValues).reduce(
-    (result, [key, value]) => {
-      if (
-        houseObject &&
-        houseObject.hasOwnProperty(key) &&
-        initialValues.hasOwnProperty(key)
-      ) {
-        if (houseObject[key] === null) result[key] = null;
-        else result[key] = houseObject[key];
-      }
-      return result;
-    },
-    {}
-  );
+  useEffect(() => {
+    try {
+      const fetchData = async (houseId) => {
+        const { data } = await axios.get(
+          `/secure/api/gethouse?houseId=${houseId}`
+        );
+        setHouseObject(data);
+      };
+
+      fetchData(houseId);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [houseId]);
+
+  let formValues = {};
+
+  if (houseObject) {
+    formValues = Object.entries(initialValues).reduce(
+      (result, [key, value]) => {
+        if (
+          houseObject.hasOwnProperty(key) &&
+          initialValues.hasOwnProperty(key)
+        ) {
+          if (houseObject[key] === null) result[key] = value;
+          else result[key] = houseObject[key];
+        }
+        return result;
+      },
+      {}
+    );
+  } else {
+    formValues = initialValues;
+  }
+
+  formValues.partNo = "4";
 
   if (!formValues.balcony_count) formValues.balcony_count = 0;
   if (!formValues.bathrooms_count) formValues.bathrooms_count = 0;
 
-  if (Object.keys(formValues).length === 0) formValues = initialValues;
-
   const onSubmit = async (values) => {
     try {
-      const { data } = await axios.post(
-        `secure/api/newProperty/house/update/${location.state.id}`,
+      await axios.post(
+        `secure/api/newProperty/house/update/${houseId}`,
         values
       );
 
-      const { house } = data;
-      navigate(`/property/manage/house/${house.id}/gallery`, {
-        state: { ...house },
-      });
+      navigate(`/property/manage/house/${houseId}/gallery`);
     } catch (err) {
       console.log(err);
     }

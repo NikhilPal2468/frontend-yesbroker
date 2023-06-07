@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import { Button } from "react-bootstrap";
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Sidebar from "./SideBar/sidebar";
 
 const initialValues = {
+  partNo: "2",
   city: "",
   street: "",
   locality: "",
@@ -17,22 +18,45 @@ function LocalityDetails() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const houseObject = location.state;
+  const [houseObject, setHouseObject] = useState(null);
+  const { id: houseId } = useParams();
 
-  const formValues = Object.entries(initialValues).reduce(
-    (result, [key, value]) => {
-      if (
-        houseObject &&
-        houseObject.hasOwnProperty(key) &&
-        initialValues.hasOwnProperty(key)
-      ) {
-        if (houseObject[key] === null) result[key] = "";
-        else result[key] = houseObject[key];
-      }
-      return result;
-    },
-    {}
-  );
+  useEffect(() => {
+    try {
+      const fetchData = async (houseId) => {
+        const { data } = await axios.get(
+          `/secure/api/gethouse?houseId=${houseId}`
+        );
+        setHouseObject(data);
+      };
+
+      fetchData(houseId);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [houseId]);
+
+  let formValues = {};
+
+  if (houseObject) {
+    formValues = Object.entries(initialValues).reduce(
+      (result, [key, value]) => {
+        if (
+          houseObject.hasOwnProperty(key) &&
+          initialValues.hasOwnProperty(key)
+        ) {
+          if (houseObject[key] === null) result[key] = value;
+          else result[key] = houseObject[key];
+        }
+        return result;
+      },
+      {}
+    );
+  } else {
+    formValues = initialValues;
+  }
+
+  formValues.partNo = "2";
 
   const [city, setCity] = useState(formValues.city);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -91,15 +115,11 @@ function LocalityDetails() {
     };
 
     try {
-      const { data } = await axios.post(
-        `secure/api/newProperty/house/update/${location.state.id}`,
+      await axios.post(
+        `secure/api/newProperty/house/update/${houseId}`,
         payLoad
       );
-
-      const { house } = data;
-      navigate(`/property/manage/house/${house.id}/rental`, {
-        state: { ...house },
-      });
+      navigate(`/property/manage/house/${houseId}/rental`);
     } catch (err) {
       console.log(err);
     }
