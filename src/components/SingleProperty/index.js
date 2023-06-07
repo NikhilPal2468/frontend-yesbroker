@@ -1,8 +1,23 @@
 import React from "react";
 import styles from "./styles.module.css";
 import "bootstrap/dist/css/bootstrap.css";
+import DriveEtaIcon from "@mui/icons-material/DriveEta";
+import ChairIcon from "@mui/icons-material/Chair";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ShareIcon from "@mui/icons-material/Share";
+import {
+  BsFillCheckSquareFill,
+  BsBuildingsFill,
+  BsPeopleFill,
+} from "react-icons/bs";
+import { GiGate } from "react-icons/gi";
+import { FaRupeeSign } from "react-icons/fa";
+import { MdApartment } from "react-icons/md";
+import MyMapComponent from "../common/gMaps/index";
 
 import { useParams } from "react-router-dom";
+import ContactUs from "../common/ContactUs/index";
+import Footer from "../common/LastFooter";
 const SingleProperty = () => {
   const { id } = useParams();
   console.log("id:", id);
@@ -11,7 +26,6 @@ const SingleProperty = () => {
       <div className={styles.single_property}>
         <div className={styles.firstdiv}>
           <div className={styles.image_div}>
-            photos
             <div
               id="carouselExampleInterval"
               className="carousel slide"
@@ -20,21 +34,21 @@ const SingleProperty = () => {
               <div className="carousel-inner">
                 <div className="carousel-item active" data-bs-interval="10000">
                   <img
-                    src="https://images.unsplash.com/photo-1685452329316-d505335ca3d2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+                    src="https://images.unsplash.com/photo-1682687221248-3116ba6ab483?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80"
                     className="d-block w-100"
                     alt="a"
                   />
                 </div>
                 <div className="carousel-item" data-bs-interval="2000">
                   <img
-                    src="https://images.unsplash.com/photo-1682687982360-3fbab65f9d50?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHw1fHx8ZW58MHx8fHx8&auto=format&fit=crop&w=400&q=60"
+                    src="https://images.unsplash.com/photo-1685950871149-b2cee6808f27?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80"
                     className="d-block w-100"
                     alt="b"
                   />
                 </div>
                 <div className="carousel-item">
                   <img
-                    src="https://images.unsplash.com/photo-1682687982360-3fbab65f9d50?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHw1fHx8ZW58MHx8fHx8&auto=format&fit=crop&w=400&q=60"
+                    src="https://images.unsplash.com/photo-1661956602139-ec64991b8b16?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=365&q=80"
                     className="d-block w-100"
                     alt="c"
                   />
@@ -67,16 +81,264 @@ const SingleProperty = () => {
             </div>
           </div>
 
-          <div className={styles.description_div}>description</div>
+          <div className={styles.description_div}>
+            <h6>location</h6>
+            <h2> Title</h2>
+            <div className={styles.details}>
+              <div className={styles.details1}>
+                <table>
+                  <tr>
+                    <td>
+                      {" "}
+                      <ChairIcon fontSize="small" color="action" />
+                      Furnishing Type
+                    </td>
+                    <td> Semi-Furnished</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      {" "}
+                      <BsBuildingsFill></BsBuildingsFill>Deposit
+                    </td>
+                    <td>
+                      <FaRupeeSign />
+                      50000
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <BsBuildingsFill></BsBuildingsFill>Beds
+                    </td>
+                    <td>2</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      {" "}
+                      <DriveEtaIcon fontSize="large" color="action" />
+                      Parking
+                    </td>
+                    <td> Bike</td>
+                  </tr>
+                </table>
+              </div>
+              <div className={styles.details1}>
+                <table>
+                  <tr>
+                    <td>
+                      <BsBuildingsFill></BsBuildingsFill>Size
+                    </td>
+                    <td>5000sqft</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <MdApartment />
+                      Property Type
+                    </td>
+                    <td>City Center</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <GiGate />
+                      Facing
+                    </td>
+                    <td>North</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <BsPeopleFill />
+                      Preferred Tenants
+                    </td>
+                    <td>10</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+            <div className={styles.Footer}>
+              <div>
+                <p>Price</p>
+
+                <h2>
+                  {" "}
+                  <FaRupeeSign /> 678090
+                </h2>
+              </div>
+              <div className={styles.icons}>
+                <a href="#">
+                  <FavoriteIcon fontSize="large" color="primary" />
+                </a>
+                <a href="#">
+                  <ShareIcon fontSize="large" color="primary" />
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div className={` ${styles.seconddiv}`}></div>
-        <div className={` ${styles.thirddiv}`}></div>
-        <div className={` ${styles.fourthdiv}`}></div>
-        <div className={` ${styles.fifthdiv}`}></div>
-        <div className={` ${styles.sixthdiv}`}></div>
+        <div className={` ${styles.seconddiv}`}>
+          <div className={styles.owner}>
+            <h8>Agent/Owner</h8>
+            <h6>Mark Duncan</h6>
+          </div>
+          <div className={styles.direction}>
+            <a href="">GET DIRECTION</a>
+          </div>
+        </div>
+        <div className={` ${styles.thirddiv}`}>
+          <div className={styles.thirdDivDetails}>
+            <div>Property Details</div>
+            <table>
+              <tr></tr>
+              <tr>
+                <td>property_age</td>
+                <td>2yrs</td>
+              </tr>
+              <tr>
+                <td>Floor</td>
+                <td>5</td>
+              </tr>
+              <tr>
+                <td> Total Floors</td>
+                <td>10</td>
+              </tr>
+              <tr>
+                <td>Rent-negotiable</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td>Available-from</td>
+                <td>Date</td>
+              </tr>
+            </table>
+          </div>
+          <div className={styles.thirdDivDetails}>
+            <div>Exterior Details</div>
+            <table>
+              <tr></tr>
+              <tr>
+                <td>Gated-Security</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td>Balconi-count</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>Gas-pipeline</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td>power_backup</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td>Club-house</td>
+                <td>No</td>
+              </tr>
+            </table>
+          </div>
+          <div className={styles.thirdDivDetails}>
+            <div>Other Details</div>
+            <table>
+              <tr></tr>
+              <tr>
+                <td>Lockin_period</td>
+                <td>not given</td>
+              </tr>
+              <tr>
+                <td>Maintenance_amount</td>
+                <td>₹6666</td>
+              </tr>
+              <tr>
+                <td>Water_supply</td>
+                <td>always</td>
+              </tr>
+              <tr>
+                <td>Apartment_type</td>
+                <td>Building</td>
+              </tr>
+              <tr>
+                <td>Cupboards</td>
+                <td>10</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div className={` ${styles.fourthdiv}`}>
+          <div className={` ${styles.about}`}>
+            <div>
+              <span className={styles.firstheading}>About</span>{" "}
+              <span className={styles.secondheading}>Property</span>
+            </div>
+            <p>
+              Between April and July 2014, FFB stadium received an upgrade to
+              meet CONCACAF standards to hold international and club games.
+              These upgrades which included installation of 1100 - 1600 lux
+              stadium lights, a FIFA certified field with certified bleachers
+              and sanitary facilities with team lockers, as well as a complete
+              enhancement of existing buildings. These upgrades were possible
+              thanks to two million dollar donation by FIFA. [1] However, in
+              August 2014, CONCACAF ruled that the stadium did not meet
+              standards to host matches in the 2014–15 CONCACAF Champions
+              League.
+            </p>
+          </div>
+          <div className={styles.advanced}>
+            <span>
+              Advanced <span className={styles.property}>Features</span>
+            </span>
+
+            <table>
+              <tr>
+                <td>
+                  {" "}
+                  <BsFillCheckSquareFill /> AC
+                </td>
+                <td>
+                  <BsFillCheckSquareFill />
+                  Fridge
+                </td>
+                <td>
+                  <BsFillCheckSquareFill /> Water-filter
+                </td>
+                <td>
+                  <BsFillCheckSquareFill /> Washing-machine
+                </td>
+                <td>
+                  <BsFillCheckSquareFill /> Swimming-Pool
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <BsFillCheckSquareFill /> Lift
+                </td>
+                <td>
+                  <BsFillCheckSquareFill /> Cctv
+                </td>
+                <td>
+                  <BsFillCheckSquareFill /> Wifi
+                </td>
+                <td>
+                  <BsFillCheckSquareFill /> Park
+                </td>
+                <td>
+                  <BsFillCheckSquareFill /> Shopping-Center
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div className={` ${styles.fifthdiv}`}>
+          <MyMapComponent latt={"17.9835"} langg={"79.5308"} />
+        </div>
+        <div className={` ${styles.sixthdiv}`}>
+          <ContactUs />
+        </div>
+
+        <div className={` ${styles.seventhdiv}`}>
+          <Footer></Footer>
+        </div>
       </div>
-      <div className={styles.single_property}>SingleProperty</div>
     </div>
   );
 };

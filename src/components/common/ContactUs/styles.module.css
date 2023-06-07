@@ -1,0 +1,13 @@
+.maindiv{
+    display :flex;
+     justify-content: space-evenly;
+}
+
+.heading{
+    font-weight: 700;
+    font-size: 1.75rem;
+}
+td{
+    font-family:'Times New Roman', Times, serif;
+    font-size: 1.25rem;
+}
