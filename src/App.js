@@ -23,11 +23,13 @@ import Amenities from "./components/PostProperty/House/Amenities";
 import Gallery from "./components/PostProperty/House/Gallery";
 import { useSelector } from "react-redux";
 
+import RedirectPage from "./components/common/RedirectPage";
 axios.defaults.baseURL = "http://localhost:5000";
 axios.defaults.withCredentials = true;
 
 function App() {
   const userDetails = useSelector((state) => state.user.userDetails);
+
   return (
     <div className="App">
       <Navbar />
@@ -45,9 +47,11 @@ function App() {
         <Route path="/user/myshortlists/houses" element={<YourShortlists />} />
         <Route path="/user/myshortlists/pgs" element={<YourShortlists />} />
         <Route path="/user/ownerscontacted" element={<OwnersContacted />} />
-        {userDetails && (
-          <Route path="/list-your-property-for-rent" element={<MainPage />} />
-        )}
+
+        <Route
+          path="/list-your-property-for-rent"
+          element={userDetails ? <MainPage /> : <RedirectPage />}
+        />
         <Route
           path="/property/manage/house/:id/property"
           element={<PropertyDetails />}
