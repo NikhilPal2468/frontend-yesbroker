@@ -89,7 +89,7 @@ function LocalityDetails() {
 
   useEffect(() => {
     const autoCompleteApi = async () => {
-      if (locality && showSuggestions)
+      if (showSuggestions)
         await axios
           .get(`/public/api/autocomplete?city=${city}&text=${locality}`)
           .then((response) => {
@@ -165,7 +165,7 @@ function LocalityDetails() {
                     })}
                 </select>
               </div>
-              <div className="mb-3 w-100">
+              <div className="position-relative mb-3 w-100">
                 <label htmlFor="locality">Locality</label>
                 <input
                   type="text"
@@ -176,21 +176,29 @@ function LocalityDetails() {
                   onChange={handleLocalityChange}
                   required
                 />
-                {suggestionList &&
-                  suggestionList.map((place) => {
-                    return (
-                      <div
-                        key={place?.placeId}
-                        className={styles.suggestion_item}
-                        role="button"
-                        onClick={() => {
-                          handleCitySelect(place?.description);
-                        }}
-                      >
-                        {place?.description}
-                      </div>
-                    );
-                  })}
+                <div
+                  className={`${styles.autocomplete_dropdown_container} ${
+                    suggestionList.length === 0
+                      ? styles.remove_dropdown_container
+                      : ""
+                  }`}
+                >
+                  {suggestionList &&
+                    suggestionList.map((place) => {
+                      return (
+                        <div
+                          key={place?.placeId}
+                          className={styles.suggestion_item}
+                          role="button"
+                          onClick={() => {
+                            handleCitySelect(place?.description);
+                          }}
+                        >
+                          {place?.description}
+                        </div>
+                      );
+                    })}
+                </div>
               </div>
             </div>
             <div className="d-flex flex-row w-100 justify-content-center align-items-center gap-4">
