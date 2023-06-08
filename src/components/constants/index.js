@@ -20,4 +20,4 @@ export const RoomTypesPG = [
 ];
 export const RoomTypesFlat = ["Single Room", "Shared Room"];
 
-export const CITIES = ["Mumbai", "Bangalore", "Gurugram", "Delhi", "Hyderabad"];
+export const CITIES = ["Mumbai", "Bangalore", "Gurgaon", "Delhi", "Hyderabad"];
