@@ -29,7 +29,7 @@ const ContactUs = () => {
           </tr>
           <tr>
             <td>
-              <a href="#">
+              <a href="#home">
                 Read More <BsArrowUpRight />
               </a>
             </td>

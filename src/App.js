@@ -69,10 +69,7 @@ function App() {
           path="/property/manage/house/:id/amenities"
           element={<Amenities />}
         />
-        <Route
-          path="/property/:id"
-          element={<SingleProperty />}
-        />
+        <Route path="/property/:id/" element={<SingleProperty />} />
       </Routes>
       {showRegister && (
         <Register show={showRegister} setShow={setShowRegister} />

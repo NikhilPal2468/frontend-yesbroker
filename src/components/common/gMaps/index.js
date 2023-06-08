@@ -7,7 +7,7 @@ class MyMapComponent extends Component {
 
     const mapStyles = {
       width: "100%",
-      height: "30vw",
+      height: "30rem",
     };
 
     return (
