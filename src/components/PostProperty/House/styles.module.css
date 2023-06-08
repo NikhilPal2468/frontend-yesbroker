@@ -39,3 +39,11 @@
 .remove_dropdown_container{
   height: 0px;
 }
+.suggestion_item{
+  margin: 5px 0px;
+  cursor: pointer;
+  padding: 5px;
+}
+.suggestion_item:hover{
+  background-color: #e8e4e4;
+}
