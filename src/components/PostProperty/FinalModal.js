@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Button, Container, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import styles from "./styles.modules.css";
+import styles from "./styles.module.css";
 
 function FinalModal({ showModal, setShowModal }) {
   const navigate = useNavigate();

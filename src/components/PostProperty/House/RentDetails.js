@@ -62,14 +62,28 @@ function RentDetails() {
   const location = useLocation();
 
   const [houseObject, setHouseObject] = useState(null);
+
   const { id: houseId } = useParams();
 
+  const formatDate = (date) => {
+    console.log(date);
+    const dateObj = new Date(date);
+    const day = String(dateObj.getDate()).padStart(2, "0");
+    const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+    const year = dateObj.getFullYear();
+    return `${year}-${month}-${day}`;
+  };
+
+  // fetch data when first time page loads
   useEffect(() => {
     try {
       const fetchData = async (houseId) => {
         const { data } = await axios.get(
           `/secure/api/gethouse?houseId=${houseId}`
         );
+        if (data.available_from !== null) {
+          data.available_from = formatDate(data.available_from);
+        }
         setHouseObject(data);
       };
 
@@ -119,16 +133,6 @@ function RentDetails() {
     }
   };
 
-  const [maintenanceType, setMainTenanceType] = useState(
-    formValues.monthly_maintenance
-  );
-
-  const handleMaintenanceChange = (event, values) => {
-    const { value } = event.target;
-    setMainTenanceType(value);
-    values.monthly_maintenance = value;
-  };
-
   return (
     <div className={`container`}>
       <div className={`d-flex flex-row justify-content-center`}>
@@ -145,7 +149,7 @@ function RentDetails() {
             onSubmit={onSubmit}
             enableReinitialize
           >
-            {({ values }) => (
+            {({ values, setFieldValue }) => (
               <Form className="w-100 p-2">
                 <div className="d-flex flex-column flex-md-row w-100 justify-content-center gap-4">
                   {/* Expected Rent */}
@@ -193,9 +197,9 @@ function RentDetails() {
                       component="select"
                       id="monthly_maintenance"
                       name="monthly_maintenance"
-                      value={maintenanceType}
-                      onChange={(event) => {
-                        handleMaintenanceChange(event, values);
+                      value={values.monthly_maintenance}
+                      onChange={(e) => {
+                        setFieldValue("monthly_maintenance", e.target.value);
                       }}
                       className="form-control"
                     >
@@ -213,7 +217,7 @@ function RentDetails() {
                   </div>
 
                   {/* Maintenance amount */}
-                  {maintenanceType === "Maintenance Extra" && (
+                  {values.monthly_maintenance === "Maintenance Extra" && (
                     <div className="mb-3 w-100">
                       <label htmlFor="maintenance_amount">
                         Maintenance amount
@@ -280,6 +284,10 @@ function RentDetails() {
                       component="select"
                       id="parking"
                       name="parking"
+                      value={values.parking}
+                      onChange={(e) => {
+                        setFieldValue("parking", e.target.value);
+                      }}
                       className="form-control"
                     >
                       <option value="">Select</option>
