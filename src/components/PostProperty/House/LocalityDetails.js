@@ -5,20 +5,25 @@ import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Sidebar from "./SideBar/sidebar";
 
-const initialValues = {
-  partNo: "2",
-  city: "",
-  street: "",
-  locality: "",
-};
+// const initialValues = {
+//   partNo: "2",
+//   city: "",
+//   street: "",
+//   locality: "",
+// };
 
 const CITIES = ["Mumbai", "Bangalore", "Gurgaon", "Delhi", "Hyderabad"];
 
 function LocalityDetails() {
   const location = useLocation();
   const navigate = useNavigate();
+  const [city, setCity] = useState("");
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [locality, setLocality] = useState("");
+  const [street, setStreet] = useState("");
+  const [suggestionList, setSuggestionList] = useState([]);
 
-  const [houseObject, setHouseObject] = useState(null);
+  // const [houseObject, setHouseObject] = useState(null);
   const { id: houseId } = useParams();
 
   useEffect(() => {
@@ -27,7 +32,10 @@ function LocalityDetails() {
         const { data } = await axios.get(
           `/secure/api/gethouse?houseId=${houseId}`
         );
-        setHouseObject(data);
+        // setHouseObject(data);
+        setCity(data?.city);
+        setLocality(data?.locality);
+        setStreet(data?.street);
       };
 
       fetchData(houseId);
@@ -36,35 +44,29 @@ function LocalityDetails() {
     }
   }, [houseId]);
 
-  let formValues = {};
+  // let formValues = {};
 
-  if (houseObject) {
-    formValues = Object.entries(initialValues).reduce(
-      (result, [key, value]) => {
-        if (
-          // eslint-disable-next-line no-prototype-builtins
-          houseObject.hasOwnProperty(key) &&
-          // eslint-disable-next-line no-prototype-builtins
-          initialValues.hasOwnProperty(key)
-        ) {
-          if (houseObject[key] === null) result[key] = value;
-          else result[key] = houseObject[key];
-        }
-        return result;
-      },
-      {}
-    );
-  } else {
-    formValues = initialValues;
-  }
+  // if (houseObject) {
+  //   formValues = Object.entries(initialValues).reduce(
+  //     (result, [key, value]) => {
+  //       if (
+  //         // eslint-disable-next-line no-prototype-builtins
+  //         houseObject.hasOwnProperty(key) &&
+  //         // eslint-disable-next-line no-prototype-builtins
+  //         initialValues.hasOwnProperty(key)
+  //       ) {
+  //         if (houseObject[key] === null) result[key] = value;
+  //         else result[key] = houseObject[key];
+  //       }
+  //       return result;
+  //     },
+  //     {}
+  //   );
+  // } else {
+  //   formValues = initialValues;
+  // }
 
-  formValues.partNo = "2";
-
-  const [city, setCity] = useState(formValues.city);
-  const [showSuggestions, setShowSuggestions] = useState(false);
-  const [locality, setLocality] = useState(formValues.locality);
-  const [street, setStreet] = useState(formValues.street);
-  const [suggestionList, setSuggestionList] = useState([]);
+  // formValues.partNo = "2";
 
   const handleCityChange = (e) => {
     setCity(e.target.value);
@@ -113,6 +115,7 @@ function LocalityDetails() {
       city: city,
       locality: locality,
       street: street,
+      partNo: "2",
     };
 
     try {

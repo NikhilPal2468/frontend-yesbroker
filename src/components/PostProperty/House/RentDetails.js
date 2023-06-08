@@ -242,6 +242,7 @@ function RentDetails() {
                       id="available_from"
                       name="available_from"
                       className="form-control"
+                      value={values.available_from}
                     />
                     <ErrorMessage
                       name="available_from"

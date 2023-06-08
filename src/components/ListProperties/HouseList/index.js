@@ -74,7 +74,7 @@ const HouseList = ({
     };
 
     // fetchData();
-    const debouncedAPIRequest = debounce(fetchData, 300);
+    const debouncedAPIRequest = debounce(fetchData, 500);
     debouncedAPIRequest();
     return () => {
       clearTimeout(debouncedAPIRequest);
@@ -92,8 +92,17 @@ const HouseList = ({
     withImage,
   ]);
 
-  const likeHandler = (houseId) => {
-    console.log(houseId);
+  const likeHandler = async (houses_id) => {
+    console.log("houseId:", houses_id);
+    try {
+      const { data } = await axios.post("/secure/api/user/property/shortlist", {
+        propertyId: houses_id,
+        propertyType,
+      });
+      console.log("data:", data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   // const renderBHKType = (type) => {
@@ -139,7 +148,7 @@ const HouseList = ({
     <div className="p-1 col-12 col-md-7 col-lg-8">
       {houses.map((house) => {
         const {
-          house_id = "",
+          houses_id = "",
           apartment_name = "",
           locality = "",
           rent = 0,
@@ -151,8 +160,9 @@ const HouseList = ({
           preferred_tenants = "",
           available_from = "",
         } = house || {};
+        console.log("houses_id:", houses_id);
         return (
-          <div className="mb-4" key={house_id}>
+          <div className="mb-4" key={houses_id}>
             <div className="card border-bottom-0 rounded-bottom-0">
               <div className="card-body">
                 <h5 className="card-title text-start">{`${apartment_name} in ${locality}`}</h5>
@@ -166,7 +176,7 @@ const HouseList = ({
                 <div
                   className={`col-6 col-md d-flex flex-column ${styles.borderOpt2}`}
                 >
-                  <h6 className="card-title mb-0">{rent}</h6>
+                  <h6 className="card-title mb-0">₹ {rent}</h6>
                   <p className="mb-0">
                     <small>{`Rent (${
                       rent_negotiable ? "Negotiable" : "Non-Negotiable"
@@ -176,7 +186,7 @@ const HouseList = ({
                 <div
                   className={`col-6 col-md d-flex flex-column ${styles.borderOpt2}`}
                 >
-                  <h6 className="card-title mb-0">{deposit}</h6>
+                  <h6 className="card-title mb-0">₹ {deposit}</h6>
                   <p className="mb-0">
                     <small>Deposit</small>
                   </p>
@@ -184,7 +194,7 @@ const HouseList = ({
                 <div className="col-12 col-md d-flex flex-column d-none d-md-flex">
                   <h6 className="card-title mb-0">{builtup_area}</h6>
                   <p className="mb-0">
-                    <small>Builtup</small>
+                    <small>Builtup(sqft)</small>
                   </p>
                 </div>
               </div>
@@ -297,7 +307,13 @@ const HouseList = ({
                           <VscKey size={28} />
                         </div>
                         <div>
-                          <p className="mb-0">{available_from}</p>
+                          <p className="mb-0">
+                            {new Date(available_from).toLocaleString("en-US", {
+                              day: "numeric",
+                              month: "long",
+                              year: "numeric",
+                            })}
+                          </p>
                           <p className="card-title mb-0 text-bold">
                             <small>Available From</small>
                           </p>
@@ -317,7 +333,7 @@ const HouseList = ({
                           className={`p-1 rounded ms-2 ${styles.likeBorder}`}
                           role="button"
                           onClick={() => {
-                            likeHandler(house_id);
+                            likeHandler(houses_id);
                           }}
                         >
                           <HiOutlineHeart size={28} color="#6c63ff" />

@@ -104,7 +104,7 @@ function HouseFilters({
             <div className="flex-grow-1 mb-0">
               <label htmlFor="price" className="form-label w-100 text-start">
                 <h6 className="w-100 mb-0">
-                  Rent Range ₹{`${price[0]} to ${price[1]}`}
+                  Rent Range ₹ {`${price[0]} to ₹ ${price[1]}`}
                 </h6>
               </label>
               <Slider

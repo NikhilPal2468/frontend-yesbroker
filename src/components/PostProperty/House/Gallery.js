@@ -38,6 +38,7 @@ function Gallery() {
   };
 
   const handleSubmit = (e) => {
+    console.log("e:", e);
     setShowModal(true);
   };
 
