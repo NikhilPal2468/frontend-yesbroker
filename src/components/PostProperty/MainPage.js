@@ -1,11 +1,13 @@
 import React from "react";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { Button } from "react-bootstrap";
 import PostFormError from "./PostFormError";
-import styles from "./styles.modules.css";
+import styles from "./styles.module.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { TiStopwatch } from "react-icons/ti";
+import { BsCardChecklist } from "react-icons/bs";
+import { FiKey } from "react-icons/fi";
 
 const CITIES = ["Mumbai", "Bangalore", "Gurgaon", "Delhi", "Hyderabad"];
 
@@ -47,28 +49,45 @@ function MainPage() {
 
   return (
     <div className="container">
-      <div>
-        <h2>Sell or Rent your Property Hassle Free</h2>
+      <div className="">
+        <h3 className="p-2 mx-1 my-4">
+          Sell or Rent your Property Hassle Free
+        </h3>
       </div>
-      <div className="row">
-        <div className="col-3">
-          <h4>Why post through us?</h4>
-          <p>Faster tenants</p>
-          <p>Hassle free listing</p>
-          <p>End to end complete house solution</p>
+      <div className="row flex-column-reverse flex-md-row border">
+        <div
+          className={`col-12 col-md-3 rounded text-white p-4 ${styles.leftbox}`}
+        >
+          <h5 className="fw-bold">Why post through us?</h5>
+          <div>
+            <p>
+              <TiStopwatch /> Faster tenants
+            </p>
+            <p>
+              <BsCardChecklist /> Hassle free listing
+            </p>
+            <p>
+              <FiKey /> End to end complete house solution
+            </p>
+          </div>
+          <div></div>
         </div>
-        <div className="col-9">
+        <div className="col-12 col-md-9">
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={onSubmit}
           >
             {({ values }) => (
-              <Form className="w-100 p-2">
-                <div className="mb-3">
-                  <label htmlFor="city">Select City</label>
-                  <Field component="select" id="city" name="city">
-                    <option value="">Select City</option>
+              <Form className="w-100 p-2 d-flex gap-4 flex-column align-items-center">
+                <div className="mb-3 w-75 text-center mt-4">
+                  <Field
+                    component="select"
+                    id="city"
+                    name="city"
+                    className={`form-control px-4 py-1 ${styles.selectBox}`}
+                  >
+                    <option>Select City</option>
                     {CITIES.map((city) => (
                       <option key={city} value={city}>
                         {city}
@@ -77,41 +96,53 @@ function MainPage() {
                   </Field>
                   <ErrorMessage name="city" component={PostFormError} />
                 </div>
-                <div className="mb-3">
-                  <div>
-                    <label>
+                <div className="mb-3 w-75 text-center border rounded p-2">
+                  <p className="border-bottom">Select property type</p>
+                  <div className="w-100 mb-3 d-flex align-items-center justify-content-center text-center flex-column flex-sm-row gap-2 w-100">
+                    <div className="w-100">
                       <Field
                         type="radio"
-                        id="propertyType"
+                        id="propertyType1"
                         name="propertyType"
                         checked={values.propertyType === "house"}
                         value="house"
+                        className={`${styles.input_radio}`}
                       />
-                      House/Flat
-                    </label>
-                  </div>
-                  <div>
-                    <label>
+                      <label
+                        htmlFor="propertyType1"
+                        className={`${styles.input_label}`}
+                      >
+                        House || Flat
+                      </label>
+                    </div>
+                    <div className="w-100">
                       <Field
                         type="radio"
-                        id="propertyType"
+                        id="propertyType2"
                         name="propertyType"
                         checked={values.propertyType === "pg"}
                         value="pg"
+                        className={`${styles.input_radio}`}
                       />
-                      PG/Hostel
-                    </label>
+                      <label
+                        htmlFor="propertyType2"
+                        className={`${styles.input_label}`}
+                      >
+                        Hostel || PG
+                      </label>
+                    </div>
                   </div>
                   <ErrorMessage name="propertyType" component={PostFormError} />
                 </div>
 
-                <Button
-                  variant="primary"
-                  type="submit"
-                  className={`w-100 justify-content-end ${styles.primary_color}`}
-                >
-                  Start Posting your Ad for FREE
-                </Button>
+                <div className="d-flex align-items-center mb-3">
+                  <button
+                    type="submit"
+                    className={`w-100 justify-content-end px-2 fw-semibold py-1 rounded ${styles.button}`}
+                  >
+                    Start Posting your Ad for FREE
+                  </button>
+                </div>
               </Form>
             )}
           </Formik>

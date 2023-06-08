@@ -47,7 +47,7 @@ function Gallery() {
     try {
       const fetchImageData = async (houseId) => {
         const response = await axios.get(
-          `/secure/api/getHouseImage/:${houseId}`
+          `/secure/api/getHouseImage/${houseId}`
         );
         if (response.data) {
           setUploadedImages([...response.data]);
