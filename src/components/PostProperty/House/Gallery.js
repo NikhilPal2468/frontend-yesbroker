@@ -5,7 +5,6 @@ import { BsCameraFill } from "react-icons/bs";
 import { MdDelete } from "react-icons/md";
 import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
-import { Button } from "react-bootstrap";
 import FinalModal from "../FinalModal";
 const PICTURE_TYPES = [
   "Kitchen",
@@ -137,7 +136,7 @@ function Gallery() {
 
   return (
     <div className="container">
-      <div className={`d-flex flex-row justify-content-center`}>
+      <div className={`d-flex flex-column flex-sm-row justify-content-center`}>
         <div className={`w-20 ${styles.container}`}>
           <Sidebar pathname={location.pathname} />
         </div>
@@ -148,7 +147,7 @@ function Gallery() {
           <div role="button" className="px-4 py-2 m-2 border">
             <label htmlFor="image" className="btn w-100">
               <div className="m-4">
-                {<BsCameraFill size="30" color="blue" />}
+                {<BsCameraFill size="30" className={`${styles.icon}`} />}
                 <p>Increase Your Response Rate:</p>
                 <h5 className="mb-4">Add Photos to Get 5X More Inquiries!</h5>
                 <span
@@ -215,14 +214,12 @@ function Gallery() {
                 );
               })}
           </div>
-
-          <Button
-            variant="primary"
+          <button
             onClick={(e) => handleSubmit(e)}
-            className={`w-100 justify-content-end primary-color align-self-end`}
+            className={`w-100 justify-content-end px-2 my-4 fw-semibold py-1 rounded ${styles.button}`}
           >
             Finish Posting
-          </Button>
+          </button>
         </div>
       </div>
       {showModal && (

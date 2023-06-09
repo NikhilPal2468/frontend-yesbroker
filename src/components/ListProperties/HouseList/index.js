@@ -7,6 +7,7 @@ import { TbSofa } from "react-icons/tb";
 import { VscKey } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 import { HiOutlineHeart } from "react-icons/hi";
+import OwnerModal from "../OwnerModal";
 const HouseList = ({
   city = "",
   propertyType = "",
@@ -144,6 +145,13 @@ const HouseList = ({
   //       return "Any";
   //   }
   // };
+
+  const [showOwnersContacted, setShowOwnersContacted] = useState(false);
+
+  const handleHouseClicked = () => {
+    setShowOwnersContacted(true);
+  };
+
   return (
     <div className="p-1 col-12 col-md-7 col-lg-8">
       {houses.map((house) => {
@@ -325,9 +333,9 @@ const HouseList = ({
                         <div
                           className={`flex-grow-1 p-2 text-white text-center rounded ${styles.primary_color}`}
                           role="button"
+                          onClick={handleHouseClicked}
                         >
                           Get Owner Details
-                          {/* <h6 className="mb-0">Get Owner Details</h6> */}
                         </div>
                         <div
                           className={`p-1 rounded ms-2 ${styles.likeBorder}`}
@@ -347,6 +355,13 @@ const HouseList = ({
           </div>
         );
       })}
+
+      {showOwnersContacted && (
+        <OwnerModal
+          showOwnersContacted={showOwnersContacted}
+          setShowOwnersContacted={setShowOwnersContacted}
+        />
+      )}
     </div>
   );
 };

@@ -234,7 +234,7 @@ function PropertyDetails() {
 
   return (
     <div className={`container`}>
-      <div className={`d-flex flex-row justify-content-center`}>
+      <div className={`d-flex flex-column flex-sm-row justify-content-center`}>
         <div className={`w-20 ${styles.container}`}>
           <Sidebar pathname={location.pathname} />
         </div>
@@ -258,7 +258,7 @@ function PropertyDetails() {
                       component="select"
                       id="property_type"
                       name="property_type"
-                      className="form-control"
+                      className={`form-control ${styles.selectBox}`}
                       value={values.property_type}
                       onChange={(event) => {
                         handleSelectChange(setFieldValue, event.target.value);
@@ -304,7 +304,7 @@ function PropertyDetails() {
                       component="select"
                       id="bhk_type"
                       name="bhk_type"
-                      className="form-control"
+                      className={`form-control ${styles.selectBox}`}
                     >
                       <option value="">Select</option>
                       {BHK_TYPES.map((type) => (
@@ -324,7 +324,7 @@ function PropertyDetails() {
                         component="select"
                         id="floor"
                         name="floor"
-                        className="form-control h-25"
+                        className={`form-control h-25 ${styles.selectBox}`}
                       >
                         <option value="">Select</option>
                         {FLOORS.map((type) => (
@@ -342,7 +342,7 @@ function PropertyDetails() {
                         component="select"
                         id="total_floors"
                         name="total_floors"
-                        className="form-control"
+                        className={`form-control ${styles.selectBox}`}
                       >
                         <option value="">Select</option>
                         {FLOORS.map((type) => (
@@ -366,7 +366,7 @@ function PropertyDetails() {
                     component="select"
                     id="property_age"
                     name="property_age"
-                    className="form-control"
+                    className={`form-control ${styles.selectBox}`}
                   >
                     <option value="">Select</option>
                     {PROPERTY_AGE.map((type) => (
@@ -385,7 +385,7 @@ function PropertyDetails() {
                     component="select"
                     id="facing"
                     name="facing"
-                    className="form-control"
+                    className={`form-control ${styles.selectBox}`}
                   >
                     <option value="">Select</option>
                     {FACING.map((type) => (
