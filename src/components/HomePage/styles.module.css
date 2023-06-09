@@ -29,12 +29,6 @@
   min-width: 50%;
 }
 
-@media (max-width: 576px) {
-  .custom_width {
-    width: 100%;
-  }
-}
-
 .autocomplete_dropdown_container{
   border-radius: 10px;
   width: 54%;
@@ -70,4 +64,14 @@
 
 .property_owner{
   margin: 100px 0px 20px 0px;
+}
+
+@media (max-width: 768px) {
+  .custom_width {
+    width: 100% !important;
+  }
+  .autocomplete_dropdown_container{
+    top: 75px;
+    width: 76%;
+  }
 }

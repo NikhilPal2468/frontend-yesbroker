@@ -1,0 +1,8 @@
+.list_properties{
+    flex-direction: row;
+}
+@media only screen and (max-width: 768px) {
+    .list_properties{
+        flex-direction: column;
+    }
+}
