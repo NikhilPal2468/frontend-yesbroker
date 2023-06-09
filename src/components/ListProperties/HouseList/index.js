@@ -8,6 +8,7 @@ import { VscKey } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 import { HiOutlineHeart } from "react-icons/hi";
 import OwnerModal from "../OwnerModal";
+
 const HouseList = ({
   city = "",
   propertyType = "",
@@ -20,8 +21,9 @@ const HouseList = ({
   fourWheelerParking = false,
   withImage = false,
 }) => {
-  console.log("locality:", locality);
+  const [showOwnersContacted, setShowOwnersContacted] = useState(false);
   const [houses, setHouses] = useState([]);
+
   if (bhkType === []) {
     console.log("first");
   }
@@ -146,11 +148,12 @@ const HouseList = ({
   //   }
   // };
 
-  const [showOwnersContacted, setShowOwnersContacted] = useState(false);
-
   const handleHouseClicked = () => {
+    console.log("hello");
     setShowOwnersContacted(true);
   };
+
+  console.log(showOwnersContacted);
 
   return (
     <div className="p-1 col-12 col-md-7 col-lg-8">
@@ -333,7 +336,9 @@ const HouseList = ({
                         <div
                           className={`flex-grow-1 p-2 text-white text-center rounded ${styles.primary_color}`}
                           role="button"
-                          onClick={handleHouseClicked}
+                          onClick={(e) => {
+                            handleHouseClicked(e);
+                          }}
                         >
                           Get Owner Details
                         </div>

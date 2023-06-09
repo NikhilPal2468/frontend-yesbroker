@@ -2,13 +2,13 @@ import React from "react";
 import { Container, Modal } from "react-bootstrap";
 import styles from "./styles.module.css";
 
-function OwnerModal({ showOnerContacted, setShowOwnerContacted }) {
+function OwnerModal({ showOwnersContacted, setShowOwnersContacted }) {
   const handleModalClose = () => {
-    setShowOwnerContacted(false);
+    setShowOwnersContacted(false);
   };
   return (
     <Modal
-      show={showOnerContacted}
+      show={showOwnersContacted}
       onHide={handleModalClose}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
