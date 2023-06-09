@@ -31,6 +31,7 @@ function sidebar({ pathname }) {
   };
 
   const addIconClass2 = (path) => {
+    console.log("path:", path);
     let classVal = "w-25";
     return classVal;
   };
