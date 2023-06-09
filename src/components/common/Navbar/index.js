@@ -49,7 +49,9 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light card shadow-sm p-3 bg-white rounded">
+    <nav
+      className={`${styles.navbar_homewale} navbar navbar-expand-lg navbar-light bg-light card shadow-sm p-3 rounded`}
+    >
       <div className="container-fluid">
         <div className={styles.navbar_left}>
           <Link to={`/`} className="navbar-brand">
