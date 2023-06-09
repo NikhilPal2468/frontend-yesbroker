@@ -47,7 +47,7 @@ function HouseFilters({
       <div className={`card p-2 ${styles.sticky_card}`}>
         <div className="d-flex flex-row justify-content-between align-items-center pb-2 border-bottom border-3 border-dark">
           <h5 className="card-title my-auto">Filters</h5>
-          <p className="my-auto">
+          <p className="my-auto cursor-pointer">
             <BsArrowCounterclockwise /> Reset
           </p>
         </div>
@@ -120,7 +120,7 @@ function HouseFilters({
           </div>
           <div className="input-group d-flex flex-column mt-2 pt-1 border-bottom border-1 border-dark">
             <h6 className="text-start">Furnishing</h6>
-            <div className="d-flex pb-2 flex-row justify-content-between align-items-center text-start">
+            <div className="grid pb-2 justify-content-between align-items-center text-start">
               {FURNISHING_TYPES.map((furnishing_type) => (
                 <div
                   key={furnishing_type}

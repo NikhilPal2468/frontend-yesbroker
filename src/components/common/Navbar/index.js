@@ -52,12 +52,23 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-lg navbar-light bg-light card shadow-sm p-3 bg-white rounded">
       <div className="container-fluid">
         <div className={styles.navbar_left}>
-          <img src="/images/logoHomeWale.jpeg" alt="logo" />
           <Link to={`/`} className="navbar-brand">
+            <img src="/images/logoHomeWale.jpeg" alt="logo" />
             HomeWale
           </Link>
         </div>
-        <div className="collapse navbar-collapse" id="navbarText">
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <a className="nav-link active" aria-current="page" href="#">
@@ -78,92 +89,98 @@ const Navbar = () => {
           {/* <span className="navbar-text">
             Navbar text with an inline element
           </span> */}
-        </div>
-        {user ? (
-          <div className="dropdown">
-            <div
-              className={`d-flex flex-row border border-dark pe-2 rounded-5 border-1 border-left-0 align-items-center justify-content-center gap-2  ${styles.userIcon}`}
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <div className="border border-2 px-2 py-1 border-gray rounded-circle">
-                <FaHouseUser />
+          {user ? (
+            <div className="dropdown">
+              <div
+                className={`d-flex flex-row border border-dark pe-2 rounded-5 border-1 border-left-0 align-items-center justify-content-center gap-2  ${styles.userIcon}`}
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <div className="border border-2 px-2 py-1 border-gray rounded-circle">
+                  <FaHouseUser />
+                </div>
+                <p className="my-auto">{user?.name}</p>
               </div>
-              <p className="my-auto">{user?.name}</p>
+              {/* </button> */}
+              <div
+                className="dropdown-menu"
+                aria-labelledby="dropdownMenuButton"
+              >
+                <Link className="dropdown-item" to="/user/myprofile">
+                  Profile
+                </Link>
+                <a
+                  className="dropdown-item"
+                  href="#"
+                  onClick={(e) => {
+                    handleListings(e);
+                  }}
+                >
+                  My listings
+                </a>
+                {showListings && (
+                  <div>
+                    <Link
+                      className="dropdown-item"
+                      to="/user/mylistings/houses"
+                    >
+                      Houses
+                    </Link>
+                    <Link className="dropdown-item" to="/user/mylistings/pgs">
+                      Pgs
+                    </Link>
+                  </div>
+                )}
+                <a
+                  className="dropdown-item"
+                  href="#"
+                  onClick={(e) => {
+                    handleShortlists(e);
+                  }}
+                >
+                  My Shortlists
+                </a>
+                {showShortlists && (
+                  <div>
+                    <Link
+                      className="dropdown-item"
+                      to="/user/myshortlists/houses"
+                    >
+                      Houses
+                    </Link>
+                    <Link className="dropdown-item" to="/user/myshortlists/pgs">
+                      Pgs
+                    </Link>
+                  </div>
+                )}
+                <Link className="dropdown-item" href="#" onClick={handleLogout}>
+                  Logout
+                </Link>
+              </div>
             </div>
-            {/* </button> */}
-            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <Link className="dropdown-item" to="/user/myprofile">
-                Profile
-              </Link>
-              <a
-                className="dropdown-item"
-                href="#"
-                onClick={(e) => {
-                  handleListings(e);
+          ) : (
+            <div className={styles.navbar_right}>
+              <Button
+                onClick={() => {
+                  setShowLogin(true);
+                }}
+                className="m-2"
+              >
+                Log in
+              </Button>
+              <Button
+                onClick={() => {
+                  setShowRegister(true);
                 }}
               >
-                My listings
-              </a>
-              {showListings && (
-                <div>
-                  <Link className="dropdown-item" to="/user/mylistings/houses">
-                    Houses
-                  </Link>
-                  <Link className="dropdown-item" to="/user/mylistings/pgs">
-                    Pgs
-                  </Link>
-                </div>
-              )}
-              <a
-                className="dropdown-item"
-                href="#"
-                onClick={(e) => {
-                  handleShortlists(e);
-                }}
-              >
-                My Shortlists
-              </a>
-              {showShortlists && (
-                <div>
-                  <Link
-                    className="dropdown-item"
-                    to="/user/myshortlists/houses"
-                  >
-                    Houses
-                  </Link>
-                  <Link className="dropdown-item" to="/user/myshortlists/pgs">
-                    Pgs
-                  </Link>
-                </div>
-              )}
-              <Link className="dropdown-item" href="#" onClick={handleLogout}>
-                Logout
-              </Link>
+                Sign up
+              </Button>
             </div>
-          </div>
-        ) : (
-          <div className={styles.navbar_right}>
-            <Button
-              onClick={() => {
-                setShowLogin(true);
-              }}
-              className="m-2"
-            >
-              Log in
-            </Button>
-            <Button
-              onClick={() => {
-                setShowRegister(true);
-              }}
-            >
-              Sign up
-            </Button>
-          </div>
-        )}
+          )}
+        </div>
 
-        <button
+        {/* <button
           className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
@@ -173,7 +190,7 @@ const Navbar = () => {
           aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
-        </button>
+        </button> */}
       </div>
       {showRegister && (
         <Register
