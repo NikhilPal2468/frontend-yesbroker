@@ -56,11 +56,6 @@ const AMENITIES = [
     label: "Fridge",
   },
   {
-    key: "swimming_pool",
-    icon: <FontAwesomeIcon icon={faPersonSwimming} size="xl" />,
-    label: "Swimming Pool",
-  },
-  {
     key: "tv",
     icon: <FontAwesomeIcon icon={faTv} size="xl" />,
     label: "TV",
@@ -96,36 +91,6 @@ const AMENITIES = [
     label: "Park",
   },
   {
-    key: "visitor_parking",
-    icon: <FontAwesomeIcon icon={faSquareParking} size="xl" />,
-    label: "Parking",
-  },
-  {
-    key: "shopping_center",
-    icon: <FontAwesomeIcon icon={faShop} size="xl" />,
-    label: "Shopping Center",
-  },
-  {
-    key: "water_filter",
-    icon: <FontAwesomeIcon icon={faGlassWaterDroplet} size="xl" />,
-    label: "Water Filter",
-  },
-  {
-    key: "washing_machine",
-    icon: <FontAwesomeIcon icon={faShirt} size="xl" />,
-    label: "Washing Machine",
-  },
-  {
-    key: "geyser",
-    icon: <FontAwesomeIcon icon={faHotTubPerson} size="xl" />,
-    label: "Geyser",
-  },
-  {
-    key: "gated_security",
-    icon: <FontAwesomeIcon icon={faPersonMilitaryPointing} size="xl" />,
-    label: "Gated Security",
-  },
-  {
     key: "ac",
     icon: <FontAwesomeIcon icon={faTachographDigital} size="xl" />,
     label: "AC",
@@ -136,9 +101,44 @@ const AMENITIES = [
     label: "Gym",
   },
   {
+    key: "geyser",
+    icon: <FontAwesomeIcon icon={faHotTubPerson} size="xl" />,
+    label: "Geyser",
+  },
+  {
+    key: "visitor_parking",
+    icon: <FontAwesomeIcon icon={faSquareParking} size="xl" />,
+    label: "Parking",
+  },
+  {
+    key: "water_filter",
+    icon: <FontAwesomeIcon icon={faGlassWaterDroplet} size="xl" />,
+    label: "Water Filter",
+  },
+  {
     key: "furniture",
     icon: <FontAwesomeIcon icon={faCouch} size="xl" />,
     label: "Furniture",
+  },
+  {
+    key: "swimming_pool",
+    icon: <FontAwesomeIcon icon={faPersonSwimming} size="xl" />,
+    label: "Swimming Pool",
+  },
+  {
+    key: "shopping_center",
+    icon: <FontAwesomeIcon icon={faShop} size="xl" />,
+    label: "Shopping Center",
+  },
+  {
+    key: "washing_machine",
+    icon: <FontAwesomeIcon icon={faShirt} size="xl" />,
+    label: "Washing Machine",
+  },
+  {
+    key: "gated_security",
+    icon: <FontAwesomeIcon icon={faPersonMilitaryPointing} size="xl" />,
+    label: "Gated Security",
   },
 ];
 
@@ -277,48 +277,64 @@ function Amenities() {
 
     for (let i = 0; i <= AMENITIES.length - 4; i += 4) {
       renderedItems.push(
-        <div className="container" key={i}>
-          <div className="d-flex p-2 m-2 w-100 gap-2">
+        <div className="container d-flex mx-auto mb-2 w-100" key={i}>
+          <div className="d-flex gap-1 align-items-center w-100 gap-2">
             <div className="d-flex flex-column flex-md-row gap-2 w-100">
-              <div className="d-flex align-items-center w-100">
+              <div className="d-flex align-items-center justify-content-center w-100">
                 <Field
                   type="checkbox"
                   name={AMENITIES[i].key}
                   id={AMENITIES[i].key}
+                  className={`${styles.input_checkbox} w-25`}
                 />
-                <label className="ms-2" htmlFor={AMENITIES[i].key}>
+                <label
+                  className={`${styles.input_label}  p-2 p-2 py-4 w-100`}
+                  htmlFor={AMENITIES[i].key}
+                >
                   {AMENITIES[i].icon} {AMENITIES[i].label}
                 </label>
               </div>
-              <div className="d-flex align-items-center w-100">
+              <div className="d-flex align-items-center justify-content-center w-100">
                 <Field
                   type="checkbox"
                   name={AMENITIES[i + 1].key}
                   id={AMENITIES[i + 1].key}
+                  className={`${styles.input_checkbox} w-25`}
                 />
-                <label className="ms-2" htmlFor={AMENITIES[i + 1].key}>
+                <label
+                  className={`${styles.input_label}  p-2 p-2 py-4 w-100`}
+                  htmlFor={AMENITIES[i + 1].key}
+                >
                   {AMENITIES[i + 1].icon} {AMENITIES[i + 1].label}
                 </label>
               </div>
             </div>
             <div className="d-flex flex-column flex-md-row gap-2 w-100">
-              <div className="d-flex align-items-center w-100">
+              <div className="d-flex align-items-center justify-content-center w-100">
                 <Field
                   type="checkbox"
                   name={AMENITIES[i + 2].key}
                   id={AMENITIES[i + 2].key}
+                  className={`${styles.input_checkbox} w-25`}
                 />
-                <label className="ms-2" htmlFor={AMENITIES[i + 2].key}>
+                <label
+                  className={`${styles.input_label}  p-2 p-2 py-4 w-100`}
+                  htmlFor={AMENITIES[i + 2].key}
+                >
                   {AMENITIES[i + 2].icon} {AMENITIES[i + 2].label}
                 </label>
               </div>
-              <div className="d-flex align-items-center w-100">
+              <div className="d-flex align-items-center justify-content-center w-100">
                 <Field
                   type="checkbox"
                   name={AMENITIES[i + 3].key}
                   id={AMENITIES[i + 3].key}
+                  className={`${styles.input_checkbox} w-25`}
                 />
-                <label className="ms-2" htmlFor={AMENITIES[i + 3].key}>
+                <label
+                  className={`${styles.input_label}  p-2 p-2 py-4 w-100`}
+                  htmlFor={AMENITIES[i + 3].key}
+                >
                   {AMENITIES[i + 3].icon} {AMENITIES[i + 3].label}
                 </label>
               </div>
@@ -333,12 +349,12 @@ function Amenities() {
 
   return (
     <div className="container">
-      <div className={`d-flex flex-row justify-content-center`}>
+      <div className={`d-flex flex-column flex-sm-row justify-content-center`}>
         <div className={`w-20 ${styles.container}`}>
           <Sidebar pathname={location.pathname} />
         </div>
         <div
-          className={`w-75 ms-2 px-4 d-flex flex-column ${styles.container}`}
+          className={`w-75 ms-2  px-4 d-flex flex-column ${styles.container}`}
         >
           <h5 className="ps-4 py-4 border-bottom">Amenities</h5>
           <Formik

@@ -99,14 +99,14 @@ function LocalityDetails() {
 
   return (
     <div className="container h-100">
-      <div className={`d-flex flex-row justify-content-center`}>
+      <div className={`d-flex flex-column flex-sm-row justify-content-center`}>
         <div className={`w-20 ${styles.container}`}>
           <Sidebar pathname={location.pathname} />
         </div>
         <div
           className={`w-75 ms-2 px-4 d-flex flex-column ${styles.container}`}
         >
-          <h5 className="ps-4 py-4 border-bottom">Property Details</h5>
+          <h5 className="ps-4 py-4 border-bottom">Locality Details</h5>
           <form
             onSubmit={handleFormSubmit}
             className="h-100 d-flex flex-column"
@@ -119,7 +119,7 @@ function LocalityDetails() {
                   id="city"
                   value={city}
                   onChange={handleCityChange}
-                  className="form-control"
+                  className={`form-control ${styles.selectBox}`}
                   required
                 >
                   <option value="">Select</option>

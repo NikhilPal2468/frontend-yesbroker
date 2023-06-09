@@ -135,14 +135,14 @@ function RentDetails() {
 
   return (
     <div className={`container`}>
-      <div className={`d-flex flex-row justify-content-center`}>
+      <div className={`d-flex flex-column flex-sm-row justify-content-center`}>
         <div className={`w-20 ${styles.container}`}>
           <Sidebar pathname={location.pathname} />
         </div>
         <div
           className={`w-75 ms-2 px-4 d-flex flex-column ${styles.container}`}
         >
-          <h5>Property Details</h5>
+          <h5 className="ps-4 py-4 border-bottom">Rental Details</h5>
           <Formik
             initialValues={formValues}
             validationSchema={validationSchema}
@@ -201,7 +201,7 @@ function RentDetails() {
                       onChange={(e) => {
                         setFieldValue("monthly_maintenance", e.target.value);
                       }}
-                      className="form-control"
+                      className={`form-control ${styles.selectBox}`}
                     >
                       <option value="">Select</option>
                       {MAINTENANCE.map((type) => (
@@ -261,7 +261,7 @@ function RentDetails() {
                       component="select"
                       id="furnishing_type"
                       name="furnishing_type"
-                      className="form-control"
+                      className={`form-control ${styles.selectBox}`}
                     >
                       <option value="">Select</option>
                       {FURNISHING_TYPE.map((type) => (
@@ -289,7 +289,7 @@ function RentDetails() {
                       onChange={(e) => {
                         setFieldValue("parking", e.target.value);
                       }}
-                      className="form-control"
+                      className={`form-control ${styles.selectBox}`}
                     >
                       <option value="">Select</option>
                       {PARKING.map((type) => (
@@ -308,7 +308,7 @@ function RentDetails() {
                       component="select"
                       id="preferred_tenants"
                       name="preferred_tenants"
-                      className="form-control"
+                      className={`form-control ${styles.selectBox}`}
                     >
                       <option value="">Select</option>
                       {PREFERRED_TENANTS.map((type) => (
