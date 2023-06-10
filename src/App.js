@@ -24,6 +24,7 @@ import Gallery from "./components/PostProperty/House/Gallery";
 import { useSelector } from "react-redux";
 
 import RedirectPage from "./components/common/RedirectPage";
+// axios.defaults.baseURL = "https://homewale-backend.onrender.com";
 axios.defaults.baseURL = "http://localhost:5000";
 axios.defaults.withCredentials = true;
 

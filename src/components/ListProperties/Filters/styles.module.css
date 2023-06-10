@@ -43,3 +43,6 @@
     display: none; /* Hide the element on screens with a maximum width of 767px (small screens) */
   }
 }
+.cursor_pointer{
+  cursor: pointer;
+}

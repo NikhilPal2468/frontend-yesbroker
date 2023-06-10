@@ -42,12 +42,27 @@ function HouseFilters({
       setFurnishing((prev) => prev.filter((i) => i !== item));
     }
   };
+  const resetFilters = () => {
+    setBhkType([]);
+    setPreferredTenants(["Both"]);
+    setPrice([0, 100000]);
+    setFurnishing([]);
+    setTwoWheelerParking(false);
+    setFourWheelerParking(false);
+    setWithImage(false);
+    document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
+      checkbox.checked = false;
+    });
+  };
   return (
     <div className="p-1 col-12 col-md-5 col-lg-4">
       <div className={`card p-2 ${styles.sticky_card}`}>
         <div className="d-flex flex-row justify-content-between align-items-center pb-2 border-bottom border-3 border-dark">
           <h5 className="card-title my-auto">Filters</h5>
-          <p className="my-auto cursor-pointer">
+          <p
+            className={`my-auto ${styles.cursor_pointer}`}
+            onClick={resetFilters}
+          >
             <BsArrowCounterclockwise /> Reset
           </p>
         </div>

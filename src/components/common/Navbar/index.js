@@ -55,7 +55,7 @@ const Navbar = () => {
       <div className="container-fluid">
         <div className={styles.navbar_left}>
           <Link to={`/`} className="navbar-brand">
-            <img src="/images/logoHomeWale.jpeg" alt="logo" />
+            <img src="/images/logo1.svg" alt="logo" />
             HomeWale
           </Link>
         </div>
