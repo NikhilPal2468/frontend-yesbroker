@@ -82,7 +82,11 @@ function ProfilePage() {
                     className="col"
                     disabled={verified}
                   />
-                  <BsFillExclamationTriangleFill size={25} color="#bc0b0b" />
+                  {verified ? (
+                    <TiTick size={30} color="green" />
+                  ) : (
+                    <BsFillExclamationTriangleFill size={25} color="#bc0b0b" />
+                  )}
                 </div>
               </div>
               <div className="row gap-4 p-2 m-2">
