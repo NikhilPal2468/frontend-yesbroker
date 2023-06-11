@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 // import styles from "./styles.module.css";
 import axios from "axios";
-
-import OwnerModal from "../OwnerModal";
 import HouseCard from "../HouseCard";
 
 const HouseList = ({
@@ -17,7 +15,6 @@ const HouseList = ({
   fourWheelerParking = false,
   withImage = false,
 }) => {
-  const [showOwnersContacted, setShowOwnersContacted] = useState(false);
   const [houses, setHouses] = useState([]);
 
   if (bhkType === []) {
@@ -122,17 +119,9 @@ const HouseList = ({
             preferred_tenants={preferred_tenants}
             available_from={available_from}
             propertyType={propertyType}
-            setShowOwnersContacted={setShowOwnersContacted}
           />
         );
       })}
-
-      {showOwnersContacted && (
-        <OwnerModal
-          showOwnersContacted={showOwnersContacted}
-          setShowOwnersContacted={setShowOwnersContacted}
-        />
-      )}
     </div>
   );
 };

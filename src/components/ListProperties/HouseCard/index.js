@@ -7,6 +7,7 @@ import { VscKey } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 import { HiHeart, HiOutlineHeart } from "react-icons/hi";
 import axios from "axios";
+import OwnerModal from "../OwnerModal";
 const HouseCard = ({
   houses_id = "",
   //   apartment_name = "",
@@ -20,9 +21,11 @@ const HouseCard = ({
   preferred_tenants = "",
   available_from = "",
   propertyType = "",
-  setShowOwnersContacted = () => {},
 }) => {
+  const [showOwnersContacted, setShowOwnersContacted] = useState(false);
+  const [houseId, setHouseId] = useState("");
   const [liked, setLiked] = useState(false);
+
   const likeHandler = async (houses_id) => {
     setLiked(!liked);
     console.log("houseId:", houses_id);
@@ -37,10 +40,11 @@ const HouseCard = ({
     }
   };
 
-  const handleHouseClicked = () => {
-    console.log("hello");
+  const handleHouseClicked = (e, housesId) => {
+    setHouseId(housesId);
     setShowOwnersContacted(true);
   };
+
   return (
     <div className="mb-4" key={houses_id}>
       <Link to={`/property/${houses_id}`} className="text-decoration-none">
@@ -58,7 +62,7 @@ const HouseCard = ({
           to={`/property/${houses_id}`}
           className="text-decoration-none text-dark"
         >
-          <div className="card-body row">
+          <div className="card-body row text-center">
             <div
               className={`col-6 col-md d-flex flex-column ${styles.borderOpt2}`}
             >
@@ -87,147 +91,149 @@ const HouseCard = ({
         </Link>
       </div>
       <div className="card rounded-top-0">
-        <div className="d-flex flex-column flex-lg-row p-3 gap-2">
-          <div className="col-12 col-lg-4">
-            <div
-              id="carouselExampleControls"
-              className="carousel slide"
-              data-ride="carousel"
-            >
+        <div className="card rounded-top-0">
+          <div className="d-flex flex-column flex-lg-row p-3 gap-2">
+            <div className="col-12 col-lg-4">
               <div
-                className={`carousel-inner overflow-hidden ${styles.listImageDiv}`}
+                id="carouselExampleControls"
+                className="carousel slide"
+                data-ride="carousel"
               >
-                <div className="carousel-item active h-100">
-                  <img
-                    src="https://images.nobroker.in/images/8a9ffd8488337eca018833ae08d41c58/8a9ffd8488337eca018833ae08d41c58_22925_281699_medium.jpg"
-                    className={`d-block w-100 ${styles.listImage}`}
-                    alt="..."
-                  />
+                <div
+                  className={`carousel-inner overflow-hidden ${styles.listImageDiv}`}
+                >
+                  <div className="carousel-item active h-100">
+                    <img
+                      src="https://images.nobroker.in/images/8a9ffd8488337eca018833ae08d41c58/8a9ffd8488337eca018833ae08d41c58_22925_281699_medium.jpg"
+                      className={`d-block w-100 ${styles.listImage}`}
+                      alt="..."
+                    />
+                  </div>
+                  <div className="carousel-item h-100">
+                    <img
+                      src="https://images.nobroker.in/images/8a9f0782880e219201880e411e310cf0/8a9f0782880e219201880e411e310cf0_252667_804472_thumbnail.jpg"
+                      className={`d-block w-100 ${styles.listImage}`}
+                      alt="..."
+                    />
+                  </div>
+                  <div className="carousel-item h-100">
+                    <img
+                      src="https://images.nobroker.in/images/8a9fcc83880ee8cb01880f6435ad4a2c/8a9fcc83880ee8cb01880f6435ad4a2c_41407_272325_medium.jpg"
+                      className={`d-block w-100 ${styles.listImage}`}
+                      alt="..."
+                    />
+                  </div>
                 </div>
-                <div className="carousel-item h-100">
-                  <img
-                    src="https://images.nobroker.in/images/8a9f0782880e219201880e411e310cf0/8a9f0782880e219201880e411e310cf0_252667_804472_thumbnail.jpg"
-                    className={`d-block w-100 ${styles.listImage}`}
-                    alt="..."
-                  />
-                </div>
-                <div className="carousel-item h-100">
-                  <img
-                    src="https://images.nobroker.in/images/8a9fcc83880ee8cb01880f6435ad4a2c/8a9fcc83880ee8cb01880f6435ad4a2c_41407_272325_medium.jpg"
-                    className={`d-block w-100 ${styles.listImage}`}
-                    alt="..."
-                  />
-                </div>
+                <Link
+                  className="carousel-control-prev"
+                  to="#carouselExampleControls"
+                  role="button"
+                  data-slide="prev"
+                >
+                  <span
+                    className="carousel-control-prev-icon"
+                    aria-hidden="true"
+                  ></span>
+                </Link>
+                <Link
+                  className="carousel-control-next"
+                  to="#carouselExampleControls"
+                  role="button"
+                  data-slide="next"
+                >
+                  <span
+                    className="carousel-control-next-icon"
+                    aria-hidden="true"
+                  ></span>
+                </Link>
               </div>
-              <Link
-                className="carousel-control-prev"
-                to="#carouselExampleControls"
-                role="button"
-                data-slide="prev"
-              >
-                <span
-                  className="carousel-control-prev-icon"
-                  aria-hidden="true"
-                ></span>
-              </Link>
-              <Link
-                className="carousel-control-next"
-                to="#carouselExampleControls"
-                role="button"
-                data-slide="next"
-              >
-                <span
-                  className="carousel-control-next-icon"
-                  aria-hidden="true"
-                ></span>
-              </Link>
             </div>
-          </div>
-          <div className="col-12 col-lg-8 d-flex justify-contents-center">
-            <div className="row w-100 h-100 m-0 m-2 p-2">
-              <div className={`col-12 d-flex flex-row ${styles.borderOpt1}`}>
-                <div
-                  className={`w-50 d-flex flex-row justify-content-center align-items-center ${styles.borderOpt2}`}
-                >
-                  <div className="px-2">
-                    <TbSofa size={28} />
-                  </div>
-                  <div>
-                    <p className="mb-0">{furnishing_type}</p>
-                    <p className="card-title mb-0 text-bold">
-                      <small>Furnishing</small>
-                    </p>
-                  </div>
-                </div>
-                <div className="w-50 d-flex flex-row justify-content-center align-items-center">
-                  <div className="px-2">
-                    <GiFamilyHouse size={28} />
-                  </div>
-                  <div>
-                    <p className="mb-0">{bhk_type}</p>
-                    <p className="card-title mb-0 text-bold">
-                      <small>Apartment Type</small>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div
-                className={`col-12 d-flex flex-row ${styles.borderOpt1} border-top-0`}
-              >
-                <div
-                  className={`w-50 d-flex flex-row justify-content-center align-items-center ${styles.borderOpt2}`}
-                >
-                  <div className="px-2">
-                    <GrUserManager size={28} />
-                  </div>
-                  <div>
-                    <p className="mb-0">{preferred_tenants}</p>
-                    <p className="card-title mb-0 text-bold">
-                      <small>Preferred Tenants</small>
-                    </p>
-                  </div>
-                </div>
-                <div className="w-50 d-flex flex-row justify-content-center align-items-center">
-                  <div className="px-2">
-                    <VscKey size={28} />
-                  </div>
-                  <div>
-                    <p className="mb-0">
-                      {new Date(available_from).toLocaleString("en-US", {
-                        day: "numeric",
-                        month: "long",
-                        year: "numeric",
-                      })}
-                    </p>
-                    <p className="card-title mb-0 text-bold">
-                      <small>Available From</small>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="col-12 d-flex flex-row my-2">
-                <div className="d-flex flex-row justify-content-center align-items-center w-100">
+            <div className="col-12 col-lg-8 d-flex justify-contents-center">
+              <div className="row w-100 h-100 m-0 m-2 p-2">
+                <div className={`col-12 d-flex flex-row ${styles.borderOpt1}`}>
                   <div
-                    className={`flex-grow-1 p-2 text-white text-center rounded ${styles.primary_color}`}
-                    role="button"
-                    onClick={(e) => {
-                      handleHouseClicked(e);
-                    }}
+                    className={`w-50 d-flex flex-row justify-content-center align-items-center ${styles.borderOpt2}`}
                   >
-                    Get Owner Details
+                    <div className="px-2">
+                      <TbSofa size={28} />
+                    </div>
+                    <div>
+                      <p className="mb-0">{furnishing_type}</p>
+                      <p className="card-title mb-0 text-bold">
+                        <small>Furnishing</small>
+                      </p>
+                    </div>
                   </div>
+                  <div className="w-50 d-flex flex-row justify-content-center align-items-center">
+                    <div className="px-2">
+                      <GiFamilyHouse size={28} />
+                    </div>
+                    <div>
+                      <p className="mb-0">{bhk_type}</p>
+                      <p className="card-title mb-0 text-bold">
+                        <small>Apartment Type</small>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className={`col-12 d-flex flex-row ${styles.borderOpt1} border-top-0`}
+                >
                   <div
-                    className={`p-1 rounded ms-2 ${styles.likeBorder}`}
-                    role="button"
-                    onClick={() => {
-                      likeHandler(houses_id);
-                    }}
+                    className={`w-50 d-flex flex-row justify-content-center align-items-center ${styles.borderOpt2}`}
                   >
-                    {liked ? (
-                      <HiHeart size={28} color="#6c63ff" />
-                    ) : (
-                      <HiOutlineHeart size={28} color="#6c63ff" />
-                    )}
+                    <div className="px-2">
+                      <GrUserManager size={28} />
+                    </div>
+                    <div>
+                      <p className="mb-0">{preferred_tenants}</p>
+                      <p className="card-title mb-0 text-bold">
+                        <small>Preferred Tenants</small>
+                      </p>
+                    </div>
+                  </div>
+                  <div className="w-50 d-flex flex-row justify-content-center align-items-center">
+                    <div className="px-2">
+                      <VscKey size={28} />
+                    </div>
+                    <div>
+                      <p className="mb-0">
+                        {new Date(available_from).toLocaleString("en-US", {
+                          day: "numeric",
+                          month: "long",
+                          year: "numeric",
+                        })}
+                      </p>
+                      <p className="card-title mb-0 text-bold">
+                        <small>Available From</small>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-12 d-flex flex-row my-2">
+                  <div className="d-flex flex-row justify-content-center align-items-center w-100">
+                    <div
+                      className={`flex-grow-1 p-2 text-white text-center rounded ${styles.primary_color}`}
+                      role="button"
+                      onClick={(e) => {
+                        handleHouseClicked(e, houses_id);
+                      }}
+                    >
+                      Get Owner Details
+                    </div>
+                    <div
+                      className={`p-1 rounded ms-2 ${styles.likeBorder}`}
+                      role="button"
+                      onClick={() => {
+                        likeHandler(houses_id);
+                      }}
+                    >
+                      {liked ? (
+                        <HiHeart size={28} color="#6c63ff" />
+                      ) : (
+                        <HiOutlineHeart size={28} color="#6c63ff" />
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -235,6 +241,13 @@ const HouseCard = ({
           </div>
         </div>
       </div>
+      {showOwnersContacted && (
+        <OwnerModal
+          showOwnersContacted={showOwnersContacted}
+          setShowOwnersContacted={setShowOwnersContacted}
+          houseId={houseId}
+        />
+      )}
     </div>
   );
 };
