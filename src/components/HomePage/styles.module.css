@@ -5,6 +5,30 @@
   position: relative;
 }
 
+.homeCard {
+  max-width: 250px;
+  min-height: fit-content;
+  max-height: 250px;
+  align-items: center;
+  padding: 8px 4px;
+}
+
+.homeCard:hover {
+  background-color: rgb(9, 87, 160);
+  color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.imageBody {
+  max-width: 100px;
+}
+
+.cardBody {
+  padding: 4px;
+  margin: 36px;
+  margin-top: 64px;
+}
+
 .homepage {
   display: flex;
   flex-direction: column;
@@ -30,7 +54,7 @@
   min-width: 50%;
 }
 
-.autocomplete_dropdown_container{
+.autocomplete_dropdown_container {
   border-radius: 10px;
   width: 54%;
   position: absolute;
@@ -40,30 +64,30 @@
   overflow-x: auto;
   height: 197px;
 }
-.remove_dropdown_container{
+.remove_dropdown_container {
   height: 0px;
 }
 
-.suggestion_item{
+.suggestion_item {
   margin: 5px 0px;
   cursor: pointer;
   padding: 5px;
 }
-.suggestion_item:hover{
+.suggestion_item:hover {
   background-color: #e8e4e4;
 }
-.input_group_bs{
+.input_group_bs {
   position: relative;
 }
-.chips{
+.chips {
   /* position: absolute; */
   z-index: 100;
 }
-.chip_container{
+.chip_container {
   /* position: absolute; */
 }
 
-.property_owner{
+.property_owner {
   margin: 100px 0px 20px 0px;
 }
 
@@ -71,7 +95,7 @@
   .custom_width {
     width: 100% !important;
   }
-  .autocomplete_dropdown_container{
+  .autocomplete_dropdown_container {
     top: 75px;
     width: 76%;
   }

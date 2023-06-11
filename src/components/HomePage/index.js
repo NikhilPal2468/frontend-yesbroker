@@ -381,10 +381,56 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-      <div className={styles.property_owner}>Are you a Property Owner?</div>
-      <Link to="/list-your-property-for-rent">
-        <Button>Post your property</Button>
-      </Link>
+      <div>
+        <div className={styles.property_owner}>Are you a Property Owner?</div>
+        <Link to="/list-your-property-for-rent">
+          <Button>Post your property</Button>
+        </Link>
+      </div>
+      <div className={`w-100 ${styles.cardBody} text-center`}>
+        <h3 className={`text-center my-8 p-4 pb-6`}>Why HOMEWALE?</h3>
+        <div className="mt-8 w-100 d-flex flex-column flex-md-row gap-4 align-items-center justify-content-around">
+          <div className={`card ${styles.homeCard}`}>
+            <img
+              src="\images\house-search-svgrepo-com.svg"
+              alt=""
+              className={`${styles.imageBody}`}
+            />
+            <div className="card-body">
+              <h4>Buy your Home</h4>
+              <p>New in town and dont know where to find homes, Try Us!!</p>
+            </div>
+          </div>
+          <div className={`card ${styles.homeCard}`}>
+            <img
+              src="\images\for-rent-svgrepo-com.svg"
+              alt=""
+              className={`${styles.imageBody}`}
+            />
+            <div className="card-body">
+              <h4>Rent your Home</h4>
+              <p>
+                You can take your property online and increase visibility among
+                tenants
+              </p>
+            </div>
+          </div>
+          <div className={`card ${styles.homeCard}`}>
+            <img
+              src="\images\relax-svgrepo-com.svg"
+              alt=""
+              className={`${styles.imageBody}`}
+            />
+            <div className="card-body">
+              <h4>Sit back and Chill </h4>
+              <p>
+                Either it is searching or renting your homes, You can chill
+                while we do your job
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

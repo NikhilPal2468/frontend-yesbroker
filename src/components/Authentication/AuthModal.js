@@ -32,7 +32,7 @@ export default function AuthModal() {
               </li>
               <li className="d-flex flex-col w-100">
                 <p>✔</p>
-                <p>Authentic Brokers</p>
+                <p>Verified Properties</p>
               </li>
               <li className="d-flex flex-row w-100">
                 <p>✔</p>
