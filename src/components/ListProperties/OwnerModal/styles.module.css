@@ -1,0 +1,17 @@
+.button_premium {
+  background-color: #28438a;
+  color: white;
+  padding: 2px 4px;
+  border-radius: 10px;
+  padding: 2px 4px;
+}
+
+.button_premium:hover {
+  background-color: #3356b2;
+}
+
+.blurText {
+  -webkit-filter: blur(3px);
+  filter: blur(3px);
+  z-index: -1;
+}

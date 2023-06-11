@@ -69,18 +69,22 @@ function HouseFilters({
         <div className="card-body">
           <div className="input-group d-flex flex-column border-bottom border-1 border-dark">
             <h6 className="text-start">BHK Type</h6>
-            <div className="grid pb-2 justify-content-between align-items-center text-start">
+            <div className="grid pb-2 mx-auto justify-content-center align-items-center text-start">
               {BHKTYPE.map((bhk_type) => (
                 <div key={bhk_type} className="form-check form-check-inline">
-                  <label className={`form-check-label`} htmlFor={bhk_type}>
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id={bhk_type}
-                      name={bhk_type}
-                      value={bhk_type}
-                      onChange={(event) => handleBhkTypeChange(event, bhk_type)}
-                    />
+                  <input
+                    className={`${styles.input_checkbox}`}
+                    type="checkbox"
+                    id={bhk_type}
+                    name={bhk_type}
+                    value={bhk_type}
+                    onChange={(event) => handleBhkTypeChange(event, bhk_type)}
+                  />
+                  <label
+                    className={`${styles.input_label} m-1`}
+                    htmlFor={bhk_type}
+                    role="button"
+                  >
                     {bhk_type}
                   </label>
                 </div>
@@ -95,20 +99,21 @@ function HouseFilters({
                   key={preferred_tenant}
                   className="form-check flex-grow-1 form-check-inline"
                 >
+                  <input
+                    className={`${styles.input_checkbox}`}
+                    type="checkbox"
+                    id={preferred_tenant}
+                    name={preferred_tenant}
+                    value={preferred_tenant}
+                    onChange={(event) =>
+                      handlePreferredTenantsChange(event, preferred_tenant)
+                    }
+                  />
                   <label
-                    className={`form-check-label ${styles.filterOption}`}
+                    className={`${styles.filterOption} ${styles.input_label} m-1`}
                     htmlFor={preferred_tenant}
+                    role="button"
                   >
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id={preferred_tenant}
-                      name={preferred_tenant}
-                      value={preferred_tenant}
-                      onChange={(event) =>
-                        handlePreferredTenantsChange(event, preferred_tenant)
-                      }
-                    />
                     {preferred_tenant}
                   </label>
                 </div>
@@ -141,20 +146,21 @@ function HouseFilters({
                   key={furnishing_type}
                   className="form-check flex-grow-1 form-check-inline"
                 >
+                  <input
+                    className={`${styles.input_checkbox}`}
+                    type="checkbox"
+                    id={furnishing_type}
+                    name={furnishing_type}
+                    value={furnishing_type}
+                    onChange={(event) =>
+                      handleFurnishingChange(event, furnishing_type)
+                    }
+                  />
                   <label
-                    className={`form-check-label ${styles.filterOption}`}
+                    className={`${styles.filterOption} ${styles.input_label} m-2`}
                     htmlFor={furnishing_type}
+                    role="button"
                   >
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id={furnishing_type}
-                      name={furnishing_type}
-                      value={furnishing_type}
-                      onChange={(event) =>
-                        handleFurnishingChange(event, furnishing_type)
-                      }
-                    />
                     {furnishing_type}
                   </label>
                 </div>
@@ -165,38 +171,41 @@ function HouseFilters({
             <h6 className="text-start">Parking</h6>
             <div className="d-flex pb-2 flex-row justify-content-between align-items-center text-start">
               <div className="form-check flex-grow-1 form-check-inline">
+                <input
+                  className={`${styles.input_checkbox}`}
+                  type="checkbox"
+                  id="twowheeler"
+                  name="twowheeler"
+                  value="twowheeler"
+                  onChange={(event) =>
+                    setTwoWheelerParking(event.target.checked)
+                  }
+                />
                 <label
-                  className={`form-check-label ${styles.filterOption}`}
+                  className={`${styles.filterOption} ${styles.input_label} m-1`}
                   htmlFor="twowheeler"
+                  role="button"
                 >
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="twowheeler"
-                    name="twowheeler"
-                    value="twowheeler"
-                    onChange={(event) =>
-                      setTwoWheelerParking(event.target.checked)
-                    }
-                  />
+                  {" "}
                   2 Wheeler
                 </label>
               </div>
               <div className="form-check flex-grow-1 form-check-inline">
+                <input
+                  className={`${styles.input_checkbox}`}
+                  type="checkbox"
+                  id="fourwheeler"
+                  value="fourwheeler"
+                  name="fourwheeler"
+                  onChange={(event) =>
+                    setFourWheelerParking(event.target.checked)
+                  }
+                />
                 <label
-                  className={`form-check-label ${styles.filterOption}`}
+                  className={`${styles.filterOption} ${styles.input_label} m-1`}
                   htmlFor="fourwheeler"
+                  role="button"
                 >
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="fourwheeler"
-                    value="fourwheeler"
-                    name="fourwheeler"
-                    onChange={(event) =>
-                      setFourWheelerParking(event.target.checked)
-                    }
-                  />
                   4 Wheeler
                 </label>
               </div>
@@ -206,18 +215,19 @@ function HouseFilters({
             <h6 className="text-start">Show Only</h6>
             <div className="d-flex pb-2 flex-row justify-content-between align-items-center text-start">
               <div className="form-check flex-grow-1 form-check-inline">
+                <input
+                  className={`${styles.input_checkbox}`}
+                  type="checkbox"
+                  id="withImage"
+                  name="withImage"
+                  value="withImage"
+                  onChange={(event) => setWithImage(event.target.checked)}
+                />
                 <label
-                  className={`form-check-label ${styles.filterOption}`}
+                  className={`${styles.filterOption} ${styles.input_label} m-1`}
                   htmlFor="withImage"
+                  role="button"
                 >
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="withImage"
-                    name="withImage"
-                    value="withImage"
-                    onChange={(event) => setWithImage(event.target.checked)}
-                  />
                   With Image
                 </label>
               </div>

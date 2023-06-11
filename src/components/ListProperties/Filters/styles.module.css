@@ -34,10 +34,33 @@
   border-color: #6c63ff;
 }
 
-.sticky_card{
+.sticky_card {
   position: sticky !important;
   top: 10px;
 }
+
+.input_checkbox {
+  display: none;
+}
+
+.input_label {
+  border: 2px solid #28438a;
+  border-radius: 5px;
+  padding: 2px 4px;
+  align-items: center;
+  width: 70px;
+}
+
+.input_label:hover {
+  background-color: #7b9eff;
+  color: white;
+}
+
+.input_checkbox:checked + .input_label {
+  background-color: #3356b2;
+  color: white;
+}
+
 @media screen and (max-width: 767px) {
   .hideOnSmall {
     display: none; /* Hide the element on screens with a maximum width of 767px (small screens) */

@@ -11,6 +11,7 @@ import ForgotPassword from "./components/Authentication/ForgotPassword";
 import ResetPassword from "./components/Authentication/ResetPassword";
 import ListProperties from "./components/ListProperties";
 
+import PremiumPage from "./components/Premium";
 import ProfilePage from "./components/UserDashboard/otherPages/ProfilePage";
 import YourProperties from "./components/UserDashboard/otherPages/YourProperties";
 import YourShortlists from "./components/UserDashboard/otherPages/YourShortlists";
@@ -39,6 +40,9 @@ function App() {
         <Route path="/properties" element={<ListProperties />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/resetpassword/:id/:token" element={<ResetPassword />} />
+
+        {/* Premium page */}
+        <Route path="/premium" element={<PremiumPage />} />
 
         {/* User Dashboard routes */}
         <Route path="/user/myprofile" element={<ProfilePage />} />
