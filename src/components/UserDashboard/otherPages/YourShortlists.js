@@ -66,7 +66,7 @@ function YourShortlists() {
           <div>
             {(shortlistedProperty || []).map(
               ({
-                houses_id = "",
+                id = "",
                 apartment_name = "",
                 locality = "",
                 rent = 0,
@@ -80,8 +80,8 @@ function YourShortlists() {
               }) => {
                 return (
                   <HouseCard
-                    key={houses_id}
-                    houses_id={houses_id}
+                    key={id}
+                    houses_id={id}
                     apartment_name={apartment_name}
                     locality={locality}
                     rent={rent}

@@ -45,7 +45,6 @@ function ProfilePage() {
           theme: "colored",
         });
         const { data } = await axios.get("/secure/api/user/me");
-        console.log("data:", data);
         dispatch(setUserDetails(data));
       }
     } catch (e) {
