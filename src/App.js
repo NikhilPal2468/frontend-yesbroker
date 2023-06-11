@@ -26,8 +26,8 @@ import { useSelector } from "react-redux";
 
 import RedirectPage from "./components/common/RedirectPage";
 import SingleProperty from "./components/SingleProperty";
-// axios.defaults.baseURL = "https://homewale-backend.onrender.com";
-axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.baseURL = "https://homewale-backend.onrender.com";
+// axios.defaults.baseURL = "http://localhost:5000";
 axios.defaults.withCredentials = true;
 
 function App() {

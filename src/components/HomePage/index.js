@@ -138,7 +138,7 @@ const HomePage = () => {
     <div className={styles.homepage}>
       <ToastContainer />
       <div className={styles.homepage_heading}>
-        World&apos;s Largest Brokerage Property Site
+        Discover Your Perfect Fit: Where Houses Become Homes
       </div>
       <div
         className={`${styles.input_group} d-flex flex-column justify-content-center align-items-center`}
