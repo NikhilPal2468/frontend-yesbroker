@@ -9,7 +9,7 @@ import { HiHeart, HiOutlineHeart } from "react-icons/hi";
 import axios from "axios";
 const HouseCard = ({
   houses_id = "",
-  apartment_name = "",
+  //   apartment_name = "",
   locality = "",
   rent = 0,
   rent_negotiable = false,
@@ -43,41 +43,48 @@ const HouseCard = ({
   };
   return (
     <div className="mb-4" key={houses_id}>
-      <div className="card border-bottom-0 rounded-bottom-0">
-        <div className="card-body">
-          <h5 className="card-title text-start">{`${apartment_name} in ${locality}`}</h5>
-          <h6 className="font-weight-light mb-2 text-muted text-start">
-            {/* <small>{house?.headline}</small> */}
-          </h6>
+      <Link to={`/property/${houses_id}`} className="text-decoration-none">
+        <div className="card border-bottom-0 rounded-bottom-0">
+          <div className="card-body">
+            <h5 className="card-title text-start">{`${bhk_type} in ${locality}`}</h5>
+            <h6 className="font-weight-light mb-2 text-muted text-start">
+              {/* <small>{house?.headline}</small> */}
+            </h6>
+          </div>
         </div>
-      </div>
+      </Link>
       <div className="card rounded-top-0 rounded-bottom-0">
-        <div className="card-body row">
-          <div
-            className={`col-6 col-md d-flex flex-column ${styles.borderOpt2}`}
-          >
-            <h6 className="card-title mb-0">₹ {rent}</h6>
-            <p className="mb-0">
-              <small>{`Rent (${
-                rent_negotiable ? "Negotiable" : "Non-Negotiable"
-              })`}</small>
-            </p>
+        <Link
+          to={`/property/${houses_id}`}
+          className="text-decoration-none text-dark"
+        >
+          <div className="card-body row">
+            <div
+              className={`col-6 col-md d-flex flex-column ${styles.borderOpt2}`}
+            >
+              <h6 className="card-title mb-0">₹ {rent}</h6>
+              <p className="mb-0">
+                <small>{`Rent (${
+                  rent_negotiable ? "Negotiable" : "Non-Negotiable"
+                })`}</small>
+              </p>
+            </div>
+            <div
+              className={`col-6 col-md d-flex flex-column ${styles.borderOpt2}`}
+            >
+              <h6 className="card-title mb-0">₹ {deposit}</h6>
+              <p className="mb-0">
+                <small>Deposit</small>
+              </p>
+            </div>
+            <div className="col-12 col-md d-flex flex-column d-none d-md-flex">
+              <h6 className="card-title mb-0">{builtup_area}</h6>
+              <p className="mb-0">
+                <small>Builtup(sqft)</small>
+              </p>
+            </div>
           </div>
-          <div
-            className={`col-6 col-md d-flex flex-column ${styles.borderOpt2}`}
-          >
-            <h6 className="card-title mb-0">₹ {deposit}</h6>
-            <p className="mb-0">
-              <small>Deposit</small>
-            </p>
-          </div>
-          <div className="col-12 col-md d-flex flex-column d-none d-md-flex">
-            <h6 className="card-title mb-0">{builtup_area}</h6>
-            <p className="mb-0">
-              <small>Builtup(sqft)</small>
-            </p>
-          </div>
-        </div>
+        </Link>
       </div>
       <div className="card rounded-top-0">
         <div className="d-flex flex-column flex-lg-row p-3 gap-2">

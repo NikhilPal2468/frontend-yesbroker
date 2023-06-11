@@ -31,6 +31,7 @@ const HomePage = () => {
   const [propertyType, setPropertyType] = useState("house");
   const [suggestionList, setSuggestionList] = useState([]);
   const [selectedLocality, setSelectedLocality] = useState([]);
+  // const [nearbyLocalities, setNearbyLocalities] = useState([]);
 
   const [bhkType, setbhkType] = useState([]);
   const [tenantTypes, setTenantTypes] = useState([]);
@@ -90,7 +91,7 @@ const HomePage = () => {
     setSearchValue(e.target.value);
   };
 
-  const addLocality = (place) => {
+  const addLocality = async (place) => {
     const checker = selectedLocality.some(
       (locality) => locality.place_id === place.place_id
     );
@@ -99,6 +100,14 @@ const HomePage = () => {
       setSelectedLocality([...selectedLocality, place]);
       setSuggestionList([]);
       setSearchValue("");
+      // await axios
+      //   .get(`/public/api/nearbyLocalities?text=${place?.description}`)
+      //   .then((response) => {
+      //     setNearbyLocalities(response.data);
+      //   })
+      //   .catch((error) => {
+      //     console.error(error);
+      //   });
     } else {
       toast.error("Locality already selected", {
         position: "top-center",

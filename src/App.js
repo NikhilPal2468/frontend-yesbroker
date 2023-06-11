@@ -24,6 +24,7 @@ import Gallery from "./components/PostProperty/House/Gallery";
 import { useSelector } from "react-redux";
 
 import RedirectPage from "./components/common/RedirectPage";
+import SingleProperty from "./components/SingleProperty";
 // axios.defaults.baseURL = "https://homewale-backend.onrender.com";
 axios.defaults.baseURL = "http://localhost:5000";
 axios.defaults.withCredentials = true;
@@ -42,11 +43,14 @@ function App() {
 
         {/* User Dashboard routes */}
         <Route path="/user/myprofile" element={<ProfilePage />} />
-        <Route path="/user/mylistings" element={<YourProperties />} />
-        <Route path="/user/mylistings/flats" element={<YourProperties />} />
-        <Route path="/user/mylistings/pgs" element={<YourProperties />} />
-        <Route path="/user/myshortlists/houses" element={<YourShortlists />} />
-        <Route path="/user/myshortlists/pgs" element={<YourShortlists />} />
+        <Route
+          path="/user/mylistings/:propertyType"
+          element={<YourProperties />}
+        />
+        <Route
+          path="/user/myshortlists/:propertyType"
+          element={<YourShortlists />}
+        />
         <Route path="/user/ownerscontacted" element={<OwnersContacted />} />
 
         <Route
@@ -73,6 +77,7 @@ function App() {
           path="/property/manage/house/:id/gallery"
           element={<Gallery />}
         />
+        <Route path="/property/:id/" element={<SingleProperty />} />
       </Routes>
     </div>
   );

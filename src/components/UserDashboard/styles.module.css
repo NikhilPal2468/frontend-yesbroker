@@ -20,3 +20,7 @@
   background-color: #ada8fd;
   color: white;
 }
+.cards{
+  display: flex;
+    flex-wrap: wrap;
+}

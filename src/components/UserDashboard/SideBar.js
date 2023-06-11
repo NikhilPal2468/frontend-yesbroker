@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./styles.module.css";
 import { Link, useLocation } from "react-router-dom";
 
 function SideBar() {
   let location = useLocation();
 
-  const [showProperties, setShowProperties] = useState(false);
-  const [showShortlists, setShowShortlists] = useState(false);
+  // const [showProperties, setShowProperties] = useState(false);
+  // const [showShortlists, setShowShortlists] = useState(false);
 
   const linkClasses = (type = null) => {
     let classes = `${styles.linkStyle} mb-2 mx-2`;
@@ -31,7 +31,7 @@ function SideBar() {
 
   return (
     <div
-      className={`${styles.primary} d-flex flex-column text-start gap-2 rounded m-4 h-100`}
+      className={`${styles.primary} d-flex flex-column text-start gap-2 rounded m-4`}
     >
       <p className={`fw-bold w-100 border-bottom py-4 px-2`}>
         <small>Manage Your Account</small>
@@ -40,16 +40,14 @@ function SideBar() {
         My Profile
       </Link>
       <Link
-        className={`${showProperties ? `${styles.active}` : ""} ${linkClasses(
-          urls.myListings
+        to={urls.listedHouses}
+        className={`${linkClasses(urls.listedHouses)} ${linkClasses(
+          urls.listedPgs
         )}`}
-        onClick={() => {
-          setShowProperties((prev) => !prev);
-        }}
       >
         My Properties
       </Link>
-      {showProperties && (
+      {/* {showProperties && (
         <div className="d-flex flex-column">
           <Link
             to={urls.listedHouses}
@@ -61,22 +59,23 @@ function SideBar() {
             PG
           </Link>
         </div>
-      )}
+      )} */}
+
+      <Link
+        to={urls.shortlistHouses}
+        className={`${linkClasses(urls.shortlistHouses)} ${linkClasses(
+          urls.shortlistPgs
+        )}`}
+      >
+        My Shortlists
+      </Link>
       <Link
         to={urls.ownersContacted}
         className={linkClasses(urls.ownersContacted)}
       >
         Owners Contacted
       </Link>
-      <Link
-        className={linkClasses(urls.myShortlists)}
-        onClick={() => {
-          setShowShortlists((prev) => !prev);
-        }}
-      >
-        My Shortlists
-      </Link>
-      {showShortlists && (
+      {/* {showShortlists && (
         <div className="d-flex flex-column">
           <Link
             to={urls.shortlistHouses}
@@ -91,7 +90,7 @@ function SideBar() {
             PG/Hostel
           </Link>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

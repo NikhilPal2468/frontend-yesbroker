@@ -7,15 +7,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUserDetails } from "../../../store/actions";
 import Register from "../../Authentication/Register";
 import Login from "../../Authentication/Login";
+import { IoReorderThreeOutline } from "react-icons/io5";
+
 const Navbar = () => {
   const [user, setUser] = useState(null);
   const [showRegister, setShowRegister] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.user.userDetails);
-
-  const [showListings, setShowListings] = useState(false);
-  const [showShortlists, setShowShortlists] = useState(false);
 
   useEffect(() => {
     // Retrieve user details from browser storage on component mount
@@ -36,18 +35,6 @@ const Navbar = () => {
     setUser(null);
   };
 
-  const handleListings = (e) => {
-    e.preventDefault();
-    setShowListings((prev) => !prev);
-    e.stopPropagation();
-  };
-
-  const handleShortlists = (e) => {
-    e.preventDefault();
-    setShowShortlists((prev) => !prev);
-    e.stopPropagation();
-  };
-
   return (
     <nav
       className={`${styles.navbar_homewale} navbar navbar-expand-lg navbar-light bg-light card shadow-sm p-3 rounded`}
@@ -56,7 +43,6 @@ const Navbar = () => {
         <div className={styles.navbar_left}>
           <Link to={`/`} className="navbar-brand">
             <img src="/images/logo1.svg" alt="logo" />
-            HomeWale
           </Link>
         </div>
         <button
@@ -68,11 +54,12 @@ const Navbar = () => {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span className="navbar-toggler-icon"></span>
+          {/* <span className="navbar-toggler-icon"></span> */}
+          <IoReorderThreeOutline size={30} />
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <a className="nav-link active" aria-current="page" href="#">
                 Home
               </a>
@@ -86,80 +73,57 @@ const Navbar = () => {
               <a className="nav-link" href="#">
                 Pricing
               </a>
-            </li>
+            </li> */}
           </ul>
           {/* <span className="navbar-text">
             Navbar text with an inline element
           </span> */}
           {user ? (
             <div className="dropdown">
-              <div
-                className={`d-flex flex-row border border-dark pe-2 rounded-5 border-1 border-left-0 align-items-center justify-content-center gap-2  ${styles.userIcon}`}
-                data-toggle="dropdown"
-                aria-haspopup="true"
+              <a
+                className={`d-flex flex-row border border-dark pe-2 rounded-5 border-1 border-left-0 align-items-center justify-content-center gap-2 dropdown-toggle ${styles.userIcon}`}
+                type="button"
+                data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
                 <div className="border border-2 px-2 py-1 border-gray rounded-circle">
                   <FaHouseUser />
                 </div>
                 <p className="my-auto">{user?.name}</p>
-              </div>
+              </a>
               {/* </button> */}
-              <div
+              <ul
                 className="dropdown-menu"
                 aria-labelledby="dropdownMenuButton"
               >
-                <Link className="dropdown-item" to="/user/myprofile">
-                  Profile
-                </Link>
-                <a
-                  className="dropdown-item"
-                  href="#"
-                  onClick={(e) => {
-                    handleListings(e);
-                  }}
-                >
-                  My listings
-                </a>
-                {showListings && (
-                  <div>
-                    <Link
-                      className="dropdown-item"
-                      to="/user/mylistings/houses"
-                    >
-                      Houses
-                    </Link>
-                    <Link className="dropdown-item" to="/user/mylistings/pgs">
-                      Pgs
-                    </Link>
-                  </div>
-                )}
-                <a
-                  className="dropdown-item"
-                  href="#"
-                  onClick={(e) => {
-                    handleShortlists(e);
-                  }}
-                >
-                  My Shortlists
-                </a>
-                {showShortlists && (
-                  <div>
-                    <Link
-                      className="dropdown-item"
-                      to="/user/myshortlists/houses"
-                    >
-                      Houses
-                    </Link>
-                    <Link className="dropdown-item" to="/user/myshortlists/pgs">
-                      Pgs
-                    </Link>
-                  </div>
-                )}
-                <Link className="dropdown-item" href="#" onClick={handleLogout}>
-                  Logout
-                </Link>
-              </div>
+                <li>
+                  <Link className="dropdown-item" to="/user/myprofile">
+                    Profile
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" to="/user/mylistings/houses">
+                    My listings
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="dropdown-item"
+                    to="/user/myshortlists/houses"
+                  >
+                    My Shortlists
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="dropdown-item"
+                    href="#"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </Link>
+                </li>
+              </ul>
             </div>
           ) : (
             <div className={styles.navbar_right}>

@@ -3,13 +3,18 @@
 }
 
 .navbar_left img {
-  width: 40px;
+  width: 90px;
 }
 
 .userIcon {
   min-width: fit-content;
   cursor: pointer;
   margin-right: 80px;
+  color: black;
+  text-decoration: none;
+  &:hover{
+    color: black;
+  }
 }
 .dropdown-items{
   cursor: pointer;

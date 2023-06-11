@@ -1,28 +1,31 @@
 import React, { useEffect, useState } from "react";
 import SideBar from "../SideBar";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import HouseCard from "../../ListProperties/HouseCard";
 
 function YourShortlists() {
-  const location = useLocation();
-  const propertyType = location.pathname.split("/")[3];
+  const { propertyType } = useParams();
 
-  const [shortlistedProperty, setShortlistedProperty] = useState(null);
+  const [shortlistedProperty, setShortlistedProperty] = useState([]);
+  console.log("shortlistedProperty:", shortlistedProperty);
 
   useEffect(() => {
-    try {
-      const fetchData = async () => {
-        const data = await axios.get(
+    const fetchData = async () => {
+      try {
+        const { data } = await axios.get(
           `/secure/api/user/myshortlists?propertyType=${propertyType}`
         );
-        setShortlistedProperty(data);
-      };
+        console.log("data:", data.data);
+        setShortlistedProperty(data?.data);
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
 
-      fetchData();
-    } catch (err) {
-      console.log(err.message);
-    }
+    fetchData();
   }, [propertyType]);
+  console.log("shortlistedProperty:", shortlistedProperty);
 
   return (
     <div>
@@ -34,10 +37,75 @@ function YourShortlists() {
           <div className="container">
             <p className="fw-bold border-bottom py-4">My Shortlists</p>
           </div>
+          <div className="container">
+            <Link to={"/user/myshortlists/houses"}>
+              <button
+                type="button"
+                className={`btn btn-outline-primary me-2 ${
+                  propertyType === "houses" ? "active" : ""
+                }`}
+              >
+                Houses
+              </button>
+            </Link>
+            <Link to={"/user/myshortlists/pgs"}>
+              <button
+                type="button"
+                className={`btn btn-outline-primary me-2 ${
+                  propertyType === "pgs" ? "active" : ""
+                }`}
+              >
+                PG/Hostel
+              </button>
+            </Link>
+          </div>
           <div>
-            {shortlistedProperty.map((property) => {
-              return <p key={property}>{property}</p>;
-            })}
+            You have shortlisted {shortlistedProperty?.length}{" "}
+            {shortlistedProperty?.length === 1 ? "property" : "properties"}
+          </div>
+          <div>
+            {(shortlistedProperty || []).map(
+              ({
+                houses_id = "",
+                apartment_name = "",
+                locality = "",
+                rent = 0,
+                rent_negotiable = false,
+                deposit = 0,
+                builtup_area = "",
+                furnishing_type = "",
+                bhk_type = "",
+                preferred_tenants = "",
+                available_from = "",
+              }) => {
+                return (
+                  <HouseCard
+                    key={houses_id}
+                    houses_id={houses_id}
+                    apartment_name={apartment_name}
+                    locality={locality}
+                    rent={rent}
+                    rent_negotiable={rent_negotiable}
+                    deposit={deposit}
+                    builtup_area={builtup_area}
+                    furnishing_type={furnishing_type}
+                    bhk_type={bhk_type}
+                    preferred_tenants={preferred_tenants}
+                    available_from={available_from}
+                    propertyType={propertyType}
+                    // setShowOwnersContacted={setShowOwnersContacted}
+                  />
+                  // <div key={id} className="card ">
+                  //   <div className="card-body">
+                  //     <h6 className="card-title">
+                  //       {bhk_type} in {locality}
+                  //     </h6>
+                  //     <p className="card-text">Rent: {rent}</p>
+                  //   </div>
+                  // </div>
+                );
+              }
+            )}
           </div>
         </div>
       </div>

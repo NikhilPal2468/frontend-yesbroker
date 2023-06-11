@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import SideBar from "../SideBar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BsFillExclamationTriangleFill } from "react-icons/bs";
 import { TiTick } from "react-icons/ti";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { setUserDetails } from "../../../store/actions";
 
 function ProfilePage() {
+  const dispatch = useDispatch();
   const [newEmail, setNewEmail] = useState("");
   const [newName, setNewName] = useState("");
   const [newPhoneNumber, setNewPhoneNumber] = useState("");
@@ -29,6 +33,21 @@ function ProfilePage() {
         newPhoneNumber,
       });
       console.log("data:", data);
+      if (data.success === true) {
+        toast.success("Profile Updated", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        const { data } = await axios.get("/secure/api/user/me");
+        console.log("data:", data);
+        dispatch(setUserDetails(data));
+      }
     } catch (e) {
       console.log(e);
     }
@@ -85,6 +104,7 @@ function ProfilePage() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }
