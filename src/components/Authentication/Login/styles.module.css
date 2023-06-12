@@ -1,0 +1,17 @@
+.terms {
+  cursor: pointer;
+}
+
+.terms:hover {
+  text-decoration: underline;
+}
+
+.forgot_pwd {
+  width: 100%;
+  text-align: right;
+  margin-right: 14px;
+  cursor: pointer;
+}
+.primary_color {
+  background-color: #6c63ff;
+}

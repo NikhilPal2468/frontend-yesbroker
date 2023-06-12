@@ -1,0 +1,22 @@
+.terms {
+  cursor: pointer;
+}
+
+.terms:hover {
+  text-decoration: underline;
+}
+
+.input {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.custom-button {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  min-width: fit-content;
+}
+
+.primary_color {
+  background-color: #6c63ff;
+}

@@ -1,0 +1,29 @@
+.icon {
+  color: #3356b2;
+}
+
+.activeBig {
+  border-left: 4px solid #3356b2;
+}
+
+.activeSmall {
+  border-bottom: 2px solid #3356b2;
+}
+
+.showSmall {
+  display: flex !important;
+}
+
+.showBig {
+  display: none !important;
+}
+
+@media (min-width: 600px) {
+  .showBig {
+    display: flex !important;
+  }
+
+  .showSmall {
+    display: none !important;
+  }
+}
