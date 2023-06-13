@@ -26,8 +26,9 @@ import { useSelector } from "react-redux";
 
 import RedirectPage from "./components/common/RedirectPage";
 import SingleProperty from "./components/SingleProperty";
-axios.defaults.baseURL = "https://homewale-backend.onrender.com";
-// axios.defaults.baseURL = "http://localhost:5000";
+import HousePage from "./components/SinglePage/House/HousePage";
+// axios.defaults.baseURL = "https://homewale-backend.onrender.com";
+axios.defaults.baseURL = "http://localhost:5000";
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -81,7 +82,7 @@ function App() {
           path="/property/manage/house/:id/gallery"
           element={<Gallery />}
         />
-        <Route path="/property/:id/" element={<SingleProperty />} />
+        <Route path="/property/:id/" element={<HousePage />} />
       </Routes>
     </div>
   );

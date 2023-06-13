@@ -88,9 +88,44 @@
   color: white;
 }
 
+.image_container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.card_image {
+  max-width: 200px;
+}
+
+.image {
+  height: 150px;
+}
+
 @media (max-width: 600px) {
   .container {
     min-width: 100% !important;
     margin-left: 0 !important;
+  }
+
+  .card_image {
+    flex-basis: 100%;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 950px) {
+  /* Medium screens: Display 2 cards per row */
+  .card_image {
+    flex-basis: 50%;
+    min-width: 200px;
+  }
+}
+
+@media (min-width: 901px) {
+  /* Large screens: Display 3 cards per row */
+  .card_image {
+    flex-basis: 33.33%;
   }
 }

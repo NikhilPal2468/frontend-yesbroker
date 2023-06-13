@@ -168,17 +168,17 @@ function Gallery() {
               multiple
             />
           </div>
-          <div className="d-flex align-items-center justify-content-center gap-2">
+          <div className={`${styles.image_container}`}>
             {uploadedImages &&
               uploadedImages.map((image) => {
+                console.log(image);
                 return (
                   <div
-                    className="card"
-                    style={{ width: "18rem" }}
+                    className={`card ${styles.card_image}`}
                     key={image.filename}
                   >
                     <img
-                      className="card-img-top"
+                      className={`card-img-top ${styles.image}`}
                       src={image.media_url}
                       alt={image.filename}
                     />

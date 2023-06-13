@@ -1,0 +1,75 @@
+/* .image_row {
+  max-height: 500px;
+}
+
+.image_col {
+  min-height: 100%;
+}
+
+.square_image_wrapper {
+  min-height: 100%;
+}
+
+.square_image_wrapper_img {
+  max-height: 500px;
+} */
+
+.imageContainer {
+  width: 65%;
+  height: 450px;
+}
+
+.amenityContainer {
+  width: 35%;
+  height: 450px;
+}
+
+.mainImageContainer {
+  width: 70%;
+  height: 100%;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+.sideImageContainer {
+  width: 30%;
+  height: 100%;
+}
+
+.image {
+  object-fit: cover;
+  width: 100%;
+}
+
+.amenityPadding {
+  padding: 0;
+}
+
+.primary_color {
+  background-color: #6c63ff;
+}
+
+.imageDiv1 {
+  border-top-right-radius: 5px;
+}
+
+.imageDiv2 {
+  border-bottom-right-radius: 5px;
+}
+
+.likeBorder {
+  border: 1px solid;
+  border-color: #6c63ff;
+}
+
+@media (max-width: 600px) {
+  .imageContainer {
+    height: 250px;
+    width: 100%;
+  }
+
+  .amenityContainer {
+    min-height: fit-content;
+    width: 100%;
+  }
+}
