@@ -19,7 +19,7 @@ const PICTURE_TYPES = [
 
 function Gallery() {
   const location = useLocation();
-  const { loadingHandler } = useContext(LoadContext);
+  const { setLoading } = useContext(LoadContext);
 
   const { id: houseId } = useParams();
   const [imageFiles, setImageFiles] = useState([]);
@@ -48,16 +48,19 @@ function Gallery() {
   useEffect(() => {
     try {
       const fetchImageData = async (houseId) => {
+        setLoading(true);
         const response = await axios.get(
           `/secure/api/getHouseImage/${houseId}`
         );
         if (response.data) {
           setUploadedImages([...response.data]);
         }
+        setLoading(false);
       };
 
       fetchImageData(houseId);
     } catch (err) {
+      setLoading(false);
       console.log(err);
     }
   }, [houseId]);
@@ -74,7 +77,7 @@ function Gallery() {
 
     const uploadImages = async () => {
       try {
-        loadingHandler(true);
+        setLoading(true);
         const response = await axios.post(
           `secure/api/newProperty/house/uploadImage/${houseId}`,
           formData,
@@ -85,7 +88,7 @@ function Gallery() {
           }
         );
 
-        loadingHandler(false);
+        setLoading(false);
         if (response.data) {
           setUploadedImages((prev) => {
             if (prev) return [...prev, ...response.data];
@@ -95,6 +98,7 @@ function Gallery() {
 
         setImageFiles([]);
       } catch (error) {
+        setLoading(false);
         console.error(error);
       }
     };
@@ -130,9 +134,9 @@ function Gallery() {
   // To handle deletion of image
   const handleDelete = async (e, imageId) => {
     try {
-      loadingHandler(true);
+      setLoading(true);
       await axios.delete(`/secure/api/house/deleteImage/${imageId}`);
-      loadingHandler(false);
+      setLoading(false);
       setUploadedImages((prevImages) => {
         return prevImages.filter((curPhoto) => curPhoto.id !== imageId);
       });

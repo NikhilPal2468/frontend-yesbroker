@@ -61,7 +61,7 @@ const validationSchema = Yup.object({
 function RentDetails() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { loadingHandler } = useContext(LoadContext);
+  const { setLoading } = useContext(LoadContext);
 
   const [houseObject, setHouseObject] = useState(null);
 
@@ -78,9 +78,9 @@ function RentDetails() {
 
   // fetch data when first time page loads
   useEffect(() => {
-    loadingHandler();
     try {
       const fetchData = async (houseId) => {
+        setLoading(true);
         const { data } = await axios.get(
           `/secure/api/gethouse?houseId=${houseId}`
         );
@@ -88,13 +88,13 @@ function RentDetails() {
           data.available_from = formatDate(data.available_from);
         }
         setHouseObject(data);
+        setLoading(false);
       };
 
       fetchData(houseId);
     } catch (err) {
       console.log(err);
     }
-    loadingHandler();
   }, [houseId]);
 
   let formValues = {};

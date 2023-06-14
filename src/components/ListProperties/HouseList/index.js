@@ -17,7 +17,7 @@ const HouseList = ({
   withImage = false,
 }) => {
   const [houses, setHouses] = useState([]);
-  const { loadingHandler } = useContext(LoadContext);
+  const { setLoading } = useContext(LoadContext);
 
   if (bhkType === []) {
     console.log("first");
@@ -59,16 +59,17 @@ const HouseList = ({
       };
 
       try {
-        loadingHandler();
+        setLoading(true);
         const { data } = await axios.post(
           "/public/api/listProperties",
           payload
         );
         const { allhouses = [], count = 0 } = data || {};
         console.log("count:", count);
+        setLoading(false);
         setHouses(allhouses);
-        loadingHandler();
       } catch (error) {
+        setLoading(false);
         console.error(error);
       }
     };

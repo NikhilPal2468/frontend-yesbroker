@@ -11,7 +11,7 @@ const CITIES = ["Mumbai", "Bangalore", "Gurgaon", "Delhi", "Hyderabad"];
 function LocalityDetails() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { loadingHandler } = useContext(LoadContext);
+  const { setLoading } = useContext(LoadContext);
 
   const { id: houseId } = useParams();
 
@@ -24,12 +24,12 @@ function LocalityDetails() {
   useEffect(() => {
     try {
       const fetchData = async (houseId) => {
-        loadingHandler();
+        setLoading(true);
         const { data } = await axios.get(
           `/secure/api/gethouse?houseId=${houseId}`
         );
 
-        loadingHandler();
+        setLoading(false);
         setCity(data?.city);
         setLocality(data?.locality);
         setStreet(data?.street);
