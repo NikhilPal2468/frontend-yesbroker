@@ -1,5 +1,6 @@
 {
   "name": "homewale-frontend",
+  "homepage": "https://homewale.com",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
