@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Sidebar from "./SideBar/sidebar";
 import styles from "./styles.module.css";
 import { BsCameraFill } from "react-icons/bs";
@@ -6,6 +6,7 @@ import { MdDelete } from "react-icons/md";
 import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import FinalModal from "../FinalModal";
+import { LoadContext } from "../../../context/load-context";
 const PICTURE_TYPES = [
   "Kitchen",
   "Bedroom",
@@ -18,6 +19,8 @@ const PICTURE_TYPES = [
 
 function Gallery() {
   const location = useLocation();
+  const { loadingHandler } = useContext(LoadContext);
+
   const { id: houseId } = useParams();
   const [imageFiles, setImageFiles] = useState([]);
   const [uploadedImages, setUploadedImages] = useState([]);
@@ -71,6 +74,7 @@ function Gallery() {
 
     const uploadImages = async () => {
       try {
+        loadingHandler(true);
         const response = await axios.post(
           `secure/api/newProperty/house/uploadImage/${houseId}`,
           formData,
@@ -81,6 +85,7 @@ function Gallery() {
           }
         );
 
+        loadingHandler(false);
         if (response.data) {
           setUploadedImages((prev) => {
             if (prev) return [...prev, ...response.data];
@@ -125,7 +130,9 @@ function Gallery() {
   // To handle deletion of image
   const handleDelete = async (e, imageId) => {
     try {
+      loadingHandler(true);
       await axios.delete(`/secure/api/house/deleteImage/${imageId}`);
+      loadingHandler(false);
       setUploadedImages((prevImages) => {
         return prevImages.filter((curPhoto) => curPhoto.id !== imageId);
       });

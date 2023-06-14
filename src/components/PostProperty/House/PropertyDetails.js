@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Button } from "react-bootstrap";
@@ -7,7 +7,8 @@ import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Sidebar from "./SideBar/sidebar";
 import styles from "./styles.module.css";
-
+import { LoadContext } from "../../../context/load-context";
+console.log(LoadContext);
 const initialValues = {
   partNo: "1",
   property_type: "",
@@ -172,12 +173,14 @@ const validationSchema = Yup.object({
 function PropertyDetails() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { isLoading, loadingHandler } = useContext(LoadContext);
 
   const [houseObject, setHouseObject] = useState(null);
   const { id: houseId } = useParams();
 
   useEffect(() => {
     try {
+      loadingHandler();
       const fetchData = async (houseId) => {
         const { data } = await axios.get(
           `/secure/api/gethouse?houseId=${houseId}`
@@ -187,6 +190,7 @@ function PropertyDetails() {
         setHouseObject(data);
       };
       fetchData(houseId);
+      loadingHandler();
     } catch (err) {
       console.log(err);
     }

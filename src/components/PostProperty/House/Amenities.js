@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Sidebar from "./SideBar/sidebar";
 import styles from "./styles.module.css";
 import * as Yup from "yup";
@@ -10,6 +10,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import CustomPhoneInput from "../../Authentication/Register/CustomPhoneInput";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import { AMENITIES } from "../../constants";
+import { LoadContext } from "../../../context/load-context";
 
 const WATER_SUPPLY = [
   { key: "CORPORATION" },
@@ -72,6 +73,7 @@ const validationSchema = Yup.object({
 function Amenities() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { loadingHandler } = useContext(LoadContext);
 
   const [houseObject, setHouseObject] = useState(null);
   const { id: houseId } = useParams();
@@ -79,9 +81,11 @@ function Amenities() {
   useEffect(() => {
     try {
       const fetchData = async (houseId) => {
+        loadingHandler(true);
         const { data } = await axios.get(
           `/secure/api/gethouse?houseId=${houseId}`
         );
+        loadingHandler(false);
         setHouseObject(data);
       };
 

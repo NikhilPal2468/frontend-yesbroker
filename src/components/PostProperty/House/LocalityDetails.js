@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import { Button } from "react-bootstrap";
 import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Sidebar from "./SideBar/sidebar";
+import { LoadContext } from "../../../context/load-context";
 
 const CITIES = ["Mumbai", "Bangalore", "Gurgaon", "Delhi", "Hyderabad"];
 
 function LocalityDetails() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { loadingHandler } = useContext(LoadContext);
+
   const { id: houseId } = useParams();
 
   const [city, setCity] = useState("");
@@ -21,10 +24,12 @@ function LocalityDetails() {
   useEffect(() => {
     try {
       const fetchData = async (houseId) => {
+        loadingHandler();
         const { data } = await axios.get(
           `/secure/api/gethouse?houseId=${houseId}`
         );
 
+        loadingHandler();
         setCity(data?.city);
         setLocality(data?.locality);
         setStreet(data?.street);

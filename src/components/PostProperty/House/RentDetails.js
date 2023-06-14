@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Button } from "react-bootstrap";
@@ -7,6 +7,7 @@ import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Sidebar from "./SideBar/sidebar";
 import styles from "./styles.module.css";
+import { LoadContext } from "../../../context/load-context";
 
 const FURNISHING_TYPE = [
   { key: "Fully Furnished" },
@@ -60,6 +61,7 @@ const validationSchema = Yup.object({
 function RentDetails() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { loadingHandler } = useContext(LoadContext);
 
   const [houseObject, setHouseObject] = useState(null);
 
@@ -76,6 +78,7 @@ function RentDetails() {
 
   // fetch data when first time page loads
   useEffect(() => {
+    loadingHandler();
     try {
       const fetchData = async (houseId) => {
         const { data } = await axios.get(
@@ -91,6 +94,7 @@ function RentDetails() {
     } catch (err) {
       console.log(err);
     }
+    loadingHandler();
   }, [houseId]);
 
   let formValues = {};
