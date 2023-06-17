@@ -60,14 +60,18 @@ const HouseList = ({
 
       try {
         setLoading(true);
+
+        // get all properties
         const { data } = await axios.post(
           "/public/api/listProperties",
           payload
         );
         const { allhouses = [], count = 0 } = data || {};
-        console.log("count:", count);
+
         setLoading(false);
         setHouses(allhouses);
+
+        // get shortlist array
       } catch (error) {
         setLoading(false);
         console.error(error);

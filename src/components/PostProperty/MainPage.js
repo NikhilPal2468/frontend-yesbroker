@@ -40,7 +40,7 @@ function MainPage() {
           values
         );
         const pg = data.house;
-        navigate(`/property/manage/pg/${pg.id}/property`);
+        navigate(`/property/manage/pg/${pg.id}/room`);
       }
     } catch (err) {
       console.log(err);
