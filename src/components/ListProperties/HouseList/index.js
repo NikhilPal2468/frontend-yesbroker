@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 // import styles from "./styles.module.css";
 import axios from "axios";
 import HouseCard from "../HouseCard";
+import { LoadContext } from "../../../context/load-context";
 
 const HouseList = ({
   city = "",
@@ -16,6 +17,7 @@ const HouseList = ({
   withImage = false,
 }) => {
   const [houses, setHouses] = useState([]);
+  const { setLoading } = useContext(LoadContext);
 
   if (bhkType === []) {
     console.log("first");
@@ -57,14 +59,17 @@ const HouseList = ({
       };
 
       try {
+        setLoading(true);
         const { data } = await axios.post(
           "/public/api/listProperties",
           payload
         );
         const { allhouses = [], count = 0 } = data || {};
         console.log("count:", count);
+        setLoading(false);
         setHouses(allhouses);
       } catch (error) {
+        setLoading(false);
         console.error(error);
       }
     };

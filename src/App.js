@@ -2,8 +2,6 @@ import React from "react";
 import "./App.css";
 import axios from "axios";
 
-import "./App.css";
-
 import Navbar from "./components/common/Navbar";
 import HomePage from "./components/HomePage";
 import { Route, Routes } from "react-router-dom";
@@ -25,10 +23,14 @@ import Gallery from "./components/PostProperty/House/Gallery";
 import { useSelector } from "react-redux";
 
 import RedirectPage from "./components/common/RedirectPage";
-import SingleProperty from "./components/SingleProperty";
 // axios.defaults.baseURL = "https://homewale-backend.onrender.com";
 // axios.defaults.baseURL = "http://localhost:5000";
 axios.defaults.baseURL = "http://13.200.85.135/api";
+import HousePage from "./components/SinglePage/House/HousePage";
+
+import Loader from "./components/Loader";
+// axios.defaults.baseURL = "https://homewale-backend.onrender.com";
+axios.defaults.baseURL = "http://localhost:5000";
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -37,6 +39,7 @@ function App() {
   return (
     <div className="App">
       <Navbar />
+      <Loader />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/properties" element={<ListProperties />} />
@@ -82,7 +85,7 @@ function App() {
           path="/property/manage/house/:id/gallery"
           element={<Gallery />}
         />
-        <Route path="/property/:id/" element={<SingleProperty />} />
+        <Route path="/property/:id/" element={<HousePage />} />
       </Routes>
     </div>
   );
