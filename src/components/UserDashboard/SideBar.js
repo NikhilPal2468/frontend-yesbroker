@@ -9,7 +9,7 @@ function SideBar() {
   // const [showShortlists, setShowShortlists] = useState(false);
 
   const linkClasses = (type = null) => {
-    let classes = `${styles.linkStyle} mb-2 mx-2`;
+    let classes = `${styles.linkStyle} mb-1 w-100 px-5 py-2`;
 
     if (type === location.pathname) {
       classes += ` ${styles.active}`;
@@ -30,24 +30,23 @@ function SideBar() {
   };
 
   return (
-    <div
-      className={`${styles.primary} d-flex flex-column text-start gap-2 rounded m-4`}
-    >
+    <div className={` d-flex flex-column text-start gap-2 rounded px-4`}>
       <p className={`fw-bold w-100 border-bottom py-4 px-2`}>
-        <small>Manage Your Account</small>
+        Manage Your Account
       </p>
-      <Link to={urls.profile} className={linkClasses(urls.profile)}>
-        My Profile
-      </Link>
-      <Link
-        to={urls.listedHouses}
-        className={`${linkClasses(urls.listedHouses)} ${linkClasses(
-          urls.listedPgs
-        )}`}
-      >
-        My Properties
-      </Link>
-      {/* {showProperties && (
+      <div className="d-flex flex-column py-2">
+        <Link to={urls.profile} className={linkClasses(urls.profile)}>
+          My Profile
+        </Link>
+        <Link
+          to={urls.listedHouses}
+          className={`${linkClasses(urls.listedHouses)} ${linkClasses(
+            urls.listedPgs
+          )}`}
+        >
+          My Properties
+        </Link>
+        {/* {showProperties && (
         <div className="d-flex flex-column">
           <Link
             to={urls.listedHouses}
@@ -61,20 +60,21 @@ function SideBar() {
         </div>
       )} */}
 
-      <Link
-        to={urls.shortlistHouses}
-        className={`${linkClasses(urls.shortlistHouses)} ${linkClasses(
-          urls.shortlistPgs
-        )}`}
-      >
-        My Shortlists
-      </Link>
-      <Link
-        to={urls.ownersContacted}
-        className={linkClasses(urls.ownersContacted)}
-      >
-        Owners Contacted
-      </Link>
+        <Link
+          to={urls.shortlistHouses}
+          className={`${linkClasses(urls.shortlistHouses)} ${linkClasses(
+            urls.shortlistPgs
+          )}`}
+        >
+          My Shortlists
+        </Link>
+        <Link
+          to={urls.ownersContacted}
+          className={linkClasses(urls.ownersContacted)}
+        >
+          Owners Contacted
+        </Link>
+      </div>
       {/* {showShortlists && (
         <div className="d-flex flex-column">
           <Link

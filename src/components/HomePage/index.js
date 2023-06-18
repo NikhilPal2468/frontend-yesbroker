@@ -23,9 +23,14 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Chip } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
+import useDebounceQuery from "../hooks/useDebounceQuery";
+import Register from "../Authentication/Register";
+import { Login } from "@mui/icons-material";
 
-const HomePage = () => {
+const HomePage = (userDetails = {}) => {
   const navigate = useNavigate();
+  const [showRegister, setShowRegister] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
   const [selectedCity, setSelectedCity] = useState("Bangalore");
   const [searchValue, setSearchValue] = useState("");
   const [propertyType, setPropertyType] = useState("house");
@@ -70,13 +75,12 @@ const HomePage = () => {
     setPropertyType(event.target.value);
   };
 
+  const { query = "", debounceQuery } = useDebounceQuery();
   useEffect(() => {
     const autoCompleteApi = async () => {
       // if (searchValue)
       await axios
-        .get(
-          `/public/api/autocomplete?city=${selectedCity}&text=${searchValue}`
-        )
+        .get(`/public/api/autocomplete?city=${selectedCity}&text=${query}`)
         .then((response) => {
           setSuggestionList(response.data);
         })
@@ -85,7 +89,10 @@ const HomePage = () => {
         });
     };
     autoCompleteApi();
-  }, [searchValue, selectedCity]);
+  }, [query, selectedCity]);
+  useEffect(() => {
+    debounceQuery(searchValue);
+  }, [debounceQuery, searchValue]);
 
   const autoCompleteLocalities = (e) => {
     setSearchValue(e.target.value);
@@ -134,6 +141,13 @@ const HomePage = () => {
       prevChips.filter((chip) => chip.place_id !== place_id)
     );
   };
+  const listProperty = () => {
+    if (userDetails) {
+      navigate("/list-your-property-for-rent");
+    } else {
+      setbhkType([]);
+    }
+  };
   return (
     <div className={styles.homepage}>
       <ToastContainer />
@@ -157,6 +171,9 @@ const HomePage = () => {
                 key={city}
                 onClick={() => {
                   setSelectedCity(city);
+                  setSelectedLocality([]);
+                  setSuggestionList([]);
+                  setSearchValue("");
                 }}
                 href="#"
               >
@@ -384,8 +401,18 @@ const HomePage = () => {
       <div>
         <div className={styles.property_owner}>Are you a Property Owner?</div>
         <Link to="/list-your-property-for-rent">
-          <Button>Post your property</Button>
+          <Button onClick={listProperty}>Post your property</Button>
         </Link>
+        {showRegister && (
+          <Register
+            show={showRegister}
+            setShow={setShowRegister}
+            setShowLogin={setShowLogin}
+          />
+        )}
+        {showLogin && (
+          <Login showLogin={showLogin} setShowLogin={setShowLogin} />
+        )}
       </div>
       <div className={`w-100 ${styles.cardBody} text-center`}>
         <h3 className={`text-center my-8 p-4 pb-6`}>Why HOMEWALE?</h3>

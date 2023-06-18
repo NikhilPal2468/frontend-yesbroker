@@ -25,14 +25,14 @@ const Navbar = () => {
     } else {
       setUser(userDetails);
     }
-  }, []);
+  }, [dispatch, setUserDetails]);
 
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("userDetails");
-    navigate("/");
     dispatch(setUserDetails(null));
     setUser(null);
+    navigate(`/`);
   };
 
   return (
@@ -115,13 +115,13 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    className="dropdown-item"
+                  <div
+                    className={`dropdown-item ${styles.logout_button}`}
                     href="#"
                     onClick={handleLogout}
                   >
                     Logout
-                  </Link>
+                  </div>
                 </li>
               </ul>
             </div>

@@ -22,15 +22,14 @@ import Amenities from "./components/PostProperty/House/Amenities";
 import Gallery from "./components/PostProperty/House/Gallery";
 import { useSelector } from "react-redux";
 
-import RedirectPage from "./components/common/RedirectPage";
-// axios.defaults.baseURL = "https://homewale-backend.onrender.com";
-// axios.defaults.baseURL = "http://localhost:5000";
 axios.defaults.baseURL = "http://13.200.85.135/api";
 import HousePage from "./components/SinglePage/House/HousePage";
 
 import Loader from "./components/Loader";
+
 // axios.defaults.baseURL = "https://homewale-backend.onrender.com";
 axios.defaults.baseURL = "http://localhost:5000";
+// axios.defaults.baseURL = "http://13.200.85.135/api";
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -41,7 +40,7 @@ function App() {
       <Navbar />
       <Loader />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePage userDetails={userDetails} />} />
         <Route path="/properties" element={<ListProperties />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/resetpassword/:id/:token" element={<ResetPassword />} />
@@ -63,7 +62,7 @@ function App() {
 
         <Route
           path="/list-your-property-for-rent"
-          element={userDetails ? <MainPage /> : <RedirectPage />}
+          element={<MainPage userDetails={userDetails} />}
         />
         <Route
           path="/property/manage/house/:id/property"

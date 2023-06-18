@@ -32,7 +32,7 @@ const validationSchema = Yup.object({
 const Login = ({
   showLogin = false,
   setShowLogin = () => {},
-  setUser = () => {},
+  // setUser = () => {},
 }) => {
   const dispatch = useDispatch();
   const handleClose = () => {
@@ -46,7 +46,7 @@ const Login = ({
       if (success) {
         dispatch(setUserDetails(user));
         setShowLogin(false);
-        setUser(user);
+        // setUser(user);
         toast.success("Login Successful", {
           position: "top-center",
           autoClose: 2000,

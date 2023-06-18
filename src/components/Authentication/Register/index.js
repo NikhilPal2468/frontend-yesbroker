@@ -20,7 +20,7 @@ import { setUserDetails } from "../../../store/actions";
 const Register = ({
   show = false,
   setShow = () => {},
-  setUser = () => {},
+  // setUser = () => {},
   setShowLogin = () => {},
 }) => {
   const dispatch = useDispatch();
@@ -47,7 +47,7 @@ const Register = ({
         dispatch(setUserDetails(user));
         setDisplayOtp(true);
         setUserId(user?.id);
-        setUser(user);
+        // setUser(user);
       }
     } catch (e) {
       toast.error(e?.response?.data?.message, {

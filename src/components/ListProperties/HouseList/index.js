@@ -93,7 +93,7 @@ const HouseList = ({
     withImage,
   ]);
 
-  return (
+  return houses.length ? (
     <div className="p-1 col-12 col-md-7 col-lg-8">
       {houses.map((house) => {
         const {
@@ -128,6 +128,8 @@ const HouseList = ({
         );
       })}
     </div>
+  ) : (
+    <div>No properties to show for now</div>
   );
 };
 

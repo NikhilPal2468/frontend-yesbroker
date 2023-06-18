@@ -83,7 +83,7 @@ const PlaceGallery = ({ property }) => {
           </div>
           {property?.media?.length > 0 &&
             property?.media?.map(({ media_url, description }) => (
-              <div>
+              <div key={description}>
                 <Image src={media_url} alt="" />
               </div>
             ))}
@@ -239,7 +239,7 @@ const PlaceGallery = ({ property }) => {
               <div
                 className={`flex-grow-1 p-2 text-white text-center rounded ${styles.primary_color}`}
                 role="button"
-                onClick={(e) => {
+                onClick={() => {
                   handleHouseClicked();
                 }}
               >
