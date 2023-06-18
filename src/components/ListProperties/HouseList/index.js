@@ -21,6 +21,11 @@ const HouseList = ({
   const [houses, setHouses] = useState([]);
   const { setLoading } = useContext(LoadContext);
 
+  const shortlistArray = [
+    ...(userDetails ? userDetails.house_shortlists : []),
+    ...(userDetails ? userDetails.pg_shortlists : []),
+  ];
+
   if (bhkType === []) {
     console.log("first");
   }
@@ -119,6 +124,7 @@ const HouseList = ({
             available_from={available_from}
             propertyType={propertyType}
             userDetails={userDetails}
+            shortlistArray={shortlistArray}
           />
         );
       })}

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import { RiHotelBedLine } from "react-icons/ri";
 import {
@@ -19,6 +19,10 @@ import OwnerModal from "../../ShowOwnerModal/OwnerModal";
 import LikeHandler from "../../likeHandler";
 import { Image } from "react-bootstrap";
 import { AuthContext } from "../../../context/AuthContext";
+import { useDispatch } from "react-redux";
+import { LoadContext } from "../../../context/load-context";
+import axios from "axios";
+import { setUserDetails } from "../../../store/actions";
 
 const renderAge = (age) => {
   let propertyAge = "";
@@ -49,6 +53,32 @@ const renderAge = (age) => {
 
 const PlaceGallery = ({ property, houses_id }) => {
   const [showAllPhotos, setShowAllPhotos] = useState(false);
+  const dispatch = useDispatch();
+  const { setLoading } = useContext(LoadContext);
+
+  useEffect(() => {
+    try {
+      setLoading(true);
+      const setData = async () => {
+        const { data } = await axios.get("/secure/api/user/me");
+        dispatch(setUserDetails(data));
+        setLoading(false);
+      };
+      setData();
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
+    }
+  }, []);
+
+  const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+
+  const shortlistArray = [
+    ...(userDetails ? userDetails.house_shortlists : []),
+    ...(userDetails ? userDetails.pg_shortlists : []),
+  ];
+
+  console.log(shortlistArray);
 
   const [mediaIndex, setMediaIndex] = useState(0);
   const [showOwnersContacted, setShowOwnersContacted] = useState(false);
@@ -297,7 +327,10 @@ const PlaceGallery = ({ property, houses_id }) => {
               >
                 Get Owner Details
               </div>
-              <LikeHandler houses_id={property.houses_id} />
+              <LikeHandler
+                houses_id={property.houses_id}
+                shortlisted={shortlistArray.includes(houses_id)}
+              />
             </div>
           </div>
         </div>

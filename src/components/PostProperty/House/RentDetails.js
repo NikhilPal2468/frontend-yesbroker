@@ -93,6 +93,7 @@ function RentDetails() {
 
       fetchData(houseId);
     } catch (err) {
+      setLoading(false);
       console.log(err);
     }
   }, [houseId]);

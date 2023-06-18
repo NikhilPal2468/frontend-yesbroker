@@ -23,6 +23,8 @@ const HouseCard = ({
   bhk_type = "",
   preferred_tenants = "",
   available_from = "",
+  // propertyType = "",
+  shortlistArray,
 }) => {
   const { setShowLogin } = useContext(AuthContext);
   const [showOwnersContacted, setShowOwnersContacted] = useState(false);
@@ -218,7 +220,10 @@ const HouseCard = ({
                     >
                       Get Owner Details
                     </div>
-                    <LikeHandler houses_id={houses_id} />
+                    <LikeHandler
+                      houses_id={houses_id}
+                      shortlisted={shortlistArray.includes(houses_id)}
+                    />
                   </div>
                 </div>
               </div>

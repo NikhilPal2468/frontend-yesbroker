@@ -21,9 +21,7 @@ import RentDetails from "./components/PostProperty/House/RentDetails";
 import Amenities from "./components/PostProperty/House/Amenities";
 import Gallery from "./components/PostProperty/House/Gallery";
 
-axios.defaults.baseURL = "http://13.200.85.135/api";
 import HousePage from "./components/SinglePage/House/HousePage";
-
 import Loader from "./components/Loader";
 import RoomDetails from "./components/PostProperty/Pg/RoomDetails";
 import PgLocality from "./components/PostProperty/Pg/PgLocality";
@@ -87,6 +85,7 @@ function App() {
           path="/property/manage/house/:id/gallery"
           element={<Gallery />}
         />
+
         {/* single page for house */}
         <Route path="/property/:id/" element={<HousePage />} />
 

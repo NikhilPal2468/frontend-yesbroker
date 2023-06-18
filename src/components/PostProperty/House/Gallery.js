@@ -40,7 +40,6 @@ function Gallery() {
   };
 
   const handleSubmit = (e) => {
-    console.log("e:", e);
     setShowModal(true);
   };
 
@@ -117,6 +116,7 @@ function Gallery() {
           description: description,
         }
       );
+
       setUploadedImages((prevImages) => {
         let update = prevImages.map((curPhoto) => {
           if (curPhoto.id === imageId) {
@@ -234,7 +234,11 @@ function Gallery() {
         </div>
       </div>
       {showModal && (
-        <FinalModal showModal={showModal} setShowModal={setShowModal} />
+        <FinalModal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          houseId={houseId}
+        />
       )}
     </div>
   );
