@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import MapContainer from "../../common/gMap";
 
-function HousePage() {
+function HousePage({ userDetails = {} }) {
   const { id } = useParams();
 
   const [property, setProperty] = useState({});
@@ -64,7 +64,11 @@ function HousePage() {
         </div>
       </div>
       <div className="mt-4">
-        <PlaceGallery property={property} houses_id={property.houses_id} />
+        <PlaceGallery
+          userDetails={userDetails}
+          property={property}
+          houses_id={property.houses_id}
+        />
       </div>
       <div className="mt-4 card p-4">
         <h5>

@@ -4,12 +4,12 @@ import React, { useContext, useState } from "react";
 import { HiHeart, HiOutlineHeart } from "react-icons/hi2";
 import { AuthContext } from "../../context/AuthContext";
 
-function LikeHandler({ houses_id }) {
+function LikeHandler({ userDetails, houses_id }) {
   const [liked, setLiked] = useState(false);
-  const { setShowLogin, isLoggedIn } = useContext(AuthContext);
+  const { setShowLogin } = useContext(AuthContext);
 
   const likeHandler = async (houses_id) => {
-    if (isLoggedIn)
+    if (userDetails)
       try {
         const { data } = await axios.post(
           "/secure/api/user/property/shortlist",

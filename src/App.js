@@ -89,7 +89,10 @@ function App() {
         />
 
         {/* single page for house */}
-        <Route path="/property/:id/" element={<HousePage />} />
+        <Route
+          path="/property/:id/"
+          element={<HousePage userDetails={userDetails} />}
+        />
 
         {/* PG */}
         <Route path="/property/manage/pg/:id/room" element={<RoomDetails />} />

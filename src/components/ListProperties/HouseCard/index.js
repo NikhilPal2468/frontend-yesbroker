@@ -223,6 +223,7 @@ const HouseCard = ({
                     <LikeHandler
                       houses_id={houses_id}
                       shortlisted={shortlistArray.includes(houses_id)}
+                      userDetails={userDetails}
                     />
                   </div>
                 </div>

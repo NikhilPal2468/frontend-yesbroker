@@ -51,27 +51,27 @@ const renderAge = (age) => {
   return propertyAge;
 };
 
-const PlaceGallery = ({ property, houses_id }) => {
+const PlaceGallery = ({ userDetails, property, houses_id }) => {
   const [showAllPhotos, setShowAllPhotos] = useState(false);
   const dispatch = useDispatch();
   const { setLoading } = useContext(LoadContext);
 
   useEffect(() => {
     try {
-      setLoading(true);
-      const setData = async () => {
-        const { data } = await axios.get("/secure/api/user/me");
-        dispatch(setUserDetails(data));
-        setLoading(false);
-      };
-      setData();
+      if (userDetails) {
+        setLoading(true);
+        const setData = async () => {
+          const { data } = await axios.get("/secure/api/user/me");
+          dispatch(setUserDetails(data));
+          setLoading(false);
+        };
+        setData();
+      }
     } catch (err) {
       setLoading(false);
       console.log(err);
     }
   }, []);
-
-  const userDetails = JSON.parse(localStorage.getItem("userDetails"));
 
   const shortlistArray = [
     ...(userDetails ? userDetails.house_shortlists : []),
@@ -82,9 +82,9 @@ const PlaceGallery = ({ property, houses_id }) => {
 
   const [mediaIndex, setMediaIndex] = useState(0);
   const [showOwnersContacted, setShowOwnersContacted] = useState(false);
-  const { setShowLogin, isLoggedIn } = useContext(AuthContext);
+  const { setShowLogin } = useContext(AuthContext);
   const handleHouseClicked = () => {
-    if (isLoggedIn) setShowOwnersContacted(true);
+    if (userDetails) setShowOwnersContacted(true);
     else setShowLogin(true);
   };
 
@@ -330,6 +330,7 @@ const PlaceGallery = ({ property, houses_id }) => {
               <LikeHandler
                 houses_id={property.houses_id}
                 shortlisted={shortlistArray.includes(houses_id)}
+                userDetails={userDetails}
               />
             </div>
           </div>
