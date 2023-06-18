@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SideBar from "../SideBar";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { BsFillExclamationTriangleFill } from "react-icons/bs";
 import { TiTick } from "react-icons/ti";
 import axios from "axios";
@@ -8,12 +8,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { setUserDetails } from "../../../store/actions";
 import styles from "../styles.module.css";
-function ProfilePage() {
+function ProfilePage({ userDetails = {} }) {
   const dispatch = useDispatch();
   const [newEmail, setNewEmail] = useState("");
   const [newName, setNewName] = useState("");
   const [newPhoneNumber, setNewPhoneNumber] = useState("");
-  const userDetails = useSelector((state) => state.user?.userDetails);
 
   const { name, email, phone_number, id, verified } = userDetails || {};
 

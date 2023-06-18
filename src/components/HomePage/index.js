@@ -28,8 +28,8 @@ import Register from "../Authentication/Register";
 import { Login } from "@mui/icons-material";
 import { AuthContext } from "../../context/AuthContext";
 
-const HomePage = () => {
-  const { showLogin, showRegister, setShowLogin, setShowRegister, isLoggedIn } =
+const HomePage = ({ userDetails = {} }) => {
+  const { showLogin, showRegister, setShowLogin, setShowRegister } =
     useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -144,7 +144,7 @@ const HomePage = () => {
     );
   };
   const listProperty = () => {
-    if (isLoggedIn) {
+    if (userDetails) {
       navigate("/list-your-property-for-rent");
     } else {
       setShowLogin(true);
