@@ -26,7 +26,9 @@ import Loader from "./components/Loader";
 import RoomDetails from "./components/PostProperty/Pg/RoomDetails";
 import PgLocality from "./components/PostProperty/Pg/PgLocality";
 import PgDetails from "./components/PostProperty/Pg/PgDetails";
+
 import { useSelector } from "react-redux";
+axios.defaults.baseURL = "http://13.200.85.135/api";
 // axios.defaults.baseURL = "https://homewale-backend.onrender.com";
 axios.defaults.baseURL = "http://localhost:5000";
 // axios.defaults.baseURL = "http://13.200.85.135/api";
