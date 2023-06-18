@@ -1,34 +1,24 @@
-import React, { Component } from "react";
-// import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
+import React from "react";
+import { GoogleMap, Marker } from "@react-google-maps/api";
 
-class MyMapComponent extends Component {
-  render() {
-    // const { latt, langg } = this.props;
+const MapContainer = (props) => {
+  const mapContainerStyle = {
+    width: "100%",
+    height: "400px",
+  };
 
-    // const mapStyles = {
-    //   width: "100%",
-    //   height: "30rem",
-    // };
+  console.log(props);
 
-    return (
-      // <Map
-      //   google={this.props.google}
-      //   zoom={16}
-      //   style={mapStyles}
-      //   initialCenter={{
-      //     lat: latt,
-      //     lng: langg,
-      //   }}
-      //   mapTypeId={"roadmap"}
-      // >
-      //   <Marker position={{ lat: latt, lng: langg }} />
-      // </Map>
-      <div>hi</div>
-    );
-  }
-}
+  const center = {
+    lat: parseFloat(props.latt) || 37.7749,
+    lng: parseFloat(props.langg) || -122.4194,
+  };
+  console.log(center);
+  return (
+    <GoogleMap mapContainerStyle={mapContainerStyle} zoom={16} center={center}>
+      <Marker position={center}></Marker>
+    </GoogleMap>
+  );
+};
 
-// export default GoogleApiWrapper({
-//   apiKey: "AIzaSyDHWX2gLgeM3ZId-rvXJ_mphvcfb4ZVZRU",
-// })(MyMapComponent);
-export default MyMapComponent;
+export default MapContainer;

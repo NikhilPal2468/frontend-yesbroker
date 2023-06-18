@@ -21,13 +21,14 @@ import RentDetails from "./components/PostProperty/House/RentDetails";
 import Amenities from "./components/PostProperty/House/Amenities";
 import Gallery from "./components/PostProperty/House/Gallery";
 
-axios.defaults.baseURL = "http://13.200.85.135/api";
 import HousePage from "./components/SinglePage/House/HousePage";
 
 import Loader from "./components/Loader";
 import RoomDetails from "./components/PostProperty/Pg/RoomDetails";
 import PgLocality from "./components/PostProperty/Pg/PgLocality";
 import PgDetails from "./components/PostProperty/Pg/PgDetails";
+axios.defaults.baseURL = "http://13.200.85.135/api";
+
 // axios.defaults.baseURL = "https://homewale-backend.onrender.com";
 axios.defaults.baseURL = "http://localhost:5000";
 // axios.defaults.baseURL = "http://13.200.85.135/api";

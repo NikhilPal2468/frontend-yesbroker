@@ -6,6 +6,7 @@ import { AMENITIES } from "../../constants";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import MyMapComponent from "../../common/gMap";
+import MapContainer from "../../common/gMap";
 
 function HousePage() {
   const { id } = useParams();
@@ -114,8 +115,11 @@ function HousePage() {
         {property.property_type === "APARTMENT" ? property.apartment_name : ""}
         {property.location}
       </div>
+
       <div className="mt-4 card p-4">
-        <MyMapComponent latt={property?.latitude} langg={property?.longitude} />
+        {property && (
+          <MapContainer latt={property.latitude} langg={property.longitude} />
+        )}
       </div>
     </div>
   );
