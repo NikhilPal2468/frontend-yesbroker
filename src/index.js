@@ -8,6 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store/store";
 import { LoadContextProvider } from "./context/load-context";
+import { AuthProvider } from "./context/AuthContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -15,7 +16,9 @@ root.render(
     <Provider store={store}>
       <BrowserRouter>
         <LoadContextProvider>
-          <App />
+          <AuthProvider>
+            <App />
+          </AuthProvider>
         </LoadContextProvider>
       </BrowserRouter>
     </Provider>

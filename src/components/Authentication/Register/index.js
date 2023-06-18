@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import "react-phone-input-2/lib/style.css";
 import styles from "./styles.module.css";
@@ -9,13 +9,13 @@ import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import FormError from "../FormError";
 
-import axios from "axios";
 import CustomPhoneInput from "./CustomPhoneInput";
 import Otp from "../Otp";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 import { setUserDetails } from "../../../store/actions";
+import { AuthContext } from "../../../context/AuthContext";
 
 const Register = ({
   show = false,
@@ -38,9 +38,11 @@ const Register = ({
     phone_number: "",
   };
 
+  const { register } = useContext(AuthContext);
   const onSubmit = async (values) => {
     try {
-      const { data } = await axios.post("/public/api/register", values);
+      // const { data } = await axios.post("/public/api/register", values);
+      const data = await register(values);
       const { user = {}, success = false } = data || {};
 
       if (success === true) {
