@@ -1,20 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
 import { Button } from "react-bootstrap";
 import { FaHouseUser } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setUserDetails } from "../../../store/actions";
 import Register from "../../Authentication/Register";
 import Login from "../../Authentication/Login";
 import { IoReorderThreeOutline } from "react-icons/io5";
+import axios from "axios";
+import { AuthContext } from "../../../context/AuthContext";
 
-const Navbar = () => {
+const Navbar = ({ userDetails = {} }) => {
   const [user, setUser] = useState(null);
-  const [showRegister, setShowRegister] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
+  const { showLogin, showRegister, setShowLogin, setShowRegister } =
+    useContext(AuthContext);
   const dispatch = useDispatch();
-  const userDetails = useSelector((state) => state.user.userDetails);
 
   useEffect(() => {
     // Retrieve user details from browser storage on component mount
@@ -25,14 +26,17 @@ const Navbar = () => {
     } else {
       setUser(userDetails);
     }
-  }, []);
+  }, [dispatch, setUserDetails]);
 
   const navigate = useNavigate();
-  const handleLogout = () => {
+
+  const handleLogout = async () => {
     localStorage.removeItem("userDetails");
+    await axios.get("/secure/api/logout");
     navigate("/");
     dispatch(setUserDetails(null));
     setUser(null);
+    navigate(`/`);
   };
 
   return (
@@ -115,13 +119,13 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    className="dropdown-item"
+                  <div
+                    className={`dropdown-item ${styles.logout_button}`}
                     href="#"
                     onClick={handleLogout}
                   >
                     Logout
-                  </Link>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -160,8 +164,8 @@ const Navbar = () => {
       </div>
       {showRegister && (
         <Register
-          show={showRegister}
-          setShow={setShowRegister}
+          showRegister={showRegister}
+          setShowRegister={setShowRegister}
           user={user}
           setUser={setUser}
           setShowLogin={setShowLogin}
@@ -173,6 +177,7 @@ const Navbar = () => {
           setShowLogin={setShowLogin}
           user={user}
           setUser={setUser}
+          setShowRegister={setShowRegister}
         />
       )}
     </nav>

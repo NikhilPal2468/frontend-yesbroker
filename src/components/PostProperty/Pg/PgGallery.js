@@ -17,7 +17,7 @@ const PICTURE_TYPES = [
   "Balcony",
 ];
 
-function Gallery() {
+function PgGallery() {
   const location = useLocation();
   const { setLoading } = useContext(LoadContext);
 
@@ -39,7 +39,8 @@ function Gallery() {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    console.log("e:", e);
     setShowModal(true);
   };
 
@@ -116,7 +117,6 @@ function Gallery() {
           description: description,
         }
       );
-
       setUploadedImages((prevImages) => {
         let update = prevImages.map((curPhoto) => {
           if (curPhoto.id === imageId) {
@@ -234,14 +234,10 @@ function Gallery() {
         </div>
       </div>
       {showModal && (
-        <FinalModal
-          showModal={showModal}
-          setShowModal={setShowModal}
-          houseId={houseId}
-        />
+        <FinalModal showModal={showModal} setShowModal={setShowModal} />
       )}
     </div>
   );
 }
 
-export default Gallery;
+export default PgGallery;

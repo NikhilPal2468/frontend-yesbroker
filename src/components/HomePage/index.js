@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import { Button, Dropdown, DropdownButton, InputGroup } from "react-bootstrap";
 import { BsSearch } from "react-icons/bs";
@@ -22,10 +22,17 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Chip } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import useDebounceQuery from "../hooks/useDebounceQuery";
+import Register from "../Authentication/Register";
+import { Login } from "@mui/icons-material";
+import { AuthContext } from "../../context/AuthContext";
 
-const HomePage = () => {
+const HomePage = ({ userDetails = {} }) => {
+  const { showLogin, showRegister, setShowLogin, setShowRegister } =
+    useContext(AuthContext);
   const navigate = useNavigate();
+
   const [selectedCity, setSelectedCity] = useState("Bangalore");
   const [searchValue, setSearchValue] = useState("");
   const [propertyType, setPropertyType] = useState("house");
@@ -70,13 +77,12 @@ const HomePage = () => {
     setPropertyType(event.target.value);
   };
 
+  const { query = "", debounceQuery } = useDebounceQuery();
   useEffect(() => {
     const autoCompleteApi = async () => {
       // if (searchValue)
       await axios
-        .get(
-          `/public/api/autocomplete?city=${selectedCity}&text=${searchValue}`
-        )
+        .get(`/public/api/autocomplete?city=${selectedCity}&text=${query}`)
         .then((response) => {
           setSuggestionList(response.data);
         })
@@ -85,7 +91,10 @@ const HomePage = () => {
         });
     };
     autoCompleteApi();
-  }, [searchValue, selectedCity]);
+  }, [query, selectedCity]);
+  useEffect(() => {
+    debounceQuery(searchValue);
+  }, [debounceQuery, searchValue]);
 
   const autoCompleteLocalities = (e) => {
     setSearchValue(e.target.value);
@@ -134,10 +143,17 @@ const HomePage = () => {
       prevChips.filter((chip) => chip.place_id !== place_id)
     );
   };
+  const listProperty = () => {
+    if (userDetails) {
+      navigate("/list-your-property-for-rent");
+    } else {
+      setShowLogin(true);
+    }
+  };
   return (
     <div className={styles.homepage}>
       <ToastContainer />
-      <div className={styles.homepage_heading}>
+      <div className={`${styles.homepage_heading} fw-semibold`}>
         Discover Your Perfect Fit: Where Houses Become Homes
       </div>
       <div
@@ -157,6 +173,9 @@ const HomePage = () => {
                 key={city}
                 onClick={() => {
                   setSelectedCity(city);
+                  setSelectedLocality([]);
+                  setSuggestionList([]);
+                  setSearchValue("");
                 }}
                 href="#"
               >
@@ -249,6 +268,7 @@ const HomePage = () => {
                     value="pg"
                     checked={propertyType === "pg"}
                     onChange={handlePropertyTypeChange}
+                    disabled
                   />
                   <label className="form-check-label" htmlFor="property_type2">
                     PG/Hostel
@@ -265,6 +285,7 @@ const HomePage = () => {
                     value="flat"
                     checked={propertyType === "flat"}
                     onChange={handlePropertyTypeChange}
+                    disabled
                   />
                   <label className="form-check-label" htmlFor="property_type3">
                     Flatmates
@@ -383,9 +404,23 @@ const HomePage = () => {
       </div>
       <div>
         <div className={styles.property_owner}>Are you a Property Owner?</div>
-        <Link to="/list-your-property-for-rent">
-          <Button>Post your property</Button>
-        </Link>
+
+        <Button onClick={listProperty}>Post your property</Button>
+
+        {showRegister && (
+          <Register
+            showRegister={showRegister}
+            setShowRegister={setShowRegister}
+            setShowLogin={setShowLogin}
+          />
+        )}
+        {showLogin && (
+          <Login
+            showLogin={showLogin}
+            setShowLogin={setShowLogin}
+            setShowRegister={setShowRegister}
+          />
+        )}
       </div>
       <div className={`w-100 ${styles.cardBody} text-center`}>
         <h3 className={`text-center my-8 p-4 pb-6`}>Why HOMEWALE?</h3>

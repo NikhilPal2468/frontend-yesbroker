@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Button } from "react-bootstrap";
@@ -7,6 +7,7 @@ import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Sidebar from "./SideBar/sidebar";
 import styles from "./styles.module.css";
+import { LoadContext } from "../../../context/load-context";
 
 const initialValues = {
   partNo: "1",
@@ -166,18 +167,20 @@ const validationSchema = Yup.object({
   total_floors: Yup.string().required("Total floors required"),
   property_age: Yup.string().required("Property Age required"),
   facing: Yup.string().required("Building Facing is required"),
-  builtup_area: Yup.string().required("Built Up Area is Required"),
+  builtup_area: Yup.number().required("Built Up Area is Required"),
 });
 
 function PropertyDetails() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { setLoading } = useContext(LoadContext);
 
   const [houseObject, setHouseObject] = useState(null);
   const { id: houseId } = useParams();
 
   useEffect(() => {
     try {
+      setLoading(true);
       const fetchData = async (houseId) => {
         const { data } = await axios.get(
           `/secure/api/gethouse?houseId=${houseId}`
@@ -187,7 +190,9 @@ function PropertyDetails() {
         setHouseObject(data);
       };
       fetchData(houseId);
+      setLoading(false);
     } catch (err) {
+      setLoading(false);
       console.log(err);
     }
   }, [houseId]);

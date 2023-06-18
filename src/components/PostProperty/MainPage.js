@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { TiStopwatch } from "react-icons/ti";
 import { BsCardChecklist } from "react-icons/bs";
 import { FiKey } from "react-icons/fi";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CITIES = ["Mumbai", "Bangalore", "Gurgaon", "Delhi", "Hyderabad"];
 
@@ -40,10 +42,20 @@ function MainPage() {
           values
         );
         const pg = data.house;
-        navigate(`/property/manage/pg/${pg.id}/property`);
+        navigate(`/property/manage/pg/${pg.id}/room`);
       }
-    } catch (err) {
-      console.log(err);
+    } catch (e) {
+      console.log(e?.response?.data?.message);
+      toast.error(e?.response?.data?.message, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   };
 
@@ -148,6 +160,7 @@ function MainPage() {
           </Formik>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

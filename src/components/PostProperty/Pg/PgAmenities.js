@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import Sidebar from "./SideBar/sidebar";
 import styles from "./styles.module.css";
 import * as Yup from "yup";
@@ -8,7 +8,6 @@ import PostFormError from "../PostFormError";
 import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import CustomPhoneInput from "../../Authentication/Register/CustomPhoneInput";
-import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import { AMENITIES } from "../../constants";
 import { LoadContext } from "../../../context/load-context";
 
@@ -70,45 +69,44 @@ const validationSchema = Yup.object({
   park: Yup.boolean(),
 });
 
-function Amenities() {
+function PgAmenities() {
   const navigate = useNavigate();
   const location = useLocation();
   const { setLoading } = useContext(LoadContext);
 
-  const [houseObject, setHouseObject] = useState(null);
-  const { id: houseId } = useParams();
+  const [pgObject, setPgObject] = useState(null);
+  const { id: pgId } = useParams();
 
-  useEffect(() => {
-    try {
-      const fetchData = async (houseId) => {
-        setLoading(true);
-        const { data } = await axios.get(
-          `/secure/api/gethouse?houseId=${houseId}`
-        );
-        setLoading(false);
-        setHouseObject(data);
-      };
+  //   useEffect(() => {
+  //     try {
+  //       const fetchData = async (pgId) => {
+  //         setLoading(true);
+  //         const { data } = await axios.get(
+  //           `/secure/api/gethouse?pgId=${pgId}`
+  //         );
+  //         setLoading(false);
+  //         setPgObject(data);
+  //       };
 
-      fetchData(houseId);
-    } catch (err) {
-      setLoading(false);
-      console.log(err);
-    }
-  }, [houseId]);
+  //       fetchData(pgId);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   }, [pgId]);
 
   let formValues = {};
 
-  if (houseObject) {
+  if (pgObject) {
     formValues = Object.entries(initialValues).reduce(
       (result, [key, value]) => {
         if (
           // eslint-disable-next-line no-prototype-builtins
-          houseObject.hasOwnProperty(key) &&
+          pgObject.hasOwnProperty(key) &&
           // eslint-disable-next-line no-prototype-builtins
           initialValues.hasOwnProperty(key)
         ) {
-          if (houseObject[key] === null) result[key] = value;
-          else result[key] = houseObject[key];
+          if (pgObject[key] === null) result[key] = value;
+          else result[key] = pgObject[key];
         }
         return result;
       },
@@ -120,38 +118,15 @@ function Amenities() {
 
   formValues.partNo = "4";
 
-  if (!formValues.balcony_count) formValues.balcony_count = 0;
-  if (!formValues.bathrooms_count) formValues.bathrooms_count = 0;
-
   const onSubmit = async (values) => {
     try {
-      await axios.post(
-        `secure/api/newProperty/house/update/${houseId}`,
-        values
-      );
+      await axios.post(`secure/api/newProperty/pg/update/${pgId}`, values);
 
-      navigate(`/property/manage/house/${houseId}/gallery`);
+      navigate(`/property/manage/pg/${pgId}/gallery`);
     } catch (err) {
       console.log(err);
     }
   };
-
-  const handleBathroomCount = (action, setFieldValue, bathroomsCount) => {
-    if (action === "decrease" && bathroomsCount > 0) {
-      setFieldValue("bathrooms_count", bathroomsCount - 1);
-    } else {
-      setFieldValue("bathrooms_count", bathroomsCount + 1);
-    }
-  };
-
-  const handleBalconyCount = (action, setFieldValue, balconyCount) => {
-    if (action === "decrease" && balconyCount > 0) {
-      setFieldValue("balcony_count", balconyCount - 1);
-    } else {
-      setFieldValue("balcony_count", balconyCount + 1);
-    }
-  };
-
   const renderAmenities = () => {
     const renderedItems = [];
 
@@ -246,78 +221,7 @@ function Amenities() {
             {({ values, setFieldValue }) => (
               <Form className="w-100 p-2 px-4">
                 {/* Bathroom Count */}
-                <div className="d-flex flex-column flex-sm-row align-items-center justify-content-around w-100 gap-4">
-                  <div className="mb-3 w-100">
-                    <label htmlFor="property_type">Bathroom Count</label>
-                    <div className="mb-3 w-100 border rounded d-flex form-control justify-content-between align-items-center">
-                      <button
-                        type="button"
-                        className="rounded w-2 h-2"
-                        disabled={values.bathrooms_count <= 0}
-                        onClick={() =>
-                          handleBathroomCount(
-                            "decrease",
-                            setFieldValue,
-                            values.bathrooms_count
-                          )
-                        }
-                      >
-                        <AiOutlineMinus />
-                      </button>
-                      <span className="">{values.bathrooms_count}</span>
-                      <button
-                        type="button"
-                        className="rounded w-2 h-2"
-                        onClick={() =>
-                          handleBathroomCount(
-                            "increase",
-                            setFieldValue,
-                            values.bathrooms_count
-                          )
-                        }
-                      >
-                        <AiOutlinePlus />
-                      </button>
-                    </div>
-                    <ErrorMessage
-                      name="property_type"
-                      component={PostFormError}
-                    />
-                  </div>
-                  <div className="mb-3 w-100">
-                    <label htmlFor="property_type">Balcony Count</label>
-                    <div className="mb-3 w-100 border rounded d-flex form-control justify-content-between align-items-center">
-                      <button
-                        type="button"
-                        className="rounded w-2 h-2"
-                        disabled={values.balcony_count <= 0}
-                        onClick={() =>
-                          handleBalconyCount(
-                            "decrease",
-                            setFieldValue,
-                            values.balcony_count
-                          )
-                        }
-                      >
-                        <AiOutlineMinus />
-                      </button>
-                      <span className="">{values.balcony_count}</span>
-                      <button
-                        type="button"
-                        className="rounded w-2 h-2"
-                        onClick={() =>
-                          handleBalconyCount(
-                            "increase",
-                            setFieldValue,
-                            values.balcony_count
-                          )
-                        }
-                      >
-                        <AiOutlinePlus />
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                <div className="d-flex flex-column flex-sm-row align-items-center justify-content-around w-100 gap-4"></div>
 
                 <div className="d-flex flex-column flex-md-row align-items-center justify-content-around w-100 gap-4">
                   <div className="mb-3 w-100">
@@ -336,7 +240,7 @@ function Amenities() {
                       ))}
                     </Field>
                     <ErrorMessage
-                      name="water_supply"
+                      name="property_type"
                       component={PostFormError}
                     />
                   </div>
@@ -370,4 +274,4 @@ function Amenities() {
   );
 }
 
-export default Amenities;
+export default PgAmenities;

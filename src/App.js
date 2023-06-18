@@ -2,8 +2,6 @@ import React from "react";
 import "./App.css";
 import axios from "axios";
 
-import "./App.css";
-
 import Navbar from "./components/common/Navbar";
 import HomePage from "./components/HomePage";
 import { Route, Routes } from "react-router-dom";
@@ -22,10 +20,15 @@ import LocalityDetails from "./components/PostProperty/House/LocalityDetails";
 import RentDetails from "./components/PostProperty/House/RentDetails";
 import Amenities from "./components/PostProperty/House/Amenities";
 import Gallery from "./components/PostProperty/House/Gallery";
+
+import HousePage from "./components/SinglePage/House/HousePage";
+import Loader from "./components/Loader";
+import RoomDetails from "./components/PostProperty/Pg/RoomDetails";
+import PgLocality from "./components/PostProperty/Pg/PgLocality";
+import PgDetails from "./components/PostProperty/Pg/PgDetails";
+
 import { useSelector } from "react-redux";
 
-import RedirectPage from "./components/common/RedirectPage";
-import SingleProperty from "./components/SingleProperty";
 // axios.defaults.baseURL = "https://homewale-backend.onrender.com";
 // axios.defaults.baseURL = "http://localhost:5000";
 axios.defaults.baseURL = "https://homewale.com/api";
@@ -33,14 +36,17 @@ axios.defaults.baseURL = "https://homewale.com/api";
 axios.defaults.withCredentials = true;
 
 function App() {
-  const userDetails = useSelector((state) => state.user.userDetails);
-
+  const userDetails = useSelector((state) => state.user?.userDetails);
   return (
     <div className="App">
-      <Navbar />
+      <Navbar userDetails={userDetails} />
+      <Loader />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/properties" element={<ListProperties />} />
+        <Route path="/" element={<HomePage userDetails={userDetails} />} />
+        <Route
+          path="/properties"
+          element={<ListProperties userDetails={userDetails} />}
+        />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/resetpassword/:id/:token" element={<ResetPassword />} />
 
@@ -59,10 +65,9 @@ function App() {
         />
         <Route path="/user/ownerscontacted" element={<OwnersContacted />} />
 
-        <Route
-          path="/list-your-property-for-rent"
-          element={userDetails ? <MainPage /> : <RedirectPage />}
-        />
+        <Route path="/list-your-property-for-rent" element={<MainPage />} />
+
+        {/* HOUSE */}
         <Route
           path="/property/manage/house/:id/property"
           element={<PropertyDetails />}
@@ -83,7 +88,23 @@ function App() {
           path="/property/manage/house/:id/gallery"
           element={<Gallery />}
         />
-        <Route path="/property/:id/" element={<SingleProperty />} />
+
+        {/* single page for house */}
+        <Route
+          path="/property/:id/"
+          element={<HousePage userDetails={userDetails} />}
+        />
+
+        {/* PG */}
+        <Route path="/property/manage/pg/:id/room" element={<RoomDetails />} />
+        <Route
+          path="/property/manage/pg/:id/locality"
+          element={<PgLocality />}
+        />
+        <Route
+          path="/property/manage/pg/:id/pgdetails"
+          element={<PgDetails />}
+        />
       </Routes>
     </div>
   );

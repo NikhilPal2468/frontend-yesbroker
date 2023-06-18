@@ -1,52 +1,43 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import { Button } from "react-bootstrap";
 import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Sidebar from "./SideBar/sidebar";
-import { LoadContext } from "../../../context/load-context";
 
 const CITIES = ["Mumbai", "Bangalore", "Gurgaon", "Delhi", "Hyderabad"];
 
-function LocalityDetails() {
+function PgLocality() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { setLoading } = useContext(LoadContext);
 
-  const { id: houseId } = useParams();
+  const { id: pgId } = useParams();
 
   const [city, setCity] = useState("");
-  const [address, setAddress] = useState("");
-  const [pincode, setPincode] = useState("");
-  const [houseNo, setHouseNo] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [locality, setLocality] = useState("");
   const [street, setStreet] = useState("");
   const [suggestionList, setSuggestionList] = useState([]);
 
-  useEffect(() => {
-    try {
-      const fetchData = async (houseId) => {
-        setLoading(true);
-        const { data } = await axios.get(
-          `/secure/api/gethouse?houseId=${houseId}`
-        );
+  //   useEffect(() => {
+  //     try {
+  //       const fetchData = async (pgId) => {
+  //         setLoading(true);
+  //         const { data } = await axios.get(
+  //           `/secure/api/getPg?pgId=${pgId}`
+  //         );
 
-        setLoading(false);
-        setCity(data?.city);
-        setLocality(data?.locality);
-        setStreet(data?.street);
-        setHouseNo(data?.houseno);
-        setPincode(data?.pincode);
-        setAddress(data?.address);
-      };
+  //         setLoading(false);
+  //         setCity(data?.city);
+  //         setLocality(data?.locality);
+  //         setStreet(data?.street);
+  //       };
 
-      fetchData(houseId);
-    } catch (err) {
-      setLoading(false);
-      console.log(err);
-    }
-  }, [houseId]);
+  //       fetchData(pgId);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   }, [pgId]);
 
   const handleCityChange = (e) => {
     setCity(e.target.value);
@@ -96,17 +87,11 @@ function LocalityDetails() {
       locality: locality,
       street: street,
       partNo: "2",
-      pincode: pincode,
-      houseNo: houseNo,
-      address: address,
     };
 
     try {
-      await axios.post(
-        `secure/api/newProperty/house/update/${houseId}`,
-        payLoad
-      );
-      navigate(`/property/manage/house/${houseId}/rental`);
+      await axios.post(`secure/api/newProperty/pg/update/${pgId}`, payLoad);
+      navigate(`/property/manage/pg/${pgId}/pgdetails`);
     } catch (err) {
       console.log(err);
     }
@@ -186,49 +171,7 @@ function LocalityDetails() {
             </div>
             <div className="d-flex flex-row w-100 justify-content-center align-items-center gap-4">
               <div className="mb-3 w-100">
-                <label htmlFor="houseno">House No</label>
-                <input
-                  type="text"
-                  name="houseno"
-                  id="houseno"
-                  value={houseNo}
-                  className="form-control"
-                  onChange={(e) => {
-                    setHouseNo(e.target.value);
-                  }}
-                  required
-                />
-              </div>
-              <div className="mb-3 w-100">
-                <label htmlFor="address">Complete Address</label>
-                <input
-                  type="text"
-                  name="address"
-                  id="address"
-                  value={address}
-                  className="form-control"
-                  onChange={(e) => setAddress(e.target.value)}
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="d-flex flex-row w-100 justify-content-center align-items-center gap-4">
-              <div className="mb-3 w-100">
-                <label htmlFor="pincode">Pincode</label>
-                <input
-                  type="text"
-                  name="pincode"
-                  id="pincode"
-                  value={pincode}
-                  className="form-control"
-                  onChange={(e) => setPincode(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="mb-3 w-100">
-                <label htmlFor="street">Landmark/Street</label>
+                <label htmlFor="city">Landmark/Street</label>
                 <input
                   type="text"
                   name="street"
@@ -239,6 +182,7 @@ function LocalityDetails() {
                   required
                 />
               </div>
+              <div className="w-100"></div>
             </div>
 
             <div className="">
@@ -257,4 +201,4 @@ function LocalityDetails() {
   );
 }
 
-export default LocalityDetails;
+export default PgLocality;

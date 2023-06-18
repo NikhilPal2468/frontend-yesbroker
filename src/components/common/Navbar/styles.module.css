@@ -20,6 +20,9 @@
   cursor: pointer;
 }
 
-.navbar_homewale{
+/* .navbar_homewale{
   background-color: #e5f8ff !important;
+} */
+.logout_button{
+  cursor: pointer;
 }

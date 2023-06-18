@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./styles.module.css";
 
 import { Button, Modal, Container, Row, Col } from "react-bootstrap";
@@ -8,12 +8,12 @@ import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import FormError from "../FormError";
 
-import axios from "axios";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUserDetails } from "../../../store/actions";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AuthContext } from "../../../context/AuthContext";
 
 const initialValues = {
   email: "",
@@ -32,16 +32,19 @@ const validationSchema = Yup.object({
 const Login = ({
   showLogin = false,
   setShowLogin = () => {},
+  setShowRegister = () => {},
   setUser = () => {},
 }) => {
   const dispatch = useDispatch();
   const handleClose = () => {
     setShowLogin(false);
   };
+  const { login } = useContext(AuthContext);
 
   const onSubmit = async (values) => {
     try {
-      const { data } = await axios.post("/public/api/login", values);
+      // const { data } = await axios.post("/public/api/login", values);
+      const data = await login(values);
       const { success = false, user = {} } = data;
       if (success) {
         dispatch(setUserDetails(user));
@@ -136,6 +139,18 @@ const Login = ({
                     <Link to="/forgotpassword">
                       <small>Forgot Password?</small>
                     </Link>
+                  </p>
+                  <p>
+                    <span
+                      role="button"
+                      className="text-primary"
+                      onClick={() => {
+                        setShowLogin(false);
+                        setShowRegister(true);
+                      }}
+                    >
+                      <small>Register</small>
+                    </span>
                   </p>
                 </div>
                 <p className="text-center mt-4">

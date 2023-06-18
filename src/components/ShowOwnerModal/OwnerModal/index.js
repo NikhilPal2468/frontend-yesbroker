@@ -3,6 +3,8 @@ import { Container, Modal } from "react-bootstrap";
 import styles from "./styles.module.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function OwnerModal({ showOwnersContacted, setShowOwnersContacted, houseId }) {
   const [ownerData, setOwnerData] = useState(null);
@@ -13,20 +15,29 @@ function OwnerModal({ showOwnersContacted, setShowOwnersContacted, houseId }) {
   };
 
   useEffect(() => {
-    try {
-      const fetchData = async (houseId) => {
+    const fetchData = async (houseId) => {
+      try {
         const { data } = await axios.get(
           `/secure/api/user/listings/get-owner-details/${houseId}`
         );
 
         setOwnerData(data);
-      };
-
-      if (houseId) {
-        fetchData(houseId);
+      } catch (e) {
+        console.log(e?.response?.data?.message);
+        toast.error(e?.response?.data?.message, {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       }
-    } catch (err) {
-      console.log(err);
+    };
+    if (houseId) {
+      fetchData(houseId);
     }
   }, [houseId]);
 
@@ -34,6 +45,9 @@ function OwnerModal({ showOwnersContacted, setShowOwnersContacted, houseId }) {
     navigate("/premium");
   };
 
+  if (!ownerData) {
+    return <ToastContainer />;
+  }
   return (
     <Modal
       show={showOwnersContacted}
