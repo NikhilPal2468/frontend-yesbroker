@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import { Button, Dropdown, DropdownButton, InputGroup } from "react-bootstrap";
 import { BsSearch } from "react-icons/bs";
@@ -22,15 +22,17 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Chip } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useDebounceQuery from "../hooks/useDebounceQuery";
 import Register from "../Authentication/Register";
 import { Login } from "@mui/icons-material";
+import { AuthContext } from "../../context/AuthContext";
 
-const HomePage = (userDetails = {}) => {
+const HomePage = () => {
+  const { showLogin, showRegister, setShowLogin, setShowRegister, isLoggedIn } =
+    useContext(AuthContext);
   const navigate = useNavigate();
-  const [showRegister, setShowRegister] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
+
   const [selectedCity, setSelectedCity] = useState("Bangalore");
   const [searchValue, setSearchValue] = useState("");
   const [propertyType, setPropertyType] = useState("house");
@@ -142,10 +144,10 @@ const HomePage = (userDetails = {}) => {
     );
   };
   const listProperty = () => {
-    if (userDetails) {
+    if (isLoggedIn) {
       navigate("/list-your-property-for-rent");
     } else {
-      setbhkType([]);
+      setShowLogin(true);
     }
   };
   return (
@@ -266,6 +268,7 @@ const HomePage = (userDetails = {}) => {
                     value="pg"
                     checked={propertyType === "pg"}
                     onChange={handlePropertyTypeChange}
+                    disabled
                   />
                   <label className="form-check-label" htmlFor="property_type2">
                     PG/Hostel
@@ -282,6 +285,7 @@ const HomePage = (userDetails = {}) => {
                     value="flat"
                     checked={propertyType === "flat"}
                     onChange={handlePropertyTypeChange}
+                    disabled
                   />
                   <label className="form-check-label" htmlFor="property_type3">
                     Flatmates
@@ -400,18 +404,22 @@ const HomePage = (userDetails = {}) => {
       </div>
       <div>
         <div className={styles.property_owner}>Are you a Property Owner?</div>
-        <Link to="/list-your-property-for-rent">
-          <Button onClick={listProperty}>Post your property</Button>
-        </Link>
+
+        <Button onClick={listProperty}>Post your property</Button>
+
         {showRegister && (
           <Register
-            show={showRegister}
-            setShow={setShowRegister}
+            showRegister={showRegister}
+            setShowRegister={setShowRegister}
             setShowLogin={setShowLogin}
           />
         )}
         {showLogin && (
-          <Login showLogin={showLogin} setShowLogin={setShowLogin} />
+          <Login
+            showLogin={showLogin}
+            setShowLogin={setShowLogin}
+            setShowRegister={setShowRegister}
+          />
         )}
       </div>
       <div className={`w-100 ${styles.cardBody} text-center`}>

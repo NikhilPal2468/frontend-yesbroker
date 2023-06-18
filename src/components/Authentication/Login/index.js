@@ -32,7 +32,8 @@ const validationSchema = Yup.object({
 const Login = ({
   showLogin = false,
   setShowLogin = () => {},
-  // setUser = () => {},
+  setShowRegister = () => {},
+  setUser = () => {},
 }) => {
   const dispatch = useDispatch();
   const handleClose = () => {
@@ -49,7 +50,7 @@ const Login = ({
       if (success) {
         dispatch(setUserDetails(user));
         setShowLogin(false);
-        // setUser(user);
+        setUser(user);
         toast.success("Login Successful", {
           position: "top-center",
           autoClose: 2000,
@@ -139,6 +140,18 @@ const Login = ({
                     <Link to="/forgotpassword">
                       <small>Forgot Password?</small>
                     </Link>
+                  </p>
+                  <p>
+                    <span
+                      role="button"
+                      className="text-primary"
+                      onClick={() => {
+                        setShowLogin(false);
+                        setShowRegister(true);
+                      }}
+                    >
+                      <small>Register</small>
+                    </span>
                   </p>
                 </div>
                 <p className="text-center mt-4">

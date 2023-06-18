@@ -20,7 +20,6 @@ import LocalityDetails from "./components/PostProperty/House/LocalityDetails";
 import RentDetails from "./components/PostProperty/House/RentDetails";
 import Amenities from "./components/PostProperty/House/Amenities";
 import Gallery from "./components/PostProperty/House/Gallery";
-import { useSelector } from "react-redux";
 
 axios.defaults.baseURL = "http://13.200.85.135/api";
 import HousePage from "./components/SinglePage/House/HousePage";
@@ -35,14 +34,12 @@ axios.defaults.baseURL = "http://localhost:5000";
 axios.defaults.withCredentials = true;
 
 function App() {
-  const userDetails = useSelector((state) => state.user.userDetails);
-
   return (
     <div className="App">
       <Navbar />
       <Loader />
       <Routes>
-        <Route path="/" element={<HomePage userDetails={userDetails} />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/properties" element={<ListProperties />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/resetpassword/:id/:token" element={<ResetPassword />} />
@@ -62,10 +59,7 @@ function App() {
         />
         <Route path="/user/ownerscontacted" element={<OwnersContacted />} />
 
-        <Route
-          path="/list-your-property-for-rent"
-          element={<MainPage userDetails={userDetails} />}
-        />
+        <Route path="/list-your-property-for-rent" element={<MainPage />} />
 
         {/* HOUSE */}
         <Route

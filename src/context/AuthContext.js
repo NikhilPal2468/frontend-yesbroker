@@ -4,6 +4,8 @@ import React, { createContext, useState } from "react";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const [showRegister, setShowRegister] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const login = async (values) => {
@@ -26,7 +28,18 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout, register }}>
+    <AuthContext.Provider
+      value={{
+        isLoggedIn,
+        login,
+        logout,
+        register,
+        showLogin,
+        setShowLogin,
+        showRegister,
+        setShowRegister,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

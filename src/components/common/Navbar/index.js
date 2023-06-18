@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
 import { Button } from "react-bootstrap";
@@ -9,11 +9,12 @@ import Register from "../../Authentication/Register";
 import Login from "../../Authentication/Login";
 import { IoReorderThreeOutline } from "react-icons/io5";
 import axios from "axios";
+import { AuthContext } from "../../../context/AuthContext";
 
 const Navbar = () => {
   const [user, setUser] = useState(null);
-  const [showRegister, setShowRegister] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
+  const { showLogin, showRegister, setShowLogin, setShowRegister } =
+    useContext(AuthContext);
   const dispatch = useDispatch();
   const userDetails = useSelector((state) => state.user.userDetails);
 
@@ -164,8 +165,8 @@ const Navbar = () => {
       </div>
       {showRegister && (
         <Register
-          show={showRegister}
-          setShow={setShowRegister}
+          showRegister={showRegister}
+          setShowRegister={setShowRegister}
           user={user}
           setUser={setUser}
           setShowLogin={setShowLogin}
@@ -177,6 +178,7 @@ const Navbar = () => {
           setShowLogin={setShowLogin}
           user={user}
           setUser={setUser}
+          setShowRegister={setShowRegister}
         />
       )}
     </nav>

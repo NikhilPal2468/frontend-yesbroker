@@ -6,7 +6,7 @@ import { setUserDetails } from "../../../store/actions";
 import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const Otp = ({ userId, setShow = () => {} }) => {
+const Otp = ({ userId, setShowRegister = () => {} }) => {
   const dispatch = useDispatch();
   const [otp, setOtp] = useState(new Array(4).fill(""));
   const [disabled, setDisabled] = useState(true);
@@ -43,7 +43,7 @@ const Otp = ({ userId, setShow = () => {} }) => {
       const { data } = await axios.post("/public/api/verify-token", values);
       const { success = false, user = {} } = data;
       if (success) {
-        setShow(false);
+        setShowRegister(false);
         dispatch(setUserDetails(user));
         toast.success("Account verified", {
           position: "top-center",

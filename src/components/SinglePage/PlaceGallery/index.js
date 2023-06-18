@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./styles.module.css";
 import { RiHotelBedLine } from "react-icons/ri";
 import {
@@ -18,6 +18,7 @@ import { Backdrop } from "@mui/material";
 import OwnerModal from "../../ShowOwnerModal/OwnerModal";
 import LikeHandler from "../../likeHandler";
 import { Image } from "react-bootstrap";
+import { AuthContext } from "../../../context/AuthContext";
 
 const renderAge = (age) => {
   let propertyAge = "";
@@ -51,9 +52,10 @@ const PlaceGallery = ({ property, houses_id }) => {
 
   const [mediaIndex, setMediaIndex] = useState(0);
   const [showOwnersContacted, setShowOwnersContacted] = useState(false);
-
+  const { setShowLogin, isLoggedIn } = useContext(AuthContext);
   const handleHouseClicked = () => {
-    setShowOwnersContacted(true);
+    if (isLoggedIn) setShowOwnersContacted(true);
+    else setShowLogin(true);
   };
 
   const showImages = () => {

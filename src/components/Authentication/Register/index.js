@@ -18,9 +18,9 @@ import { setUserDetails } from "../../../store/actions";
 import { AuthContext } from "../../../context/AuthContext";
 
 const Register = ({
-  show = false,
-  setShow = () => {},
-  // setUser = () => {},
+  showRegister = false,
+  setShowRegister = () => {},
+  setUser = () => {},
   setShowLogin = () => {},
 }) => {
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ const Register = ({
   const [userId, setUserId] = useState(null);
 
   const handleClose = () => {
-    setShow(false);
+    setShowRegister(false);
   };
 
   const initialValues = {
@@ -49,7 +49,7 @@ const Register = ({
         dispatch(setUserDetails(user));
         setDisplayOtp(true);
         setUserId(user?.id);
-        // setUser(user);
+        setUser(user);
       }
     } catch (e) {
       toast.error(e?.response?.data?.message, {
@@ -80,7 +80,7 @@ const Register = ({
   });
 
   const openLogin = () => {
-    setShow(false);
+    setShowRegister(false);
     setShowLogin(true);
   };
 
@@ -88,7 +88,7 @@ const Register = ({
     <div>
       <ToastContainer />
       <Modal
-        show={show}
+        show={showRegister}
         onHide={handleClose}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
@@ -104,7 +104,7 @@ const Register = ({
               <AuthModal />
               <Col xs={12} md={8}>
                 {displayOtp ? (
-                  <Otp setShow={setShow} userId={userId} />
+                  <Otp setShowRegister={setShowRegister} userId={userId} />
                 ) : (
                   <>
                     <Formik
@@ -175,7 +175,11 @@ const Register = ({
                       <p>
                         <small>
                           Have an account?{" "}
-                          <span onClick={openLogin} role="button">
+                          <span
+                            onClick={openLogin}
+                            role="button"
+                            className="text-primary"
+                          >
                             Login
                           </span>
                         </small>

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Button } from "react-bootstrap";
@@ -7,7 +7,7 @@ import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Sidebar from "./SideBar/sidebar";
 import styles from "./styles.module.css";
-import { LoadContext } from "../../../context/load-context";
+
 import { BiBed } from "react-icons/bi";
 
 const initialValues = {
@@ -50,9 +50,8 @@ function RoomDetails() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { setLoading } = useContext(LoadContext);
-
-  const [pgObject, setPgObject] = useState(null);
+  const pgObject = null;
+  // const [pgObject, setPgObject] = useState(null);
   const { id: pgId } = useParams();
 
   //   useEffect(() => {
@@ -121,7 +120,7 @@ function RoomDetails() {
             onSubmit={onSubmit}
             enableReinitialize
           >
-            {({ values, setFieldValue }) => (
+            {({ values }) => (
               <Form className="w-100 p-2 px-4">
                 {/* Property Type */}
                 <div className="d-flex flex-column flex-sm-row align-items-center justify-content-center w-100 gap-4">

@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./styles.module.css";
 import { GrUserManager } from "react-icons/gr";
 import { GiFamilyHouse } from "react-icons/gi";
 import { TbSofa } from "react-icons/tb";
 import { VscKey } from "react-icons/vsc";
 import { Link } from "react-router-dom";
-import { HiHeart, HiOutlineHeart } from "react-icons/hi";
-import axios from "axios";
+
 import OwnerModal from "../../ShowOwnerModal/OwnerModal";
 import LikeHandler from "../../likeHandler";
+import { AuthContext } from "../../../context/AuthContext";
 
 const HouseCard = ({
   houses_id = "",
@@ -22,14 +22,18 @@ const HouseCard = ({
   bhk_type = "",
   preferred_tenants = "",
   available_from = "",
-  propertyType = "",
 }) => {
+  const { setShowLogin, isLoggedIn } = useContext(AuthContext);
   const [showOwnersContacted, setShowOwnersContacted] = useState(false);
   const [houseId, setHouseId] = useState("");
 
   const handleHouseClicked = (e, housesId) => {
-    setHouseId(housesId);
-    setShowOwnersContacted(true);
+    if (isLoggedIn) {
+      setHouseId(housesId);
+      setShowOwnersContacted(true);
+    } else {
+      setShowLogin(true);
+    }
   };
 
   return (
@@ -81,11 +85,7 @@ const HouseCard = ({
         <div className="card rounded-top-0">
           <div className="d-flex flex-column flex-lg-row p-3 gap-2">
             <div className="col-12 col-lg-4">
-              <div
-                id="carouselExampleControls"
-                className="carousel slide"
-                data-ride="carousel"
-              >
+              <div id="carouselExample" className="carousel slide">
                 <div
                   className={`carousel-inner overflow-hidden ${styles.listImageDiv}`}
                 >
@@ -111,92 +111,101 @@ const HouseCard = ({
                     />
                   </div>
                 </div>
-                <Link
+                <button
                   className="carousel-control-prev"
-                  to="#carouselExampleControls"
-                  role="button"
-                  data-slide="prev"
+                  type="button"
+                  data-bs-target="#carouselExample"
+                  data-bs-slide="prev"
                 >
                   <span
                     className="carousel-control-prev-icon"
                     aria-hidden="true"
                   ></span>
-                </Link>
-                <Link
+                  <span className="visually-hidden">Previous</span>
+                </button>
+                <button
                   className="carousel-control-next"
-                  to="#carouselExampleControls"
-                  role="button"
-                  data-slide="next"
+                  type="button"
+                  data-bs-target="#carouselExample"
+                  data-bs-slide="next"
                 >
                   <span
                     className="carousel-control-next-icon"
                     aria-hidden="true"
                   ></span>
-                </Link>
+                  <span className="visually-hidden">Next</span>
+                </button>
               </div>
             </div>
             <div className="col-12 col-lg-8 d-flex justify-contents-center">
               <div className="row w-100 h-100 m-0 m-2 p-2">
-                <div className={`col-12 d-flex flex-row ${styles.borderOpt1}`}>
-                  <div
-                    className={`w-50 d-flex flex-row justify-content-center align-items-center ${styles.borderOpt2}`}
-                  >
-                    <div className="px-2">
-                      <TbSofa size={28} />
-                    </div>
-                    <div>
-                      <p className="mb-0">{furnishing_type}</p>
-                      <p className="card-title mb-0 text-bold">
-                        <small>Furnishing</small>
-                      </p>
-                    </div>
-                  </div>
-                  <div className="w-50 d-flex flex-row justify-content-center align-items-center">
-                    <div className="px-2">
-                      <GiFamilyHouse size={28} />
-                    </div>
-                    <div>
-                      <p className="mb-0">{bhk_type}</p>
-                      <p className="card-title mb-0 text-bold">
-                        <small>Apartment Type</small>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className={`col-12 d-flex flex-row ${styles.borderOpt1} border-top-0`}
+                <Link
+                  to={`/property/${houses_id}`}
+                  className="text-decoration-none text-dark"
                 >
                   <div
-                    className={`w-50 d-flex flex-row justify-content-center align-items-center ${styles.borderOpt2}`}
+                    className={`col-12 d-flex flex-row ${styles.borderOpt1}`}
                   >
-                    <div className="px-2">
-                      <GrUserManager size={28} />
+                    <div
+                      className={`w-50 d-flex flex-row justify-content-center align-items-center ${styles.borderOpt2}`}
+                    >
+                      <div className="px-2">
+                        <TbSofa size={28} />
+                      </div>
+                      <div>
+                        <p className="mb-0">{furnishing_type}</p>
+                        <p className="card-title mb-0 text-bold">
+                          <small>Furnishing</small>
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="mb-0">{preferred_tenants}</p>
-                      <p className="card-title mb-0 text-bold">
-                        <small>Preferred Tenants</small>
-                      </p>
-                    </div>
-                  </div>
-                  <div className="w-50 d-flex flex-row justify-content-center align-items-center">
-                    <div className="px-2">
-                      <VscKey size={28} />
-                    </div>
-                    <div>
-                      <p className="mb-0">
-                        {new Date(available_from).toLocaleString("en-US", {
-                          day: "numeric",
-                          month: "long",
-                          year: "numeric",
-                        })}
-                      </p>
-                      <p className="card-title mb-0 text-bold">
-                        <small>Available From</small>
-                      </p>
+                    <div className="w-50 d-flex flex-row justify-content-center align-items-center">
+                      <div className="px-2">
+                        <GiFamilyHouse size={28} />
+                      </div>
+                      <div>
+                        <p className="mb-0">{bhk_type}</p>
+                        <p className="card-title mb-0 text-bold">
+                          <small>Apartment Type</small>
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                  <div
+                    className={`col-12 d-flex flex-row ${styles.borderOpt1} border-top-0`}
+                  >
+                    <div
+                      className={`w-50 d-flex flex-row justify-content-center align-items-center ${styles.borderOpt2}`}
+                    >
+                      <div className="px-2">
+                        <GrUserManager size={28} />
+                      </div>
+                      <div>
+                        <p className="mb-0">{preferred_tenants}</p>
+                        <p className="card-title mb-0 text-bold">
+                          <small>Preferred Tenants</small>
+                        </p>
+                      </div>
+                    </div>
+                    <div className="w-50 d-flex flex-row justify-content-center align-items-center">
+                      <div className="px-2">
+                        <VscKey size={28} />
+                      </div>
+                      <div>
+                        <p className="mb-0">
+                          {new Date(available_from).toLocaleString("en-US", {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric",
+                          })}
+                        </p>
+                        <p className="card-title mb-0 text-bold">
+                          <small>Available From</small>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
                 <div className="col-12 d-flex flex-row my-2">
                   <div className="d-flex flex-row justify-content-center align-items-center w-100">
                     <div
