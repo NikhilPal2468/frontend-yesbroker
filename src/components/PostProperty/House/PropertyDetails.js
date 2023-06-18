@@ -167,7 +167,7 @@ const validationSchema = Yup.object({
   total_floors: Yup.string().required("Total floors required"),
   property_age: Yup.string().required("Property Age required"),
   facing: Yup.string().required("Building Facing is required"),
-  builtup_area: Yup.string().required("Built Up Area is Required"),
+  builtup_area: Yup.number().required("Built Up Area is Required"),
 });
 
 function PropertyDetails() {

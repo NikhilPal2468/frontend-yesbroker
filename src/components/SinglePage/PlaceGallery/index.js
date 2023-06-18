@@ -1,18 +1,23 @@
 import React, { useState } from "react";
-import { Image } from "react-bootstrap";
 import styles from "./styles.module.css";
 import { RiHotelBedLine } from "react-icons/ri";
 import {
   HiOutlineBuildingOffice,
   HiOutlineKey,
   HiOutlineCake,
-  HiHeart,
-  HiOutlineHeart,
 } from "react-icons/hi2";
-import { BsPerson } from "react-icons/bs";
+import {
+  BsPerson,
+  BsFillArrowLeftCircleFill,
+  BsFillArrowRightCircleFill,
+} from "react-icons/bs";
 import { GiHomeGarage } from "react-icons/gi";
 import { TbSofa } from "react-icons/tb";
 import { AiOutlineCompass } from "react-icons/ai";
+import { Backdrop } from "@mui/material";
+import OwnerModal from "../../ShowOwnerModal/OwnerModal";
+import LikeHandler from "../../likeHandler";
+import { Image } from "react-bootstrap";
 
 const renderAge = (age) => {
   let propertyAge = "";
@@ -40,45 +45,81 @@ const renderAge = (age) => {
 
   return propertyAge;
 };
-const PlaceGallery = ({ property }) => {
-  const [showAllPhotos, setShowAllPhotos] = useState(false);
-  const [liked, setLiked] = useState(false);
 
-  const handleHouseClicked = () => {};
-  const likeHandler = () => {
-    setLiked((prev) => !prev);
+const PlaceGallery = ({ property, houses_id }) => {
+  const [showAllPhotos, setShowAllPhotos] = useState(false);
+
+  const [mediaIndex, setMediaIndex] = useState(0);
+  const [showOwnersContacted, setShowOwnersContacted] = useState(false);
+
+  const handleHouseClicked = () => {
+    setShowOwnersContacted(true);
   };
 
-  console.log(property);
+  const showImages = () => {
+    if (property?.media?.length > 0) {
+      setShowAllPhotos(true);
+    }
+  };
+
+  const handleLeftClick = () => {
+    setMediaIndex((prevIndex) => {
+      return prevIndex === 0 ? property.media.length - 1 : prevIndex - 1;
+    });
+  };
+
+  const handleRightClick = () => {
+    setMediaIndex((prevIndex) => {
+      return prevIndex + 1 === property.media.length ? 0 : prevIndex + 1;
+    });
+  };
 
   if (showAllPhotos) {
     return (
-      <div className="absolute inset-0 bg-black text-white min-h-screen">
-        <div className="bg-black p-8 grid gap-4">
-          <div>
-            <h2 className="text-3xl mr-48">
+      <Backdrop
+        sx={{
+          color: "#fff",
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          backgroundColor: "black", // Set the background color to black
+        }}
+        open={showAllPhotos}
+      >
+        <div className="d-flex flex-column align-items-center w-100 h-100 text-center">
+          <div className="d-flex w-100 justify-content-between align-items-center p-2 mt-0">
+            <h4 className="text-xl mt-4">
               Photos of
               {property?.title
                 ? property.title
-                : `${property?.bhk_type} in ${property?.locality}`}
-            </h2>
+                : ` ${property?.bhk_type} in ${property?.locality}`}
+            </h4>
             <button
               onClick={() => setShowAllPhotos(false)}
-              className="fixed right-12 top-8 flex gap-1 py-2 px-4 rounded-2xl shadow shadow-black bg-white text-black"
+              className={`${styles.button} fixed right-12 top-8 flex gap-1 py-2 px-4 rounded-2xl shadow shadow-black bg-white text-black`}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              Close photos
+              X
+            </button>
+          </div>
+          <div
+            className={`d-flex w-100 h-100 justify-content-between align-items-center `}
+          >
+            <button
+              className={`${styles.button} ms-0`}
+              onClick={handleLeftClick}
+            >
+              <BsFillArrowLeftCircleFill size={20} color="white" />
+            </button>
+            <div className={`d-flex align-items-center ${styles.imageDiv}`}>
+              <img
+                src={property.media[mediaIndex].media_url}
+                alt={property.media[mediaIndex].description}
+                className={`${styles.singleImage}`}
+              />
+            </div>
+            <button
+              className={`${styles.button} me-0`}
+              onClick={handleRightClick}
+            >
+              <BsFillArrowRightCircleFill size={20} color="white" />
             </button>
           </div>
           {property?.media?.length > 0 &&
@@ -88,15 +129,18 @@ const PlaceGallery = ({ property }) => {
               </div>
             ))}
         </div>
-      </div>
+      </Backdrop>
     );
   }
   return (
     <div className="">
       <div className="d-flex flex-column flex-md-row gap-1">
-        <div className={`${styles.imageContainer}`}>
+        <div className={`${styles.imageContainer}`} role="button">
           <div className="d-flex w-100 h-100">
-            <div className={`${styles.mainImageContainer} overflow-hidden`}>
+            <div
+              className={`${styles.mainImageContainer} overflow-hidden`}
+              onClick={showImages}
+            >
               <img
                 src={
                   property?.media?.[0]
@@ -109,7 +153,10 @@ const PlaceGallery = ({ property }) => {
             </div>
             <div className={`${styles.sideImageContainer}`}>
               <div className="d-flex flex-column w-100 h-100">
-                <div className={`h-100 ${styles.imageDiv1} overflow-hidden`}>
+                <div
+                  className={`h-100 ${styles.imageDiv1} overflow-hidden`}
+                  onClick={showImages}
+                >
                   <img
                     src={
                       property?.media?.[1]
@@ -120,7 +167,10 @@ const PlaceGallery = ({ property }) => {
                     alt=""
                   />
                 </div>
-                <div className={`h-100 ${styles.imageDiv2} overflow-hidden`}>
+                <div
+                  className={`h-100 ${styles.imageDiv2} overflow-hidden`}
+                  onClick={showImages}
+                >
                   <img
                     src={
                       property?.media?.[2]
@@ -245,23 +295,18 @@ const PlaceGallery = ({ property }) => {
               >
                 Get Owner Details
               </div>
-              <div
-                className={`p-1 rounded ms-2 ${styles.likeBorder}`}
-                role="button"
-                onClick={() => {
-                  likeHandler();
-                }}
-              >
-                {liked ? (
-                  <HiHeart size={28} color="#6c63ff" />
-                ) : (
-                  <HiOutlineHeart size={28} color="#6c63ff" />
-                )}
-              </div>
+              <LikeHandler houses_id={property.houses_id} />
             </div>
           </div>
         </div>
       </div>
+      {showOwnersContacted && (
+        <OwnerModal
+          showOwnersContacted={showOwnersContacted}
+          setShowOwnersContacted={setShowOwnersContacted}
+          houseId={houses_id}
+        />
+      )}
     </div>
   );
 };

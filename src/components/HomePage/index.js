@@ -151,7 +151,7 @@ const HomePage = (userDetails = {}) => {
   return (
     <div className={styles.homepage}>
       <ToastContainer />
-      <div className={styles.homepage_heading}>
+      <div className={`${styles.homepage_heading} fw-semibold`}>
         Discover Your Perfect Fit: Where Houses Become Homes
       </div>
       <div

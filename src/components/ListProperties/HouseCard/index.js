@@ -7,7 +7,9 @@ import { VscKey } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 import { HiHeart, HiOutlineHeart } from "react-icons/hi";
 import axios from "axios";
-import OwnerModal from "../OwnerModal";
+import OwnerModal from "../../ShowOwnerModal/OwnerModal";
+import LikeHandler from "../../likeHandler";
+
 const HouseCard = ({
   houses_id = "",
   //   apartment_name = "",
@@ -24,21 +26,6 @@ const HouseCard = ({
 }) => {
   const [showOwnersContacted, setShowOwnersContacted] = useState(false);
   const [houseId, setHouseId] = useState("");
-  const [liked, setLiked] = useState(false);
-
-  const likeHandler = async (houses_id) => {
-    setLiked(!liked);
-    console.log("houseId:", houses_id);
-    try {
-      const { data } = await axios.post("/secure/api/user/property/shortlist", {
-        propertyId: houses_id,
-        propertyType,
-      });
-      console.log("data:", data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const handleHouseClicked = (e, housesId) => {
     setHouseId(housesId);
@@ -221,19 +208,7 @@ const HouseCard = ({
                     >
                       Get Owner Details
                     </div>
-                    <div
-                      className={`p-1 rounded ms-2 ${styles.likeBorder}`}
-                      role="button"
-                      onClick={() => {
-                        likeHandler(houses_id);
-                      }}
-                    >
-                      {liked ? (
-                        <HiHeart size={28} color="#6c63ff" />
-                      ) : (
-                        <HiOutlineHeart size={28} color="#6c63ff" />
-                      )}
-                    </div>
+                    <LikeHandler houses_id={houses_id} />
                   </div>
                 </div>
               </div>
