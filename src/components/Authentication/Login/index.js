@@ -39,8 +39,7 @@ const Login = ({
   const handleClose = () => {
     setShowLogin(false);
   };
-  const { login, isLoggedIn } = useContext(AuthContext);
-  console.log("isLoggedIn:", isLoggedIn);
+  const { login } = useContext(AuthContext);
 
   const onSubmit = async (values) => {
     try {

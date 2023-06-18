@@ -27,21 +27,26 @@ import Loader from "./components/Loader";
 import RoomDetails from "./components/PostProperty/Pg/RoomDetails";
 import PgLocality from "./components/PostProperty/Pg/PgLocality";
 import PgDetails from "./components/PostProperty/Pg/PgDetails";
-axios.defaults.baseURL = "http://13.200.85.135/api";
 
+import { useSelector } from "react-redux";
+axios.defaults.baseURL = "http://13.200.85.135/api";
 // axios.defaults.baseURL = "https://homewale-backend.onrender.com";
 axios.defaults.baseURL = "http://localhost:5000";
 // axios.defaults.baseURL = "http://13.200.85.135/api";
 axios.defaults.withCredentials = true;
 
 function App() {
+  const userDetails = useSelector((state) => state.user?.userDetails);
   return (
     <div className="App">
-      <Navbar />
+      <Navbar userDetails={userDetails} />
       <Loader />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/properties" element={<ListProperties />} />
+        <Route path="/" element={<HomePage userDetails={userDetails} />} />
+        <Route
+          path="/properties"
+          element={<ListProperties userDetails={userDetails} />}
+        />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/resetpassword/:id/:token" element={<ResetPassword />} />
 

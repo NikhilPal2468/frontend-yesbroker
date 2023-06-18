@@ -11,6 +11,7 @@ import LikeHandler from "../../likeHandler";
 import { AuthContext } from "../../../context/AuthContext";
 
 const HouseCard = ({
+  userDetails = {},
   houses_id = "",
   //   apartment_name = "",
   locality = "",
@@ -23,12 +24,12 @@ const HouseCard = ({
   preferred_tenants = "",
   available_from = "",
 }) => {
-  const { setShowLogin, isLoggedIn } = useContext(AuthContext);
+  const { setShowLogin } = useContext(AuthContext);
   const [showOwnersContacted, setShowOwnersContacted] = useState(false);
   const [houseId, setHouseId] = useState("");
 
   const handleHouseClicked = (e, housesId) => {
-    if (isLoggedIn) {
+    if (userDetails) {
       setHouseId(housesId);
       setShowOwnersContacted(true);
     } else {

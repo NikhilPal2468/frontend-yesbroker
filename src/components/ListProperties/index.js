@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import HouseList from "./HouseList";
 import styles from "./styles.module.css";
 
-const ListProperties = () => {
+const ListProperties = ({ userDetails = {} }) => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const city = searchParams.get("city");
@@ -45,6 +45,7 @@ const ListProperties = () => {
         twoWheelerParking={twoWheelerParking}
         fourWheelerParking={fourWheelerParking}
         withImage={withImage}
+        userDetails={userDetails}
       />
     </div>
   );

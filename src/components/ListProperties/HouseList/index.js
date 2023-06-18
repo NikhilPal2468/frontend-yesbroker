@@ -16,6 +16,7 @@ const HouseList = ({
   twoWheelerParking = false,
   fourWheelerParking = false,
   withImage = false,
+  userDetails = {},
 }) => {
   const [houses, setHouses] = useState([]);
   const { setLoading } = useContext(LoadContext);
@@ -117,6 +118,7 @@ const HouseList = ({
             preferred_tenants={preferred_tenants}
             available_from={available_from}
             propertyType={propertyType}
+            userDetails={userDetails}
           />
         );
       })}

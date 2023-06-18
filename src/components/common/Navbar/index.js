@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
 import { Button } from "react-bootstrap";
 import { FaHouseUser } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setUserDetails } from "../../../store/actions";
 import Register from "../../Authentication/Register";
 import Login from "../../Authentication/Login";
@@ -11,12 +11,11 @@ import { IoReorderThreeOutline } from "react-icons/io5";
 import axios from "axios";
 import { AuthContext } from "../../../context/AuthContext";
 
-const Navbar = () => {
+const Navbar = ({ userDetails = {} }) => {
   const [user, setUser] = useState(null);
   const { showLogin, showRegister, setShowLogin, setShowRegister } =
     useContext(AuthContext);
   const dispatch = useDispatch();
-  const userDetails = useSelector((state) => state.user.userDetails);
 
   useEffect(() => {
     // Retrieve user details from browser storage on component mount
