@@ -5,7 +5,6 @@ import styles from "./styles.module.css";
 import { AMENITIES } from "../../constants";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import MyMapComponent from "../../common/gMap";
 import MapContainer from "../../common/gMap";
 
 function HousePage() {
