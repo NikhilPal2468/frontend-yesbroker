@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { LoadContext } from "../../context/load-context";
 import Backdrop from "@mui/material/Backdrop";
-import loaderGif from "../../assets/loader.gif";
+
 import { CircularProgress } from "@mui/material";
 
 const Loader = () => {
