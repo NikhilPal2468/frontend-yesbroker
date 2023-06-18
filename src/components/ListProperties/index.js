@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import HouseFilters from "./Filters/HouseFilters";
 import { useLocation } from "react-router-dom";
 import HouseList from "./HouseList";
 import styles from "./styles.module.css";
+import { setUserDetails } from "../../store/actions";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { LoadContext } from "../../context/load-context";
 
 const ListProperties = () => {
   const location = useLocation();
@@ -18,6 +22,23 @@ const ListProperties = () => {
   const [twoWheelerParking, setTwoWheelerParking] = useState(false);
   const [fourWheelerParking, setFourWheelerParking] = useState(false);
   const [withImage, setWithImage] = useState(false);
+  const dispatch = useDispatch();
+  const { setLoading } = useContext(LoadContext);
+
+  useEffect(() => {
+    try {
+      setLoading(true);
+      const setData = async () => {
+        const { data } = await axios.get("/secure/api/user/me");
+        dispatch(setUserDetails(data));
+        setLoading(false);
+      };
+      setData();
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
+    }
+  }, []);
 
   return (
     <div className={`d-flex px-3 py-2 ${styles.list_properties}`}>

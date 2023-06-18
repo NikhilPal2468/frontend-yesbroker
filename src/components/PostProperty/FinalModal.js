@@ -5,7 +5,7 @@ import { Button, Container, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
 
-function FinalModal({ showModal, setShowModal }) {
+function FinalModal({ showModal, setShowModal, houseId }) {
   const navigate = useNavigate();
 
   const handleModalClose = () => {
@@ -15,7 +15,7 @@ function FinalModal({ showModal, setShowModal }) {
 
   const redirectToPage = () => {
     setShowModal(false);
-    navigate("/");
+    navigate(`/property/${houseId}/`);
   };
 
   return (
@@ -42,7 +42,7 @@ function FinalModal({ showModal, setShowModal }) {
             <span className="px-2 pb-1">
               <FontAwesomeIcon icon={faMugHot} size="lg" />
             </span>
-            while we verify your property
+            and chill while we find your tenants.
           </div>
           <div className="m-4">
             <Button variant="success" onClick={redirectToPage}>

@@ -16,6 +16,9 @@ function LocalityDetails() {
   const { id: houseId } = useParams();
 
   const [city, setCity] = useState("");
+  const [address, setAddress] = useState("");
+  const [pincode, setPincode] = useState("");
+  const [houseNo, setHouseNo] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [locality, setLocality] = useState("");
   const [street, setStreet] = useState("");
@@ -33,10 +36,14 @@ function LocalityDetails() {
         setCity(data?.city);
         setLocality(data?.locality);
         setStreet(data?.street);
+        setHouseNo(data?.houseno);
+        setPincode(data?.pincode);
+        setAddress(data?.address);
       };
 
       fetchData(houseId);
     } catch (err) {
+      setLoading(false);
       console.log(err);
     }
   }, [houseId]);
@@ -89,6 +96,9 @@ function LocalityDetails() {
       locality: locality,
       street: street,
       partNo: "2",
+      pincode: pincode,
+      houseNo: houseNo,
+      address: address,
     };
 
     try {
@@ -176,7 +186,49 @@ function LocalityDetails() {
             </div>
             <div className="d-flex flex-row w-100 justify-content-center align-items-center gap-4">
               <div className="mb-3 w-100">
-                <label htmlFor="city">Landmark/Street</label>
+                <label htmlFor="houseno">House No</label>
+                <input
+                  type="text"
+                  name="houseno"
+                  id="houseno"
+                  value={houseNo}
+                  className="form-control"
+                  onChange={(e) => {
+                    setHouseNo(e.target.value);
+                  }}
+                  required
+                />
+              </div>
+              <div className="mb-3 w-100">
+                <label htmlFor="address">Complete Address</label>
+                <input
+                  type="text"
+                  name="address"
+                  id="address"
+                  value={address}
+                  className="form-control"
+                  onChange={(e) => setAddress(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="d-flex flex-row w-100 justify-content-center align-items-center gap-4">
+              <div className="mb-3 w-100">
+                <label htmlFor="pincode">Pincode</label>
+                <input
+                  type="text"
+                  name="pincode"
+                  id="pincode"
+                  value={pincode}
+                  className="form-control"
+                  onChange={(e) => setPincode(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="mb-3 w-100">
+                <label htmlFor="street">Landmark/Street</label>
                 <input
                   type="text"
                   name="street"
@@ -187,7 +239,6 @@ function LocalityDetails() {
                   required
                 />
               </div>
-              <div className="w-100"></div>
             </div>
 
             <div className="">

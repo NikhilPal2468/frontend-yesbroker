@@ -23,9 +23,7 @@ import Gallery from "./components/PostProperty/House/Gallery";
 import { useSelector } from "react-redux";
 
 import RedirectPage from "./components/common/RedirectPage";
-import SingleProperty from "./components/SingleProperty";
 import HousePage from "./components/SinglePage/House/HousePage";
-import LoadContext from "./context/load-context";
 import Loader from "./components/Loader";
 import RoomDetails from "./components/PostProperty/Pg/RoomDetails";
 import PgLocality from "./components/PostProperty/Pg/PgLocality";
@@ -88,6 +86,7 @@ function App() {
           path="/property/manage/house/:id/gallery"
           element={<Gallery />}
         />
+
         {/* single page for house */}
         <Route path="/property/:id/" element={<HousePage />} />
 

@@ -18,6 +18,12 @@ const HouseList = ({
 }) => {
   const [houses, setHouses] = useState([]);
   const { setLoading } = useContext(LoadContext);
+  const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+
+  const shortlistArray = [
+    ...(userDetails ? userDetails.house_shortlists : []),
+    ...(userDetails ? userDetails.pg_shortlists : []),
+  ];
 
   if (bhkType === []) {
     console.log("first");
@@ -127,6 +133,7 @@ const HouseList = ({
             preferred_tenants={preferred_tenants}
             available_from={available_from}
             propertyType={propertyType}
+            shortlistArray={shortlistArray}
           />
         );
       })}

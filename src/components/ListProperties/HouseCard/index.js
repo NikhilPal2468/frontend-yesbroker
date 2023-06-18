@@ -23,6 +23,7 @@ const HouseCard = ({
   preferred_tenants = "",
   available_from = "",
   propertyType = "",
+  shortlistArray,
 }) => {
   const [showOwnersContacted, setShowOwnersContacted] = useState(false);
   const [houseId, setHouseId] = useState("");
@@ -208,7 +209,10 @@ const HouseCard = ({
                     >
                       Get Owner Details
                     </div>
-                    <LikeHandler houses_id={houses_id} />
+                    <LikeHandler
+                      houses_id={houses_id}
+                      shortlisted={shortlistArray.includes(houses_id)}
+                    />
                   </div>
                 </div>
               </div>

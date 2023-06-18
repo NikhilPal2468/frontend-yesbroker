@@ -91,6 +91,7 @@ function Amenities() {
 
       fetchData(houseId);
     } catch (err) {
+      setLoading(false);
       console.log(err);
     }
   }, [houseId]);
@@ -335,7 +336,7 @@ function Amenities() {
                       ))}
                     </Field>
                     <ErrorMessage
-                      name="property_type"
+                      name="water_supply"
                       component={PostFormError}
                     />
                   </div>
