@@ -27,6 +27,9 @@ import SingleProperty from "./components/SingleProperty";
 import HousePage from "./components/SinglePage/House/HousePage";
 import LoadContext from "./context/load-context";
 import Loader from "./components/Loader";
+import RoomDetails from "./components/PostProperty/Pg/RoomDetails";
+import PgLocality from "./components/PostProperty/Pg/PgLocality";
+import PgDetails from "./components/PostProperty/Pg/PgDetails";
 // axios.defaults.baseURL = "https://homewale-backend.onrender.com";
 axios.defaults.baseURL = "http://localhost:5000";
 axios.defaults.withCredentials = true;
@@ -63,6 +66,8 @@ function App() {
           path="/list-your-property-for-rent"
           element={userDetails ? <MainPage /> : <RedirectPage />}
         />
+
+        {/* HOUSE */}
         <Route
           path="/property/manage/house/:id/property"
           element={<PropertyDetails />}
@@ -83,7 +88,19 @@ function App() {
           path="/property/manage/house/:id/gallery"
           element={<Gallery />}
         />
+        {/* single page for house */}
         <Route path="/property/:id/" element={<HousePage />} />
+
+        {/* PG */}
+        <Route path="/property/manage/pg/:id/room" element={<RoomDetails />} />
+        <Route
+          path="/property/manage/pg/:id/locality"
+          element={<PgLocality />}
+        />
+        <Route
+          path="/property/manage/pg/:id/pgdetails"
+          element={<PgDetails />}
+        />
       </Routes>
     </div>
   );

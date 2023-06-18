@@ -8,6 +8,7 @@ import { setUserDetails } from "../../../store/actions";
 import Register from "../../Authentication/Register";
 import Login from "../../Authentication/Login";
 import { IoReorderThreeOutline } from "react-icons/io5";
+import axios from "axios";
 
 const Navbar = () => {
   const [user, setUser] = useState(null);
@@ -28,8 +29,10 @@ const Navbar = () => {
   }, []);
 
   const navigate = useNavigate();
-  const handleLogout = () => {
+
+  const handleLogout = async () => {
     localStorage.removeItem("userDetails");
+    await axios.get("/secure/api/logout");
     navigate("/");
     dispatch(setUserDetails(null));
     setUser(null);

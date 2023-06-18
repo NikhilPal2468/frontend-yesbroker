@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { LoadContext } from "../../context/load-context";
 import Backdrop from "@mui/material/Backdrop";
 import loaderGif from "../../assets/loader.gif";
+import { CircularProgress } from "@mui/material";
 
 const Loader = () => {
   const { isLoading } = useContext(LoadContext);
@@ -11,8 +12,8 @@ const Loader = () => {
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={isLoading}
       >
-        {/* <CircularProgress color="inherit" /> */}
-        <img src={loaderGif} alt="loader-gif" />
+        <CircularProgress color="inherit" />
+        {/* <img src={loaderGif} alt="loader-gif" /> */}
       </Backdrop>
     )
   );

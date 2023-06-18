@@ -25,8 +25,6 @@ function HousePage() {
     fetchPropertyApi();
   }, [id]);
 
-  console.log(property);
-
   return (
     <div className={`${styles.container}`}>
       <div className="d-flex flex-column flex-md-row w-100 card">
@@ -66,7 +64,7 @@ function HousePage() {
         </div>
       </div>
       <div className="mt-4">
-        <PlaceGallery property={property} />
+        <PlaceGallery property={property} houses_id={property.houses_id} />
       </div>
       <div className="mt-4 card p-4">
         <h5>
