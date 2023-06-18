@@ -39,7 +39,6 @@ const HouseList = ({
     const fetchData = async () => {
       let payload = {
         city: city,
-        // text: ["bangalore"],
         text: [locality],
         pgNo: "1",
         propertyType: propertyType,
