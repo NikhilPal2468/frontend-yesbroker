@@ -82,11 +82,9 @@ const PlaceGallery = ({ property, houses_id }) => {
     ...(userDetails ? userDetails.pg_shortlists : []),
   ];
 
-  console.log(shortlistArray);
-
-  const [mediaIndex, setMediaIndex] = useState(0);
   const [showOwnersContacted, setShowOwnersContacted] = useState(false);
   const { setShowLogin, isLoggedIn } = useContext(AuthContext);
+
   const handleHouseClicked = () => {
     if (isLoggedIn) setShowOwnersContacted(true);
     else setShowLogin(true);
@@ -98,17 +96,17 @@ const PlaceGallery = ({ property, houses_id }) => {
     }
   };
 
-  const handleLeftClick = () => {
-    setMediaIndex((prevIndex) => {
-      return prevIndex === 0 ? property.media.length - 1 : prevIndex - 1;
-    });
-  };
+  // const handleLeftClick = () => {
+  //   setMediaIndex((prevIndex) => {
+  //     return prevIndex === 0 ? property.media.length - 1 : prevIndex - 1;
+  //   });
+  // };
 
-  const handleRightClick = () => {
-    setMediaIndex((prevIndex) => {
-      return prevIndex + 1 === property.media.length ? 0 : prevIndex + 1;
-    });
-  };
+  // const handleRightClick = () => {
+  //   setMediaIndex((prevIndex) => {
+  //     return prevIndex + 1 === property.media.length ? 0 : prevIndex + 1;
+  //   });
+  // };
 
   if (showAllPhotos) {
     return (
@@ -120,7 +118,7 @@ const PlaceGallery = ({ property, houses_id }) => {
         }}
         open={showAllPhotos}
       >
-        <div className="d-flex flex-column align-items-center w-100 h-100 text-center">
+        {/* <div className="d-flex flex-column align-items-center w-100 h-100 text-center">
           <div className="d-flex w-100 justify-content-between align-items-center p-2 mt-0">
             <h4 className="text-xl mt-4">
               Photos of
@@ -164,6 +162,67 @@ const PlaceGallery = ({ property, houses_id }) => {
                 <Image src={media_url} alt="" />
               </div>
             ))}
+        </div> */}
+        <div className="d-flex flex-column align-items-center w-100 h-100 text-center">
+          <div className="d-flex w-100 justify-content-between align-items-center p-2 mt-0">
+            <h4 className="text-xl mt-4">
+              Photos of
+              {property?.title
+                ? property.title
+                : ` ${property?.bhk_type} in ${property?.locality}`}
+            </h4>
+            <button
+              onClick={() => setShowAllPhotos(false)}
+              className={`${styles.button} fixed right-12 top-8 flex gap-1 py-2 px-4 rounded-2xl shadow shadow-black bg-white text-black`}
+            >
+              X
+            </button>
+          </div>
+          <div id={houses_id} className="carousel slide w-75">
+            <div
+              className={`carousel-inner w-100 overflow-hidden ${styles.listImageDiv}`}
+            >
+              {property?.media.map(({ media_url, description }) => {
+                return (
+                  <div
+                    className="carousel-item active h-100 w-100"
+                    key={media_url}
+                  >
+                    <img
+                      src={media_url}
+                      className={`d-block w-100 h-100`}
+                      alt="..."
+                    />
+                    <h5 className="text-light">{description}</h5>
+                  </div>
+                );
+              })}
+            </div>
+            <button
+              className="carousel-control-prev text-dark"
+              type="button"
+              data-bs-target={`#${houses_id}`}
+              data-bs-slide="prev"
+            >
+              <span
+                className="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span className="visually-hidden">Previous</span>
+            </button>
+            <button
+              className="carousel-control-next text-dark"
+              type="button"
+              data-bs-target={`#${houses_id}`}
+              data-bs-slide="next"
+            >
+              <span
+                className="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+              <span className="visually-hidden">Next</span>
+            </button>
+          </div>
         </div>
       </Backdrop>
     );
@@ -229,9 +288,7 @@ const PlaceGallery = ({ property, houses_id }) => {
                   <RiHotelBedLine size={20} />
                 </div>
                 <div className="w-75">
-                  <p className="m-0">
-                    {property?.bhk_type?.split(" ")[0]} Bedroom
-                  </p>
+                  <p className="m-0">{property?.bhk_type?.split[0]} Bedroom</p>
                   <small>No. of Bedrooms</small>
                 </div>
               </div>

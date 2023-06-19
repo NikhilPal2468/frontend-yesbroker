@@ -71,7 +71,10 @@ function HouseFilters({
             <h6 className="text-start">BHK Type</h6>
             <div className="grid pb-2 mx-auto justify-content-center align-items-center text-start">
               {BHKTYPE.map((bhk_type) => (
-                <div key={bhk_type} className="form-check form-check-inline">
+                <div
+                  key={bhk_type}
+                  className="form-check form-check-inline text-center"
+                >
                   <input
                     className={`${styles.input_checkbox}`}
                     type="checkbox"
@@ -140,11 +143,11 @@ function HouseFilters({
           </div>
           <div className="input-group d-flex flex-column mt-2 pt-1 border-bottom border-1 border-dark">
             <h6 className="text-start">Furnishing</h6>
-            <div className="grid pb-2 justify-content-between align-items-center text-start">
+            <div className="grid pb-2 justify-content-between align-items-center text-start gap-2">
               {FURNISHING_TYPES.map((furnishing_type) => (
                 <div
                   key={furnishing_type}
-                  className="form-check flex-grow-1 form-check-inline"
+                  className="form-check flex-grow-1 form-check-inline gap-2"
                 >
                   <input
                     className={`${styles.input_checkbox}`}

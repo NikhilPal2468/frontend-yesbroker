@@ -96,7 +96,7 @@ const HouseCard = ({
         <div className="card rounded-top-0">
           <div className="d-flex flex-column flex-lg-row p-3 gap-2">
             <div className="col-12 col-lg-4">
-              <div id="carouselExample" className="carousel slide">
+              <div id={houses_id} className="carousel slide">
                 <div
                   className={`carousel-inner overflow-hidden ${styles.listImageDiv}`}
                 >
@@ -104,7 +104,7 @@ const HouseCard = ({
                     return (
                       <div
                         className="carousel-item active h-100"
-                        key={media_url}
+                        key={image_url}
                       >
                         <img
                           src={image_url}
@@ -118,7 +118,7 @@ const HouseCard = ({
                 <button
                   className="carousel-control-prev text-dark"
                   type="button"
-                  data-bs-target="#carouselExample"
+                  data-bs-target={`#${houses_id}`}
                   data-bs-slide="prev"
                 >
                   <span
@@ -130,7 +130,7 @@ const HouseCard = ({
                 <button
                   className="carousel-control-next text-dark"
                   type="button"
-                  data-bs-target="#carouselExample"
+                  data-bs-target={`#${houses_id}`}
                   data-bs-slide="next"
                 >
                   <span
