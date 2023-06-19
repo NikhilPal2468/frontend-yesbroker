@@ -2,3 +2,19 @@
   border: 1px solid;
   border-color: #6c63ff;
 }
+.popover{
+  background-color: black;
+  color: white;
+  position: absolute;
+  padding: 5px;
+  left: -40px;
+  bottom: 40px;
+  width: max-content;
+  border-radius: 8px;
+}
+.show_popover{
+  display: block;
+}
+.hide_popover{
+  display: none;
+}

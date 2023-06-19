@@ -1,4 +1,4 @@
-.primary {
+.primary_color {
   background-color: #bab7ff;
 }
 
@@ -49,4 +49,15 @@
 }
 .timer{
   right: -50px;
+}
+
+.fix_sidebar{
+  position: fixed;
+  top: 82px;
+  height: 60vh; 
+  padding: 20px;
+}
+
+.user_dashboard{
+  display: flex;
 }

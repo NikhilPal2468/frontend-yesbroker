@@ -63,9 +63,12 @@ function ProfilePage({ userDetails = {} }) {
     e.preventDefault();
     try {
       setDisabled(true);
-      const { data } = await axios.post("/secure/api/verifyEmail", {
-        email: newEmail,
-      });
+      const { data } = await axios.post(
+        "/secure/api/generateVerificationEmail",
+        {
+          email: newEmail,
+        }
+      );
       if (data.success === true) {
         toast.success("Verification Link has been sent to your email", {
           position: "top-center",
@@ -84,6 +87,10 @@ function ProfilePage({ userDetails = {} }) {
       }, 60000);
     } catch (e) {
       console.log(e);
+      setTimeout(() => {
+        setDisabled(false);
+        setTimer(60);
+      }, 60000);
     }
   };
   useEffect(() => {
