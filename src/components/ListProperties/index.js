@@ -27,15 +27,14 @@ const ListProperties = ({ userDetails = {} }) => {
 
   useEffect(() => {
     try {
-      if (userDetails) {
-        setLoading(true);
-        const setData = async () => {
-          const { data } = await axios.get("/secure/api/user/me");
-          dispatch(setUserDetails(data));
-          setLoading(false);
-        };
-        setData();
-      }
+      setLoading(true);
+      const setData = async () => {
+        const { data } = await axios.get("/secure/api/user/me");
+        dispatch(setUserDetails(data));
+        setLoading(false);
+      };
+
+      if (userDetails) setData();
     } catch (err) {
       setLoading(false);
       console.log(err);

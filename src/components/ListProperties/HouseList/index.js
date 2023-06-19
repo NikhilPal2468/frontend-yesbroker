@@ -63,7 +63,7 @@ const HouseList = ({
         );
         const { allhouses = [], count = 0 } = data || {};
         console.log("count:", count);
-
+        console.log(data);
         setLoading(false);
         setHouses(allhouses);
 
@@ -107,6 +107,7 @@ const HouseList = ({
           bhk_type = "",
           preferred_tenants = "",
           available_from = "",
+          media_url,
         } = house || {};
         return (
           <HouseCard
@@ -125,6 +126,7 @@ const HouseList = ({
             propertyType={propertyType}
             userDetails={userDetails}
             shortlistArray={shortlistArray}
+            media_url={media_url}
           />
         );
       })}

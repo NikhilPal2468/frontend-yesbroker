@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { GiHouse } from "react-icons/gi";
 import PlaceGallery from "../PlaceGallery";
 import styles from "./styles.module.css";
@@ -6,18 +6,23 @@ import { AMENITIES } from "../../constants";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import MapContainer from "../../common/gMap";
+import { LoadContext } from "../../../context/load-context";
 
 function HousePage({ userDetails = {} }) {
   const { id } = useParams();
 
   const [property, setProperty] = useState({});
+  const { setLoading } = useContext(LoadContext);
 
   useEffect(() => {
     const fetchPropertyApi = async () => {
       try {
+        setLoading(true);
         const response = await axios.get(`/public/api/getProperty/${id}`);
         setProperty(response.data);
+        setLoading(false);
       } catch (error) {
+        setLoading(false);
         console.log(error);
       }
     };
@@ -48,7 +53,7 @@ function HousePage({ userDetails = {} }) {
           <div className="border-end px-2 py-1 w-100">
             <h5 className="m-0">₹{property?.rent}/M</h5>
             <small>
-              {property.rent_neogtiable === true
+              {property?.rent_neogtiable === true
                 ? "Negotiable"
                 : "Non-negotiable"}
             </small>
@@ -70,16 +75,25 @@ function HousePage({ userDetails = {} }) {
           houses_id={property.houses_id}
         />
       </div>
-      <div className="mt-4 card p-4">
+      <div className={`mt-4 card p-4`}>
         <h5>
+          <u>Description</u>
+        </h5>
+        {property?.property_type === "APARTMENT"
+          ? property?.apartment_name
+          : ""}
+        {property.location}
+      </div>
+      <div className={`mt-4 card p-4 text-center`}>
+        <h5 className="fw-bold">
           <u>Facilities</u>
         </h5>
-        <div className="d-flex flex-wrap gap-4 m-2 align-items-center">
+        <div className={`${styles.amenitiesContainer}`}>
           {AMENITIES.map((cur) => {
             return property[cur.key] ? (
-              <div className="px-2 py-1">
-                {cur.icon}
-                <span className="p-1">{cur.label}</span>
+              <div className={`${styles.amenity}`}>
+                <div>{cur.icon}</div>
+                <div className="p-0.5">{cur.label}</div>
               </div>
             ) : (
               ""
@@ -87,36 +101,58 @@ function HousePage({ userDetails = {} }) {
           })}
         </div>
       </div>
-      <div className="mt-4 card p-4">
+      <div className={`mt-4 card p-4`}>
         <h5>
           <u>Details</u>
         </h5>
         <div className="d-flex flex-column flex-md-row w-100 align-items-center justify-content-center">
           <div className="w-100">
-            <h6>Property Details</h6>
-            <p>Floors: {property.floor}</p>
-            <p>Total floors: {property.total_floors}</p>
-            <p>
-              Balcony: {property.balcony_count ? property.balcony_count : "NA"}
+            <p className="d-flex gap-1">
+              <div className="fw-bold w-100">Floors:</div>
+              <div className="w-100">{property.floor}</div>
+            </p>
+            <p className="d-flex gap-1">
+              <div className="fw-bold w-100">Total floors:</div>
+              <div className="w-100">{property.total_floors}</div>
+            </p>
+            <p className="d-flex gap-1">
+              <div className="fw-bold w-100">Balcony:</div>
+              <div className="w-100">
+                {property.balcony_count ? property.balcony_count : "NA"}
+              </div>
+            </p>
+            <p className="d-flex gap-1">
+              <div className="fw-bold w-100">Property Type:</div>
+              <div className="w-100">
+                {property.property_type ? property.property_type : "NA"}
+              </div>
             </p>
           </div>
           <div className="w-100">
-            <h6>Specific Details</h6>
-            <p>Water Supply: {property.water_supply}</p>
-            <p>Monthly Maintenance: {property.monthly_maintenance}</p>
-            <p>
-              Lockin Period:
-              {property.lockin_period ? property.lockin_period : "NA"}
+            <p className="d-flex gap-1">
+              <div className="fw-bold w-100">Water Supply:</div>
+              <div className="w-100">{property.water_supply}</div>
             </p>
+            <p className="d-flex gap-1">
+              <div className="fw-bold w-100">Monthly Maintenance:</div>
+              <div className="w-100">{property.monthly_maintenance}</div>
+            </p>
+            {property?.lockin_period && (
+              <p className="d-flex gap-1">
+                <div className="fw-bold w-100">Lockin Period:</div>
+                <div className="w-100">{property.lockin_period}</div>
+              </p>
+            )}
+            {property?.property_type === "Apartment" && (
+              <p className="d-flex gap-1">
+                <div className="fw-bold w-100">Apartment name:</div>
+                <div className="w-100">
+                  {property?.apartment_name || "Not Provided"}
+                </div>
+              </p>
+            )}
           </div>
         </div>
-      </div>
-      <div className="mt-4 card p-4">
-        <h5>
-          <u>Description</u>
-        </h5>
-        {property.property_type === "APARTMENT" ? property.apartment_name : ""}
-        {property.location}
       </div>
 
       <div className="mt-4 card p-4">
