@@ -4,7 +4,6 @@ import { GrUserManager } from "react-icons/gr";
 import { GiFamilyHouse } from "react-icons/gi";
 import { TbSofa } from "react-icons/tb";
 import { VscKey } from "react-icons/vsc";
-import { Link } from "react-router-dom";
 
 import OwnerModal from "../../ShowOwnerModal/OwnerModal";
 import LikeHandler from "../../likeHandler";
