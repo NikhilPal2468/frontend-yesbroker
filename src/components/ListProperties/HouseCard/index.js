@@ -25,6 +25,7 @@ const HouseCard = ({
   available_from = "",
   // propertyType = "",
   shortlistArray,
+  media_url,
 }) => {
   const { setShowLogin } = useContext(AuthContext);
   const [showOwnersContacted, setShowOwnersContacted] = useState(false);
@@ -92,27 +93,18 @@ const HouseCard = ({
                 <div
                   className={`carousel-inner overflow-hidden ${styles.listImageDiv}`}
                 >
-                  <div className="carousel-item active h-100">
-                    <img
-                      src="https://images.nobroker.in/images/8a9ffd8488337eca018833ae08d41c58/8a9ffd8488337eca018833ae08d41c58_22925_281699_medium.jpg"
-                      className={`d-block w-100 ${styles.listImage}`}
-                      alt="..."
-                    />
-                  </div>
-                  <div className="carousel-item h-100">
-                    <img
-                      src="https://images.nobroker.in/images/8a9f0782880e219201880e411e310cf0/8a9f0782880e219201880e411e310cf0_252667_804472_thumbnail.jpg"
-                      className={`d-block w-100 ${styles.listImage}`}
-                      alt="..."
-                    />
-                  </div>
-                  <div className="carousel-item h-100">
-                    <img
-                      src="https://images.nobroker.in/images/8a9fcc83880ee8cb01880f6435ad4a2c/8a9fcc83880ee8cb01880f6435ad4a2c_41407_272325_medium.jpg"
-                      className={`d-block w-100 ${styles.listImage}`}
-                      alt="..."
-                    />
-                  </div>
+                  {media_url.map((image_url) => {
+                    console.log(image_url);
+                    return (
+                      <div className="carousel-item active h-100">
+                        <img
+                          src={image_url}
+                          className={`d-block w-100 ${styles.listImage}`}
+                          alt="..."
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
                 <button
                   className="carousel-control-prev"
