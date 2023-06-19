@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { GiHouse } from "react-icons/gi";
 import PlaceGallery from "../PlaceGallery";
 import styles from "./styles.module.css";
@@ -6,18 +6,23 @@ import { AMENITIES } from "../../constants";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import MapContainer from "../../common/gMap";
+import { LoadContext } from "../../../context/load-context";
 
 function HousePage() {
   const { id } = useParams();
 
   const [property, setProperty] = useState({});
+  const { setLoading } = useContext(LoadContext);
 
   useEffect(() => {
     const fetchPropertyApi = async () => {
       try {
+        setLoading(true);
         const response = await axios.get(`/public/api/getProperty/${id}`);
         setProperty(response.data);
+        setLoading(false);
       } catch (error) {
+        setLoading(false);
         console.log(error);
       }
     };

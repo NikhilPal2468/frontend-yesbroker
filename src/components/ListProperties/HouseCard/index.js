@@ -42,7 +42,12 @@ const HouseCard = ({
 
   return (
     <div className="mb-4" key={houses_id}>
-      <Link to={`/property/${houses_id}`} className="text-decoration-none">
+      <a
+        href={`/property/${houses_id}`}
+        className="text-decoration-none"
+        target="_blank"
+        rel="noreferrer"
+      >
         <div className="card border-bottom-0 rounded-bottom-0">
           <div className="card-body">
             <h5 className="card-title text-start">{`${bhk_type} in ${locality}`}</h5>
@@ -51,11 +56,13 @@ const HouseCard = ({
             </h6>
           </div>
         </div>
-      </Link>
+      </a>
       <div className="card rounded-top-0 rounded-bottom-0">
-        <Link
-          to={`/property/${houses_id}`}
+        <a
+          href={`/property/${houses_id}`}
           className="text-decoration-none text-dark"
+          target="_blank"
+          rel="noreferrer"
         >
           <div className="card-body row text-center">
             <div
@@ -83,7 +90,7 @@ const HouseCard = ({
               </p>
             </div>
           </div>
-        </Link>
+        </a>
       </div>
       <div className="card rounded-top-0">
         <div className="card rounded-top-0">
@@ -94,9 +101,11 @@ const HouseCard = ({
                   className={`carousel-inner overflow-hidden ${styles.listImageDiv}`}
                 >
                   {media_url.map((image_url) => {
-                    console.log(image_url);
                     return (
-                      <div className="carousel-item active h-100">
+                      <div
+                        className="carousel-item active h-100"
+                        key={media_url}
+                      >
                         <img
                           src={image_url}
                           className={`d-block w-100 ${styles.listImage}`}
@@ -107,7 +116,7 @@ const HouseCard = ({
                   })}
                 </div>
                 <button
-                  className="carousel-control-prev"
+                  className="carousel-control-prev text-dark"
                   type="button"
                   data-bs-target="#carouselExample"
                   data-bs-slide="prev"
@@ -119,7 +128,7 @@ const HouseCard = ({
                   <span className="visually-hidden">Previous</span>
                 </button>
                 <button
-                  className="carousel-control-next"
+                  className="carousel-control-next text-dark"
                   type="button"
                   data-bs-target="#carouselExample"
                   data-bs-slide="next"
@@ -134,9 +143,11 @@ const HouseCard = ({
             </div>
             <div className="col-12 col-lg-8 d-flex justify-contents-center">
               <div className="row w-100 h-100 m-0 m-2 p-2">
-                <Link
-                  to={`/property/${houses_id}`}
+                <a
+                  href={`/property/${houses_id}`}
                   className="text-decoration-none text-dark"
+                  target="_blank"
+                  rel="noreferrer"
                 >
                   <div
                     className={`col-12 d-flex flex-row ${styles.borderOpt1}`}
@@ -200,7 +211,7 @@ const HouseCard = ({
                       </div>
                     </div>
                   </div>
-                </Link>
+                </a>
                 <div className="col-12 d-flex flex-row my-2">
                   <div className="d-flex flex-row justify-content-center align-items-center w-100">
                     <div

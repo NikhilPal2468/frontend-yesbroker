@@ -7,6 +7,7 @@ import { setUserDetails } from "../../store/actions";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { LoadContext } from "../../context/load-context";
+import { AuthContext } from "../../context/AuthContext";
 
 const ListProperties = ({ userDetails = {} }) => {
   const location = useLocation();
@@ -25,6 +26,8 @@ const ListProperties = ({ userDetails = {} }) => {
   const dispatch = useDispatch();
   const { setLoading } = useContext(LoadContext);
 
+  const { showLogin, showRegister } = useContext(AuthContext);
+
   useEffect(() => {
     try {
       setLoading(true);
@@ -33,7 +36,10 @@ const ListProperties = ({ userDetails = {} }) => {
         dispatch(setUserDetails(data));
         setLoading(false);
       };
-      setData();
+
+      if (showLogin || showRegister) {
+        setData();
+      }
     } catch (err) {
       setLoading(false);
       console.log(err);

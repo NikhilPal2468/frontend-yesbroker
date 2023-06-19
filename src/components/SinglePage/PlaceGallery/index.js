@@ -55,6 +55,7 @@ const PlaceGallery = ({ property, houses_id }) => {
   const [showAllPhotos, setShowAllPhotos] = useState(false);
   const dispatch = useDispatch();
   const { setLoading } = useContext(LoadContext);
+  const { showLogin, showRegister } = useContext(AuthContext);
 
   useEffect(() => {
     try {
@@ -64,7 +65,10 @@ const PlaceGallery = ({ property, houses_id }) => {
         dispatch(setUserDetails(data));
         setLoading(false);
       };
-      setData();
+
+      if (showLogin || showRegister) {
+        setData();
+      }
     } catch (err) {
       setLoading(false);
       console.log(err);
