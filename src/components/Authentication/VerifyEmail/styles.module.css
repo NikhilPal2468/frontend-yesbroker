@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.content {
+  text-align: center;
+  width: 100%;
+}
+
+.message {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: fit-content;
+}
+
+.icon {
+  width: 30px; /* Adjust the size as needed */
+  height: 30px; /* Adjust the size as needed */
+}
+
+.LinkText {
+  text-decoration: none;
+  color: inherit;
+}
+
+.RedirectBtn {
+  background-color: #6c63ff;
+  border-style: none;
+  text-decoration: none;
+  color: white;
+  border-radius: 5px;
+}

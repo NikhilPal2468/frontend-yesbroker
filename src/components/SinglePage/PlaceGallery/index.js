@@ -19,6 +19,7 @@ import { useDispatch } from "react-redux";
 import { LoadContext } from "../../../context/load-context";
 import axios from "axios";
 import { setUserDetails } from "../../../store/actions";
+import noPhotoImg from "../../../assets/no-image.png";
 
 const renderAge = (age) => {
   let propertyAge = "";
@@ -219,56 +220,68 @@ const PlaceGallery = ({ userDetails, property, houses_id }) => {
     );
   }
   return (
-    <div className="">
+    <div>
       <div className="d-flex flex-column flex-md-row gap-1">
         <div className={`${styles.imageContainer}`} role="button">
           <div className="d-flex w-100 h-100">
-            <div
-              className={`${styles.mainImageContainer} overflow-hidden`}
-              onClick={showImages}
-            >
-              <img
-                src={
-                  property?.media?.[0]
-                    ? property.media[0].media_url
-                    : "https://cdn.pixabay.com/photo/2019/08/22/15/21/modern-4423814_1280.png"
-                }
-                className={`img-fluid h-100 ${styles.image}`}
-                alt=""
-              />
-            </div>
-            <div className={`${styles.sideImageContainer}`}>
-              <div className="d-flex flex-column w-100 h-100">
+            {property?.media?.length ? (
+              <>
                 <div
-                  className={`h-100 ${styles.imageDiv1} overflow-hidden`}
+                  className={`${styles.mainImageContainer} overflow-hidden`}
                   onClick={showImages}
                 >
                   <img
                     src={
-                      property?.media?.[1]
-                        ? property.media[1].media_url
+                      property?.media?.[0]
+                        ? property.media[0].media_url
                         : "https://cdn.pixabay.com/photo/2019/08/22/15/21/modern-4423814_1280.png"
                     }
                     className={`img-fluid h-100 ${styles.image}`}
                     alt=""
                   />
                 </div>
-                <div
-                  className={`h-100 ${styles.imageDiv2} overflow-hidden`}
-                  onClick={showImages}
-                >
-                  <img
-                    src={
-                      property?.media?.[2]
-                        ? property.media[2].media_url
-                        : "https://cdn.pixabay.com/photo/2019/08/22/15/21/modern-4423814_1280.png"
-                    }
-                    className={`img-fluid h-100 ${styles.image}`}
-                    alt=""
-                  />
+                <div className={`${styles.sideImageContainer}`}>
+                  <div className="d-flex flex-column w-100 h-100">
+                    <div
+                      className={`h-100 ${styles.imageDiv1} overflow-hidden`}
+                      onClick={showImages}
+                    >
+                      <img
+                        src={
+                          property?.media?.[1]
+                            ? property.media[1].media_url
+                            : "https://cdn.pixabay.com/photo/2019/08/22/15/21/modern-4423814_1280.png"
+                        }
+                        className={`img-fluid h-100 ${styles.image}`}
+                        alt=""
+                      />
+                    </div>
+                    <div
+                      className={`h-100 ${styles.imageDiv2} overflow-hidden`}
+                      onClick={showImages}
+                    >
+                      <img
+                        src={
+                          property?.media?.[2]
+                            ? property.media[2].media_url
+                            : "https://cdn.pixabay.com/photo/2019/08/22/15/21/modern-4423814_1280.png"
+                        }
+                        className={`img-fluid h-100 ${styles.image}`}
+                        alt=""
+                      />
+                    </div>
+                  </div>
                 </div>
+              </>
+            ) : (
+              <div className={`${styles.noImageDiv}`}>
+                <img
+                  src={noPhotoImg}
+                  className={`d-block w-100 ${styles.listImage}`}
+                  alt="..."
+                />
               </div>
-            </div>
+            )}
           </div>
         </div>
         <div className={`${styles.amenityContainer} border`}>
@@ -388,13 +401,15 @@ const PlaceGallery = ({ userDetails, property, houses_id }) => {
           </div>
         </div>
       </div>
-      {showOwnersContacted && (
-        <OwnerModal
-          showOwnersContacted={showOwnersContacted}
-          setShowOwnersContacted={setShowOwnersContacted}
-          houseId={houses_id}
-        />
-      )}
+      <div>
+        {showOwnersContacted && (
+          <OwnerModal
+            showOwnersContacted={showOwnersContacted}
+            setShowOwnersContacted={setShowOwnersContacted}
+            houseId={houses_id}
+          />
+        )}
+      </div>
     </div>
   );
 };

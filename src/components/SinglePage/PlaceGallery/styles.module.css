@@ -16,7 +16,7 @@
 .singleImage {
   max-height: 100%;
   max-width: 100%;
-  object-fit: cover;
+  object-fit: scale-down;
 }
 
 .imageContainer {
@@ -27,6 +27,7 @@
 .amenityContainer {
   width: 35%;
   height: 450px;
+  height: fit-content;
 }
 
 .mainImageContainer {
@@ -44,6 +45,13 @@
 .sideImageContainer {
   width: 30%;
   height: 100%;
+}
+
+.noImageDiv {
+  border-radius: 5px;
+  width: 100%;
+  overflow: hidden;
+  object-fit: contain;
 }
 
 .image {
