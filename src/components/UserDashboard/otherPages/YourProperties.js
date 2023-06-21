@@ -13,7 +13,6 @@ function YourProperties() {
         const { data } = await axios.get(
           `/secure/api/user/mylistings?propertyType=${propertyType}`
         );
-        console.log("data:", data);
         setListings(data?.listings);
       } catch (err) {
         console.log(err.message);
@@ -55,8 +54,8 @@ function YourProperties() {
             </Link>
           </div>
           <div>
-            You have posted {listings?.length}{" "}
-            {listings?.length === 1 ? "property" : "properties"}
+            You have posted {listings && listings.length ? listings.length : 0}{" "}
+            {listings && listings.length === 1 ? "property" : "properties"}
           </div>
           <div className={`container ${styles.cards}`}>
             {listings.map((listing) => (

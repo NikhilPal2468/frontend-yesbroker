@@ -8,7 +8,6 @@ function YourShortlists() {
   const { propertyType } = useParams();
 
   const [shortlistedProperty, setShortlistedProperty] = useState([]);
-  console.log("shortlistedProperty:", shortlistedProperty);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,7 +15,6 @@ function YourShortlists() {
         const { data } = await axios.get(
           `/secure/api/user/myshortlists?propertyType=${propertyType}`
         );
-        console.log("data:", data.data);
         setShortlistedProperty(data?.data);
       } catch (err) {
         console.log(err.message);
@@ -25,7 +23,6 @@ function YourShortlists() {
 
     fetchData();
   }, [propertyType]);
-  console.log("shortlistedProperty:", shortlistedProperty);
 
   return (
     <div>
@@ -60,8 +57,13 @@ function YourShortlists() {
             </Link>
           </div>
           <div>
-            You have shortlisted {shortlistedProperty?.length}{" "}
-            {shortlistedProperty?.length === 1 ? "property" : "properties"}
+            You have shortlisted{" "}
+            {shortlistedProperty && shortlistedProperty?.length
+              ? shortlistedProperty?.length
+              : 0}{" "}
+            {shortlistedProperty && shortlistedProperty?.length === 1
+              ? "property"
+              : "properties"}
           </div>
           <div>
             {(shortlistedProperty || []).map(

@@ -89,7 +89,7 @@ function HousePage({ userDetails = {} }) {
         <h5 className="fw-bold p-1">
           <u>Facilities</u>
         </h5>
-        <div className={`${styles.amenitiesContainer} text-center`}>
+        {/* <div className={`${styles.amenitiesContainer} text-center`}>
           {AMENITIES.map((cur) => {
             return property[cur.key] ? (
               <div className={`${styles.amenity}`}>
@@ -100,6 +100,21 @@ function HousePage({ userDetails = {} }) {
               ""
             );
           })}
+        </div> */}
+        <div className={`${styles.amenitiesContainer} text-center`}>
+          <div className={`row g-2 row-cols-lg-4 row-cols-md-3 row-cols-2`}>
+            {AMENITIES.map((cur) => {
+              const shouldDisplay = property[cur.key];
+              return shouldDisplay ? (
+                <div key={cur.key} className={`col-sm-6 col-md-4 col-lg-3`}>
+                  <div className={`${styles.amenity}`}>
+                    <div>{cur.icon}</div>
+                    <div className="p-0.5">{cur.label}</div>
+                  </div>
+                </div>
+              ) : null;
+            })}
+          </div>
         </div>
       </div>
       <div className={`mt-4 card p-2 m-2`}>
