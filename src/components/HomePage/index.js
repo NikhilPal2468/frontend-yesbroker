@@ -160,7 +160,7 @@ const HomePage = ({ userDetails = {} }) => {
         className={`${styles.input_group} d-flex flex-column justify-content-center align-items-center`}
       >
         <InputGroup
-          className={`w-75 rounded-top d-flex flex-column flex-sm-row flex-xs-row `}
+          className={`rounded-top d-flex flex-column flex-sm-row flex-xs-row ${styles.input_group_div}`}
         >
           <DropdownButton
             variant="outline-primary"

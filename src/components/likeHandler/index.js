@@ -3,6 +3,8 @@ import styles from "./styles.module.css";
 import React, { useContext, useState } from "react";
 import { HiHeart, HiOutlineHeart } from "react-icons/hi2";
 import { AuthContext } from "../../context/AuthContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function LikeHandler({ userDetails, houses_id }) {
   const [liked, setLiked] = useState(false);
@@ -33,8 +35,18 @@ function LikeHandler({ userDetails, houses_id }) {
         );
         console.log("data:", data);
         setLiked((prev) => !prev);
-      } catch (err) {
-        console.log(err);
+      } catch (e) {
+        console.log(e);
+        toast.error(e?.response?.data?.message, {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       }
     else {
       setShowLogin(true);
@@ -81,6 +93,7 @@ function LikeHandler({ userDetails, houses_id }) {
           />
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 }

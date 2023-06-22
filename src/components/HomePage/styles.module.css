@@ -5,6 +5,9 @@
   position: relative;
 }
 
+.input_group_div{
+  width: 75%;
+}
 .homeCard {
   max-width: 250px;
   min-height: fit-content;
@@ -98,5 +101,11 @@
   .autocomplete_dropdown_container {
     top: 75px;
     width: 76%;
+  }
+  .input_group {
+    width: 100%;
+  }
+  .input_group_div{
+    /* width: ; */
   }
 }

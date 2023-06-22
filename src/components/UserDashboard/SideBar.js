@@ -24,11 +24,13 @@ function SideBar() {
   };
 
   return (
-    <div className={`d-flex flex-column text-start gap-2 rounded px-4`}>
+    <div
+      className={`d-flex flex-column text-start gap-2 rounded px-2 ${styles.sidebar}`}
+    >
       <p className={`fw-bold w-100 border-bottom py-4 px-2`}>
         Manage Your Account
       </p>
-      <div className="d-flex flex-column py-2">
+      <div className="d-flex flex-column">
         <Link to={urls.profile} className={linkClasses(urls.profile)}>
           My Profile
         </Link>
