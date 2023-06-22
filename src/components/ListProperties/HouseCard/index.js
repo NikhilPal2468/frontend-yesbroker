@@ -8,6 +8,7 @@ import { VscKey } from "react-icons/vsc";
 import OwnerModal from "../../ShowOwnerModal/OwnerModal";
 import LikeHandler from "../../likeHandler";
 import { AuthContext } from "../../../context/AuthContext";
+import noPhotoImg from "../../../assets/no-image.png";
 
 const HouseCard = ({
   userDetails = {},
@@ -99,20 +100,30 @@ const HouseCard = ({
                 <div
                   className={`carousel-inner overflow-hidden ${styles.listImageDiv}`}
                 >
-                  {media_url.map((image_url) => {
-                    return (
-                      <div
-                        className="carousel-item active h-100"
-                        key={image_url}
-                      >
-                        <img
-                          src={image_url}
-                          className={`d-block w-100 ${styles.listImage}`}
-                          alt="..."
-                        />
-                      </div>
-                    );
-                  })}
+                  {media_url.length ? (
+                    media_url.map((image_url) => {
+                      return (
+                        <div
+                          className="carousel-item active h-100"
+                          key={image_url}
+                        >
+                          <img
+                            src={image_url}
+                            className={`d-block w-100 ${styles.listImage}`}
+                            alt="..."
+                          />
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <div className="carousel-item active h-100">
+                      <img
+                        src={noPhotoImg}
+                        className={`d-block w-100 ${styles.listImage}`}
+                        alt="..."
+                      />
+                    </div>
+                  )}
                 </div>
                 <button
                   className="carousel-control-prev text-dark"

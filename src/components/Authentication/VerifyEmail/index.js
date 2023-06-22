@@ -1,8 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { setUserDetails } from "../../../store/actions";
 import { useDispatch } from "react-redux";
+import styles from "./styles.module.css";
 
 const VerifyEmail = () => {
   const dispatch = useDispatch();
@@ -28,7 +29,44 @@ const VerifyEmail = () => {
 
     fetchData();
   }, []);
-  return <div>{verified ? "email verified" : errMsg}</div>;
+
+  return (
+    <div className={`${styles.container}`}>
+      <div className={`${styles.content}`}>
+        <div
+          className={`${styles.message} flex-row gap-1 align-items-center justify-content-center p-2`}
+        >
+          <p className="fw-bold my-auto">
+            {verified ? "Email Verified" : errMsg}
+          </p>
+          <img
+            src={
+              verified
+                ? "https://th.bing.com/th/id/OIP.GO9-jv9gZ4MWSIPkL7uGQgHaH2?pid=ImgDet&rs=1"
+                : "https://th.bing.com/th/id/OIP.cmTcUqX-2WFqJofdiwQLBQHaHa?pid=ImgDet&rs=1"
+            }
+            alt="{verified ? 'Success' : 'Error'}"
+            className={`${styles.icon}`}
+          />
+        </div>
+        <p className="mt-4 text-center">
+          {verified ? (
+            <button className={`${styles.RedirectBtn} px-3 py-1`}>
+              <Link to="/" className={`${styles.LinkText}`}>
+                Home
+              </Link>
+            </button>
+          ) : (
+            <button className={`${styles.RedirectBtn} px-3 py-1`}>
+              <Link to="/user/myprofile" className={`${styles.LinkText}`}>
+                Verify Email
+              </Link>
+            </button>
+          )}
+        </p>
+      </div>
+    </div>
+  );
 };
 
 export default VerifyEmail;

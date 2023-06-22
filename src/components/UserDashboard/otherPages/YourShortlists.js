@@ -8,7 +8,6 @@ function YourShortlists() {
   const { propertyType } = useParams();
 
   const [shortlistedProperty, setShortlistedProperty] = useState([]);
-  console.log("shortlistedProperty:", shortlistedProperty);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,7 +15,6 @@ function YourShortlists() {
         const { data } = await axios.get(
           `/secure/api/user/myshortlists?propertyType=${propertyType}`
         );
-        console.log("data:", data.data);
         setShortlistedProperty(data?.data);
       } catch (err) {
         console.log(err.message);
@@ -25,7 +23,6 @@ function YourShortlists() {
 
     fetchData();
   }, [propertyType]);
-  console.log("shortlistedProperty:", shortlistedProperty);
 
   return (
     <div className={styles.container}>

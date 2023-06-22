@@ -23,6 +23,7 @@ function LocalityDetails() {
   const [locality, setLocality] = useState("");
   const [street, setStreet] = useState("");
   const [suggestionList, setSuggestionList] = useState([]);
+  const [description, setDescription] = useState("");
 
   useEffect(() => {
     try {
@@ -39,6 +40,7 @@ function LocalityDetails() {
         setHouseNo(data?.houseno);
         setPincode(data?.pincode);
         setAddress(data?.address);
+        setDescription(data?.description);
       };
 
       fetchData(houseId);
@@ -99,6 +101,7 @@ function LocalityDetails() {
       pincode: pincode,
       houseNo: houseNo,
       address: address,
+      description: description,
     };
 
     try {
@@ -241,6 +244,22 @@ function LocalityDetails() {
               </div>
             </div>
 
+            <div className="d-flex flex-row w-100 justify-content-center align-items-center gap-4">
+              <div className="mb-3 w-100">
+                <label htmlFor="description">Description (optional)</label>
+                <textarea
+                  type="text"
+                  name="description"
+                  id="description"
+                  value={description}
+                  className="form-control"
+                  onChange={(e) => {
+                    setDescription(e.target.value);
+                  }}
+                  required
+                />
+              </div>
+            </div>
             <div className="">
               <Button
                 variant="primary"
