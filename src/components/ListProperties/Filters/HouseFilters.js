@@ -53,9 +53,6 @@ function HouseFilters({
       checkbox.checked = false;
     });
   };
-  document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
-    console.log(checkbox.checked);
-  });
   return (
     <div className={`card mb-4 ${styles.sticky_card}`}>
       <div className="d-flex flex-row justify-content-between align-items-center p-1 pb-2 border-bottom border-3 border-dark">

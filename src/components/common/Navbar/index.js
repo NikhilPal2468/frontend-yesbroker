@@ -86,7 +86,7 @@ const Navbar = ({ userDetails = {} }) => {
             <div className="dropdown">
               <a
                 className={`d-flex flex-row border border-dark pe-2 rounded-5 border-1 border-left-0 align-items-center justify-content-center gap-2 dropdown-toggle ${styles.userIcon}`}
-                type="button"
+                role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
