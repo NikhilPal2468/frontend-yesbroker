@@ -43,27 +43,14 @@ const Navbar = ({ userDetails = {} }) => {
     <nav
       className={`${styles.navbar_homewale} navbar navbar-expand-lg navbar-light bg-light card shadow-sm p-3 rounded`}
     >
-      <div className="container-fluid">
-        <div className={styles.navbar_left}>
+      <div className="d-flex align-items-center justify-content-between w-100">
+        <div className={`${styles.navbar_left} w-25`}>
           <Link to={`/`} className="navbar-brand">
             <img src="/images/logo1.svg" alt="logo" />
           </Link>
         </div>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          {/* <span className="navbar-toggler-icon"></span> */}
-          <IoReorderThreeOutline size={30} />
-        </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            {/* <li className="nav-item">
+        <div className="align-items-center justify-content-end w-75">
+          {/* <li className="nav-item">
               <a className="nav-link active" aria-current="page" href="#">
                 Home
               </a>
@@ -78,12 +65,11 @@ const Navbar = ({ userDetails = {} }) => {
                 Pricing
               </a>
             </li> */}
-          </ul>
           {/* <span className="navbar-text">
             Navbar text with an inline element
           </span> */}
           {user ? (
-            <div className="dropdown">
+            <div className={`dropdown ${styles.loginUser} pt-1`}>
               <a
                 className={`d-flex flex-row border border-dark pe-2 rounded-5 border-1 border-left-0 align-items-center justify-content-center gap-2 dropdown-toggle ${styles.userIcon}`}
                 role="button"
@@ -130,12 +116,14 @@ const Navbar = ({ userDetails = {} }) => {
               </ul>
             </div>
           ) : (
-            <div className={styles.navbar_right}>
+            <div
+              className={`d-flex justify-content-end align-items-center ${styles.BtnGroup} w-100`}
+            >
               <Button
                 onClick={() => {
                   setShowLogin(true);
                 }}
-                className="m-2"
+                className={`m-2 ${styles.AuthBtn}`}
               >
                 Log in
               </Button>
@@ -143,6 +131,7 @@ const Navbar = ({ userDetails = {} }) => {
                 onClick={() => {
                   setShowRegister(true);
                 }}
+                className={`m-2 ${styles.AuthBtn}`}
               >
                 Sign up
               </Button>

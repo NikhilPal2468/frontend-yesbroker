@@ -48,6 +48,19 @@ const renderAge = (age) => {
   return propertyAge;
 };
 
+const addImgCarousel = (idx) => {
+  console.log(idx);
+
+  let classname = "carousel-item w-100";
+
+  if (idx === 0) {
+    classname += " active";
+  }
+
+  console.log(classname);
+  return classname;
+};
+
 const PlaceGallery = ({ userDetails, property, houses_id }) => {
   const [showAllPhotos, setShowAllPhotos] = useState(false);
   const dispatch = useDispatch();
@@ -174,22 +187,22 @@ const PlaceGallery = ({ userDetails, property, houses_id }) => {
             <div
               className={`carousel-inner w-100 overflow-hidden ${styles.listImageDiv}`}
             >
-              {property?.media.map(({ media_url, description }) => {
+              {property?.media.map(({ media_url, description }, index) => {
                 return (
-                  <div
-                    className="carousel-item active h-100 w-100"
-                    key={media_url}
-                  >
+                  <div className={addImgCarousel(index)} key={media_url}>
                     <img
                       src={media_url}
-                      className={`d-block w-100 h-100`}
+                      className={`d-block w-100 ${styles.carouselImg}`}
                       alt="..."
                     />
-                    <h5 className="text-light">{description}</h5>
+                    <div className="">
+                      <h5 className="text-light">{description}</h5>
+                    </div>
                   </div>
                 );
               })}
             </div>
+
             <button
               className="carousel-control-prev text-dark"
               type="button"

@@ -31,6 +31,16 @@ const HouseCard = ({
   const [showOwnersContacted, setShowOwnersContacted] = useState(false);
   const [houseId, setHouseId] = useState("");
 
+  const addImgCarousel = (index) => {
+    let classname = "carousel-item h-100";
+
+    if (index === 0) {
+      classname += " active";
+    }
+
+    return classname;
+  };
+
   const handleHouseClicked = (e, housesId) => {
     if (userDetails) {
       setHouseId(housesId);
@@ -100,13 +110,10 @@ const HouseCard = ({
                 <div
                   className={`carousel-inner overflow-hidden ${styles.listImageDiv}`}
                 >
-                  {media_url.length ? (
-                    media_url.map((image_url) => {
+                  {media_url?.length ? (
+                    media_url.map((image_url, index) => {
                       return (
-                        <div
-                          className="carousel-item active h-100"
-                          key={image_url}
-                        >
+                        <div className={addImgCarousel(index)} key={image_url}>
                           <img
                             src={image_url}
                             className={`d-block w-100 ${styles.listImage}`}
@@ -235,7 +242,7 @@ const HouseCard = ({
                     </div>
                     <LikeHandler
                       houses_id={houses_id}
-                      shortlisted={shortlistArray.includes(houses_id)}
+                      shortlisted={shortlistArray?.includes(houses_id)}
                       userDetails={userDetails}
                     />
                   </div>

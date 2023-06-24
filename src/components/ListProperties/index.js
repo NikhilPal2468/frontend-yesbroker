@@ -53,12 +53,14 @@ const ListProperties = ({ userDetails = {} }) => {
   }, []);
 
   const [fullScreenFilters, setFullScreenFilters] = useState(false);
+
   const openFilters = () => {
     setFullScreenFilters(!fullScreenFilters);
   };
   const handleClose = () => {
     setFullScreenFilters(false);
   };
+
   return (
     <div className={`${fullScreenFilters ? styles.list_properties_page : ""}`}>
       <div className={`${styles.search_again}`}>
