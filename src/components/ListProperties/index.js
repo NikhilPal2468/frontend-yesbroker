@@ -8,13 +8,13 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { LoadContext } from "../../context/load-context";
 import InputLocationSearch from "../HomePage/InputLocationSearch";
-import { Dialog, Slide } from "@mui/material";
+// import { Dialog, Slide } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { FiFilter } from "react-icons/fi";
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
+// const Transition = React.forwardRef(function Transition(props, ref) {
+//   return <Slide direction="up" ref={ref} {...props} />;
+// });
 const ListProperties = ({ userDetails = {} }) => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -54,13 +54,13 @@ const ListProperties = ({ userDetails = {} }) => {
 
   const [fullScreenFilters, setFullScreenFilters] = useState(false);
   const openFilters = () => {
-    setFullScreenFilters(true);
+    setFullScreenFilters(!fullScreenFilters);
   };
   const handleClose = () => {
     setFullScreenFilters(false);
   };
   return (
-    <div>
+    <div className={`${fullScreenFilters ? styles.list_properties_page : ""}`}>
       <div className={`${styles.search_again}`}>
         <InputLocationSearch
           selectedCity={selectedCity}
@@ -78,30 +78,30 @@ const ListProperties = ({ userDetails = {} }) => {
         <button className={styles.filter_button} onClick={openFilters}>
           <FiFilter /> Filter
         </button>
-        <Dialog
-          fullScreen
-          open={fullScreenFilters}
-          onClose={handleClose}
-          TransitionComponent={Transition}
-        >
-          <CloseIcon onClick={handleClose} />
-          <HouseFilters
-            bhkType={bhkType}
-            setBhkType={setBhkType}
-            preferredTenants={preferredTenants}
-            setPreferredTenants={setPreferredTenants}
-            price={price}
-            setPrice={setPrice}
-            furnishing={furnishing}
-            setFurnishing={setFurnishing}
-            setTwoWheelerParking={setTwoWheelerParking}
-            setFourWheelerParking={setFourWheelerParking}
-            setWithImage={setWithImage}
-          />
-          <button className={styles.apply_filters} onClick={handleClose}>
-            Apply Filters
-          </button>
-        </Dialog>
+        {fullScreenFilters && (
+          <div className={`${styles.mobile_view_filter}`}>
+            <CloseIcon
+              className={styles.cursor_pointer}
+              onClick={handleClose}
+            />
+            <HouseFilters
+              bhkType={bhkType}
+              setBhkType={setBhkType}
+              preferredTenants={preferredTenants}
+              setPreferredTenants={setPreferredTenants}
+              price={price}
+              setPrice={setPrice}
+              furnishing={furnishing}
+              setFurnishing={setFurnishing}
+              setTwoWheelerParking={setTwoWheelerParking}
+              setFourWheelerParking={setFourWheelerParking}
+              setWithImage={setWithImage}
+            />
+            <button className={styles.apply_filters} onClick={handleClose}>
+              Apply Filters
+            </button>
+          </div>
+        )}
       </div>
       <div className={`d-flex px-3 py-2 ${styles.list_properties}`}>
         <div className={`p-1 col-12 col-md-5 col-lg-4 ${styles.hide_filters}`}>
