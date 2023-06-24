@@ -238,7 +238,7 @@ const HomePage = ({ userDetails = {} }) => {
           ))}
         </div>
         <div
-          className={`input-group p-2 w-75 row align-items-center rounded-bottom ${styles.filterGroup}`}
+          className={`input-group p-2 w-100 row align-items-center rounded-bottom ${styles.filterGroup}`}
         >
           <div className="col-12 col-md-7">
             <div className="row">

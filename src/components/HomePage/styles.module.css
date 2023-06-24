@@ -1,8 +1,9 @@
 .input_group {
   display: flex;
   justify-content: center;
-  width: 75%;
+  width: 60%;
   position: relative;
+  padding: 10px 40px;
 }
 
 .input_group_div {
@@ -71,7 +72,7 @@
 
 .autocomplete_dropdown_container {
   border-radius: 10px;
-  width: 54%;
+  width: 64%;
   position: absolute;
   z-index: 100;
   background-color: #fbf2f2;
@@ -111,8 +112,8 @@
     width: 100% !important;
   }
   .autocomplete_dropdown_container {
-    top: 75px;
-    width: 76%;
+    top: 86px;
+    width: 85%;
   }
   .input_group {
     width: 100%;

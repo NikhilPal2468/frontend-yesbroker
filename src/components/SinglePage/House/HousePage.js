@@ -12,7 +12,7 @@ import { CiPaperplane } from "react-icons/ci";
 function HousePage({ userDetails = {} }) {
   const { id } = useParams();
 
-  const [property, setProperty] = useState({});
+  const [property, setProperty] = useState(null);
   const { setLoading } = useContext(LoadContext);
 
   useEffect(() => {
@@ -31,6 +31,7 @@ function HousePage({ userDetails = {} }) {
     fetchPropertyApi();
   }, [id]);
 
+  if (property === null) return;
   return (
     <div className={`${styles.container}`}>
       <div className="d-flex flex-column flex-md-row w-100 card mb-4">

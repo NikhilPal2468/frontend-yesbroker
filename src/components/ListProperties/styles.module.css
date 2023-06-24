@@ -59,3 +59,21 @@
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
+.full_screen_filter{
+  display: none;
+}
+.full_screen_filter_show{
+  display: block;
+}
+.mobile_view_filter{
+  transform: translateX(0);
+}
+.translate_filter{
+  transform: translateX(42px);
+}
+.cursor_pointer{
+  cursor: pointer;
+}
+.list_properties_page{
+  overflow: hidden;
+}

@@ -64,6 +64,10 @@
   color: white;
 }
 
+.checked {
+  background-color: #3356b2;
+  color: white;
+}
 .input_checkbox1:checked + .input_label1 {
   background-color: #3356b2;
   color: white;
