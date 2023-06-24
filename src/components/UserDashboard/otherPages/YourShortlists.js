@@ -56,7 +56,7 @@ function YourShortlists() {
         <div>
           {shortlistedProperty?.length === 0
             ? "You have not shortlisted any property"
-            : `You have shortlisted ${shortlistedProperty?.length}
+            : `You have shortlisted ${shortlistedProperty?.length || "0"}
             ${shortlistedProperty?.length === 1 ? "property" : "properties"}`}
         </div>
         <div>

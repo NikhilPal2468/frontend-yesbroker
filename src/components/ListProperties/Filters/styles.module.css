@@ -33,20 +33,13 @@
   border: 1px solid;
   border-color: #6c63ff;
 }
-.cursor_pointer{
+.cursor_pointer {
   cursor: pointer;
 }
 
-.apply_filters{
+.apply_filters {
   display: none;
 }
-
-@media screen and (max-width: 767px) {
-  .hideOnSmall {
-    display: none; /* Hide the element on screens with a maximum width of 767px (small screens) */
-  }
-}
-
 
 .sticky_card {
   position: sticky !important;
@@ -71,7 +64,13 @@
   color: white;
 }
 
-.input_checkbox1:checked ~ .input_label1 {
+.input_checkbox1:checked + .input_label1 {
   background-color: #3356b2;
   color: white;
+}
+
+@media screen and (max-width: 767px) {
+  .hideOnSmall {
+    display: none; /* Hide the element on screens with a maximum width of 767px (small screens) */
+  }
 }

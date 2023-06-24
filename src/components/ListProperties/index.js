@@ -15,6 +15,7 @@ import { FiFilter } from "react-icons/fi";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
+
 const ListProperties = ({ userDetails = {} }) => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -53,12 +54,14 @@ const ListProperties = ({ userDetails = {} }) => {
   }, []);
 
   const [fullScreenFilters, setFullScreenFilters] = useState(false);
+
   const openFilters = () => {
     setFullScreenFilters(true);
   };
   const handleClose = () => {
     setFullScreenFilters(false);
   };
+
   return (
     <div>
       <div className={`${styles.search_again}`}>

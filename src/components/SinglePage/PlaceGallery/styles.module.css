@@ -7,6 +7,14 @@
   background-color: transparent;
 }
 
+.listImageDiv {
+  max-height: 80vh;
+}
+
+.carouselImg {
+  object-fit: contain;
+}
+
 .imageDiv {
   max-width: 700px;
   max-height: 700px;

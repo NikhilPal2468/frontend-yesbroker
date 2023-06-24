@@ -405,7 +405,9 @@ const HomePage = ({ userDetails = {} }) => {
       <div>
         <div className={styles.property_owner}>Are you a Property Owner?</div>
 
-        <Button onClick={listProperty}>Post your property</Button>
+        <Button onClick={listProperty} className={`${styles.Btn}`}>
+          Post your property
+        </Button>
 
         {showRegister && (
           <Register

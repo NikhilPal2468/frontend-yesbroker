@@ -16,7 +16,6 @@ function HouseFilters({
   setFourWheelerParking = () => {},
   setWithImage = () => {},
 }) {
-  console.log("bhkType:", bhkType);
   const handlePriceChange = (event, newValue) => {
     setPrice(newValue);
   };
@@ -53,6 +52,7 @@ function HouseFilters({
       checkbox.checked = false;
     });
   };
+
   return (
     <div className={`card mb-4 ${styles.sticky_card}`}>
       <div className="d-flex flex-row justify-content-between align-items-center p-1 pb-2 border-bottom border-3 border-dark">
@@ -111,7 +111,7 @@ function HouseFilters({
                   }
                 />
                 <label
-                  className={`${styles.filterOption} ${styles.input_label1} m-1`}
+                  className={`${styles.filterOption} ${styles.input_label1} m-1 `}
                   htmlFor={preferred_tenant}
                   role="button"
                 >

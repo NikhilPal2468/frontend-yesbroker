@@ -5,15 +5,27 @@
   position: relative;
 }
 
-.input_group_div{
+.input_group_div {
   width: 75%;
 }
+
+.Btn {
+  background-color: #6c63ff;
+  &:hover {
+    background-color: #4a41f5;
+  }
+}
+
 .homeCard {
   max-width: 250px;
   min-height: fit-content;
   max-height: 250px;
   align-items: center;
   padding: 8px 4px;
+  transition: transform 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+  &:hover {
+    transform: scale3d(1.1);
+  }
 }
 
 .homeCard:hover {
@@ -105,7 +117,7 @@
   .input_group {
     width: 100%;
   }
-  .input_group_div{
+  .input_group_div {
     /* width: ; */
   }
 }

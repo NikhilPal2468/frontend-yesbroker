@@ -29,6 +29,7 @@ import PgDetails from "./components/PostProperty/Pg/PgDetails";
 
 import { useSelector } from "react-redux";
 import VerifyEmail from "./components/Authentication/VerifyEmail";
+import Footer from "./components/common/Footer";
 
 // axios.defaults.baseURL = "https://homewale-backend.onrender.com";
 axios.defaults.baseURL = "http://localhost:5000";
@@ -114,6 +115,7 @@ function App() {
           element={<VerifyEmail />}
         />
       </Routes>
+      <Footer />
     </div>
   );
 }
