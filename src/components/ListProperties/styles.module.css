@@ -1,5 +1,6 @@
 .list_properties {
   flex-direction: row;
+  margin-top: 30px;
 }
 @media only screen and (max-width: 768px) {
   .list_properties {
