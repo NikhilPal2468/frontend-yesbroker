@@ -7,7 +7,14 @@ import { setUserDetails } from "../../store/actions";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { LoadContext } from "../../context/load-context";
+import InputLocationSearch from "../HomePage/InputLocationSearch";
+// import { Dialog, Slide } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import { FiFilter } from "react-icons/fi";
 
+// const Transition = React.forwardRef(function Transition(props, ref) {
+//   return <Slide direction="up" ref={ref} {...props} />;
+// });
 const ListProperties = ({ userDetails = {} }) => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -25,51 +32,109 @@ const ListProperties = ({ userDetails = {} }) => {
   const dispatch = useDispatch();
   const { setLoading } = useContext(LoadContext);
 
+  const [selectedCity, setSelectedCity] = useState("Bangalore");
+  const [searchValue, setSearchValue] = useState("");
+  const [selectedLocality, setSelectedLocality] = useState([]);
+  const [suggestionList, setSuggestionList] = useState([]);
   useEffect(() => {
     try {
-      if (userDetails) {
-        setLoading(true);
-        const setData = async () => {
-          const { data } = await axios.get("/secure/api/user/me");
-          dispatch(setUserDetails(data));
-          setLoading(false);
-        };
-        setData();
-      }
+      setLoading(true);
+      const setData = async () => {
+        const { data } = await axios.get("/secure/api/user/me");
+        dispatch(setUserDetails(data));
+        setLoading(false);
+      };
+
+      if (userDetails) setData();
     } catch (err) {
       setLoading(false);
       console.log(err);
     }
   }, []);
 
+  const [fullScreenFilters, setFullScreenFilters] = useState(false);
+
+  const openFilters = () => {
+    setFullScreenFilters(!fullScreenFilters);
+  };
+  const handleClose = () => {
+    setFullScreenFilters(false);
+  };
+
   return (
-    <div className={`d-flex px-3 py-2 ${styles.list_properties}`}>
-      <HouseFilters
-        bhkType={bhkType}
-        setBhkType={setBhkType}
-        preferredTenants={preferredTenants}
-        setPreferredTenants={setPreferredTenants}
-        price={price}
-        setPrice={setPrice}
-        furnishing={furnishing}
-        setFurnishing={setFurnishing}
-        setTwoWheelerParking={setTwoWheelerParking}
-        setFourWheelerParking={setFourWheelerParking}
-        setWithImage={setWithImage}
-      />
-      <HouseList
-        city={city}
-        locality={locality}
-        propertyType={propertyType}
-        bhkType={bhkType}
-        preferredTenants={preferredTenants}
-        price={price}
-        furnishing={furnishing}
-        twoWheelerParking={twoWheelerParking}
-        fourWheelerParking={fourWheelerParking}
-        withImage={withImage}
-        userDetails={userDetails}
-      />
+    <div className={`${fullScreenFilters ? styles.list_properties_page : ""}`}>
+      <div className={`${styles.search_again}`}>
+        <InputLocationSearch
+          selectedCity={selectedCity}
+          setSelectedCity={setSelectedCity}
+          selectedLocality={selectedLocality}
+          setSelectedLocality={setSelectedLocality}
+          suggestionList={suggestionList}
+          setSuggestionList={setSuggestionList}
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+          propertyType={propertyType}
+        />
+      </div>
+      <div className={styles.filter_modal}>
+        <button className={styles.filter_button} onClick={openFilters}>
+          <FiFilter /> Filter
+        </button>
+        {fullScreenFilters && (
+          <div className={`${styles.mobile_view_filter}`}>
+            <CloseIcon
+              className={styles.cursor_pointer}
+              onClick={handleClose}
+            />
+            <HouseFilters
+              bhkType={bhkType}
+              setBhkType={setBhkType}
+              preferredTenants={preferredTenants}
+              setPreferredTenants={setPreferredTenants}
+              price={price}
+              setPrice={setPrice}
+              furnishing={furnishing}
+              setFurnishing={setFurnishing}
+              setTwoWheelerParking={setTwoWheelerParking}
+              setFourWheelerParking={setFourWheelerParking}
+              setWithImage={setWithImage}
+            />
+            <button className={styles.apply_filters} onClick={handleClose}>
+              Apply Filters
+            </button>
+          </div>
+        )}
+      </div>
+      <div className={`d-flex px-3 py-2 ${styles.list_properties}`}>
+        <div className={`p-1 col-12 col-md-5 col-lg-4 ${styles.hide_filters}`}>
+          <HouseFilters
+            bhkType={bhkType}
+            setBhkType={setBhkType}
+            preferredTenants={preferredTenants}
+            setPreferredTenants={setPreferredTenants}
+            price={price}
+            setPrice={setPrice}
+            furnishing={furnishing}
+            setFurnishing={setFurnishing}
+            setTwoWheelerParking={setTwoWheelerParking}
+            setFourWheelerParking={setFourWheelerParking}
+            setWithImage={setWithImage}
+          />
+        </div>
+        <HouseList
+          city={city}
+          locality={locality}
+          propertyType={propertyType}
+          bhkType={bhkType}
+          preferredTenants={preferredTenants}
+          price={price}
+          furnishing={furnishing}
+          twoWheelerParking={twoWheelerParking}
+          fourWheelerParking={fourWheelerParking}
+          withImage={withImage}
+          userDetails={userDetails}
+        />
+      </div>
     </div>
   );
 };

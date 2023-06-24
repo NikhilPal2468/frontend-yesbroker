@@ -28,10 +28,12 @@ import PgLocality from "./components/PostProperty/Pg/PgLocality";
 import PgDetails from "./components/PostProperty/Pg/PgDetails";
 
 import { useSelector } from "react-redux";
+import VerifyEmail from "./components/Authentication/VerifyEmail";
+import Footer from "./components/common/Footer";
 
 // axios.defaults.baseURL = "https://homewale-backend.onrender.com";
-// axios.defaults.baseURL = "http://localhost:5000";
-axios.defaults.baseURL = "https://homewale.com/api";
+axios.defaults.baseURL = "http://localhost:5000";
+// axios.defaults.baseURL = "https://homewale.com/api";
 // axios.defaults.baseURL = "http://13.200.85.135/api";
 axios.defaults.withCredentials = true;
 
@@ -54,7 +56,10 @@ function App() {
         <Route path="/premium" element={<PremiumPage />} />
 
         {/* User Dashboard routes */}
-        <Route path="/user/myprofile" element={<ProfilePage />} />
+        <Route
+          path="/user/myprofile"
+          element={<ProfilePage userDetails={userDetails} />}
+        />
         <Route
           path="/user/mylistings/:propertyType"
           element={<YourProperties />}
@@ -105,7 +110,12 @@ function App() {
           path="/property/manage/pg/:id/pgdetails"
           element={<PgDetails />}
         />
+        <Route
+          path="/verifyEmail/:id/:email/:token"
+          element={<VerifyEmail />}
+        />
       </Routes>
+      <Footer />
     </div>
   );
 }

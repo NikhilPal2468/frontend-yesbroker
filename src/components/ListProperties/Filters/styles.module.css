@@ -33,17 +33,25 @@
   border: 1px solid;
   border-color: #6c63ff;
 }
+.cursor_pointer {
+  cursor: pointer;
+}
+
+.apply_filters {
+  display: none;
+}
 
 .sticky_card {
   position: sticky !important;
   top: 10px;
+  overflow-y: scroll;
 }
 
-.input_checkbox {
+.input_checkbox1 {
   display: none;
 }
 
-.input_label {
+.input_label1 {
   border: 2px solid #28438a;
   border-radius: 5px;
   padding: 2px 4px;
@@ -51,12 +59,16 @@
   width: 70px;
 }
 
-.input_label:hover {
+.input_label1:hover {
   background-color: #7b9eff;
   color: white;
 }
 
-.input_checkbox:checked + .input_label {
+.checked {
+  background-color: #3356b2;
+  color: white;
+}
+.input_checkbox1:checked + .input_label1 {
   background-color: #3356b2;
   color: white;
 }
@@ -65,7 +77,4 @@
   .hideOnSmall {
     display: none; /* Hide the element on screens with a maximum width of 767px (small screens) */
   }
-}
-.cursor_pointer{
-  cursor: pointer;
 }

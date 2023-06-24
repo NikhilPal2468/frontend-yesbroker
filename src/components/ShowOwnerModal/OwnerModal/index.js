@@ -17,8 +17,12 @@ function OwnerModal({ showOwnersContacted, setShowOwnersContacted, houseId }) {
   useEffect(() => {
     const fetchData = async (houseId) => {
       try {
-        const { data } = await axios.get(
-          `/secure/api/user/listings/get-owner-details/${houseId}`
+        const { data } = await axios.post(
+          `/secure/api/user/listings/get-owner-details`,
+          {
+            houseId,
+            pgId: "",
+          }
         );
 
         setOwnerData(data);

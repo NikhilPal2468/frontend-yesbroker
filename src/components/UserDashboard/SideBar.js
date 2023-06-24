@@ -4,10 +4,6 @@ import { Link, useLocation } from "react-router-dom";
 
 function SideBar() {
   let location = useLocation();
-
-  // const [showProperties, setShowProperties] = useState(false);
-  // const [showShortlists, setShowShortlists] = useState(false);
-
   const linkClasses = (type = null) => {
     let classes = `${styles.linkStyle} mb-1 w-100 px-5 py-2`;
 
@@ -20,21 +16,21 @@ function SideBar() {
 
   const urls = {
     profile: "/user/myprofile",
-    myListings: "/user/mylistings",
     listedHouses: "/user/mylistings/houses",
     listedPgs: "/user/mylistings/pgs",
     ownersContacted: "/user/ownerscontacted",
-    myShortlists: "/user/myshortlists",
     shortlistHouses: "/user/myshortlists/houses",
     shortlistPgs: "/user/myshortlists/pgs",
   };
 
   return (
-    <div className={` d-flex flex-column text-start gap-2 rounded px-4`}>
+    <div
+      className={`d-flex flex-column text-start gap-2 rounded px-2 ${styles.sidebar}`}
+    >
       <p className={`fw-bold w-100 border-bottom py-4 px-2`}>
         Manage Your Account
       </p>
-      <div className="d-flex flex-column py-2">
+      <div className="d-flex flex-column">
         <Link to={urls.profile} className={linkClasses(urls.profile)}>
           My Profile
         </Link>
@@ -46,19 +42,6 @@ function SideBar() {
         >
           My Properties
         </Link>
-        {/* {showProperties && (
-        <div className="d-flex flex-column">
-          <Link
-            to={urls.listedHouses}
-            className={linkClasses(urls.listedHouses)}
-          >
-            Flats
-          </Link>
-          <Link to={urls.listedPgs} className={linkClasses(urls.listedPgs)}>
-            PG
-          </Link>
-        </div>
-      )} */}
 
         <Link
           to={urls.shortlistHouses}
@@ -75,22 +58,6 @@ function SideBar() {
           Owners Contacted
         </Link>
       </div>
-      {/* {showShortlists && (
-        <div className="d-flex flex-column">
-          <Link
-            to={urls.shortlistHouses}
-            className={linkClasses(urls.shortlistHouses)}
-          >
-            House/Flat
-          </Link>
-          <Link
-            to={urls.shortlistPgs}
-            className={linkClasses(urls.shortlistPgs)}
-          >
-            PG/Hostel
-          </Link>
-        </div>
-      )} */}
     </div>
   );
 }

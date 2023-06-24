@@ -160,7 +160,7 @@ const HomePage = ({ userDetails = {} }) => {
         className={`${styles.input_group} d-flex flex-column justify-content-center align-items-center`}
       >
         <InputGroup
-          className={`w-75 rounded-top d-flex flex-column flex-sm-row flex-xs-row `}
+          className={`rounded-top d-flex flex-column flex-sm-row flex-xs-row ${styles.input_group_div}`}
         >
           <DropdownButton
             variant="outline-primary"
@@ -238,7 +238,7 @@ const HomePage = ({ userDetails = {} }) => {
           ))}
         </div>
         <div
-          className={`input-group p-2 w-75 row align-items-center rounded-bottom ${styles.filterGroup}`}
+          className={`input-group p-2 w-100 row align-items-center rounded-bottom ${styles.filterGroup}`}
         >
           <div className="col-12 col-md-7">
             <div className="row">
@@ -405,7 +405,9 @@ const HomePage = ({ userDetails = {} }) => {
       <div>
         <div className={styles.property_owner}>Are you a Property Owner?</div>
 
-        <Button onClick={listProperty}>Post your property</Button>
+        <Button onClick={listProperty} className={`${styles.Btn}`}>
+          Post your property
+        </Button>
 
         {showRegister && (
           <Register

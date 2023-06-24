@@ -1,8 +1,20 @@
 .input_group {
   display: flex;
   justify-content: center;
-  width: 75%;
+  width: 60%;
   position: relative;
+  padding: 10px 40px;
+}
+
+.input_group_div {
+  width: 75%;
+}
+
+.Btn {
+  background-color: #6c63ff;
+  &:hover {
+    background-color: #4a41f5;
+  }
 }
 
 .homeCard {
@@ -11,6 +23,10 @@
   max-height: 250px;
   align-items: center;
   padding: 8px 4px;
+  transition: transform 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+  &:hover {
+    transform: scale3d(1.1);
+  }
 }
 
 .homeCard:hover {
@@ -56,7 +72,7 @@
 
 .autocomplete_dropdown_container {
   border-radius: 10px;
-  width: 54%;
+  width: 64%;
   position: absolute;
   z-index: 100;
   background-color: #fbf2f2;
@@ -96,7 +112,13 @@
     width: 100% !important;
   }
   .autocomplete_dropdown_container {
-    top: 75px;
-    width: 76%;
+    top: 86px;
+    width: 85%;
+  }
+  .input_group {
+    width: 100%;
+  }
+  .input_group_div {
+    /* width: ; */
   }
 }

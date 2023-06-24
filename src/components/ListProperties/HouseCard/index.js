@@ -4,11 +4,11 @@ import { GrUserManager } from "react-icons/gr";
 import { GiFamilyHouse } from "react-icons/gi";
 import { TbSofa } from "react-icons/tb";
 import { VscKey } from "react-icons/vsc";
-import { Link } from "react-router-dom";
 
 import OwnerModal from "../../ShowOwnerModal/OwnerModal";
 import LikeHandler from "../../likeHandler";
 import { AuthContext } from "../../../context/AuthContext";
+import noPhotoImg from "../../../assets/no-image.png";
 
 const HouseCard = ({
   userDetails = {},
@@ -25,10 +25,21 @@ const HouseCard = ({
   available_from = "",
   // propertyType = "",
   shortlistArray,
+  media_url,
 }) => {
   const { setShowLogin } = useContext(AuthContext);
   const [showOwnersContacted, setShowOwnersContacted] = useState(false);
   const [houseId, setHouseId] = useState("");
+
+  const addImgCarousel = (index) => {
+    let classname = "carousel-item h-100";
+
+    if (index === 0) {
+      classname += " active";
+    }
+
+    return classname;
+  };
 
   const handleHouseClicked = (e, housesId) => {
     if (userDetails) {
@@ -41,7 +52,12 @@ const HouseCard = ({
 
   return (
     <div className="mb-4" key={houses_id}>
-      <Link to={`/property/${houses_id}`} className="text-decoration-none">
+      <a
+        href={`/property/${houses_id}`}
+        className="text-decoration-none"
+        target="_blank"
+        rel="noreferrer"
+      >
         <div className="card border-bottom-0 rounded-bottom-0">
           <div className="card-body">
             <h5 className="card-title text-start">{`${bhk_type} in ${locality}`}</h5>
@@ -50,11 +66,13 @@ const HouseCard = ({
             </h6>
           </div>
         </div>
-      </Link>
+      </a>
       <div className="card rounded-top-0 rounded-bottom-0">
-        <Link
-          to={`/property/${houses_id}`}
+        <a
+          href={`/property/${houses_id}`}
           className="text-decoration-none text-dark"
+          target="_blank"
+          rel="noreferrer"
         >
           <div className="card-body row text-center">
             <div
@@ -82,42 +100,42 @@ const HouseCard = ({
               </p>
             </div>
           </div>
-        </Link>
+        </a>
       </div>
       <div className="card rounded-top-0">
         <div className="card rounded-top-0">
           <div className="d-flex flex-column flex-lg-row p-3 gap-2">
             <div className="col-12 col-lg-4">
-              <div id="carouselExample" className="carousel slide">
+              <div id={houses_id} className="carousel slide">
                 <div
                   className={`carousel-inner overflow-hidden ${styles.listImageDiv}`}
                 >
-                  <div className="carousel-item active h-100">
-                    <img
-                      src="https://images.nobroker.in/images/8a9ffd8488337eca018833ae08d41c58/8a9ffd8488337eca018833ae08d41c58_22925_281699_medium.jpg"
-                      className={`d-block w-100 ${styles.listImage}`}
-                      alt="..."
-                    />
-                  </div>
-                  <div className="carousel-item h-100">
-                    <img
-                      src="https://images.nobroker.in/images/8a9f0782880e219201880e411e310cf0/8a9f0782880e219201880e411e310cf0_252667_804472_thumbnail.jpg"
-                      className={`d-block w-100 ${styles.listImage}`}
-                      alt="..."
-                    />
-                  </div>
-                  <div className="carousel-item h-100">
-                    <img
-                      src="https://images.nobroker.in/images/8a9fcc83880ee8cb01880f6435ad4a2c/8a9fcc83880ee8cb01880f6435ad4a2c_41407_272325_medium.jpg"
-                      className={`d-block w-100 ${styles.listImage}`}
-                      alt="..."
-                    />
-                  </div>
+                  {media_url?.length ? (
+                    media_url.map((image_url, index) => {
+                      return (
+                        <div className={addImgCarousel(index)} key={image_url}>
+                          <img
+                            src={image_url}
+                            className={`d-block w-100 ${styles.listImage}`}
+                            alt="..."
+                          />
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <div className="carousel-item active h-100">
+                      <img
+                        src={noPhotoImg}
+                        className={`d-block w-100 ${styles.listImage}`}
+                        alt="..."
+                      />
+                    </div>
+                  )}
                 </div>
                 <button
-                  className="carousel-control-prev"
+                  className="carousel-control-prev text-dark"
                   type="button"
-                  data-bs-target="#carouselExample"
+                  data-bs-target={`#${houses_id}`}
                   data-bs-slide="prev"
                 >
                   <span
@@ -127,9 +145,9 @@ const HouseCard = ({
                   <span className="visually-hidden">Previous</span>
                 </button>
                 <button
-                  className="carousel-control-next"
+                  className="carousel-control-next text-dark"
                   type="button"
-                  data-bs-target="#carouselExample"
+                  data-bs-target={`#${houses_id}`}
                   data-bs-slide="next"
                 >
                   <span
@@ -142,9 +160,11 @@ const HouseCard = ({
             </div>
             <div className="col-12 col-lg-8 d-flex justify-contents-center">
               <div className="row w-100 h-100 m-0 m-2 p-2">
-                <Link
-                  to={`/property/${houses_id}`}
+                <a
+                  href={`/property/${houses_id}`}
                   className="text-decoration-none text-dark"
+                  target="_blank"
+                  rel="noreferrer"
                 >
                   <div
                     className={`col-12 d-flex flex-row ${styles.borderOpt1}`}
@@ -208,7 +228,7 @@ const HouseCard = ({
                       </div>
                     </div>
                   </div>
-                </Link>
+                </a>
                 <div className="col-12 d-flex flex-row my-2">
                   <div className="d-flex flex-row justify-content-center align-items-center w-100">
                     <div
@@ -222,7 +242,7 @@ const HouseCard = ({
                     </div>
                     <LikeHandler
                       houses_id={houses_id}
-                      shortlisted={shortlistArray.includes(houses_id)}
+                      shortlisted={shortlistArray?.includes(houses_id)}
                       userDetails={userDetails}
                     />
                   </div>

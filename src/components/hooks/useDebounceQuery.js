@@ -6,7 +6,7 @@ const useDebounceQuery = () => {
 
   const request = debounce((value) => {
     setQuery(value);
-  }, 600);
+  }, 400);
 
   const debounceQuery = useCallback((value) => request(value), []);
 

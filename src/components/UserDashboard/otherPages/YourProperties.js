@@ -13,7 +13,6 @@ function YourProperties() {
         const { data } = await axios.get(
           `/secure/api/user/mylistings?propertyType=${propertyType}`
         );
-        console.log("data:", data);
         setListings(data?.listings);
       } catch (err) {
         console.log(err.message);
@@ -23,46 +22,48 @@ function YourProperties() {
     fetchData();
   }, [propertyType]);
   return (
-    <div className="h-100">
-      <div className="row h-100">
-        <div className="col-12 col-lg-3">
-          <SideBar />
+    <div className={styles.container}>
+      <SideBar />
+      <div className={`${styles.sidebar_right}`}>
+        <div className="container">
+          <p className="fw-bold border-bottom py-4">My Properties</p>
         </div>
-        <div className="col-12 col-lg-9">
-          <div className="container">
-            <p className="fw-bold border-bottom py-4">My Properties</p>
-          </div>
-          <div className="container">
-            <Link to={"/user/mylistings/houses"}>
-              <button
-                type="button"
-                className={`btn btn-outline-primary me-2 ${
-                  propertyType === "houses" ? "active" : ""
-                }`}
-              >
-                Houses
-              </button>
-            </Link>
-            <Link to={"/user/mylistings/pgs"}>
-              <button
-                type="button"
-                className={`btn btn-outline-primary me-2 ${
-                  propertyType === "pgs" ? "active" : ""
-                }`}
-              >
-                PG/Hostel
-              </button>
-            </Link>
-          </div>
-          <div>
-            You have posted {listings?.length}{" "}
-            {listings?.length === 1 ? "property" : "properties"}
-          </div>
-          <div className={`container ${styles.cards}`}>
-            {listings.map((listing) => (
-              <PropertyCard key={listing.houses_id} listing={listing} />
-            ))}
-          </div>
+        <div className="container">
+          <Link to={"/user/mylistings/houses"}>
+            <button
+              type="button"
+              className={`btn btn-outline-primary me-2 ${
+                propertyType === "houses" ? "active" : ""
+              }`}
+            >
+              Houses
+            </button>
+          </Link>
+          <Link to={"/user/mylistings/pgs"}>
+            <button
+              type="button"
+              className={`btn btn-outline-primary me-2 ${
+                propertyType === "pgs" ? "active" : ""
+              }`}
+            >
+              PG/Hostel
+            </button>
+          </Link>
+        </div>
+
+        <div className="row gap-4 py-2 my-2">
+          <p>
+            {listings?.length === 0
+              ? "You have not listed any property"
+              : `You have posted ${listings?.length}
+            ${listings?.length === 1 ? "property" : "properties"}`}
+          </p>
+        </div>
+
+        <div className={`container ${styles.cards}`}>
+          {listings.map((listing) => (
+            <PropertyCard key={listing.houses_id} listing={listing} />
+          ))}
         </div>
       </div>
     </div>
