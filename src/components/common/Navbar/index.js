@@ -7,7 +7,6 @@ import { useDispatch } from "react-redux";
 import { setUserDetails } from "../../../store/actions";
 import Register from "../../Authentication/Register";
 import Login from "../../Authentication/Login";
-import { IoReorderThreeOutline } from "react-icons/io5";
 import axios from "axios";
 import { AuthContext } from "../../../context/AuthContext";
 

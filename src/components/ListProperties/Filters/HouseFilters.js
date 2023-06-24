@@ -16,6 +16,7 @@ function HouseFilters({
   setFourWheelerParking = () => {},
   setWithImage = () => {},
 }) {
+  console.log("bhkType:", bhkType);
   const handlePriceChange = (event, newValue) => {
     setPrice(newValue);
   };
