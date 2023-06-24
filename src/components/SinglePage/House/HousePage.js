@@ -20,8 +20,8 @@ function HousePage({ userDetails = {} }) {
       try {
         setLoading(true);
         const response = await axios.get(`/public/api/getProperty/${id}`);
-        setProperty(response.data);
         setLoading(false);
+        setProperty(response.data);
       } catch (error) {
         setLoading(false);
         console.log(error);
@@ -76,47 +76,8 @@ function HousePage({ userDetails = {} }) {
           houses_id={property.houses_id}
         />
       </div>
-      <div className={`mt-4 card p-2 m-2`}>
-        <h5 className="fw-bold p-1">
-          <u>Description</u>
-        </h5>
-        <p>
-          {property?.description ||
-            `${property.bhk_type} in ${property.locality} ${property.furnishing_type} @ ${property.rent}`}
-        </p>
-      </div>
-      <div className={`mt-4 card p-2 m-2`}>
-        <h5 className="fw-bold p-1">
-          <u>Facilities</u>
-        </h5>
-        {/* <div className={`${styles.amenitiesContainer} text-center`}>
-          {AMENITIES.map((cur) => {
-            return property[cur.key] ? (
-              <div className={`${styles.amenity}`}>
-                <div>{cur.icon}</div>
-                <div className="p-0.5">{cur.label}</div>
-              </div>
-            ) : (
-              ""
-            );
-          })}
-        </div> */}
-        <div className={`${styles.amenitiesContainer} text-center`}>
-          <div className={`row g-2 row-cols-lg-4 row-cols-md-3 row-cols-2`}>
-            {AMENITIES.map((cur) => {
-              const shouldDisplay = property[cur.key];
-              return shouldDisplay ? (
-                <div key={cur.key} className={`col-sm-6 col-md-4 col-lg-3`}>
-                  <div className={`${styles.amenity}`}>
-                    <div>{cur.icon}</div>
-                    <div className="p-0.5">{cur.label}</div>
-                  </div>
-                </div>
-              ) : null;
-            })}
-          </div>
-        </div>
-      </div>
+
+      {/* Details */}
       <div className={`mt-4 card p-2 m-2`}>
         <h5 className="fw-bold p-1">
           <u>Details</u>
@@ -179,6 +140,40 @@ function HousePage({ userDetails = {} }) {
         </div>
       </div>
 
+      {/* Facilities */}
+      <div className={`mt-4 card p-2 m-2`}>
+        <h5 className="fw-bold p-1">
+          <u>Facilities</u>
+        </h5>
+        <div className={`${styles.amenitiesContainer} text-center`}>
+          <div className={`row g-2 row-cols-lg-4 row-cols-md-3 row-cols-2`}>
+            {AMENITIES.map((cur) => {
+              const shouldDisplay = property[cur.key];
+              return shouldDisplay ? (
+                <div key={cur.key} className={`col-sm-6 col-md-4 col-lg-3`}>
+                  <div className={`${styles.amenity}`}>
+                    <div>{cur.icon}</div>
+                    <div className="p-0.5">{cur.label}</div>
+                  </div>
+                </div>
+              ) : null;
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* Description */}
+      <div className={`mt-4 card p-2 m-2`}>
+        <h5 className="fw-bold p-1">
+          <u>Description</u>
+        </h5>
+        <p>
+          {property?.description ||
+            `${property.bhk_type} in ${property.locality} ${property.furnishing_type} @ ${property.rent}`}
+        </p>
+      </div>
+
+      {/* Map */}
       <div className="mt-4 card p-2 m-2">
         {property && (
           <MapContainer latt={property.latitude} langg={property.longitude} />

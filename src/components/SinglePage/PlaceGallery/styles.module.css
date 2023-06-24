@@ -9,10 +9,15 @@
 
 .listImageDiv {
   max-height: 80vh;
+  position: relative;
+}
+
+.carouselImgDiv {
+  max-height: 700px;
 }
 
 .carouselImg {
-  object-fit: contain;
+  object-fit: scale-down;
 }
 
 .imageDiv {

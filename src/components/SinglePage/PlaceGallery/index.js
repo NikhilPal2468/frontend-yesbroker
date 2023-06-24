@@ -51,7 +51,7 @@ const renderAge = (age) => {
 const addImgCarousel = (idx) => {
   console.log(idx);
 
-  let classname = "carousel-item w-100";
+  let classname = `carousel-item w-100 ${styles.carouselImgDiv}`;
 
   if (idx === 0) {
     classname += " active";
