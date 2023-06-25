@@ -19,7 +19,7 @@ const HouseList = ({
   userDetails = {},
 }) => {
   const [houses, setHouses] = useState([]);
-  const { setLoading } = useContext(LoadContext);
+  const { setLoading, isReset, setReset } = useContext(LoadContext);
 
   const shortlistArray = [
     ...(userDetails ? userDetails.house_shortlists : []),
@@ -29,6 +29,7 @@ const HouseList = ({
   if (bhkType === []) {
     console.log("first");
   }
+
   const { query: priceDebounced = [], debounceQuery } = useDebounceQuery();
 
   useEffect(() => {
@@ -62,11 +63,7 @@ const HouseList = ({
           payload
         );
         const { allhouses = [], count = 0 } = data || {};
-        console.log("count:", count);
-        console.log(data);
         setHouses(allhouses);
-
-        // get shortlist array
       } catch (error) {
         console.error(error);
       } finally {
@@ -74,7 +71,11 @@ const HouseList = ({
       }
     };
 
-    fetchData();
+    if (!isReset) {
+      fetchData();
+    } else {
+      setReset(false);
+    }
   }, [
     city,
     propertyType,
