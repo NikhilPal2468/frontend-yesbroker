@@ -33,7 +33,6 @@ function LocalityDetails() {
           `/secure/api/gethouse?houseId=${houseId}`
         );
 
-        setLoading(false);
         setCity(data?.city);
         setLocality(data?.locality);
         setStreet(data?.street);
@@ -45,8 +44,9 @@ function LocalityDetails() {
 
       fetchData(houseId);
     } catch (err) {
-      setLoading(false);
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   }, [houseId]);
 
@@ -256,7 +256,6 @@ function LocalityDetails() {
                   onChange={(e) => {
                     setDescription(e.target.value);
                   }}
-                  required
                 />
               </div>
             </div>

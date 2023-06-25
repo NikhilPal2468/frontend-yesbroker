@@ -3,7 +3,7 @@ import { GiHouse } from "react-icons/gi";
 import PlaceGallery from "../PlaceGallery";
 import styles from "./styles.module.css";
 import { AMENITIES } from "../../constants";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import MapContainer from "../../common/gMap";
 import { LoadContext } from "../../../context/load-context";
@@ -21,10 +21,10 @@ function HousePage({ userDetails = {} }) {
         setLoading(true);
         const response = await axios.get(`/public/api/getProperty/${id}`);
         setProperty(response.data);
-        setLoading(false);
       } catch (error) {
-        setLoading(false);
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -37,7 +37,9 @@ function HousePage({ userDetails = {} }) {
       <div className="d-flex flex-column flex-md-row w-100 card mb-4">
         <div className="d-flex flex-row border px-2 py-1 w-100 justify-content-around align-items-between text-center">
           <div className="p-2 border-end w-25">
-            <GiHouse size={30} />
+            <Link to="/" style={{ textDecoration: "none" }}>
+              <GiHouse size={30} color="black" />
+            </Link>
           </div>
           <div className="w-75 px-2 py-1">
             <h5 className="m-0">
@@ -77,47 +79,8 @@ function HousePage({ userDetails = {} }) {
           houses_id={property.houses_id}
         />
       </div>
-      <div className={`mt-4 card p-2 m-2`}>
-        <h5 className="fw-bold p-1">
-          <u>Description</u>
-        </h5>
-        <p>
-          {property?.description ||
-            `${property.bhk_type} in ${property.locality} ${property.furnishing_type} @ ${property.rent}`}
-        </p>
-      </div>
-      <div className={`mt-4 card p-2 m-2`}>
-        <h5 className="fw-bold p-1">
-          <u>Facilities</u>
-        </h5>
-        {/* <div className={`${styles.amenitiesContainer} text-center`}>
-          {AMENITIES.map((cur) => {
-            return property[cur.key] ? (
-              <div className={`${styles.amenity}`}>
-                <div>{cur.icon}</div>
-                <div className="p-0.5">{cur.label}</div>
-              </div>
-            ) : (
-              ""
-            );
-          })}
-        </div> */}
-        <div className={`${styles.amenitiesContainer} text-center`}>
-          <div className={`row g-2 row-cols-lg-4 row-cols-md-3 row-cols-2`}>
-            {AMENITIES.map((cur) => {
-              const shouldDisplay = property[cur.key];
-              return shouldDisplay ? (
-                <div key={cur.key} className={`col-sm-6 col-md-4 col-lg-3`}>
-                  <div className={`${styles.amenity}`}>
-                    <div>{cur.icon}</div>
-                    <div className="p-0.5">{cur.label}</div>
-                  </div>
-                </div>
-              ) : null;
-            })}
-          </div>
-        </div>
-      </div>
+
+      {/* Details */}
       <div className={`mt-4 card p-2 m-2`}>
         <h5 className="fw-bold p-1">
           <u>Details</u>
@@ -160,6 +123,13 @@ function HousePage({ userDetails = {} }) {
               <div className="fw-bold w-100">Monthly Maintenance:</div>
               <div className="w-100">{property.monthly_maintenance}</div>
             </p>
+            {property?.monthly_maintenance === "Maintenance Extra" && (
+              <p className="d-flex gap-1">
+                <div>{<CiPaperplane />}</div>
+                <div className="fw-bold w-100">Maintenace Amount</div>
+                <div className="w-100">₹{property?.maintenance_amount}</div>
+              </p>
+            )}
             {property?.lockin_period && (
               <p className="d-flex gap-1">
                 <div>{<CiPaperplane />}</div>
@@ -180,6 +150,40 @@ function HousePage({ userDetails = {} }) {
         </div>
       </div>
 
+      {/* Facilities */}
+      <div className={`mt-4 card p-2 m-2`}>
+        <h5 className="fw-bold p-1">
+          <u>Facilities</u>
+        </h5>
+        <div className={`${styles.amenitiesContainer} text-center`}>
+          <div className={`row g-2 row-cols-lg-4 row-cols-md-3 row-cols-2`}>
+            {AMENITIES.map((cur) => {
+              const shouldDisplay = property[cur.key];
+              return shouldDisplay ? (
+                <div key={cur.key} className={`col-sm-6 col-md-4 col-lg-3`}>
+                  <div className={`${styles.amenity}`}>
+                    <div>{cur.icon}</div>
+                    <div className="p-0.5">{cur.label}</div>
+                  </div>
+                </div>
+              ) : null;
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* Description */}
+      <div className={`mt-4 card p-2 m-2`}>
+        <h5 className="fw-bold p-1">
+          <u>Description</u>
+        </h5>
+        <p>
+          {property?.description ||
+            `${property.bhk_type} in ${property.locality} ${property.furnishing_type} @ ${property.rent}`}
+        </p>
+      </div>
+
+      {/* Map */}
       <div className="mt-4 card p-2 m-2">
         {property && (
           <MapContainer latt={property.latitude} langg={property.longitude} />

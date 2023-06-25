@@ -86,8 +86,6 @@ function Gallery() {
             },
           }
         );
-
-        setLoading(false);
         if (response.data) {
           setUploadedImages((prev) => {
             if (prev) return [...prev, ...response.data];
@@ -97,8 +95,9 @@ function Gallery() {
 
         setImageFiles([]);
       } catch (error) {
-        setLoading(false);
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     };
 

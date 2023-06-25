@@ -49,9 +49,7 @@ const renderAge = (age) => {
 };
 
 const addImgCarousel = (idx) => {
-  console.log(idx);
-
-  let classname = "carousel-item w-100";
+  let classname = `carousel-item w-100 ${styles.carouselImgDiv}`;
 
   if (idx === 0) {
     classname += " active";
@@ -68,18 +66,18 @@ const PlaceGallery = ({ userDetails, property, houses_id }) => {
 
   useEffect(() => {
     try {
-      setLoading(true);
       const setData = async () => {
         const { data } = await axios.get("/secure/api/user/me");
         dispatch(setUserDetails(data));
-        setLoading(false);
       };
       if (userDetails) {
+        setLoading(true);
         setData();
       }
     } catch (err) {
-      setLoading(false);
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   }, []);
 
@@ -123,7 +121,7 @@ const PlaceGallery = ({ userDetails, property, houses_id }) => {
         }}
         open={showAllPhotos}
       >
-        {/* <div className="d-flex flex-column align-items-center w-100 h-100 text-center">
+        <div className="d-flex flex-column align-items-center w-100 vh-100 text-center">
           <div className="d-flex w-100 justify-content-between align-items-center p-2 mt-0">
             <h4 className="text-xl mt-4">
               Photos of
@@ -139,51 +137,9 @@ const PlaceGallery = ({ userDetails, property, houses_id }) => {
             </button>
           </div>
           <div
-            className={`d-flex w-100 h-100 justify-content-between align-items-center `}
+            id={houses_id}
+            className={`carousel slide w-75 ${styles.carouselContainer}`}
           >
-            <button
-              className={`${styles.button} ms-0`}
-              onClick={handleLeftClick}
-            >
-              <BsFillArrowLeftCircleFill size={20} color="white" />
-            </button>
-            <div className={`d-flex align-items-center ${styles.imageDiv}`}>
-              <img
-                src={property.media[mediaIndex].media_url}
-                alt={property.media[mediaIndex].description}
-                className={`${styles.singleImage}`}
-              />
-            </div>
-            <button
-              className={`${styles.button} me-0`}
-              onClick={handleRightClick}
-            >
-              <BsFillArrowRightCircleFill size={20} color="white" />
-            </button>
-          </div>
-          {property?.media?.length > 0 &&
-            property?.media?.map(({ media_url, description }) => (
-              <div key={description}>
-                <Image src={media_url} alt="" />
-              </div>
-            ))}
-        </div> */}
-        <div className="d-flex flex-column align-items-center w-100 h-100 text-center">
-          <div className="d-flex w-100 justify-content-between align-items-center p-2 mt-0">
-            <h4 className="text-xl mt-4">
-              Photos of
-              {property?.title
-                ? property.title
-                : ` ${property?.bhk_type} in ${property?.locality}`}
-            </h4>
-            <button
-              onClick={() => setShowAllPhotos(false)}
-              className={`${styles.button} fixed right-12 top-8 flex gap-1 py-2 px-4 rounded-2xl shadow shadow-black bg-white text-black`}
-            >
-              X
-            </button>
-          </div>
-          <div id={houses_id} className="carousel slide w-75">
             <div
               className={`carousel-inner w-100 overflow-hidden ${styles.listImageDiv}`}
             >
@@ -195,16 +151,16 @@ const PlaceGallery = ({ userDetails, property, houses_id }) => {
                       className={`d-block w-100 ${styles.carouselImg}`}
                       alt="..."
                     />
-                    <div className="">
-                      <h5 className="text-light">{description}</h5>
-                    </div>
+                    <figcaption className="text-light">
+                      {description}
+                    </figcaption>
                   </div>
                 );
               })}
             </div>
 
             <button
-              className="carousel-control-prev text-dark"
+              className={`carousel-control-prev text-dark ${styles.carouselButton}`}
               type="button"
               data-bs-target={`#${houses_id}`}
               data-bs-slide="prev"
@@ -216,7 +172,7 @@ const PlaceGallery = ({ userDetails, property, houses_id }) => {
               <span className="visually-hidden">Previous</span>
             </button>
             <button
-              className="carousel-control-next text-dark"
+              className={`carousel-control-next text-dark ${styles.carouselButton}`}
               type="button"
               data-bs-target={`#${houses_id}`}
               data-bs-slide="next"
@@ -305,7 +261,9 @@ const PlaceGallery = ({ userDetails, property, houses_id }) => {
                   <RiHotelBedLine size={20} />
                 </div>
                 <div className="w-75">
-                  <p className="m-0">{property?.bhk_type?.split[0]} Bedroom</p>
+                  <p className="m-0">
+                    {property?.bhk_type?.split()[0]} Bedroom
+                  </p>
                   <small>No. of Bedrooms</small>
                 </div>
               </div>

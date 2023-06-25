@@ -88,13 +88,13 @@ function RentDetails() {
           data.available_from = formatDate(data.available_from);
         }
         setHouseObject(data);
-        setLoading(false);
       };
 
       fetchData(houseId);
     } catch (err) {
-      setLoading(false);
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   }, [houseId]);
 
