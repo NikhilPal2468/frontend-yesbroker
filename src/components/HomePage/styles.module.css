@@ -1,9 +1,9 @@
 .input_group {
   display: flex;
   justify-content: center;
-  width: 60%;
+  width: 50%;
   position: relative;
-  padding: 10px 40px;
+  margin: 10px 40px;
 }
 
 .input_group_div {
@@ -71,17 +71,19 @@
 }
 
 .autocomplete_dropdown_container {
-  border-radius: 10px;
-  width: 64%;
+  border-radius: 0px 0px 10px 10px;
+  width: 100%;
   position: absolute;
   z-index: 100;
-  background-color: #fbf2f2;
-  top: 38px;
+  background-color: white;
+  top: 37px;
   overflow-x: auto;
   height: 197px;
+  border: 0.5px solid #0d6efd;
 }
 .remove_dropdown_container {
   height: 0px;
+  border: none;
 }
 
 .suggestion_item {
@@ -112,11 +114,11 @@
     width: 100% !important;
   }
   .autocomplete_dropdown_container {
-    top: 86px;
-    width: 85%;
+    top: 76px;
+    width: 100%;
   }
   .input_group {
-    width: 100%;
+    width: 90%;
   }
   .input_group_div {
     /* width: ; */

@@ -9,6 +9,7 @@
 .search_again{
   height: 30px;
   position: relative;
+  padding: 0px 15px 0px 4px;
 }
 @media only screen and (max-width: 768px) {
   .search_again{
