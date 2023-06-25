@@ -49,7 +49,7 @@ const HouseList = ({
             twoWheelerParking === false ? undefined : twoWheelerParking,
           four_wheeler_parking:
             fourWheelerParking === false ? undefined : fourWheelerParking,
-          property_with_image: withImage === false ? undefined : withImage,
+          property_with_image: withImage === false ? 0 : 1,
         },
       };
 
