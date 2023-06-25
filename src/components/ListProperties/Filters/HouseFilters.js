@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { BsArrowCounterclockwise } from "react-icons/bs";
 import styles from "./styles.module.css";
 import { Slider } from "@mui/material";
 import { BHKTYPE, FURNISHING_TYPES, PREFERRED_TENANTS } from "./constants";
+import { LoadContext } from "../../../context/load-context";
 
 function HouseFilters({
   bhkType = [],
@@ -17,6 +18,8 @@ function HouseFilters({
   setWithImage = () => {},
 }) {
   console.log("bhkType:", bhkType);
+  const { setReset } = useContext(LoadContext);
+
   const handlePriceChange = (event, newValue) => {
     setPrice(newValue);
   };
@@ -42,6 +45,7 @@ function HouseFilters({
     }
   };
   const resetFilters = () => {
+    setReset(true);
     setBhkType([]);
     setPreferredTenants(["Both"]);
     setPrice([0, 100000]);

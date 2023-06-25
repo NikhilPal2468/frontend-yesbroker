@@ -9,6 +9,8 @@ import Register from "../../Authentication/Register";
 import Login from "../../Authentication/Login";
 import axios from "axios";
 import { AuthContext } from "../../../context/AuthContext";
+import getCookieValue from "../../hooks/getCookieValue";
+import removeCookie from "../../hooks/removeCookie";
 
 const Navbar = ({ userDetails = {} }) => {
   const [user, setUser] = useState(null);
@@ -18,7 +20,7 @@ const Navbar = ({ userDetails = {} }) => {
 
   useEffect(() => {
     // Retrieve user details from browser storage on component mount
-    const storedUserDetails = JSON.parse(localStorage.getItem("userDetails"));
+    const storedUserDetails = JSON.parse(getCookieValue("userDetails"));
     if (storedUserDetails) {
       dispatch(setUserDetails(storedUserDetails));
       setUser(storedUserDetails);
@@ -30,7 +32,8 @@ const Navbar = ({ userDetails = {} }) => {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    localStorage.removeItem("userDetails");
+    removeCookie("userDetails");
+    // localStorage.removeItem("userDetails");
     await axios.get("/secure/api/logout");
     navigate("/");
     dispatch(setUserDetails(null));
