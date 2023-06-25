@@ -190,10 +190,10 @@ function PropertyDetails() {
         setHouseObject(data);
       };
       fetchData(houseId);
-      setLoading(false);
     } catch (err) {
-      setLoading(false);
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   }, [houseId]);
 

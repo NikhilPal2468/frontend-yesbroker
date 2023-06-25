@@ -133,66 +133,72 @@ function ProfilePage({ userDetails = {} }) {
             </div>
             <div className="row gap-4 py-2 my-2 d-flex justify-content-start">
               <p className="col">Email Address</p>
-              <div className="d-flex w-50 align-items-center position-relative">
-                <input
-                  type="email"
-                  onChange={(e) => setNewEmail(e.target.value)}
-                  value={newEmail}
-                  className="col"
-                  disabled={verified}
-                />
-                {verified ? (
-                  <>
-                    <TiTick
-                      size={30}
-                      color="green"
-                      onMouseEnter={handleShowPopover}
-                      onMouseLeave={handleHidePopover}
-                      className={styles.cursor_pointer}
-                    />
-                    <div
-                      className={`${styles.popover} ${
-                        showPopover ? styles.show_popover : styles.hide_popover
-                      }`}
+              <div className="d-flex flex-column w-50 align-items-center position-relative">
+                <div className="w-100 d-flex">
+                  <input
+                    type="email"
+                    onChange={(e) => setNewEmail(e.target.value)}
+                    value={newEmail}
+                    className="col w-100"
+                    disabled={verified}
+                  />
+                  {verified ? (
+                    <>
+                      <TiTick
+                        size={30}
+                        color="green"
+                        onMouseEnter={handleShowPopover}
+                        onMouseLeave={handleHidePopover}
+                        className={styles.cursor_pointer}
+                      />
+                      <div
+                        className={`${styles.popover} ${
+                          showPopover
+                            ? styles.show_popover
+                            : styles.hide_popover
+                        }`}
+                      >
+                        Email verified
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <BsFillExclamationTriangleFill
+                        size={25}
+                        color="#bc0b0b"
+                        onMouseEnter={handleShowPopover}
+                        onMouseLeave={handleHidePopover}
+                        className={styles.cursor_pointer}
+                      />
+                      <div
+                        className={`${styles.popover} ${
+                          showPopover
+                            ? styles.show_popover
+                            : styles.hide_popover
+                        }`}
+                      >
+                        Email not verified
+                      </div>
+                    </>
+                  )}
+                </div>
+                {!verified && (
+                  <div className="d-flex justify-content-between w-100 p-2 ps-0 pt-0 position-relative text-left">
+                    <button
+                      className={`${styles.verification_link} text-start`}
+                      onClick={sendVerificationMail}
+                      disabled={disabled}
                     >
-                      Email verified
+                      <small>click here to generate verification mail</small>
+                    </button>
+                    <div className={`position-absolute ${styles.timer}`}>
+                      {disabled && `00 : ${timer >= 10 ? timer : `0${timer}`}`}
                     </div>
-                  </>
-                ) : (
-                  <>
-                    <BsFillExclamationTriangleFill
-                      size={25}
-                      color="#bc0b0b"
-                      onMouseEnter={handleShowPopover}
-                      onMouseLeave={handleHidePopover}
-                      className={styles.cursor_pointer}
-                    />
-                    <div
-                      className={`${styles.popover} ${
-                        showPopover ? styles.show_popover : styles.hide_popover
-                      }`}
-                    >
-                      Email not verified
-                    </div>
-                  </>
+                  </div>
                 )}
               </div>
             </div>
-            {!verified && (
-              <div className="d-flex justify-content-between p-2 mx-5 position-relative">
-                <div></div>
-                <button
-                  className={styles.verification_link}
-                  onClick={sendVerificationMail}
-                  disabled={disabled}
-                >
-                  click here to generate verification mail
-                </button>
-                <div className={`position-absolute ${styles.timer}`}>
-                  {disabled && `00 : ${timer >= 10 ? timer : `0${timer}`}`}
-                </div>
-              </div>
-            )}
+
             <div className="row gap-4 py-2 my-2">
               <p className="col">Phone No.</p>
               <div className="d-flex w-50 align-items-center">

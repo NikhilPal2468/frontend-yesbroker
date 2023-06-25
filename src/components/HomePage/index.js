@@ -154,7 +154,7 @@ const HomePage = ({ userDetails = {} }) => {
     <div className={styles.homepage}>
       <ToastContainer />
       <div className={`${styles.homepage_heading} fw-semibold`}>
-        Discover Your Perfect Fit: Where Houses Become Homes
+        Discover Your Perfect Fit
       </div>
       <div
         className={`${styles.input_group} d-flex flex-column justify-content-center align-items-center`}

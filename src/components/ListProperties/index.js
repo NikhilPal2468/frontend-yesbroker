@@ -36,15 +36,15 @@ const ListProperties = ({ userDetails = {} }) => {
   const [searchValue, setSearchValue] = useState("");
   const [selectedLocality, setSelectedLocality] = useState([]);
   const [suggestionList, setSuggestionList] = useState([]);
+
   useEffect(() => {
     try {
       setLoading(true);
       const setData = async () => {
         const { data } = await axios.get("/secure/api/user/me");
-        dispatch(setUserDetails(data));
         setLoading(false);
+        dispatch(setUserDetails(data));
       };
-
       if (userDetails) setData();
     } catch (err) {
       setLoading(false);

@@ -64,13 +64,13 @@ const HouseList = ({
         const { allhouses = [], count = 0 } = data || {};
         console.log("count:", count);
         console.log(data);
-        setLoading(false);
         setHouses(allhouses);
 
         // get shortlist array
       } catch (error) {
-        setLoading(false);
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     };
 
