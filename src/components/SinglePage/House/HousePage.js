@@ -13,7 +13,7 @@ function HousePage({ userDetails = {} }) {
   const { id } = useParams();
 
   const [property, setProperty] = useState(null);
-  const { setLoading } = useContext(LoadContext);
+  const { setLoading, isLoading } = useContext(LoadContext);
 
   useEffect(() => {
     const fetchPropertyApi = async () => {
@@ -30,6 +30,7 @@ function HousePage({ userDetails = {} }) {
 
     fetchPropertyApi();
   }, [id]);
+  console.log("isLoading:", isLoading);
 
   if (property === null) return;
   return (
