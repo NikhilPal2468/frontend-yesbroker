@@ -86,7 +86,7 @@ const Otp = ({ userId, setShowRegister = () => {} }) => {
     >
       <ToastContainer />
       <h2>Please verify your account</h2>
-      <p>Enter OTP</p>
+      <p>Enter OTP sent to your email</p>
       <form
         onSubmit={handleFormSubmit}
         className={`d-flex flex-column justify-content-center align-items-center py-4 ${styles.otpForm}`}

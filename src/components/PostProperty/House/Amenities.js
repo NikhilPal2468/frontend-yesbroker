@@ -85,14 +85,14 @@ function Amenities() {
         const { data } = await axios.get(
           `/secure/api/gethouse?houseId=${houseId}`
         );
-        setLoading(false);
         setHouseObject(data);
       };
 
       fetchData(houseId);
     } catch (err) {
-      setLoading(false);
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   }, [houseId]);
 
