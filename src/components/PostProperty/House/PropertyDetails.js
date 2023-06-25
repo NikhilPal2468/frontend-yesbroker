@@ -14,8 +14,8 @@ const initialValues = {
   property_type: "",
   apartment_name: "",
   bhk_type: "",
-  floor: "",
-  total_floors: "",
+  floor: 0,
+  total_floors: 0,
   property_age: "",
   facing: "",
   builtup_area: "",
@@ -163,8 +163,8 @@ const validationSchema = Yup.object({
   property_type: Yup.string().required("Select Property Type"),
   apartment_name: Yup.string(),
   bhk_type: Yup.string().required("Select BHK Type"),
-  floor: Yup.string().required("Floors required"),
-  total_floors: Yup.string().required("Total floors required"),
+  floor: Yup.number().required("Floors required"),
+  total_floors: Yup.number().required("Total floors required"),
   property_age: Yup.string().required("Property Age required"),
   facing: Yup.string().required("Building Facing is required"),
   builtup_area: Yup.number().required("Built Up Area is Required"),
@@ -223,6 +223,9 @@ function PropertyDetails() {
 
   const onSubmit = async (values) => {
     try {
+      values.floor = parseInt(values.floor);
+      values.total_floors = parseInt(values.total_floors);
+
       await axios.post(
         `secure/api/newProperty/house/update/${houseId}`,
         values
@@ -324,7 +327,7 @@ function PropertyDetails() {
                   <div className="mb-3 w-100 d-flex flex-row align-items-center justify-content-around gap-2 mt-3 pb-2">
                     {/* Floor */}
                     <div className="mb-3 w-100">
-                      <label htmlFor="floor">FLoor</label>
+                      <label htmlFor="floor">Floor</label>
                       <Field
                         component="select"
                         id="floor"
