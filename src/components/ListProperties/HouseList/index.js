@@ -63,6 +63,7 @@ const HouseList = ({
           payload
         );
         const { allhouses = [], count = 0 } = data || {};
+        console.log("count:", count);
         setHouses(allhouses);
       } catch (error) {
         console.error(error);
