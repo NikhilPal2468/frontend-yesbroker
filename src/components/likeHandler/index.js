@@ -10,8 +10,10 @@ function LikeHandler({
   houses_id,
   shortlisted,
   userDetails = {},
-  setShortlists = () => {},
+  setShortlistedProperty = () => {},
 }) {
+  // console.log("lst", shortlisted, houses_id);
+
   const [liked, setLiked] = useState(shortlisted);
   const { setShowLogin } = useContext(AuthContext);
   const [showPopover, setShowPopover] = useState(false);
@@ -40,8 +42,11 @@ function LikeHandler({
           }
         );
         console.log("data:", data);
-        setShortlists((prevList) => {
-          prevList?.filter((id) => id !== houses_id);
+        setShortlistedProperty((prevList) => {
+          let newShortlists = prevList?.filter(({ id }) => {
+            return id !== houses_id;
+          });
+          return newShortlists;
         });
         setLiked((prev) => !prev);
       } catch (e) {

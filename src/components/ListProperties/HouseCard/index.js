@@ -25,13 +25,14 @@ const HouseCard = ({
   available_from = "",
   // propertyType = "",
   shortlistArray,
+  setShortlistedProperty = () => {},
   images,
 }) => {
+  // console.log("1111111", shortlistArray, houses_id);
+
   const { setShowLogin } = useContext(AuthContext);
   const [showOwnersContacted, setShowOwnersContacted] = useState(false);
   const [houseId, setHouseId] = useState("");
-  const [shortlists, setShortlists] = useState(shortlistArray || []);
-  console.log(shortlists);
   const addImgCarousel = (index) => {
     let classname = "carousel-item h-100";
 
@@ -50,8 +51,6 @@ const HouseCard = ({
       setShowLogin(true);
     }
   };
-
-  console.log(shortlists, "fdjbdjf", houses_id);
 
   return (
     <div className="mb-4" key={houses_id}>
@@ -246,9 +245,9 @@ const HouseCard = ({
 
                     <LikeHandler
                       houses_id={houses_id}
-                      shortlisted={shortlists?.includes(houses_id)}
+                      shortlisted={shortlistArray?.includes(houses_id)}
                       userDetails={userDetails}
-                      setShortlists={setShortlists}
+                      setShortlistedProperty={setShortlistedProperty}
                     />
                   </div>
                 </div>

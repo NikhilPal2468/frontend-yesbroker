@@ -96,6 +96,7 @@ function YourShortlists({ userDetails = {} }) {
                   propertyType={propertyType}
                   images={images}
                   shortlistArray={shortlistArray}
+                  setShortlistedProperty={setShortlistedProperty}
                   // setShowOwnersContacted={setShowOwnersContacted}
                 />
                 // <div key={id} className="card ">

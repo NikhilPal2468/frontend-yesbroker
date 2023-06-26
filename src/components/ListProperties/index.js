@@ -16,7 +16,6 @@ import { FiFilter } from "react-icons/fi";
 //   return <Slide direction="up" ref={ref} {...props} />;
 // });
 const ListProperties = ({ userDetails = {} }) => {
-  console.log(userDetails);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const city = searchParams.get("city");
@@ -64,7 +63,7 @@ const ListProperties = ({ userDetails = {} }) => {
 
   return (
     <div className={`${fullScreenFilters ? styles.list_properties_page : ""}`}>
-      <div className={`ms-3  col-12 col-md-5 col-lg-4 ${styles.search_again}`}>
+      <div className={`${styles.search_again}`}>
         <InputLocationSearch
           selectedCity={selectedCity}
           setSelectedCity={setSelectedCity}

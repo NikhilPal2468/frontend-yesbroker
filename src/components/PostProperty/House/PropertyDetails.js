@@ -186,7 +186,7 @@ function PropertyDetails() {
           `/secure/api/gethouse?houseId=${houseId}`
         );
 
-        console.log(houseId, data);
+        // console.log(houseId, data);
         setHouseObject(data);
       };
       fetchData(houseId);

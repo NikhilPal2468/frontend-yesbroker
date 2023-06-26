@@ -21,10 +21,12 @@ const HouseList = ({
   const [houses, setHouses] = useState([]);
   const { setLoading, isReset, setReset } = useContext(LoadContext);
 
-  const { shortlistArray, setShortListArray } = useState([
+  const shortlistArray = [
     ...(userDetails ? userDetails.house_shortlists : []),
     ...(userDetails ? userDetails.pg_shortlists : []),
-  ]);
+  ];
+
+  // console.log("array", shortlistArray);
 
   const { query: priceDebounced = [], debounceQuery } = useDebounceQuery();
 
@@ -59,7 +61,6 @@ const HouseList = ({
           payload
         );
         const { allhouses = [], count = 0 } = data || {};
-        console.log("count:", count);
         setHouses(allhouses);
       } catch (error) {
         console.error(error);
@@ -124,7 +125,6 @@ const HouseList = ({
             propertyType={propertyType}
             userDetails={userDetails}
             shortlistArray={shortlistArray}
-            setShortListArray={setShortListArray}
             images={images}
           />
         );
