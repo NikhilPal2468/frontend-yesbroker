@@ -4,9 +4,13 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import HouseCard from "../../ListProperties/HouseCard";
 import styles from "../styles.module.css";
-function YourShortlists() {
-  const { propertyType } = useParams();
 
+function YourShortlists({ userDetails = {} }) {
+  const { propertyType } = useParams();
+  const shortlistArray = [
+    ...(userDetails ? userDetails.house_shortlists : []),
+    ...(userDetails ? userDetails.pg_shortlists : []),
+  ];
   const [shortlistedProperty, setShortlistedProperty] = useState([]);
 
   useEffect(() => {
@@ -73,6 +77,7 @@ function YourShortlists() {
               bhk_type = "",
               preferred_tenants = "",
               available_from = "",
+              images = [],
             }) => {
               return (
                 <HouseCard
@@ -89,6 +94,8 @@ function YourShortlists() {
                   preferred_tenants={preferred_tenants}
                   available_from={available_from}
                   propertyType={propertyType}
+                  images={images}
+                  shortlistArray={shortlistArray}
                   // setShowOwnersContacted={setShowOwnersContacted}
                 />
                 // <div key={id} className="card ">

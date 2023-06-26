@@ -16,6 +16,7 @@ import { FiFilter } from "react-icons/fi";
 //   return <Slide direction="up" ref={ref} {...props} />;
 // });
 const ListProperties = ({ userDetails = {} }) => {
+  console.log(userDetails);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const city = searchParams.get("city");

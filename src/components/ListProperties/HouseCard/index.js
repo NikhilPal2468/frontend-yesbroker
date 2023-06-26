@@ -25,12 +25,13 @@ const HouseCard = ({
   available_from = "",
   // propertyType = "",
   shortlistArray,
-  media_url,
+  images,
 }) => {
   const { setShowLogin } = useContext(AuthContext);
   const [showOwnersContacted, setShowOwnersContacted] = useState(false);
   const [houseId, setHouseId] = useState("");
-
+  const [shortlists, setShortlists] = useState(shortlistArray || []);
+  console.log(shortlists);
   const addImgCarousel = (index) => {
     let classname = "carousel-item h-100";
 
@@ -49,6 +50,8 @@ const HouseCard = ({
       setShowLogin(true);
     }
   };
+
+  console.log(shortlists, "fdjbdjf", houses_id);
 
   return (
     <div className="mb-4" key={houses_id}>
@@ -110,12 +113,12 @@ const HouseCard = ({
                 <div
                   className={`carousel-inner overflow-hidden ${styles.listImageDiv}`}
                 >
-                  {media_url?.length ? (
-                    media_url.map((image_url, index) => {
+                  {images?.length ? (
+                    images.map(({ media_url, filename }, index) => {
                       return (
-                        <div className={addImgCarousel(index)} key={image_url}>
+                        <div className={addImgCarousel(index)} key={filename}>
                           <img
-                            src={image_url}
+                            src={media_url}
                             className={`d-block w-100 ${styles.listImage}`}
                             alt="..."
                           />
@@ -240,10 +243,12 @@ const HouseCard = ({
                     >
                       Get Owner Details
                     </div>
+
                     <LikeHandler
                       houses_id={houses_id}
-                      shortlisted={shortlistArray?.includes(houses_id)}
+                      shortlisted={shortlists?.includes(houses_id)}
                       userDetails={userDetails}
+                      setShortlists={setShortlists}
                     />
                   </div>
                 </div>

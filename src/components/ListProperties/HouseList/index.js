@@ -21,14 +21,10 @@ const HouseList = ({
   const [houses, setHouses] = useState([]);
   const { setLoading, isReset, setReset } = useContext(LoadContext);
 
-  const shortlistArray = [
+  const { shortlistArray, setShortListArray } = useState([
     ...(userDetails ? userDetails.house_shortlists : []),
     ...(userDetails ? userDetails.pg_shortlists : []),
-  ];
-
-  if (bhkType === []) {
-    console.log("first");
-  }
+  ]);
 
   const { query: priceDebounced = [], debounceQuery } = useDebounceQuery();
 
@@ -108,7 +104,7 @@ const HouseList = ({
           bhk_type = "",
           preferred_tenants = "",
           available_from = "",
-          media_url,
+          images,
         } = house || {};
         return (
           <HouseCard
@@ -127,7 +123,8 @@ const HouseList = ({
             propertyType={propertyType}
             userDetails={userDetails}
             shortlistArray={shortlistArray}
-            media_url={media_url}
+            setShortListArray={setShortListArray}
+            images={images}
           />
         );
       })}

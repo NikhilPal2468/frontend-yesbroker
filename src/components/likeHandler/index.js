@@ -6,11 +6,17 @@ import { AuthContext } from "../../context/AuthContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function LikeHandler({ userDetails, houses_id }) {
-  const [liked, setLiked] = useState(false);
+function LikeHandler({
+  houses_id,
+  shortlisted,
+  userDetails = {},
+  setShortlists = () => {},
+}) {
+  const [liked, setLiked] = useState(shortlisted);
   const { setShowLogin } = useContext(AuthContext);
   const [showPopover, setShowPopover] = useState(false);
   const [popoverContent, setPopoverContent] = useState("");
+
   const handleShowPopover = ({ shortlist }) => {
     if (shortlist) {
       setPopoverContent("Click to Unshortlist");
@@ -34,6 +40,9 @@ function LikeHandler({ userDetails, houses_id }) {
           }
         );
         console.log("data:", data);
+        setShortlists((prevList) => {
+          prevList?.filter((id) => id !== houses_id);
+        });
         setLiked((prev) => !prev);
       } catch (e) {
         console.log(e);

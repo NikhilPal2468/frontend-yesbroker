@@ -39,6 +39,7 @@ axios.defaults.withCredentials = true;
 
 function App() {
   const userDetails = useSelector((state) => state.user?.userDetails);
+
   return (
     <div className="App">
       <Navbar userDetails={userDetails} />
@@ -62,11 +63,11 @@ function App() {
         />
         <Route
           path="/user/mylistings/:propertyType"
-          element={<YourProperties />}
+          element={<YourProperties userDetails={userDetails} />}
         />
         <Route
           path="/user/myshortlists/:propertyType"
-          element={<YourShortlists />}
+          element={<YourShortlists userDetails={userDetails} />}
         />
         <Route path="/user/ownerscontacted" element={<OwnersContacted />} />
 
