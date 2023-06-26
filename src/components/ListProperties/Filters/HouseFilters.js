@@ -17,6 +17,7 @@ function HouseFilters({
   setFourWheelerParking = () => {},
   setWithImage = () => {},
 }) {
+  console.log("bhkType:", bhkType);
   const { setReset } = useContext(LoadContext);
 
   const handlePriceChange = (event, newValue) => {
