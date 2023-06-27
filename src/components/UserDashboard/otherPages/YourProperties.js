@@ -13,6 +13,7 @@ function YourProperties() {
         const { data } = await axios.get(
           `/secure/api/user/mylistings?propertyType=${propertyType}`
         );
+
         setListings(data?.listings);
       } catch (err) {
         console.log(err.message);

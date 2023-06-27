@@ -7,7 +7,6 @@ import { useDispatch } from "react-redux";
 import { setUserDetails } from "../../../store/actions";
 import Register from "../../Authentication/Register";
 import Login from "../../Authentication/Login";
-import axios from "axios";
 import { AuthContext } from "../../../context/AuthContext";
 import getCookieValue from "../../hooks/getCookieValue";
 import removeCookie from "../../hooks/removeCookie";
@@ -22,7 +21,7 @@ const Navbar = ({ userDetails = {} }) => {
     // Retrieve user details from browser storage on component mount
     const storedUserDetails = JSON.parse(getCookieValue("userDetails"));
     if (storedUserDetails) {
-      dispatch(setUserDetails(storedUserDetails));
+      dispatch(setUserDetails({ user: storedUserDetails }));
       setUser(storedUserDetails);
     } else {
       setUser(userDetails);
@@ -33,12 +32,9 @@ const Navbar = ({ userDetails = {} }) => {
 
   const handleLogout = async () => {
     removeCookie("userDetails");
-    // localStorage.removeItem("userDetails");
-    await axios.get("/secure/api/logout");
+    removeCookie("token");
     navigate("/");
-    dispatch(setUserDetails(null));
     setUser(null);
-    navigate(`/`);
   };
 
   return (

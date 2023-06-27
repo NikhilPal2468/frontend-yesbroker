@@ -68,7 +68,7 @@ const PlaceGallery = ({ userDetails, property, houses_id }) => {
     try {
       const setData = async () => {
         const { data } = await axios.get("/secure/api/user/me");
-        dispatch(setUserDetails(data));
+        dispatch(setUserDetails({ user: data }));
       };
       if (userDetails) {
         setLoading(true);

@@ -43,7 +43,7 @@ const ListProperties = ({ userDetails = {} }) => {
       const setData = async () => {
         const { data } = await axios.get("/secure/api/user/me");
         setLoading(false);
-        dispatch(setUserDetails(data));
+        dispatch(setUserDetails({ user: data }));
       };
       if (userDetails) setData();
     } catch (err) {
@@ -63,7 +63,7 @@ const ListProperties = ({ userDetails = {} }) => {
 
   return (
     <div className={`${fullScreenFilters ? styles.list_properties_page : ""}`}>
-      <div className={`ms-3 col-12 col-md-5 col-lg-4 ${styles.search_again}`}>
+      <div className={`${styles.search_again}`}>
         <InputLocationSearch
           selectedCity={selectedCity}
           setSelectedCity={setSelectedCity}

@@ -45,9 +45,9 @@ const Login = ({
     try {
       // const { data } = await axios.post("/public/api/login", values);
       const data = await login(values);
-      const { success = false, user = {} } = data;
+      const { success = false, user = {}, token = "" } = data;
       if (success) {
-        dispatch(setUserDetails(user));
+        dispatch(setUserDetails({ user, token }));
         setShowLogin(false);
         setUser(user);
         toast.success("Login Successful", {

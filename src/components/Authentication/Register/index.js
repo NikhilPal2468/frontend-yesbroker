@@ -43,10 +43,10 @@ const Register = ({
     try {
       // const { data } = await axios.post("/public/api/register", values);
       const data = await register(values);
-      const { user = {}, success = false } = data || {};
+      const { user = {}, success = false, token = "" } = data || {};
 
       if (success === true) {
-        dispatch(setUserDetails(user));
+        dispatch(setUserDetails({ user, token }));
         setDisplayOtp(true);
         setUserId(user?.id);
         setUser(user);

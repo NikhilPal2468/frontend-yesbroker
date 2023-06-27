@@ -34,11 +34,9 @@ const SingleProperty = () => {
   const [property, setProperty] = useState({});
 
   useEffect(() => {
-    console.log("test6tt");
     const fetchPropertyApi = async () => {
       try {
         const response = await axios.get(`/public/api/getProperty/${id}`);
-        console.log(response.data);
         setProperty(response.data);
       } catch (error) {
         console.log(error);
