@@ -41,10 +41,10 @@ const Otp = ({ userId, setShowRegister = () => {} }) => {
 
     try {
       const { data } = await axios.post("/public/api/verify-token", values);
-      const { success = false, user = {} } = data;
+      const { success = false, user = {}, token = "" } = data;
       if (success) {
         setShowRegister(false);
-        dispatch(setUserDetails(user));
+        dispatch(setUserDetails({ user, token }));
         toast.success("Account verified", {
           position: "top-center",
           autoClose: 2000,

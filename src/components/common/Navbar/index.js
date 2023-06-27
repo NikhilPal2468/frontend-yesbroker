@@ -22,7 +22,7 @@ const Navbar = ({ userDetails = {} }) => {
     // Retrieve user details from browser storage on component mount
     const storedUserDetails = JSON.parse(getCookieValue("userDetails"));
     if (storedUserDetails) {
-      dispatch(setUserDetails(storedUserDetails));
+      dispatch(setUserDetails({ user: storedUserDetails }));
       setUser(storedUserDetails);
     } else {
       setUser(userDetails);
@@ -36,7 +36,6 @@ const Navbar = ({ userDetails = {} }) => {
     // localStorage.removeItem("userDetails");
     await axios.get("/secure/api/logout");
     navigate("/");
-    dispatch(setUserDetails(null));
     setUser(null);
     navigate(`/`);
   };

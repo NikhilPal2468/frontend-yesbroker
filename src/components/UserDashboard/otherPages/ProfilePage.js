@@ -24,7 +24,7 @@ function ProfilePage({ userDetails = {} }) {
   useEffect(() => {
     const fetch = async () => {
       const { data } = await axios.get("/secure/api/user/me");
-      dispatch(setUserDetails(data));
+      dispatch(setUserDetails({ user: data }));
     };
     fetch();
   }, []);
@@ -51,7 +51,7 @@ function ProfilePage({ userDetails = {} }) {
           theme: "colored",
         });
         const { data } = await axios.get("/secure/api/user/me");
-        dispatch(setUserDetails(data));
+        dispatch(setUserDetails({ user: data }));
       }
     } catch (e) {
       console.log(e);

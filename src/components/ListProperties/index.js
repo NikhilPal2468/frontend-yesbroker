@@ -43,7 +43,7 @@ const ListProperties = ({ userDetails = {} }) => {
       const setData = async () => {
         const { data } = await axios.get("/secure/api/user/me");
         setLoading(false);
-        dispatch(setUserDetails(data));
+        dispatch(setUserDetails({ user: data }));
       };
       if (userDetails) setData();
     } catch (err) {
