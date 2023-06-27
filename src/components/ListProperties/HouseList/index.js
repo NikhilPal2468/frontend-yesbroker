@@ -26,9 +26,7 @@ const HouseList = ({
     ...(userDetails ? userDetails.pg_shortlists : []),
   ];
 
-  if (bhkType === []) {
-    console.log("first");
-  }
+  // console.log("array", shortlistArray);
 
   const { query: priceDebounced = [], debounceQuery } = useDebounceQuery();
 
@@ -63,7 +61,6 @@ const HouseList = ({
           payload
         );
         const { allhouses = [], count = 0 } = data || {};
-        console.log("count:", count);
         setHouses(allhouses);
       } catch (error) {
         console.error(error);
@@ -109,7 +106,7 @@ const HouseList = ({
           bhk_type = "",
           preferred_tenants = "",
           available_from = "",
-          media_url,
+          images,
         } = house || {};
         return (
           <HouseCard
@@ -128,7 +125,7 @@ const HouseList = ({
             propertyType={propertyType}
             userDetails={userDetails}
             shortlistArray={shortlistArray}
-            media_url={media_url}
+            images={images}
           />
         );
       })}
