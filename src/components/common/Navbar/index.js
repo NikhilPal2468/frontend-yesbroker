@@ -7,7 +7,6 @@ import { useDispatch } from "react-redux";
 import { setUserDetails } from "../../../store/actions";
 import Register from "../../Authentication/Register";
 import Login from "../../Authentication/Login";
-import axios from "axios";
 import { AuthContext } from "../../../context/AuthContext";
 import getCookieValue from "../../hooks/getCookieValue";
 import removeCookie from "../../hooks/removeCookie";
@@ -33,11 +32,9 @@ const Navbar = ({ userDetails = {} }) => {
 
   const handleLogout = async () => {
     removeCookie("userDetails");
-    // localStorage.removeItem("userDetails");
-    await axios.get("/secure/api/logout");
+    removeCookie("token");
     navigate("/");
     setUser(null);
-    navigate(`/`);
   };
 
   return (

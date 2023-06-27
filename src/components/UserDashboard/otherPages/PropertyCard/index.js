@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
 const PropertyCard = ({ listing = {} }) => {
   const { houses_id = "", bhk_type = "", locality = "", rent = 0 } = listing;
-  console.log("listing:", listing);
+
   return (
     <div key={houses_id} className={`card ${styles.property_card}`}>
       <div className="card-body">

@@ -38,7 +38,7 @@ function ProfilePage({ userDetails = {} }) {
         newEmail,
         newPhoneNumber,
       });
-      console.log("data:", data);
+
       if (data.success === true) {
         toast.success("Profile Updated", {
           position: "top-center",

@@ -16,7 +16,6 @@ const VerifyEmail = () => {
         const { data } = await axios.get(
           `/public/api/verifyEmail/${id}/${email}/${token}`
         );
-        console.log("data:", data.message);
         setVerified(true);
         const { data1 } = await axios.get("/secure/api/user/me");
         dispatch(setUserDetails({ user: data1 }));

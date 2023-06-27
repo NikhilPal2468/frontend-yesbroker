@@ -28,8 +28,6 @@ const HouseCard = ({
   setShortlistedProperty = () => {},
   images,
 }) => {
-  // console.log("1111111", shortlistArray, houses_id);
-
   const { setShowLogin } = useContext(AuthContext);
   const [showOwnersContacted, setShowOwnersContacted] = useState(false);
   const [houseId, setHouseId] = useState("");

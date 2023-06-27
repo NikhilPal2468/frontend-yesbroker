@@ -26,8 +26,6 @@ const HouseList = ({
     ...(userDetails ? userDetails.pg_shortlists : []),
   ];
 
-  // console.log("array", shortlistArray);
-
   const { query: priceDebounced = [], debounceQuery } = useDebounceQuery();
 
   useEffect(() => {
@@ -61,6 +59,7 @@ const HouseList = ({
           payload
         );
         const { allhouses = [], count = 0 } = data || {};
+        console.log("count:", count);
         setHouses(allhouses);
       } catch (error) {
         console.error(error);

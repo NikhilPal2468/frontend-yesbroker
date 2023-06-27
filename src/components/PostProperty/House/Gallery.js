@@ -181,7 +181,7 @@ function Gallery() {
           <div className={`${styles.image_container}`}>
             {uploadedImages &&
               uploadedImages.map((image) => {
-                console.log(image);
+                // console.log(image);
                 return (
                   <div
                     className={`card ${styles.card_image}`}
