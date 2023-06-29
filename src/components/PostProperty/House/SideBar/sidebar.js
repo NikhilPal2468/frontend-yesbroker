@@ -172,7 +172,6 @@ function sidebar({ pathname }) {
           </div>
         </div>
       </div>
-      ;
     </div>
   );
 }
