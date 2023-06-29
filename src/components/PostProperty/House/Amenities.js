@@ -11,6 +11,8 @@ import CustomPhoneInput from "../../Authentication/Register/CustomPhoneInput";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import { AMENITIES } from "../../constants";
 import { LoadContext } from "../../../context/load-context";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const WATER_SUPPLY = [
   { key: "CORPORATION" },
@@ -124,15 +126,28 @@ function Amenities() {
   if (!formValues.bathrooms_count) formValues.bathrooms_count = 0;
 
   const onSubmit = async (values) => {
-    try {
-      await axios.post(
-        `secure/api/newProperty/house/update/${houseId}`,
-        values
-      );
+    if (values.bathrooms_count <= 0) {
+      toast.error("Bathroom count must be > 0", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } else {
+      try {
+        await axios.post(
+          `secure/api/newProperty/house/update/${houseId}`,
+          values
+        );
 
-      navigate(`/property/manage/house/${houseId}/gallery`);
-    } catch (err) {
-      console.log(err);
+        navigate(`/property/manage/house/${houseId}/gallery`);
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
@@ -366,6 +381,7 @@ function Amenities() {
           </Formik>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

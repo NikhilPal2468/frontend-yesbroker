@@ -176,6 +176,7 @@ function Gallery() {
               className={`${styles.image_input}`}
               onChange={handleInputChange}
               multiple
+              accept="image/jpeg, image/png, image/gif"
             />
           </div>
           <div className={`${styles.image_container}`}>

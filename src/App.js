@@ -41,7 +41,7 @@ function App() {
   const userDetails = useSelector((state) => state.user?.userDetails);
 
   return (
-    <div className="App">
+    <div className={`App Appcontainer`}>
       <Navbar userDetails={userDetails} />
       <Loader />
       <Routes>
