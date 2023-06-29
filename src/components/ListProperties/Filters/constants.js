@@ -5,5 +5,8 @@ export const FURNISHING_TYPES = [
   "Semi Furnished",
   "Unfurnished",
 ];
-export const PARKING = ["Car", "Bike"];
+export const PARKING = [
+  { dbName: "Bike", viewName: "2 wheeler" },
+  { dbName: "Car", viewName: "4 wheeler" },
+];
 // export const FACING = ["EAST", "NORTH", "WEST", "SOUTH"];

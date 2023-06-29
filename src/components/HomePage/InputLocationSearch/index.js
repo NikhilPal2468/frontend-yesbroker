@@ -78,7 +78,9 @@ const InputLocationSearch = ({
     const localityArray = selectedLocality.map((loc) => loc.description);
     const combinedLocality = localityArray.join(", ");
     navigate(
-      `/properties?city=${selectedCity}&propertyType=${propertyType}&locality=${combinedLocality}`
+      `/properties?city=${selectedCity}&propertyType=${propertyType}&locality=${combinedLocality}&selectedLocality=${encodeURIComponent(
+        JSON.stringify(selectedLocality)
+      )}`
     );
     setSelectedLocality([]);
   };
