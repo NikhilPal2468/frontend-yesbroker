@@ -61,10 +61,10 @@ function YourProperties() {
           </p>
         </div>
 
-        <div className={`container ${styles.cards}`}>
-          {listings.map((listing) => (
-            <PropertyCard key={listing.houses_id} listing={listing} />
-          ))}
+        <div className={`container flex-column flex-md-row ${styles.cards}`}>
+          {listings.map((listing) => {
+            return <PropertyCard key={listing.id} listing={listing} />;
+          })}
         </div>
       </div>
     </div>

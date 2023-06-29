@@ -69,7 +69,10 @@ function App() {
           path="/user/myshortlists/:propertyType"
           element={<YourShortlists userDetails={userDetails} />}
         />
-        <Route path="/user/ownerscontacted" element={<OwnersContacted />} />
+        <Route
+          path="/user/ownerscontacted"
+          element={<OwnersContacted userDetails={userDetails} />}
+        />
 
         <Route path="/list-your-property-for-rent" element={<MainPage />} />
 

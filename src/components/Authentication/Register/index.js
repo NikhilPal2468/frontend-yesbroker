@@ -45,8 +45,18 @@ const Register = ({
       const data = await register(values);
       const { user = {}, success = false, token = "" } = data || {};
 
-      if (success === true) {
+      if (success) {
         dispatch(setUserDetails({ user, token }));
+        toast.success("Account registered, enter otp to verify email", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
         setDisplayOtp(true);
         setUserId(user?.id);
         setUser(user);

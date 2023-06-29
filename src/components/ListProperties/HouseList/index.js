@@ -13,8 +13,7 @@ const HouseList = ({
   preferredTenants = [],
   price = [],
   furnishing = [],
-  twoWheelerParking = false,
-  fourWheelerParking = false,
+  parking = [],
   withImage = false,
   userDetails = {},
 }) => {
@@ -42,11 +41,9 @@ const HouseList = ({
           price_greater_than: priceDebounced?.[0],
           price_less_than: priceDebounced?.[1],
           furnishing_type: furnishing.length === 0 ? undefined : furnishing,
-          two_wheeler_parking:
-            twoWheelerParking === false ? undefined : twoWheelerParking,
-          four_wheeler_parking:
-            fourWheelerParking === false ? undefined : fourWheelerParking,
-          property_with_image: withImage === false ? 0 : 1,
+          parking: parking.length === 1 ? undefined : parking,
+
+          property_with_image: withImage === false ? undefined : withImage,
         },
       };
 
@@ -81,8 +78,7 @@ const HouseList = ({
     preferredTenants,
     priceDebounced,
     furnishing,
-    twoWheelerParking,
-    fourWheelerParking,
+    parking,
     withImage,
   ]);
 
