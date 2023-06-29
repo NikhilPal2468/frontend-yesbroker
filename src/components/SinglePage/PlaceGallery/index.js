@@ -99,18 +99,6 @@ const PlaceGallery = ({ userDetails, property, houses_id }) => {
     }
   };
 
-  // const handleLeftClick = () => {
-  //   setMediaIndex((prevIndex) => {
-  //     return prevIndex === 0 ? property.media.length - 1 : prevIndex - 1;
-  //   });
-  // };
-
-  // const handleRightClick = () => {
-  //   setMediaIndex((prevIndex) => {
-  //     return prevIndex + 1 === property.media.length ? 0 : prevIndex + 1;
-  //   });
-  // };
-
   if (showAllPhotos) {
     return (
       <Backdrop
@@ -219,7 +207,7 @@ const PlaceGallery = ({ userDetails, property, houses_id }) => {
                         src={
                           property?.media?.[1]
                             ? property.media[1].media_url
-                            : "https://cdn.pixabay.com/photo/2019/08/22/15/21/modern-4423814_1280.png"
+                            : { noPhotoImg }
                         }
                         className={`img-fluid h-100 ${styles.image}`}
                         alt=""
@@ -233,7 +221,7 @@ const PlaceGallery = ({ userDetails, property, houses_id }) => {
                         src={
                           property?.media?.[2]
                             ? property.media[2].media_url
-                            : "https://cdn.pixabay.com/photo/2019/08/22/15/21/modern-4423814_1280.png"
+                            : { noPhotoImg }
                         }
                         className={`img-fluid h-100 ${styles.image}`}
                         alt=""
