@@ -4,6 +4,8 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Button } from "react-bootstrap";
 import PostFormError from "../PostFormError";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Sidebar from "./SideBar/sidebar";
 import styles from "./styles.module.css";
@@ -226,11 +228,24 @@ function PropertyDetails() {
       values.floor = parseInt(values.floor);
       values.total_floors = parseInt(values.total_floors);
 
-      await axios.post(
-        `secure/api/newProperty/house/update/${houseId}`,
-        values
-      );
-      navigate(`/property/manage/house/${houseId}/locality`);
+      if (values.floor > values.total_floors) {
+        toast.error("Floor value must be smaller than Total Floors", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      } else {
+        await axios.post(
+          `secure/api/newProperty/house/update/${houseId}`,
+          values
+        );
+        navigate(`/property/manage/house/${houseId}/locality`);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -431,6 +446,7 @@ function PropertyDetails() {
           </Formik>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }
