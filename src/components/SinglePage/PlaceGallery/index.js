@@ -204,11 +204,7 @@ const PlaceGallery = ({ userDetails, property, houses_id }) => {
                       onClick={showImages}
                     >
                       <img
-                        src={
-                          property?.media?.[1]
-                            ? property.media[1].media_url
-                            : { noPhotoImg }
-                        }
+                        src={property?.media?.[1]?.media_url || noPhotoImg}
                         className={`img-fluid h-100 ${styles.image}`}
                         alt=""
                       />
@@ -218,11 +214,7 @@ const PlaceGallery = ({ userDetails, property, houses_id }) => {
                       onClick={showImages}
                     >
                       <img
-                        src={
-                          property?.media?.[2]
-                            ? property.media[2].media_url
-                            : { noPhotoImg }
-                        }
+                        src={property?.media?.[2]?.media_url || noPhotoImg}
                         className={`img-fluid h-100 ${styles.image}`}
                         alt=""
                       />
