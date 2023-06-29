@@ -3,21 +3,26 @@ import React, { useContext } from "react";
 import { BsArrowCounterclockwise } from "react-icons/bs";
 import styles from "./styles.module.css";
 import { Slider } from "@mui/material";
-import { BHKTYPE, FURNISHING_TYPES, PREFERRED_TENANTS } from "./constants";
+import {
+  BHKTYPE,
+  FURNISHING_TYPES,
+  PARKING,
+  PREFERRED_TENANTS,
+} from "./constants";
+
 import { LoadContext } from "../../../context/load-context";
 
 function HouseFilters({
-  bhkType = [],
+  // bhkType = [],
   setBhkType = () => {},
   setPreferredTenants = () => {},
   price = [],
   setPrice = () => {},
   setFurnishing = () => {},
-  setTwoWheelerParking = () => {},
-  setFourWheelerParking = () => {},
+  setParking = () => {},
   setWithImage = () => {},
 }) {
-  console.log("bhkType:", bhkType);
+  // console.log("bhkType:", bhkType);
   const { setReset } = useContext(LoadContext);
 
   const handlePriceChange = (event, newValue) => {
@@ -44,14 +49,22 @@ function HouseFilters({
       setFurnishing((prev) => prev.filter((i) => i !== item));
     }
   };
+
+  const handleParkingChange = (event, item) => {
+    if (event.target.checked) {
+      setParking((prev) => [...prev, item]);
+    } else {
+      setParking((prev) => prev.filter((i) => i !== item));
+    }
+  };
+
   const resetFilters = () => {
     setReset(true);
     setBhkType([]);
     setPreferredTenants(["Both"]);
     setPrice([0, 100000]);
     setFurnishing([]);
-    setTwoWheelerParking(false);
-    setFourWheelerParking(false);
+    setParking(["Both"]);
     setWithImage(false);
     document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
       checkbox.checked = false;
@@ -146,11 +159,11 @@ function HouseFilters({
         </div>
         <div className="input-group d-flex flex-column mt-2 pt-1 border-bottom border-1 border-dark">
           <h6 className="text-start">Furnishing</h6>
-          <div className="grid pb-2 justify-content-between align-items-center text-start gap-2">
+          <div className="d-flex pb-2 flex-row justify-content-between align-items-center text-start">
             {FURNISHING_TYPES.map((furnishing_type) => (
               <div
                 key={furnishing_type}
-                className="form-check flex-grow-1 form-check-inline gap-2"
+                className="form-check flex-grow-1 form-check-inline"
               >
                 <input
                   className={`${styles.input_checkbox1}`}
@@ -176,43 +189,30 @@ function HouseFilters({
         <div className="input-group d-flex flex-column mt-2 pt-1 border-bottom border-1 border-dark">
           <h6 className="text-start">Parking</h6>
           <div className="d-flex pb-2 flex-row justify-content-between align-items-center text-start">
-            <div className="form-check flex-grow-1 form-check-inline">
-              <input
-                className={`${styles.input_checkbox1}`}
-                type="checkbox"
-                id="twowheeler"
-                name="twowheeler"
-                value="twowheeler"
-                onChange={(event) => setTwoWheelerParking(event.target.checked)}
-              />
-              <label
-                className={`${styles.filterOption} ${styles.input_label1} m-1`}
-                htmlFor="twowheeler"
-                role="button"
+            {PARKING.map((parking) => (
+              <div
+                key={parking.dbName}
+                className="form-check flex-grow-1 form-check-inline"
               >
-                {" "}
-                2 Wheeler
-              </label>
-            </div>
-            <div className="form-check flex-grow-1 form-check-inline">
-              <input
-                className={`${styles.input_checkbox1}`}
-                type="checkbox"
-                id="fourwheeler"
-                value="fourwheeler"
-                name="fourwheeler"
-                onChange={(event) =>
-                  setFourWheelerParking(event.target.checked)
-                }
-              />
-              <label
-                className={`${styles.filterOption} ${styles.input_label1} m-1`}
-                htmlFor="fourwheeler"
-                role="button"
-              >
-                4 Wheeler
-              </label>
-            </div>
+                <input
+                  className={`${styles.input_checkbox1}`}
+                  type="checkbox"
+                  id={parking.dbName}
+                  value={parking.dbName}
+                  name={parking.dbName}
+                  onChange={(event) =>
+                    handleParkingChange(event, parking.dbName)
+                  }
+                />
+                <label
+                  className={`${styles.filterOption} ${styles.input_label1} m-1`}
+                  htmlFor={parking.dbName}
+                  role="button"
+                >
+                  {parking.viewName}
+                </label>
+              </div>
+            ))}
           </div>
         </div>
         <div className="input-group d-flex flex-column mt-2 pt-1 border-bottom border-1 border-dark">

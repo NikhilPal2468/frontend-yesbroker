@@ -21,20 +21,25 @@ const ListProperties = ({ userDetails = {} }) => {
   const city = searchParams.get("city");
   const propertyType = searchParams.get("propertyType");
   const locality = searchParams.get("locality");
+  const selectedLocalityArray = searchParams.get("selectedLocality");
+  const selectedLocalityArrayData =
+    JSON.parse(decodeURIComponent(selectedLocalityArray)) || [];
 
   const [bhkType, setBhkType] = useState([]);
   const [preferredTenants, setPreferredTenants] = useState(["Both"]);
+  const [parking, setParking] = useState(["Both"]);
   const [price, setPrice] = useState([0, 100000]);
   const [furnishing, setFurnishing] = useState([]);
-  const [twoWheelerParking, setTwoWheelerParking] = useState(false);
-  const [fourWheelerParking, setFourWheelerParking] = useState(false);
+
   const [withImage, setWithImage] = useState(false);
   const dispatch = useDispatch();
   const { setLoading } = useContext(LoadContext);
 
-  const [selectedCity, setSelectedCity] = useState("Bangalore");
+  const [selectedCity, setSelectedCity] = useState(city);
   const [searchValue, setSearchValue] = useState("");
-  const [selectedLocality, setSelectedLocality] = useState([]);
+  const [selectedLocality, setSelectedLocality] = useState([
+    ...selectedLocalityArrayData,
+  ]);
   const [suggestionList, setSuggestionList] = useState([]);
 
   useEffect(() => {
@@ -94,9 +99,9 @@ const ListProperties = ({ userDetails = {} }) => {
               price={price}
               setPrice={setPrice}
               furnishing={furnishing}
+              parking={parking}
               setFurnishing={setFurnishing}
-              setTwoWheelerParking={setTwoWheelerParking}
-              setFourWheelerParking={setFourWheelerParking}
+              setParking={setParking}
               setWithImage={setWithImage}
             />
             <button className={styles.apply_filters} onClick={handleClose}>
@@ -115,9 +120,9 @@ const ListProperties = ({ userDetails = {} }) => {
             price={price}
             setPrice={setPrice}
             furnishing={furnishing}
+            parking={parking}
             setFurnishing={setFurnishing}
-            setTwoWheelerParking={setTwoWheelerParking}
-            setFourWheelerParking={setFourWheelerParking}
+            setParking={setParking}
             setWithImage={setWithImage}
           />
         </div>
@@ -129,8 +134,7 @@ const ListProperties = ({ userDetails = {} }) => {
           preferredTenants={preferredTenants}
           price={price}
           furnishing={furnishing}
-          twoWheelerParking={twoWheelerParking}
-          fourWheelerParking={fourWheelerParking}
+          parking={parking}
           withImage={withImage}
           userDetails={userDetails}
         />
