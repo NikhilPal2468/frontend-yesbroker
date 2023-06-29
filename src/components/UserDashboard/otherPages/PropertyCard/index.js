@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
 import { TbSofa } from "react-icons/tb";
@@ -6,8 +6,10 @@ import { GiFamilyHouse } from "react-icons/gi";
 import { GrUserManager } from "react-icons/gr";
 import { VscKey } from "react-icons/vsc";
 import noPhotoImg from "../../../../assets/no-image.png";
+import { AuthContext } from "../../../../context/AuthContext";
+import OwnerModal from "../../../ShowOwnerModal/OwnerModal";
 
-const PropertyCard = ({ listing = {} }) => {
+const PropertyCard = ({ listing = {}, userDetails = {} }) => {
   const {
     id = "",
     bhk_type = "",
@@ -30,6 +32,19 @@ const PropertyCard = ({ listing = {} }) => {
     }
 
     return classname;
+  };
+
+  const { setShowLogin } = useContext(AuthContext);
+  const [showOwnersContacted, setShowOwnersContacted] = useState(false);
+  const [houseId, setHouseId] = useState("");
+
+  const handleHouseClicked = (e, housesId) => {
+    if (userDetails) {
+      setHouseId(housesId);
+      setShowOwnersContacted(true);
+    } else {
+      setShowLogin(true);
+    }
   };
 
   return (
@@ -213,16 +228,29 @@ const PropertyCard = ({ listing = {} }) => {
                 </a>
                 <div className="col-12 d-flex flex-row my-2">
                   <div className="d-flex flex-row justify-content-center align-items-center w-100">
-                    <div
-                      className={`flex-grow-1 p-2 text-white text-center rounded ${styles.primary_color}`}
-                    >
+                    {Object.keys(userDetails).length === 0 ? (
                       <Link
                         to={`/property/manage/house/${id}/property`}
-                        className="btn btn-light"
+                        className="text-white text flex-grow-1 p-2 rounded"
+                        style={{ textDecoration: "none" }}
                       >
-                        Edit
+                        <div
+                          className={`flex-grow-1 p-2 text-white text-center rounded ${styles.primary_color}`}
+                        >
+                          Edit
+                        </div>
                       </Link>
-                    </div>
+                    ) : (
+                      <div
+                        className={`flex-grow-1 p-2 text-white text-center rounded ${styles.primary_color}`}
+                        role="button"
+                        onClick={(e) => {
+                          handleHouseClicked(e, id);
+                        }}
+                      >
+                        Get Owner Details
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -230,6 +258,13 @@ const PropertyCard = ({ listing = {} }) => {
           </div>
         </div>
       </div>
+      {showOwnersContacted && (
+        <OwnerModal
+          showOwnersContacted={showOwnersContacted}
+          setShowOwnersContacted={setShowOwnersContacted}
+          houseId={houseId}
+        />
+      )}
     </div>
   );
 };
