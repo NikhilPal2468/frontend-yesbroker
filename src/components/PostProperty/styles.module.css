@@ -20,6 +20,30 @@
   width: 100%;
 }
 
+/* INACTIVE PG */
+.inactive {
+  opacity: 0.5;
+  background-color: rgb(220, 220, 220);
+}
+
+.popover {
+  background-color: black;
+  color: white;
+  position: absolute;
+  padding: 5px;
+  margin-left: 50px;
+  margin-right: auto;
+  width: max-content;
+  border-radius: 8px;
+}
+.show_popover {
+  display: block;
+}
+.hide_popover {
+  display: none;
+}
+/* INACTIVE PG */
+
 .input_radio:checked + .input_label {
   background-color: #3356b2;
   color: white;
