@@ -136,7 +136,7 @@ const PlaceGallery = ({ userDetails, property, houses_id }) => {
                   <div className={addImgCarousel(index)} key={media_url}>
                     <img
                       src={media_url}
-                      className={`d-block w-100 ${styles.carouselImg}`}
+                      className={`d-block w-100 h-100 ${styles.carouselImg}`}
                       alt="..."
                     />
                     <figcaption className="text-light">
