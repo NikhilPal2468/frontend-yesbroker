@@ -7,6 +7,8 @@ import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import FinalModal from "../FinalModal";
 import { LoadContext } from "../../../context/load-context";
+import Resizer from "react-image-file-resizer";
+
 const PICTURE_TYPES = [
   "Kitchen",
   "Bedroom",
@@ -68,40 +70,91 @@ function Gallery() {
   useEffect(() => {
     if (!imageFiles || imageFiles.length === 0) return;
 
-    const formData = new FormData();
+    // const uploadImages = async (resizedFiles) => {
+    //   const formData = new FormData();
 
-    for (let i = 0; i < imageFiles.length; i++) {
-      formData.append("image", imageFiles[i]);
-    }
+    //   for (let i = 0; i < resizedFiles.length; i++) {
+    //     formData.append("image", resizedFiles[i]);
+    //   }
+    //   try {
+    //     setLoading(true);
+    //     const response = await axios.post(
+    //       `secure/api/newProperty/house/uploadImage/${houseId}`,
+    //       formData,
+    //       {
+    //         headers: {
+    //           "Content-Type": "multipart/form-data",
+    //         },
+    //       }
+    //     );
+    //     if (response.data) {
+    //       setUploadedImages((prev) => {
+    //         if (prev) return [...prev, ...response.data];
+    //         else return [...response.data];
+    //       });
+    //     }
 
-    const uploadImages = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.post(
-          `secure/api/newProperty/house/uploadImage/${houseId}`,
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
+    //     setImageFiles([]);
+    //   } catch (error) {
+    //     console.error(error);
+    //   } finally {
+    //     setLoading(false);
+    //   }
+    // };
+    const uploadPromises = [];
+
+    imageFiles.forEach((file) => {
+      uploadPromises.push(
+        new Promise((resolve, reject) => {
+          Resizer.imageFileResizer(
+            file,
+            800, // Set your desired maximum width
+            600, // Set your desired maximum height
+            "JPEG", // Output format (JPEG, PNG, WEBP)
+            70, // Output quality (0-100)
+            0, // Rotation angle (in degrees, 0-360)
+            (resizedFile) => {
+              try {
+                const formData = new FormData();
+                formData.append("image", resizedFile, resizedFile.name);
+
+                setLoading(true);
+                axios
+                  .post(
+                    `secure/api/newProperty/house/uploadImage/${houseId}`,
+                    formData,
+                    {
+                      headers: {
+                        "Content-Type": "multipart/form-data",
+                      },
+                    }
+                  )
+                  .then((response) => {
+                    setUploadedImages((prev) => {
+                      if (prev) return [...prev, ...response.data];
+                      else return [...response.data];
+                    });
+                    resolve(); // Resolve the promise when the upload is successful
+                  })
+                  .catch((error) => {
+                    console.error(error);
+                    reject(error); // Reject the promise if there is an error during the upload
+                  })
+                  .finally(() => {
+                    setLoading(false);
+                  });
+              } catch (error) {
+                console.error(error);
+                reject(error); // Reject the promise if there is an error
+              }
+
+              // setImageFiles([]);
             },
-          }
-        );
-        if (response.data) {
-          setUploadedImages((prev) => {
-            if (prev) return [...prev, ...response.data];
-            else return [...response.data];
-          });
-        }
-
-        setImageFiles([]);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    uploadImages();
+            "blob" // Output type ('blob' for File object or 'base64' for data URL)
+          );
+        })
+      );
+    });
   }, [imageFiles, houseId]);
 
   // To handle description change for each image
