@@ -6,7 +6,7 @@ import { setUserDetails } from "../../../store/actions";
 import { useDispatch } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const Otp = ({ userId, setShowRegister = () => {} }) => {
+const Otp = ({ userId, setShowRegister = () => {}, setUser = () => {} }) => {
   const dispatch = useDispatch();
   const [otp, setOtp] = useState(new Array(4).fill(""));
   const [disabled, setDisabled] = useState(true);
@@ -45,6 +45,7 @@ const Otp = ({ userId, setShowRegister = () => {} }) => {
       if (success) {
         setShowRegister(false);
         dispatch(setUserDetails({ user, token }));
+        setUser(user);
         toast.success("Account verified", {
           position: "top-center",
           autoClose: 2000,

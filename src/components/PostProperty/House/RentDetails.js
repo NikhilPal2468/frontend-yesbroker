@@ -9,6 +9,8 @@ import Sidebar from "./SideBar/sidebar";
 import styles from "./styles.module.css";
 import { LoadContext } from "../../../context/load-context";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const FURNISHING_TYPE = [
   { key: "Fully Furnished" },
   { key: "Semi Furnished" },
@@ -68,7 +70,6 @@ function RentDetails() {
   const { id: houseId } = useParams();
 
   const formatDate = (date) => {
-    console.log(date);
     const dateObj = new Date(date);
     const day = String(dateObj.getDate()).padStart(2, "0");
     const month = String(dateObj.getMonth() + 1).padStart(2, "0");
@@ -133,8 +134,18 @@ function RentDetails() {
         values
       );
       navigate(`/property/manage/house/${houseId}/amenities`);
-    } catch (err) {
-      console.log(err);
+    } catch (e) {
+      toast.error(e?.response?.data?.message, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      console.log(e);
     }
   };
 
@@ -341,6 +352,7 @@ function RentDetails() {
           </Formik>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

@@ -30,6 +30,9 @@ import PgDetails from "./components/PostProperty/Pg/PgDetails";
 import { useSelector } from "react-redux";
 import VerifyEmail from "./components/Authentication/VerifyEmail";
 import Footer from "./components/common/Footer";
+import AdminPortal from "./components/AdminPortal";
+import ErrorPage from "./components/common/ErrorPage";
+import ManageUsers from "./components/AdminPortal/ManageUsers";
 
 // axios.defaults.baseURL = "https://homewale-backend.onrender.com";
 // axios.defaults.baseURL = "http://localhost:5000";
@@ -117,6 +120,14 @@ function App() {
         <Route
           path="/verifyEmail/:id/:email/:token"
           element={<VerifyEmail />}
+        />
+        <Route
+          path="/admin"
+          element={userDetails?.is_user_admin ? <AdminPortal /> : <ErrorPage />}
+        />
+        <Route
+          path="/admin/manageUsers"
+          element={userDetails?.is_user_admin ? <ManageUsers /> : <ErrorPage />}
         />
       </Routes>
       <Footer />

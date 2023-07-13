@@ -246,8 +246,18 @@ function PropertyDetails() {
         );
         navigate(`/property/manage/house/${houseId}/locality`);
       }
-    } catch (err) {
-      console.log(err);
+    } catch (e) {
+      console.log(e);
+      toast.error(e?.response?.data?.message, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   };
 

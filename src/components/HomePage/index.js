@@ -24,13 +24,12 @@ import "react-toastify/dist/ReactToastify.css";
 import { Chip } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import useDebounceQuery from "../hooks/useDebounceQuery";
-import Register from "../Authentication/Register";
-import { Login } from "@mui/icons-material";
+// import Register from "../Authentication/Register";
+// import { Login } from "@mui/icons-material";
 import { AuthContext } from "../../context/AuthContext";
 
 const HomePage = ({ userDetails = {} }) => {
-  const { showLogin, showRegister, setShowLogin, setShowRegister } =
-    useContext(AuthContext);
+  const { setShowLogin } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [selectedCity, setSelectedCity] = useState("Bangalore");
@@ -199,7 +198,7 @@ const HomePage = ({ userDetails = {} }) => {
             }
           />
           <Button
-            className="d-flex flex-row justify-content-center align-items-center gap-2"
+            className={`${styles.search_button_mobile} `}
             disabled={selectedLocality.length === 0}
             onClick={listProperties}
           >
@@ -403,6 +402,14 @@ const HomePage = ({ userDetails = {} }) => {
             )}
           </div>
         </div>
+        <Button
+          className={`${styles.search_button_show_mobile}`}
+          disabled={selectedLocality.length === 0}
+          onClick={listProperties}
+        >
+          <BsSearch />
+          <p className="my-auto">Search</p>
+        </Button>
       </div>
       <div>
         <div className={styles.property_owner}>Are you a Property Owner?</div>
@@ -411,7 +418,7 @@ const HomePage = ({ userDetails = {} }) => {
           Post your property
         </Button>
 
-        {showRegister && (
+        {/* {showRegister && (
           <Register
             showRegister={showRegister}
             setShowRegister={setShowRegister}
@@ -424,7 +431,7 @@ const HomePage = ({ userDetails = {} }) => {
             setShowLogin={setShowLogin}
             setShowRegister={setShowRegister}
           />
-        )}
+        )} */}
       </div>
       <div className={`w-100 ${styles.cardBody} text-center`}>
         <h3 className={`text-center my-8 p-4 pb-6`}>Why HOMEWALE?</h3>

@@ -35,7 +35,7 @@ export const MenuProps = {
   },
 };
 
-export const BHKTypes = ["1 BHK", "2 BHK", "3 BHK", "4 BHK", "4+ BHK"];
+export const BHKTypes = ["1 RK", "1 BHK", "2 BHK", "3 BHK", "4 BHK", "4+ BHK"];
 export const TenantTypes = ["Male", "Female", "Both"];
 export const RoomTypesPG = [
   "Single Room",

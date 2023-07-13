@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import PostFormError from "./PostFormError";
@@ -10,6 +10,7 @@ import { BsCardChecklist } from "react-icons/bs";
 import { FiKey } from "react-icons/fi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AuthContext } from "../../context/AuthContext";
 
 const CITIES = ["Mumbai", "Bangalore", "Gurgaon", "Delhi", "Hyderabad"];
 
@@ -25,6 +26,7 @@ const validationSchema = Yup.object({
 
 function MainPage() {
   const navigate = useNavigate();
+  const { setShowLogin } = useContext(AuthContext);
 
   const [showPopover, setShowPopover] = useState(false);
   const [popoverContent, setPopoverContent] = useState("");
@@ -56,17 +58,31 @@ function MainPage() {
         navigate(`/property/manage/pg/${pg.id}/room`);
       }
     } catch (e) {
-      console.log(e?.response?.data?.message);
-      toast.error(e?.response?.data?.message, {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+      console.log(e);
+      if (e?.response?.data === "Unauthorized") {
+        toast.error("You are not logged in Please login", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        setShowLogin(true);
+      } else {
+        toast.error(e?.response?.data?.message, {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
     }
   };
 
