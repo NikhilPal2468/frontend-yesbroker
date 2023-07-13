@@ -114,7 +114,11 @@ const Register = ({
               <AuthModal />
               <Col xs={12} md={8}>
                 {displayOtp ? (
-                  <Otp setShowRegister={setShowRegister} userId={userId} />
+                  <Otp
+                    setShowRegister={setShowRegister}
+                    userId={userId}
+                    setUser={setUser}
+                  />
                 ) : (
                   <>
                     <Formik

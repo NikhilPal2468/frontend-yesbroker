@@ -8,6 +8,8 @@ import axios from "axios";
 import FinalModal from "../FinalModal";
 import { LoadContext } from "../../../context/load-context";
 import Resizer from "react-image-file-resizer";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PICTURE_TYPES = [
   "Kitchen",
@@ -60,9 +62,19 @@ function Gallery() {
       };
 
       fetchImageData(houseId);
-    } catch (err) {
+    } catch (e) {
       setLoading(false);
-      console.log(err);
+      console.log(e);
+      toast.error(e?.response?.data?.message, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   }, [houseId]);
 
@@ -293,6 +305,7 @@ function Gallery() {
           houseId={houseId}
         />
       )}
+      <ToastContainer />
     </div>
   );
 }
