@@ -97,7 +97,7 @@ function RoomDetails() {
 
   const onSubmit = async (values) => {
     try {
-      await axios.post(`secure/api/newProperty/pg/update/${pgId}`, values);
+      await axios.post(`/secure/api/newProperty/pg/update/${pgId}`, values);
       navigate(`/property/manage/pg/${pgId}/locality`);
     } catch (err) {
       console.log(err);
@@ -246,12 +246,12 @@ function RoomDetails() {
                             <label htmlFor="rent">Rent</label>
                             <Field
                               type="number"
-                              id="single_room_rent"
-                              name="single_room_rent"
+                              id="double_room_rent"
+                              name="double_room_rent"
                               className="form-control"
                             />
                             <ErrorMessage
-                              name="single_room_rent"
+                              name="double_room_rent"
                               component={PostFormError}
                             />
                           </div>
@@ -262,8 +262,8 @@ function RoomDetails() {
                           <label htmlFor="deposit">Deposit</label>
                           <Field
                             type="number"
-                            id="single_room_deposit"
-                            name="single_room_deposit"
+                            id="double_room_deposit"
+                            name="double_room_deposit"
                             className="form-control"
                           />
                           <ErrorMessage
@@ -282,12 +282,12 @@ function RoomDetails() {
                             <label htmlFor="rent">Rent</label>
                             <Field
                               type="number"
-                              id="single_room_rent"
-                              name="single_room_rent"
+                              id="triple_room_rent"
+                              name="triple_room_rent"
                               className="form-control"
                             />
                             <ErrorMessage
-                              name="single_room_rent"
+                              name="triple_room_rent"
                               component={PostFormError}
                             />
                           </div>
@@ -298,12 +298,12 @@ function RoomDetails() {
                           <label htmlFor="deposit">Deposit</label>
                           <Field
                             type="number"
-                            id="single_room_deposit"
-                            name="single_room_deposit"
+                            id="triple_room_deposit"
+                            name="triple_room_deposit"
                             className="form-control"
                           />
                           <ErrorMessage
-                            name="single_room_deposit"
+                            name="triple_room_deposit"
                             component={PostFormError}
                           />
                         </div>
@@ -318,12 +318,12 @@ function RoomDetails() {
                             <label htmlFor="rent">Rent</label>
                             <Field
                               type="number"
-                              id="single_room_rent"
-                              name="single_room_rent"
+                              id="four_room_rent"
+                              name="four_room_rent"
                               className="form-control"
                             />
                             <ErrorMessage
-                              name="single_room_rent"
+                              name="four_room_rent"
                               component={PostFormError}
                             />
                           </div>
@@ -334,12 +334,12 @@ function RoomDetails() {
                           <label htmlFor="deposit">Deposit</label>
                           <Field
                             type="number"
-                            id="single_room_deposit"
-                            name="single_room_deposit"
+                            id="four_room_deposit"
+                            name="four_room_deposit"
                             className="form-control"
                           />
                           <ErrorMessage
-                            name="single_room_deposit"
+                            name="four_room_deposit"
                             component={PostFormError}
                           />
                         </div>

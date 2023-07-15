@@ -25,11 +25,12 @@ import HousePage from "./components/SinglePage/House/HousePage";
 import Loader from "./components/Loader";
 import RoomDetails from "./components/PostProperty/Pg/RoomDetails";
 import PgLocality from "./components/PostProperty/Pg/PgLocality";
-import PgDetails from "./components/PostProperty/Pg/PgDetails";
+import PgAmenities from "./components/PostProperty/Pg/PgAmenities";
 
 import { useSelector } from "react-redux";
 import VerifyEmail from "./components/Authentication/VerifyEmail";
 import Footer from "./components/common/Footer";
+import PgGallery from "./components/PostProperty/Pg/PgGallery";
 
 // axios.defaults.baseURL = "https://homewale-backend.onrender.com";
 axios.defaults.baseURL = "http://localhost:5000";
@@ -111,9 +112,10 @@ function App() {
           element={<PgLocality />}
         />
         <Route
-          path="/property/manage/pg/:id/pgdetails"
-          element={<PgDetails />}
+          path="/property/manage/pg/:id/amenities"
+          element={<PgAmenities />}
         />
+        <Route path="/property/manage/pg/:id/gallery" element={<PgGallery />} />
         <Route
           path="/verifyEmail/:id/:email/:token"
           element={<VerifyEmail />}
