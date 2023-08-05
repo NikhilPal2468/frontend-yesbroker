@@ -18,6 +18,7 @@ import {
   faSquareParking,
   faSunPlantWilt,
   faTachographDigital,
+  faToilet,
   faToiletPortable,
   faTv,
   faWifi,
@@ -35,7 +36,7 @@ export const MenuProps = {
   },
 };
 
-export const BHKTypes = ["1 BHK", "2 BHK", "3 BHK", "4 BHK", "4+ BHK"];
+export const BHKTypes = ["1 RK", "1 BHK", "2 BHK", "3 BHK", "4 BHK", "4+ BHK"];
 export const TenantTypes = ["Male", "Female", "Both"];
 export const RoomTypesPG = [
   "Single Room",
@@ -157,9 +158,14 @@ export const PgAMENITIES = [
     label: "Lift",
   },
   {
-    key: "induction",
-    icon: <FontAwesomeIcon icon={faElevator} size="xl" />,
-    label: "Induction",
+    key: "wifi",
+    icon: <FontAwesomeIcon icon={faWifi} size="xl" />,
+    label: "Wifi",
+  },
+  {
+    key: "gym",
+    icon: <FontAwesomeIcon icon={faDumbbell} size="xl" />,
+    label: "Gym",
   },
   {
     key: "cctv",
@@ -175,6 +181,21 @@ export const PgAMENITIES = [
     key: "tv",
     icon: <FontAwesomeIcon icon={faTv} size="xl" />,
     label: "TV",
+  },
+  {
+    key: "ac",
+    icon: <FontAwesomeIcon icon={faTachographDigital} size="xl" />,
+    label: "AC",
+  },
+  {
+    key: "geyser",
+    icon: <FontAwesomeIcon icon={faHotTubPerson} size="xl" />,
+    label: "Geyser",
+  },
+  {
+    key: "Attached Bathroom",
+    icon: <FontAwesomeIcon icon={faToilet} size="xl" />,
+    label: "Attached Bathroom",
   },
   {
     key: "power_backup",
@@ -195,26 +216,6 @@ export const PgAMENITIES = [
     key: "club_house",
     icon: <FontAwesomeIcon icon={faPuzzlePiece} size="xl" />,
     label: "Club House",
-  },
-  {
-    key: "wifi",
-    icon: <FontAwesomeIcon icon={faWifi} size="xl" />,
-    label: "Wifi",
-  },
-  {
-    key: "ac",
-    icon: <FontAwesomeIcon icon={faTachographDigital} size="xl" />,
-    label: "AC",
-  },
-  {
-    key: "gym",
-    icon: <FontAwesomeIcon icon={faDumbbell} size="xl" />,
-    label: "Gym",
-  },
-  {
-    key: "geyser",
-    icon: <FontAwesomeIcon icon={faHotTubPerson} size="xl" />,
-    label: "Geyser",
   },
   {
     key: "visitor_parking",

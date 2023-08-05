@@ -6,6 +6,11 @@
   color: #3356b2;
 }
 
+.sticky_city {
+  position: sticky !important;
+  top: 10px;
+}
+
 .image_input {
   background-color: #6f96ff;
   border: 2px solid #2f447a;
@@ -14,6 +19,33 @@
 
 .image_input:hover {
   background-color: #2f447a;
+}
+
+.input_checkbox1 {
+  display: none;
+  width: 100%;
+}
+
+.input_label1 {
+  border: 2px solid #28438a;
+  border-radius: 5px;
+  padding: 2px 4px;
+  align-items: center;
+  width: 75%;
+}
+
+.input_label1:hover {
+  background-color: #7b9eff;
+  color: white;
+}
+
+.checked {
+  background-color: #3356b2;
+  color: white;
+}
+.input_checkbox1:checked + .input_label1 {
+  background-color: #3356b2;
+  color: white;
 }
 
 .image_container {

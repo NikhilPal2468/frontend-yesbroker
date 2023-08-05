@@ -23,13 +23,16 @@ import Gallery from "./components/PostProperty/House/Gallery";
 
 import HousePage from "./components/SinglePage/House/HousePage";
 import Loader from "./components/Loader";
-import RoomDetails from "./components/PostProperty/Pg/RoomDetails";
+import RentalDetails from "./components/PostProperty/Pg/RentalDetails";
 import PgLocality from "./components/PostProperty/Pg/PgLocality";
 import PgAmenities from "./components/PostProperty/Pg/PgAmenities";
-
+import PgDetails from "./components/PostProperty/Pg/PgDetails";
 import { useSelector } from "react-redux";
 import VerifyEmail from "./components/Authentication/VerifyEmail";
 import Footer from "./components/common/Footer";
+import AdminPortal from "./components/AdminPortal";
+import ErrorPage from "./components/common/ErrorPage";
+import ManageUsers from "./components/AdminPortal/ManageUsers";
 import PgGallery from "./components/PostProperty/Pg/PgGallery";
 
 // axios.defaults.baseURL = "https://homewale-backend.onrender.com";
@@ -106,7 +109,14 @@ function App() {
         />
 
         {/* PG */}
-        <Route path="/property/manage/pg/:id/room" element={<RoomDetails />} />
+        <Route
+          path="/property/manage/pg/:id/property"
+          element={<PgDetails />}
+        />
+        <Route
+          path="/property/manage/pg/:id/rental"
+          element={<RentalDetails />}
+        />
         <Route
           path="/property/manage/pg/:id/locality"
           element={<PgLocality />}
@@ -119,6 +129,14 @@ function App() {
         <Route
           path="/verifyEmail/:id/:email/:token"
           element={<VerifyEmail />}
+        />
+        <Route
+          path="/admin"
+          element={userDetails?.is_user_admin ? <AdminPortal /> : <ErrorPage />}
+        />
+        <Route
+          path="/admin/manageUsers"
+          element={userDetails?.is_user_admin ? <ManageUsers /> : <ErrorPage />}
         />
       </Routes>
       <Footer />

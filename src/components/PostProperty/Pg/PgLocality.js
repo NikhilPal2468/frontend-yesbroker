@@ -16,7 +16,7 @@ function LocalityDetails() {
   const { id: pgId } = useParams();
 
   const [city, setCity] = useState("");
-  const [address, setAddress] = useState("");
+  const [complete_address, setAddress] = useState("");
   const [pincode, setPincode] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [locality, setLocality] = useState("");
@@ -28,13 +28,13 @@ function LocalityDetails() {
     try {
       const fetchData = async (pgId) => {
         setLoading(true);
-        const { data } = await axios.get(`/secure/api/getPg?pgId=${pgId}`);
-
+        const { data } = await axios.get(`/secure/api/getpg?pgId=${pgId}`);
+        console.log(data);
         setCity(data?.city);
         setLocality(data?.locality);
         setStreet(data?.street);
         setPincode(data?.pincode);
-        setAddress(data?.address);
+        setAddress(data?.complete_address);
         setDescription(data?.description);
       };
 
@@ -47,7 +47,7 @@ function LocalityDetails() {
   }, [pgId]);
 
   const handleCityChange = (e) => {
-    setCity(e.target.value);
+    setCity(e?.target?.value);
     setSuggestionList([]);
     setLocality("");
     setStreet("");
@@ -71,7 +71,7 @@ function LocalityDetails() {
         await axios
           .get(`/public/api/autocomplete?city=${city}&text=${locality}`)
           .then((response) => {
-            setSuggestionList(response.data);
+            setSuggestionList(response?.data);
           })
           .catch((error) => {
             console.error(error);
@@ -95,13 +95,13 @@ function LocalityDetails() {
       street: street,
       partNo: "2",
       pincode: pincode,
-      address: address,
+      complete_address: complete_address,
       description: description,
     };
 
     try {
       await axios.post(`/secure/api/newProperty/pg/update/${pgId}`, payLoad);
-      navigate(`/property/manage/pg/${pgId}/amenities`);
+      navigate(`/property/manage/pg/${pgId}/rental`);
     } catch (err) {
       console.log(err);
     }
@@ -111,7 +111,7 @@ function LocalityDetails() {
     <div className="container h-100">
       <div className={`d-flex flex-column flex-sm-row justify-content-center`}>
         <div className={`w-20 ${styles.container}`}>
-          <Sidebar pathname={location.pathname} />
+          <Sidebar pathname={location?.pathname} />
         </div>
         <div
           className={`w-75 ms-2 px-4 d-flex flex-column ${styles.container}`}
@@ -186,7 +186,7 @@ function LocalityDetails() {
                   type="text"
                   name="address"
                   id="address"
-                  value={address}
+                  value={complete_address}
                   className="form-control"
                   onChange={(e) => setAddress(e.target.value)}
                   required

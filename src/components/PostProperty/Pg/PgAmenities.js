@@ -18,49 +18,53 @@ const WATER_SUPPLY = [
 ];
 
 const initialValues = {
+  ac: false,
   attached_bathroom: false,
-  balcony: false,
+  fridge: false,
+  water_filter: false,
+  washing_machine: false,
+  tv: false,
+  geyser: false,
+  two_wheeler_parking: false,
+  four_wheeler_parking: false,
+  lift: false,
+  cctv: false,
+  power_backup: false,
+  gated_security: false,
+  wifi: false,
+  fire_safety: false,
+  club_house: false,
+  room_cleaning: false,
+  tt_table: false,
   water_supply: "",
   secondary_number: "",
   gym: false,
-  gated_security: false,
-  lift: false,
-  ac: false,
-  geyser: false,
-  washing_machine: false,
-  water_filter: false,
-  cctv: false,
-  fridge: false,
-  tv: false,
-  power_backup: false,
-  gas_pipeline: false,
-  induction: false,
-  fire_safety: false,
-  club_house: false,
-  wifi: false,
+  cooking_allowed: false,
 };
 
 const validationSchema = Yup.object({
-  attached_bathroom: Yup.boolean(),
-  balcony: Yup.boolean(),
-  water_supply: Yup.string().required("Information required"),
-  gym: Yup.boolean(),
-  gated_security: Yup.boolean(),
-  fridge: Yup.boolean(),
   ac: Yup.boolean(),
-  geyser: Yup.boolean(),
-  tv: Yup.boolean(),
-  cctv: Yup.boolean(),
+  attached_bathroom: Yup.boolean(),
+  fridge: Yup.boolean(),
+  water_filter: Yup.boolean(),
   washing_machine: Yup.boolean(),
-  microwave: Yup.boolean(),
+  tv: Yup.boolean(),
+  geyser: Yup.boolean(),
+  two_wheeler_parking: Yup.boolean(),
+  four_wheeler_parking: Yup.boolean(),
+  lift: Yup.boolean(),
+  cctv: Yup.boolean(),
   power_backup: Yup.boolean(),
-  gas_pipeline: Yup.boolean(),
+  gated_security: Yup.boolean(),
+  wifi: Yup.boolean(),
   fire_safety: Yup.boolean(),
   club_house: Yup.boolean(),
-  water_filter: Yup.boolean(),
-  wifi: Yup.boolean(),
-  induction: Yup.boolean(),
-  lift: Yup.boolean(),
+  room_cleaning: Yup.boolean(),
+  tt_table: Yup.boolean(),
+  water_supply: Yup.string(),
+  secondary_number: Yup.string(),
+  gym: Yup.boolean(),
+  cooking_allowed: Yup.boolean(),
 });
 
 function PgAmenities() {
@@ -75,7 +79,7 @@ function PgAmenities() {
     try {
       const fetchData = async (pgId) => {
         setLoading(true);
-        const { data } = await axios.get(`/secure/api/gethouse?pgId=${pgId}`);
+        const { data } = await axios.get(`/secure/api/getpg?pgId=${pgId}`);
         setPgObject(data);
       };
 
@@ -109,7 +113,7 @@ function PgAmenities() {
     formValues = initialValues;
   }
 
-  formValues.partNo = "3";
+  formValues.partNo = "4";
 
   const onSubmit = async (values) => {
     try {

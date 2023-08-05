@@ -6,6 +6,8 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Sidebar from "./SideBar/sidebar";
 import { LoadContext } from "../../../context/load-context";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const CITIES = ["Mumbai", "Bangalore", "Gurgaon", "Delhi", "Hyderabad"];
 
 function LocalityDetails() {
@@ -110,8 +112,18 @@ function LocalityDetails() {
         payLoad
       );
       navigate(`/property/manage/house/${houseId}/rental`);
-    } catch (err) {
-      console.log(err);
+    } catch (e) {
+      console.log(e);
+      toast.error(e?.response?.data?.message, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   };
 
@@ -271,6 +283,7 @@ function LocalityDetails() {
           </form>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

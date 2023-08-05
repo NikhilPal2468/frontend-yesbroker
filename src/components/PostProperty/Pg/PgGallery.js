@@ -49,7 +49,7 @@ function PgGallery() {
     try {
       const fetchImageData = async (pgId) => {
         setLoading(true);
-        const response = await axios.get(`/secure/api/getHouseImage/${pgId}`);
+        const response = await axios.get(`/secure/api/getPgImage/${pgId}`);
         if (response.data) {
           setUploadedImages([...response.data]);
         }
@@ -134,12 +134,14 @@ function PgGallery() {
     try {
       setLoading(true);
       await axios.delete(`/secure/api/pg/deleteImage/${imageId}`);
-      setLoading(false);
+
       setUploadedImages((prevImages) => {
         return prevImages.filter((curPhoto) => curPhoto.id !== imageId);
       });
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -180,7 +182,6 @@ function PgGallery() {
           <div className={`${styles.image_container}`}>
             {uploadedImages &&
               uploadedImages.map((image) => {
-                console.log(image);
                 return (
                   <div
                     className={`card ${styles.card_image}`}
