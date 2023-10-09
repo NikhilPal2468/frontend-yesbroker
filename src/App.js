@@ -36,8 +36,8 @@ import ManageUsers from "./components/AdminPortal/ManageUsers";
 import PaymentPage from "./components/PaymentPage";
 
 // axios.defaults.baseURL = "https://homewale-backend.onrender.com";
-axios.defaults.baseURL = "http://localhost:5000";
-// axios.defaults.baseURL = "https://homewale.com/api";
+// axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.baseURL = "https://homewale.com/api";
 // axios.defaults.baseURL = "http://13.200.85.135/api";
 axios.defaults.withCredentials = true;
 
