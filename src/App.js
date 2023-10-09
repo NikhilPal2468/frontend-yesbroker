@@ -33,6 +33,7 @@ import Footer from "./components/common/Footer";
 import AdminPortal from "./components/AdminPortal";
 import ErrorPage from "./components/common/ErrorPage";
 import ManageUsers from "./components/AdminPortal/ManageUsers";
+import PaymentPage from "./components/PaymentPage";
 
 // axios.defaults.baseURL = "https://homewale-backend.onrender.com";
 axios.defaults.baseURL = "http://localhost:5000";
@@ -58,6 +59,7 @@ function App() {
 
         {/* Premium page */}
         <Route path="/premium" element={<PremiumPage />} />
+        <Route path="/payment" element={<PaymentPage />} />
 
         {/* User Dashboard routes */}
         <Route

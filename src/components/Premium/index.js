@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./styles.module.css";
+import { Link } from "react-router-dom";
 
 const Premium = () => {
   return (
@@ -13,7 +14,9 @@ const Premium = () => {
             <p>Access to basic features</p>
             <p>Limited support</p>
           </div>
-          <button className={styles.planButton}>Choose Plan</button>
+          <Link to="/payment">
+            <button className={styles.planButton}>Choose Plan</button>
+          </Link>
         </div>
         <div className={styles.plan}>
           <h2>Standard</h2>
