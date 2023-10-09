@@ -269,7 +269,7 @@ const HomePage = ({ userDetails = {} }) => {
                     value="pg"
                     checked={propertyType === "pg"}
                     onChange={handlePropertyTypeChange}
-                    disabled
+                    // disabled
                   />
                   <label className="form-check-label" htmlFor="property_type2">
                     PG/Hostel

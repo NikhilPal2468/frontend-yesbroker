@@ -33,7 +33,7 @@ const HouseList = ({
         city: city,
         text: [locality],
         pgNo: "1",
-        propertyType: propertyType,
+        propertyType: "pg",
         filters: {
           bhk_type: bhkType.length === 0 ? undefined : bhkType,
           preferred_tenants:
