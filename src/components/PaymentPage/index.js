@@ -10,8 +10,8 @@ const PaymentPage = () => {
         order_id: "1234",
         currency: "INR",
         amount: "23242",
-        redirect_url: "http://homewale.com",
-        cancel_url: "http://homewale.com",
+        redirect_url: "https://homewale.com",
+        cancel_url: "https://homewale.com",
         language: "EN",
       });
       const { success = false } = data || {};
