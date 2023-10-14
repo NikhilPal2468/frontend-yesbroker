@@ -6,7 +6,7 @@ const PaymentPage = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post("/payment", {
-        merchant_id: "123",
+        merchant_id: "2902324",
         order_id: "1234",
         currency: "INR",
         amount: "23242",
