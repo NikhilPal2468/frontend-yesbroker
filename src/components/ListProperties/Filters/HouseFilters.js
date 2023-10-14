@@ -62,7 +62,7 @@ function HouseFilters({
     setReset(true);
     setBhkType([]);
     setPreferredTenants(["Both"]);
-    setPrice([0, 100000]);
+    setPrice([0, 500000]);
     setFurnishing([]);
     setParking(["Both"]);
     setWithImage(false);
@@ -152,7 +152,7 @@ function HouseFilters({
               onChange={handlePriceChange}
               valueLabelDisplay="auto"
               min={0}
-              max={100000}
+              max={500000}
               // getAriaValueText={valuetext}
             />
           </div>
