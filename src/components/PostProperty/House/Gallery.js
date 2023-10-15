@@ -133,7 +133,7 @@ function Gallery() {
                 setLoading(true);
                 axios
                   .post(
-                    `secure/api/newProperty/house/uploadImage/${houseId}`,
+                    `/secure/api/newProperty/house/uploadImage/${houseId}`,
                     formData,
                     {
                       headers: {
