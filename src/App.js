@@ -33,11 +33,12 @@ import Footer from "./components/common/Footer";
 import AdminPortal from "./components/AdminPortal";
 import ErrorPage from "./components/common/ErrorPage";
 import ManageUsers from "./components/AdminPortal/ManageUsers";
+import PgPage from "./components/SinglePage/Pg/PgPage";
 
 // axios.defaults.baseURL = "https://homewale-backend.onrender.com";
 axios.defaults.baseURL = "http://localhost:5000";
-// axios.defaults.baseURL = "https://homewale.com/api";
-// axios.defaults.baseURL = "http://13.200.85.135/api";
+//axios.defaults.baseURL = "https://homewale.com/api";
+//axios.defaults.baseURL = "http://13.200.85.135/api";
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -105,6 +106,12 @@ function App() {
         <Route
           path="/property/:id/"
           element={<HousePage userDetails={userDetails} />}
+        />
+
+        {/* single page for pg */}
+        <Route
+          path="/propertyPg/:id/"
+          element={<PgPage userDetails={userDetails} />}
         />
 
         {/* PG */}
