@@ -10,13 +10,15 @@ const PaymentPage = () => {
       const { data } = await axios.post(
         "/payment",
         {
-          merchant_id: "123",
-          order_id: "1234",
-          currency: "INR",
-          amount: "23242",
-          redirect_url: "https://homewale.com",
-          cancel_url: "https://homewale.com",
-          language: "EN",
+          data: {
+            merchant_id: "123",
+            order_id: "1234",
+            currency: "INR",
+            amount: "23242",
+            redirect_url: "https://homewale.com",
+            cancel_url: "https://homewale.com",
+            language: "EN",
+          },
         },
         {
           headers: {
