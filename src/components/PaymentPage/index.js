@@ -14,7 +14,9 @@ const PaymentPage = () => {
         cancel_url: "https://homewale.com",
         language: "EN",
       });
-      const { success = false } = data || {};
+      const { success = false, url = "" } = data || {};
+      console.log("url:", url);
+      window.location.replace(url);
       if (success === true) {
         console.log("success");
       }
