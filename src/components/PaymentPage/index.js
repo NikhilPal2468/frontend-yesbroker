@@ -1,7 +1,9 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
+import PaymentForm from "../PaymentForm";
 
 const PaymentPage = () => {
+  const [formHtml, setFormHtml] = useState("");
   const onPayment = async (e) => {
     e.preventDefault();
     try {
@@ -24,12 +26,14 @@ const PaymentPage = () => {
           },
         }
       );
-      const { success = false, url = "" } = data || {};
-      console.log("url:", url);
-      window.location.replace(url);
-      if (success === true) {
-        console.log("success");
-      }
+      // const { success = false } = data || {};
+      console.log("data:", data);
+      setFormHtml(data);
+      // console.log("url:", url);
+      // window.location.replace(url);
+      // if (success === true) {
+      //   console.log("success");
+      // }
     } catch (e) {
       console.log(e);
     }
@@ -277,6 +281,7 @@ const PaymentPage = () => {
           </tr>
         </table>
       </form>
+      <PaymentForm formHTML={formHtml} />
     </div>
   );
 };
