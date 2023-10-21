@@ -106,6 +106,8 @@ const Sidebar = ({ pathname, pgId, postPropertyPageNo }) => {
           className={`d-flex flex-column flex-sm-row justify-content-center align-items-center  w-100 p-2 mx-2 py-4 border-bottom ${addIconClass(
             "rental"
           )}`}
+          role="button"
+          onClick={(e) => handleClick(e, url3, 3)}
         >
           <div className={`${addIconClass2("rental")}`}>
             {currentPath === "rental" ? (
@@ -120,6 +122,8 @@ const Sidebar = ({ pathname, pgId, postPropertyPageNo }) => {
           className={`d-flex flex-column flex-sm-row justify-content-center align-items-center  w-100 p-2 mx-2 py-4 border-bottom ${addIconClass(
             "amenities"
           )}`}
+          role="button"
+          onClick={(e) => handleClick(e, url4, 4)}
         >
           <div className={`${addIconClass2("amenities")}`}>
             {currentPath === "amenities" ? (
@@ -134,6 +138,8 @@ const Sidebar = ({ pathname, pgId, postPropertyPageNo }) => {
           className={`d-flex flex-column flex-sm-row justify-content-center align-items-center w-100 p-2 mx-2 py-4 border-bottom ${addIconClass(
             "gallery"
           )}`}
+          role="button"
+          onClick={(e) => handleClick(e, url5, 5)}
         >
           <div className={`${addIconClass2("gallery")}`}>
             {currentPath === "gallery" ? (
