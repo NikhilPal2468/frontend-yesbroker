@@ -76,6 +76,9 @@ function Amenities() {
   const navigate = useNavigate();
   const location = useLocation();
   const { setLoading } = useContext(LoadContext);
+  const [postPropertyPageNo, setPostPropertyPageNo] = useState(0);
+
+  let curPageNo = 4;
 
   const [houseObject, setHouseObject] = useState(null);
   const { id: houseId } = useParams();
@@ -87,6 +90,8 @@ function Amenities() {
         const { data } = await axios.get(
           `/secure/api/gethouse?houseId=${houseId}`
         );
+
+        setPostPropertyPageNo(data?.post_property_page_no);
         setHouseObject(data);
       };
 
@@ -149,6 +154,7 @@ function Amenities() {
       });
     } else {
       try {
+        values.postPropertyPageNo = Math.max(postPropertyPageNo, curPageNo);
         await axios.post(
           `secure/api/newProperty/house/update/${houseId}`,
           values
@@ -256,7 +262,11 @@ function Amenities() {
     <div className="container">
       <div className={`d-flex flex-column flex-sm-row justify-content-center`}>
         <div className={`w-20 ${styles.container}`}>
-          <Sidebar pathname={location.pathname} />
+          <Sidebar
+            pathname={location.pathname}
+            houseId={houseId}
+            postPropertyPageNo={postPropertyPageNo}
+          />
         </div>
         <div
           className={`w-75 ms-2  px-4 d-flex flex-column ${styles.container}`}

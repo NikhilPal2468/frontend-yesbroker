@@ -5,10 +5,18 @@ import { MdOutlineAddHomeWork, MdAddHomeWork } from "react-icons/md";
 import { RiFridgeLine, RiFridgeFill } from "react-icons/ri";
 import { RiGalleryLine, RiGalleryFill } from "react-icons/ri";
 import styles from "./styles.module.css";
+import { useNavigate } from "react-router-dom";
 
-function sidebar({ pathname }) {
+const Sidebar = ({ pathname, houseId, postPropertyPageNo }) => {
+  const url1 = `/property/manage/house/${houseId}/property`;
+  const url2 = `/property/manage/house/${houseId}/locality`;
+  const url3 = `/property/manage/house/${houseId}/rental`;
+  const url4 = `/property/manage/house/${houseId}/amenities`;
+  const url5 = `/property/manage/house/${houseId}/gallery`;
+
   const path = pathname.split("/");
   const currentPath = path[path.length - 1];
+  const navigate = useNavigate();
 
   const addClass = (path) => {
     let classVal = "w-75 text-start";
@@ -31,7 +39,6 @@ function sidebar({ pathname }) {
   };
 
   const addIconClass2 = (path) => {
-    console.log("path:", path);
     let classVal = "w-25";
     return classVal;
   };
@@ -46,6 +53,17 @@ function sidebar({ pathname }) {
     return classVal;
   };
 
+  const handleClick = (e, url, current) => {
+    console.log(current, " ", postPropertyPageNo);
+
+    if (parseInt(current) <= parseInt(postPropertyPageNo) + 1) {
+      navigate(url);
+    } else {
+      e.preventDefault();
+      return;
+    }
+  };
+
   return (
     <div>
       <div
@@ -55,12 +73,14 @@ function sidebar({ pathname }) {
           className={`d-flex flex-column flex-sm-row justify-content-center align-items-center w-100 p-2 pb-4 border-bottom ${addIconClass(
             "property"
           )}`}
+          role="button"
+          onClick={(e) => handleClick(e, url1, 1)}
         >
           <div className={`${addIconClass2("property")}`}>
             {currentPath === "property" ? (
               <BsFillHouseFill size={30} className={`${styles.icon}`} />
             ) : (
-              <BsHouse size={30} className={`${styles.icon}`} />
+              <BsHouse size={30} className={styles.icon} />
             )}
           </div>
           <div className={`${addClass("property")}`}>Property Details</div>
@@ -69,6 +89,8 @@ function sidebar({ pathname }) {
           className={`d-flex flex-column flex-sm-row justify-content-center align-items-center w-100 p-2 mx-2 py-4 border-bottom ${addIconClass(
             "locality"
           )}`}
+          role="button"
+          onClick={(e) => handleClick(e, url2, 2)}
         >
           <div className={`${addIconClass2("locality")}`}>
             {currentPath === "locality" ? (
@@ -83,6 +105,8 @@ function sidebar({ pathname }) {
           className={`d-flex flex-column flex-sm-row justify-content-center align-items-center  w-100 p-2 mx-2 py-4 border-bottom ${addIconClass(
             "rental"
           )}`}
+          role="button"
+          onClick={(e) => handleClick(e, url3, 3)}
         >
           <div className={`${addIconClass2("rental")}`}>
             {currentPath === "rental" ? (
@@ -97,6 +121,8 @@ function sidebar({ pathname }) {
           className={`d-flex flex-column flex-sm-row justify-content-center align-items-center  w-100 p-2 mx-2 py-4 border-bottom ${addIconClass(
             "amenities"
           )}`}
+          role="button"
+          onClick={(e) => handleClick(e, url4, 4)}
         >
           <div className={`${addIconClass2("amenities")}`}>
             {currentPath === "amenities" ? (
@@ -111,6 +137,8 @@ function sidebar({ pathname }) {
           className={`d-flex flex-column flex-sm-row justify-content-center align-items-center w-100 p-2 mx-2 py-4 border-bottom ${addIconClass(
             "gallery"
           )}`}
+          role="button"
+          onClick={(e) => handleClick(e, url5, 5)}
         >
           <div className={`${addIconClass2("gallery")}`}>
             {currentPath === "gallery" ? (
@@ -174,6 +202,6 @@ function sidebar({ pathname }) {
       </div>
     </div>
   );
-}
+};
 
-export default sidebar;
+export default Sidebar;

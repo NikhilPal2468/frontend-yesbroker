@@ -5,9 +5,17 @@ import { MdOutlineAddHomeWork, MdAddHomeWork } from "react-icons/md";
 import { RiFridgeLine, RiFridgeFill } from "react-icons/ri";
 import { RiGalleryLine, RiGalleryFill } from "react-icons/ri";
 import styles from "./styles.module.css";
+import { useNavigate } from "react-router-dom";
 
-function sidebar({ pathname }) {
+const Sidebar = ({ pathname, pgId, postPropertyPageNo }) => {
+  const url1 = `/property/manage/pg/${pgId}/pgdetails`;
+  const url2 = `/property/manage/pg/${pgId}/rooms`;
+  const url3 = `/property/manage/pg/${pgId}/rental`;
+  const url4 = `/property/manage/pg/${pgId}/amenities`;
+  const url5 = `/property/manage/pg/${pgId}/gallery`;
+
   const path = pathname.split("/");
+  const navigate = useNavigate();
   const currentPath = path[path.length - 1];
 
   const addClass = (path) => {
@@ -46,6 +54,17 @@ function sidebar({ pathname }) {
     return classVal;
   };
 
+  const handleClick = (e, url, current) => {
+    console.log(current, " ", postPropertyPageNo);
+
+    if (parseInt(current) <= parseInt(postPropertyPageNo) + 1) {
+      navigate(url);
+    } else {
+      e.preventDefault();
+      return;
+    }
+  };
+
   return (
     <div>
       <div
@@ -55,9 +74,11 @@ function sidebar({ pathname }) {
           className={`d-flex flex-column flex-sm-row justify-content-center align-items-center w-100 p-2 pb-4 border-bottom ${addIconClass(
             "property"
           )}`}
+          role="button"
+          onClick={(e) => handleClick(e, url1, 1)}
         >
           <div className={`${addIconClass2("property")}`}>
-            {currentPath === "property" ? (
+            {currentPath === "pgdetails" ? (
               <BsFillHouseFill size={30} className={`${styles.icon}`} />
             ) : (
               <BsHouse size={30} className={`${styles.icon}`} />
@@ -69,6 +90,8 @@ function sidebar({ pathname }) {
           className={`d-flex flex-column flex-sm-row justify-content-center align-items-center w-100 p-2 mx-2 py-4 border-bottom ${addIconClass(
             "locality"
           )}`}
+          role="button"
+          onClick={(e) => handleClick(e, url2, 2)}
         >
           <div className={`${addIconClass2("locality")}`}>
             {currentPath === "locality" ? (
@@ -175,6 +198,6 @@ function sidebar({ pathname }) {
       ;
     </div>
   );
-}
+};
 
-export default sidebar;
+export default Sidebar;

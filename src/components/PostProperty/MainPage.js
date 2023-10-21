@@ -28,17 +28,6 @@ function MainPage() {
   const navigate = useNavigate();
   const { setShowLogin } = useContext(AuthContext);
 
-  const [showPopover, setShowPopover] = useState(false);
-  const [popoverContent, setPopoverContent] = useState("");
-
-  const handleShowPopover = () => {
-    setPopoverContent("Coming Soon");
-    setShowPopover(true);
-  };
-  const handleHidePopover = () => {
-    setShowPopover(false);
-  };
-
   const onSubmit = async (values) => {
     try {
       if (values.propertyType === "house") {
@@ -54,8 +43,8 @@ function MainPage() {
           "/secure/api/newProperty/pg/create",
           values
         );
-        const pg = data.house;
-        navigate(`/property/manage/pg/${pg.id}/room`);
+        const pg = data.pg;
+        navigate(`/property/manage/pg/${pg.id}/pgdetails`);
       }
     } catch (e) {
       console.log(e);
@@ -155,15 +144,8 @@ function MainPage() {
                         House || Flat
                       </label>
                     </div>
-                    <div
-                      className="w-100"
-                      onMouseEnter={() => {
-                        handleShowPopover();
-                      }}
-                      onMouseLeave={() => {
-                        handleHidePopover();
-                      }}
-                    >
+
+                    <div className="w-100">
                       <Field
                         type="radio"
                         id="propertyType2"
@@ -171,24 +153,14 @@ function MainPage() {
                         checked={values.propertyType === "pg"}
                         value="pg"
                         className={`${styles.input_radio}`}
-                        disabled
                       />
                       <label
                         htmlFor="propertyType2"
-                        className={`${styles.input_label} ${styles.inactive}`}
+                        className={`${styles.input_label}`}
                         role="button"
                       >
                         Hostel || PG
                       </label>
-                      <div
-                        className={`${styles.popover} ${
-                          showPopover
-                            ? styles.show_popover
-                            : styles.hide_popover
-                        }`}
-                      >
-                        {popoverContent}
-                      </div>
                     </div>
                   </div>
                   <ErrorMessage name="propertyType" component={PostFormError} />

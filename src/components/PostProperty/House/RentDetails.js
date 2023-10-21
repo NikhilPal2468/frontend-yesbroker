@@ -66,8 +66,11 @@ function RentDetails() {
   const { setLoading } = useContext(LoadContext);
 
   const [houseObject, setHouseObject] = useState(null);
+  const [postPropertyPageNo, setPostPropertyPageNo] = useState(0);
 
   const { id: houseId } = useParams();
+
+  let curPageNo = 3;
 
   const formatDate = (date) => {
     const dateObj = new Date(date);
@@ -88,6 +91,9 @@ function RentDetails() {
         if (data.available_from !== null) {
           data.available_from = formatDate(data.available_from);
         }
+
+        setPostPropertyPageNo(data?.post_property_page_no);
+
         setHouseObject(data);
       };
 
@@ -129,6 +135,8 @@ function RentDetails() {
 
   const onSubmit = async (values) => {
     try {
+      values.postPropertyPageNo = Math.max(postPropertyPageNo, curPageNo);
+
       await axios.post(
         `secure/api/newProperty/house/update/${houseId}`,
         values
@@ -153,7 +161,11 @@ function RentDetails() {
     <div className={`container`}>
       <div className={`d-flex flex-column flex-sm-row justify-content-center`}>
         <div className={`w-20 ${styles.container}`}>
-          <Sidebar pathname={location.pathname} />
+          <Sidebar
+            pathname={location.pathname}
+            houseId={houseId}
+            postPropertyPageNo={postPropertyPageNo}
+          />
         </div>
         <div
           className={`w-75 ms-2 px-4 d-flex flex-column ${styles.container}`}

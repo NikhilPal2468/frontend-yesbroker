@@ -1,17 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styles from "./styles.module.css";
 import { Button } from "react-bootstrap";
 import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Sidebar from "./SideBar/sidebar";
+import { LoadContext } from "../../../context/load-context";
 
 const CITIES = ["Mumbai", "Bangalore", "Gurgaon", "Delhi", "Hyderabad"];
 
 function PgLocality() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { setLoading } = useContext(LoadContext);
 
   const { id: pgId } = useParams();
+  const [postPropertyPageNo, setPostPropertyPageNo] = useState(0);
+
+  let curPageNo = 1;
 
   const [city, setCity] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -19,25 +24,24 @@ function PgLocality() {
   const [street, setStreet] = useState("");
   const [suggestionList, setSuggestionList] = useState([]);
 
-  //   useEffect(() => {
-  //     try {
-  //       const fetchData = async (pgId) => {
-  //         setLoading(true);
-  //         const { data } = await axios.get(
-  //           `/secure/api/getPg?pgId=${pgId}`
-  //         );
+  useEffect(() => {
+    try {
+      const fetchData = async (pgId) => {
+        setLoading(true);
+        const { data } = await axios.get(`/secure/api/getPg?pgId=${pgId}`);
 
-  //         setLoading(false);
-  //         setCity(data?.city);
-  //         setLocality(data?.locality);
-  //         setStreet(data?.street);
-  //       };
+        setLoading(false);
+        setCity(data?.city);
+        setLocality(data?.locality);
+        setStreet(data?.street);
+        setPostPropertyPageNo(data?.postPropertyPageNo);
+      };
 
-  //       fetchData(pgId);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   }, [pgId]);
+      fetchData(pgId);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [pgId]);
 
   const handleCityChange = (e) => {
     setCity(e.target.value);
@@ -87,6 +91,7 @@ function PgLocality() {
       locality: locality,
       street: street,
       partNo: "2",
+      postPropertyPageNo: Math.max(postPropertyPageNo, curPageNo),
     };
 
     try {

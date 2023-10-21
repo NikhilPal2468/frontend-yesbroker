@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Sidebar from "./SideBar/sidebar";
 import styles from "./styles.module.css";
 import * as Yup from "yup";
@@ -76,23 +76,26 @@ function PgAmenities() {
 
   const [pgObject, setPgObject] = useState(null);
   const { id: pgId } = useParams();
+  const [postPropertyPageNo, setPostPropertyPageNo] = useState(0);
 
-  //   useEffect(() => {
-  //     try {
-  //       const fetchData = async (pgId) => {
-  //         setLoading(true);
-  //         const { data } = await axios.get(
-  //           `/secure/api/gethouse?pgId=${pgId}`
-  //         );
-  //         setLoading(false);
-  //         setPgObject(data);
-  //       };
+  let curPageNo = 4;
 
-  //       fetchData(pgId);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   }, [pgId]);
+  useEffect(() => {
+    try {
+      const fetchData = async (pgId) => {
+        setLoading(true);
+        const { data } = await axios.get(`/secure/api/gethouse?pgId=${pgId}`);
+
+        setPgObject(data);
+        setPostPropertyPageNo(data?.postPropertyPageNo);
+        setLoading(false);
+      };
+
+      fetchData(pgId);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [pgId]);
 
   let formValues = {};
 
@@ -120,6 +123,7 @@ function PgAmenities() {
 
   const onSubmit = async (values) => {
     try {
+      values = Math.max(postPropertyPageNo, curPageNo);
       await axios.post(`secure/api/newProperty/pg/update/${pgId}`, values);
 
       navigate(`/property/manage/pg/${pgId}/gallery`);

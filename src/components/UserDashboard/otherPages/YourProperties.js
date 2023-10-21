@@ -4,9 +4,11 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import PropertyCard from "./PropertyCard";
 import styles from "../styles.module.css";
+
 function YourProperties() {
   const { propertyType } = useParams();
   const [listings, setListings] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {

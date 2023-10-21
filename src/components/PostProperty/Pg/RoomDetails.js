@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Button } from "react-bootstrap";
@@ -7,6 +7,7 @@ import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Sidebar from "./SideBar/sidebar";
 import styles from "./styles.module.css";
+import { LoadContext } from "../../../context/load-context";
 
 import { BiBed } from "react-icons/bi";
 
@@ -50,26 +51,31 @@ function RoomDetails() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const pgObject = null;
+  const { setLoading } = useContext(LoadContext);
+
   // const [pgObject, setPgObject] = useState(null);
   const { id: pgId } = useParams();
+  const [postPropertyPageNo, setPostPropertyPageNo] = useState(0);
+  const [pgObject, setPgObject] = useState(null);
 
-  //   useEffect(() => {
-  //     try {
-  //       setLoading(true);
-  //       const fetchData = async (pgId) => {
-  //         const { data } = await axios.get(`/secure/api/gethouse?pgId=${pgId}`);
+  let curPageNo = 3;
+  useEffect(() => {
+    try {
+      setLoading(true);
+      const fetchData = async (pgId) => {
+        const { data } = await axios.get(`/secure/api/gethouse?pgId=${pgId}`);
 
-  //         console.log(pgId, data);
-  //         setPgObject(data);
-  //       };
-  //       fetchData(pgId);
-  //       setLoading(false);
-  //     } catch (err) {
-  //       setLoading(false);
-  //       console.log(err);
-  //     }
-  //   }, [pgId]);
+        console.log(pgId, data);
+        setPgObject(data);
+        setPostPropertyPageNo(data?.postPropertyPageNo);
+      };
+      fetchData(pgId);
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
+    }
+  }, [pgId]);
 
   let formValues = {};
 
@@ -97,6 +103,7 @@ function RoomDetails() {
 
   const onSubmit = async (values) => {
     try {
+      values.postPropertyPageNo = Math.max(postPropertyPageNo, curPageNo);
       await axios.post(`secure/api/newProperty/pg/update/${pgId}`, values);
       navigate(`/property/manage/pg/${pgId}/locality`);
     } catch (err) {
@@ -108,7 +115,11 @@ function RoomDetails() {
     <div className={`container`}>
       <div className={`d-flex flex-column flex-sm-row justify-content-center`}>
         <div className={`w-20 ${styles.container}`}>
-          <Sidebar pathname={location.pathname} />
+          <Sidebar
+            pathname={location.pathname}
+            pgId={pgId}
+            postPropertyPageNo={postPropertyPageNo}
+          />
         </div>
         <div
           className={`w-75 ms-2 px-4 d-flex flex-column ${styles.container}`}

@@ -21,7 +21,11 @@ function PgGallery() {
   const location = useLocation();
   const { setLoading } = useContext(LoadContext);
 
-  const { id: houseId } = useParams();
+  const { id: pgId } = useParams();
+  const [postPropertyPageNo, setPostPropertyPageNo] = useState(0);
+
+  let curPageNo = 4;
+
   const [imageFiles, setImageFiles] = useState([]);
   const [uploadedImages, setUploadedImages] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -47,23 +51,21 @@ function PgGallery() {
   // To load images saved in db on intial load or refresh
   useEffect(() => {
     try {
-      const fetchImageData = async (houseId) => {
+      const fetchImageData = async (pgId) => {
         setLoading(true);
-        const response = await axios.get(
-          `/secure/api/getHouseImage/${houseId}`
-        );
+        const response = await axios.get(`/secure/api/getHouseImage/${pgId}`);
         if (response.data) {
           setUploadedImages([...response.data]);
         }
         setLoading(false);
       };
 
-      fetchImageData(houseId);
+      fetchImageData(pgId);
     } catch (err) {
       setLoading(false);
       console.log(err);
     }
-  }, [houseId]);
+  }, [pgId]);
 
   // To update uploaded images state on new image upload
   useEffect(() => {
@@ -79,7 +81,7 @@ function PgGallery() {
       try {
         setLoading(true);
         const response = await axios.post(
-          `secure/api/newProperty/house/uploadImage/${houseId}`,
+          `secure/api/newProperty/house/uploadImage/${pgId}`,
           formData,
           {
             headers: {
@@ -104,7 +106,7 @@ function PgGallery() {
     };
 
     uploadImages();
-  }, [imageFiles, houseId]);
+  }, [imageFiles, pgId]);
 
   // To handle description change for each image
   const handleDescriptionChange = async (e, imageId) => {
