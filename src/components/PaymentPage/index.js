@@ -7,25 +7,17 @@ const PaymentPage = () => {
   const onPayment = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(
-        "/payment",
-        {
-          data: {
-            merchant_id: "2902324",
-            order_id: "1234",
-            currency: "INR",
-            amount: "20",
-            redirect_url: "https://homewale.com",
-            cancel_url: "https://homewale.com",
-            language: "EN",
-          },
+      const { data } = await axios.post("/payment", {
+        data: {
+          merchant_id: "2902324",
+          order_id: "1234",
+          currency: "INR",
+          amount: 20,
+          redirect_url: "https://homewale.com",
+          cancel_url: "https://homewale.com",
+          language: "EN",
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      });
       // const { success = false } = data || {};
       console.log("data:", data);
       setFormHtml(data);
