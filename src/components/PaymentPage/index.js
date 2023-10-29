@@ -1,11 +1,13 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import PaymentForm from "../PaymentForm";
 import styles from "./styles.module.css";
 import { RiSecurePaymentLine } from "react-icons/ri";
 import { useSelector } from "react-redux";
+import { AuthContext } from "../../context/AuthContext";
 
 const PaymentPage = () => {
+  const { setShowLogin } = useContext(AuthContext);
   const [formHtml, setFormHtml] = useState("");
   const userDetails = useSelector((state) => state.user?.userDetails);
   const urlSearchParams = new URLSearchParams(window.location.search);
@@ -15,31 +17,35 @@ const PaymentPage = () => {
   const amount = params.amount || 599;
   const onPayment = async (e) => {
     e.preventDefault();
-    const { id } = userDetails;
-    const timestamp = Date.now();
-    const orderId = `${id.slice(0, 5)}-${timestamp}`;
-    try {
-      const { data } = await axios.post("/payment", {
-        data: {
-          merchant_id: 2902324,
-          order_id: orderId,
-          amount: amount * 1.18,
-          currency: `INR`,
-          redirect_url: `https://homewale.com/api`,
-          cancel_url: `https://homewale.com/api`,
-          language: `EN`,
-        },
-      });
-      // const { success = false } = data || {};
-      console.log("data:", data);
-      setFormHtml(data);
-      // console.log("url:", url);
-      // window.location.replace(url);
-      // if (success === true) {
-      //   console.log("success");
-      // }
-    } catch (e) {
-      console.log(e);
+    const id = userDetails?.id;
+    if (id) {
+      const timestamp = Date.now();
+      const orderId = `${id.slice(0, 5)}-${timestamp}`;
+      try {
+        const { data } = await axios.post("/secure/api/payment", {
+          data: {
+            merchant_id: 2902324,
+            order_id: orderId,
+            amount: amount * 1.18,
+            currency: `INR`,
+            redirect_url: `https://homewale.com/api`,
+            cancel_url: `https://homewale.com/api`,
+            language: `EN`,
+          },
+        });
+        // const { success = false } = data || {};
+        console.log("data:", data);
+        setFormHtml(data);
+        // console.log("url:", url);
+        // window.location.replace(url);
+        // if (success === true) {
+        //   console.log("success");
+        // }
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      setShowLogin(true);
     }
   };
   return (
