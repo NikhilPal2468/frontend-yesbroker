@@ -25,8 +25,8 @@ const PaymentPage = () => {
           order_id: orderId,
           amount: amount * 1.18,
           currency: `INR`,
-          redirect_url: `https://homewale.com`,
-          cancel_url: `https://homewale.com`,
+          redirect_url: `https://homewale.com/api`,
+          cancel_url: `https://homewale.com/api`,
           language: `EN`,
         },
       });
