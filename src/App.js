@@ -59,7 +59,10 @@ function App() {
 
         {/* Premium page */}
         <Route path="/premium" element={<PremiumPage />} />
-        <Route path="/payment" element={<PaymentPage />} />
+        <Route
+          path="/payment"
+          element={<PaymentPage userDetails={userDetails} />}
+        />
 
         {/* User Dashboard routes */}
         <Route

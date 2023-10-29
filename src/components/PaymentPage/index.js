@@ -3,13 +3,13 @@ import React, { useContext, useState } from "react";
 import PaymentForm from "../PaymentForm";
 import styles from "./styles.module.css";
 import { RiSecurePaymentLine } from "react-icons/ri";
-import { useSelector } from "react-redux";
+
 import { AuthContext } from "../../context/AuthContext";
 
-const PaymentPage = () => {
+const PaymentPage = ({ userDetails = {} }) => {
   const { setShowLogin } = useContext(AuthContext);
   const [formHtml, setFormHtml] = useState("");
-  const userDetails = useSelector((state) => state.user?.userDetails);
+
   const urlSearchParams = new URLSearchParams(window.location.search);
   const params = Object.fromEntries(urlSearchParams.entries());
 
