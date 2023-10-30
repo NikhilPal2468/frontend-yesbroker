@@ -96,7 +96,7 @@ function PgLocality() {
 
     try {
       await axios.post(`secure/api/newProperty/pg/update/${pgId}`, payLoad);
-      navigate(`/property/manage/pg/${pgId}/pgdetails`);
+      navigate(`/property/manage/pg/${pgId}/rooms`);
     } catch (err) {
       console.log(err);
     }
