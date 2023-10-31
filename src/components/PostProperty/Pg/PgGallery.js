@@ -21,7 +21,7 @@ function PgGallery() {
   const location = useLocation();
   const { setLoading } = useContext(LoadContext);
 
-  const { id: houseId } = useParams();
+  const { id: pgId } = useParams();
   const [imageFiles, setImageFiles] = useState([]);
   const [uploadedImages, setUploadedImages] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -47,23 +47,21 @@ function PgGallery() {
   // To load images saved in db on intial load or refresh
   useEffect(() => {
     try {
-      const fetchImageData = async (houseId) => {
+      const fetchImageData = async (pgId) => {
         setLoading(true);
-        const response = await axios.get(
-          `/secure/api/getHouseImage/${houseId}`
-        );
+        const response = await axios.get(`/secure/api/getPgImage/${pgId}`);
         if (response.data) {
           setUploadedImages([...response.data]);
         }
         setLoading(false);
       };
 
-      fetchImageData(houseId);
+      fetchImageData(pgId);
     } catch (err) {
       setLoading(false);
       console.log(err);
     }
-  }, [houseId]);
+  }, [pgId]);
 
   // To update uploaded images state on new image upload
   useEffect(() => {
@@ -79,7 +77,7 @@ function PgGallery() {
       try {
         setLoading(true);
         const response = await axios.post(
-          `secure/api/newProperty/house/uploadImage/${houseId}`,
+          `/secure/api/newProperty/pg/uploadImage/${pgId}`,
           formData,
           {
             headers: {
@@ -104,7 +102,7 @@ function PgGallery() {
     };
 
     uploadImages();
-  }, [imageFiles, houseId]);
+  }, [imageFiles, pgId]);
 
   // To handle description change for each image
   const handleDescriptionChange = async (e, imageId) => {
@@ -112,7 +110,7 @@ function PgGallery() {
 
     try {
       await axios.put(
-        `/secure/api/house/uploadImage/change-description/${imageId}`,
+        `/secure/api/pg/uploadImage/change-description/${imageId}`,
         {
           description: description,
         }
@@ -135,13 +133,15 @@ function PgGallery() {
   const handleDelete = async (e, imageId) => {
     try {
       setLoading(true);
-      await axios.delete(`/secure/api/house/deleteImage/${imageId}`);
-      setLoading(false);
+      await axios.delete(`/secure/api/pg/deleteImage/${imageId}`);
+
       setUploadedImages((prevImages) => {
         return prevImages.filter((curPhoto) => curPhoto.id !== imageId);
       });
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -182,7 +182,6 @@ function PgGallery() {
           <div className={`${styles.image_container}`}>
             {uploadedImages &&
               uploadedImages.map((image) => {
-                console.log(image);
                 return (
                   <div
                     className={`card ${styles.card_image}`}

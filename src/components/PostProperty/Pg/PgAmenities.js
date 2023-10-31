@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Sidebar from "./SideBar/sidebar";
 import styles from "./styles.module.css";
 import * as Yup from "yup";
@@ -8,7 +8,7 @@ import PostFormError from "../PostFormError";
 import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import CustomPhoneInput from "../../Authentication/Register/CustomPhoneInput";
-import { AMENITIES } from "../../constants";
+import { PgAMENITIES } from "../../constants";
 import { LoadContext } from "../../../context/load-context";
 
 const WATER_SUPPLY = [
@@ -18,55 +18,53 @@ const WATER_SUPPLY = [
 ];
 
 const initialValues = {
-  bathrooms_count: 0,
-  balcony_count: 0,
+  ac: false,
+  attached_bathroom: false,
+  fridge: false,
+  water_filter: false,
+  washing_machine: false,
+  tv: false,
+  geyser: false,
+  two_wheeler_parking: false,
+  four_wheeler_parking: false,
+  lift: false,
+  cctv: false,
+  power_backup: false,
+  gated_security: false,
+  wifi: false,
+  fire_safety: false,
+  club_house: false,
+  room_cleaning: false,
+  tt_table: false,
   water_supply: "",
   secondary_number: "",
   gym: false,
-  gated_security: false,
-  lift: false,
-  ac: false,
-  geyser: false,
-  washing_machine: false,
-  water_filter: false,
-  cctv: false,
-  fridge: false,
-  swimming_pool: false,
-  tv: false,
-  power_backup: false,
-  gas_pipeline: false,
-  fire_safety: false,
-  club_house: false,
-  wifi: false,
-  park: false,
-  visitor_parking: false,
-  shopping_center: false,
+  cooking_allowed: false,
 };
 
 const validationSchema = Yup.object({
-  bathrooms_count: Yup.number().min(0),
-  balcony_count: Yup.number().min(0),
-  water_supply: Yup.string().required("Information required"),
-  gym: Yup.boolean(),
-  gated_security: Yup.boolean(),
-  fridge: Yup.boolean(),
   ac: Yup.boolean(),
-  geyser: Yup.boolean(),
-  tv: Yup.boolean(),
-  swimming_pool: Yup.boolean(),
-  shopping_center: Yup.boolean(),
-  cctv: Yup.boolean(),
+  attached_bathroom: Yup.boolean(),
+  fridge: Yup.boolean(),
+  water_filter: Yup.boolean(),
   washing_machine: Yup.boolean(),
-  microwave: Yup.boolean(),
+  tv: Yup.boolean(),
+  geyser: Yup.boolean(),
+  two_wheeler_parking: Yup.boolean(),
+  four_wheeler_parking: Yup.boolean(),
+  lift: Yup.boolean(),
+  cctv: Yup.boolean(),
   power_backup: Yup.boolean(),
-  gas_pipeline: Yup.boolean(),
+  gated_security: Yup.boolean(),
+  wifi: Yup.boolean(),
   fire_safety: Yup.boolean(),
   club_house: Yup.boolean(),
-  water_filter: Yup.boolean(),
-  wifi: Yup.boolean(),
-  visitor_parking: Yup.boolean(),
-  lift: Yup.boolean(),
-  park: Yup.boolean(),
+  room_cleaning: Yup.boolean(),
+  tt_table: Yup.boolean(),
+  water_supply: Yup.string(),
+  secondary_number: Yup.string(),
+  gym: Yup.boolean(),
+  cooking_allowed: Yup.boolean(),
 });
 
 function PgAmenities() {
@@ -77,22 +75,21 @@ function PgAmenities() {
   const [pgObject, setPgObject] = useState(null);
   const { id: pgId } = useParams();
 
-  //   useEffect(() => {
-  //     try {
-  //       const fetchData = async (pgId) => {
-  //         setLoading(true);
-  //         const { data } = await axios.get(
-  //           `/secure/api/gethouse?pgId=${pgId}`
-  //         );
-  //         setLoading(false);
-  //         setPgObject(data);
-  //       };
+  useEffect(() => {
+    try {
+      const fetchData = async (pgId) => {
+        setLoading(true);
+        const { data } = await axios.get(`/secure/api/getpg?pgId=${pgId}`);
+        setPgObject(data);
+      };
 
-  //       fetchData(pgId);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   }, [pgId]);
+      fetchData(pgId);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  }, [pgId]);
 
   let formValues = {};
 
@@ -120,7 +117,7 @@ function PgAmenities() {
 
   const onSubmit = async (values) => {
     try {
-      await axios.post(`secure/api/newProperty/pg/update/${pgId}`, values);
+      await axios.post(`/secure/api/newProperty/pg/update/${pgId}`, values);
 
       navigate(`/property/manage/pg/${pgId}/gallery`);
     } catch (err) {
@@ -130,7 +127,7 @@ function PgAmenities() {
   const renderAmenities = () => {
     const renderedItems = [];
 
-    for (let i = 0; i <= AMENITIES.length - 4; i += 4) {
+    for (let i = 0; i <= PgAMENITIES.length - 4; i += 4) {
       renderedItems.push(
         <div className="container d-flex mx-auto mb-2 w-100" key={i}>
           <div className="d-flex gap-1 align-items-center w-100 gap-2">
@@ -138,29 +135,29 @@ function PgAmenities() {
               <div className="d-flex align-items-center justify-content-center w-100">
                 <Field
                   type="checkbox"
-                  name={AMENITIES[i].key}
-                  id={AMENITIES[i].key}
+                  name={PgAMENITIES[i].key}
+                  id={PgAMENITIES[i].key}
                   className={`${styles.input_checkbox} w-25`}
                 />
                 <label
                   className={`${styles.input_label}  p-2 p-2 py-4 w-100`}
-                  htmlFor={AMENITIES[i].key}
+                  htmlFor={PgAMENITIES[i].key}
                 >
-                  {AMENITIES[i].icon} {AMENITIES[i].label}
+                  {PgAMENITIES[i].icon} {PgAMENITIES[i].label}
                 </label>
               </div>
               <div className="d-flex align-items-center justify-content-center w-100">
                 <Field
                   type="checkbox"
-                  name={AMENITIES[i + 1].key}
-                  id={AMENITIES[i + 1].key}
+                  name={PgAMENITIES[i + 1].key}
+                  id={PgAMENITIES[i + 1].key}
                   className={`${styles.input_checkbox} w-25`}
                 />
                 <label
                   className={`${styles.input_label}  p-2 p-2 py-4 w-100`}
-                  htmlFor={AMENITIES[i + 1].key}
+                  htmlFor={PgAMENITIES[i + 1].key}
                 >
-                  {AMENITIES[i + 1].icon} {AMENITIES[i + 1].label}
+                  {PgAMENITIES[i + 1].icon} {PgAMENITIES[i + 1].label}
                 </label>
               </div>
             </div>
@@ -168,29 +165,29 @@ function PgAmenities() {
               <div className="d-flex align-items-center justify-content-center w-100">
                 <Field
                   type="checkbox"
-                  name={AMENITIES[i + 2].key}
-                  id={AMENITIES[i + 2].key}
+                  name={PgAMENITIES[i + 2].key}
+                  id={PgAMENITIES[i + 2].key}
                   className={`${styles.input_checkbox} w-25`}
                 />
                 <label
                   className={`${styles.input_label}  p-2 p-2 py-4 w-100`}
-                  htmlFor={AMENITIES[i + 2].key}
+                  htmlFor={PgAMENITIES[i + 2].key}
                 >
-                  {AMENITIES[i + 2].icon} {AMENITIES[i + 2].label}
+                  {PgAMENITIES[i + 2].icon} {PgAMENITIES[i + 2].label}
                 </label>
               </div>
               <div className="d-flex align-items-center justify-content-center w-100">
                 <Field
                   type="checkbox"
-                  name={AMENITIES[i + 3].key}
-                  id={AMENITIES[i + 3].key}
+                  name={PgAMENITIES[i + 3].key}
+                  id={PgAMENITIES[i + 3].key}
                   className={`${styles.input_checkbox} w-25`}
                 />
                 <label
                   className={`${styles.input_label}  p-2 p-2 py-4 w-100`}
-                  htmlFor={AMENITIES[i + 3].key}
+                  htmlFor={PgAMENITIES[i + 3].key}
                 >
-                  {AMENITIES[i + 3].icon} {AMENITIES[i + 3].label}
+                  {PgAMENITIES[i + 3].icon} {PgAMENITIES[i + 3].label}
                 </label>
               </div>
             </div>
@@ -218,7 +215,7 @@ function PgAmenities() {
             onSubmit={onSubmit}
             enableReinitialize
           >
-            {({ values, setFieldValue }) => (
+            {({ values }) => (
               <Form className="w-100 p-2 px-4">
                 {/* Bathroom Count */}
                 <div className="d-flex flex-column flex-sm-row align-items-center justify-content-around w-100 gap-4"></div>

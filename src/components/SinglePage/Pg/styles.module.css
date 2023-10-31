@@ -1,0 +1,47 @@
+.container {
+  margin: 0 44px;
+  padding: 0 16px;
+}
+
+.amenitiesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  gap: 2rem;
+  align-items: center;
+}
+
+.amenity {
+  display: flex;
+  padding: 1rem 2rem;
+  gap: 1rem;
+}
+
+@media (max-width: 1000px) {
+  .container {
+    margin: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .amenitiesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .amenity {
+    display: flex;
+    width: 45%;
+  }
+}
+
+@media (max-width: 380px) {
+  .amenity {
+    display: flex;
+    width: 30%;
+  }
+}

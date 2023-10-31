@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Button } from "react-bootstrap";
@@ -9,6 +9,7 @@ import Sidebar from "./SideBar/sidebar";
 import styles from "./styles.module.css";
 
 import { BiBed } from "react-icons/bi";
+import { LoadContext } from "../../../context/load-context";
 
 const initialValues = {
   single_room: false,
@@ -46,30 +47,31 @@ const validationSchema = Yup.object({
   four_room_deposit: Yup.number().min(0),
 });
 
-function RoomDetails() {
+function RentalDetails() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const pgObject = null;
-  // const [pgObject, setPgObject] = useState(null);
+  const [pgObject, setPgObject] = useState(null);
+  const { setLoading } = useContext(LoadContext);
+
   const { id: pgId } = useParams();
 
-  //   useEffect(() => {
-  //     try {
-  //       setLoading(true);
-  //       const fetchData = async (pgId) => {
-  //         const { data } = await axios.get(`/secure/api/gethouse?pgId=${pgId}`);
+  useEffect(() => {
+    try {
+      setLoading(true);
+      const fetchData = async (pgId) => {
+        const { data } = await axios.get(`/secure/api/getpg?pgId=${pgId}`);
 
-  //         console.log(pgId, data);
-  //         setPgObject(data);
-  //       };
-  //       fetchData(pgId);
-  //       setLoading(false);
-  //     } catch (err) {
-  //       setLoading(false);
-  //       console.log(err);
-  //     }
-  //   }, [pgId]);
+        console.log(pgId, data);
+        setPgObject(data);
+      };
+      fetchData(pgId);
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
+    }
+  }, [pgId]);
 
   let formValues = {};
 
@@ -93,12 +95,12 @@ function RoomDetails() {
     formValues = initialValues;
   }
 
-  formValues.partNo = "1";
+  formValues.partNo = "3";
 
   const onSubmit = async (values) => {
     try {
-      await axios.post(`secure/api/newProperty/pg/update/${pgId}`, values);
-      navigate(`/property/manage/pg/${pgId}/locality`);
+      await axios.post(`/secure/api/newProperty/pg/update/${pgId}`, values);
+      navigate(`/property/manage/pg/${pgId}/amenities`);
     } catch (err) {
       console.log(err);
     }
@@ -113,7 +115,7 @@ function RoomDetails() {
         <div
           className={`w-75 ms-2 px-4 d-flex flex-column ${styles.container}`}
         >
-          <h5 className="ps-4 py-4 border-bottom">Property Details</h5>
+          <h5 className="ps-4 py-4 border-bottom">Rental Details</h5>
           <Formik
             initialValues={formValues}
             validationSchema={validationSchema}
@@ -246,12 +248,12 @@ function RoomDetails() {
                             <label htmlFor="rent">Rent</label>
                             <Field
                               type="number"
-                              id="single_room_rent"
-                              name="single_room_rent"
+                              id="double_room_rent"
+                              name="double_room_rent"
                               className="form-control"
                             />
                             <ErrorMessage
-                              name="single_room_rent"
+                              name="double_room_rent"
                               component={PostFormError}
                             />
                           </div>
@@ -262,8 +264,8 @@ function RoomDetails() {
                           <label htmlFor="deposit">Deposit</label>
                           <Field
                             type="number"
-                            id="single_room_deposit"
-                            name="single_room_deposit"
+                            id="double_room_deposit"
+                            name="double_room_deposit"
                             className="form-control"
                           />
                           <ErrorMessage
@@ -282,12 +284,12 @@ function RoomDetails() {
                             <label htmlFor="rent">Rent</label>
                             <Field
                               type="number"
-                              id="single_room_rent"
-                              name="single_room_rent"
+                              id="triple_room_rent"
+                              name="triple_room_rent"
                               className="form-control"
                             />
                             <ErrorMessage
-                              name="single_room_rent"
+                              name="triple_room_rent"
                               component={PostFormError}
                             />
                           </div>
@@ -298,12 +300,12 @@ function RoomDetails() {
                           <label htmlFor="deposit">Deposit</label>
                           <Field
                             type="number"
-                            id="single_room_deposit"
-                            name="single_room_deposit"
+                            id="triple_room_deposit"
+                            name="triple_room_deposit"
                             className="form-control"
                           />
                           <ErrorMessage
-                            name="single_room_deposit"
+                            name="triple_room_deposit"
                             component={PostFormError}
                           />
                         </div>
@@ -318,12 +320,12 @@ function RoomDetails() {
                             <label htmlFor="rent">Rent</label>
                             <Field
                               type="number"
-                              id="single_room_rent"
-                              name="single_room_rent"
+                              id="four_room_rent"
+                              name="four_room_rent"
                               className="form-control"
                             />
                             <ErrorMessage
-                              name="single_room_rent"
+                              name="four_room_rent"
                               component={PostFormError}
                             />
                           </div>
@@ -334,12 +336,12 @@ function RoomDetails() {
                           <label htmlFor="deposit">Deposit</label>
                           <Field
                             type="number"
-                            id="single_room_deposit"
-                            name="single_room_deposit"
+                            id="four_room_deposit"
+                            name="four_room_deposit"
                             className="form-control"
                           />
                           <ErrorMessage
-                            name="single_room_deposit"
+                            name="four_room_deposit"
                             component={PostFormError}
                           />
                         </div>
@@ -363,4 +365,4 @@ function RoomDetails() {
   );
 }
 
-export default RoomDetails;
+export default RentalDetails;

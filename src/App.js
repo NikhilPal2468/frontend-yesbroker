@@ -23,10 +23,10 @@ import Gallery from "./components/PostProperty/House/Gallery";
 
 import HousePage from "./components/SinglePage/House/HousePage";
 import Loader from "./components/Loader";
-import RoomDetails from "./components/PostProperty/Pg/RoomDetails";
+import RentalDetails from "./components/PostProperty/Pg/RentalDetails";
 import PgLocality from "./components/PostProperty/Pg/PgLocality";
+import PgAmenities from "./components/PostProperty/Pg/PgAmenities";
 import PgDetails from "./components/PostProperty/Pg/PgDetails";
-
 import { useSelector } from "react-redux";
 import VerifyEmail from "./components/Authentication/VerifyEmail";
 import Footer from "./components/common/Footer";
@@ -34,9 +34,12 @@ import Footer from "./components/common/Footer";
 import ErrorPage from "./components/common/ErrorPage";
 import ManageUsers from "./components/AdminPortal/ManageUsers";
 import ManageProperties from "./components/AdminPortal/ManageProperties";
+import PgPage from "./components/SinglePage/Pg/PgPage";
+import PgGallery from "./components/PostProperty/Pg/PgGallery";
+import PaymentPage from "./components/PaymentPage";
 
 // axios.defaults.baseURL = "https://homewale-backend.onrender.com";
-axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.baseURL = "http://localhost:5001";
 // axios.defaults.baseURL = "https://homewale.com/api";
 // axios.defaults.baseURL = "http://13.200.85.135/api";
 axios.defaults.withCredentials = true;
@@ -59,6 +62,10 @@ function App() {
 
         {/* Premium page */}
         <Route path="/premium" element={<PremiumPage />} />
+        <Route
+          path="/payment"
+          element={<PaymentPage userDetails={userDetails} />}
+        />
 
         {/* User Dashboard routes */}
         <Route
@@ -108,16 +115,30 @@ function App() {
           element={<HousePage userDetails={userDetails} />}
         />
 
+        {/* single page for pg */}
+        <Route
+          path="/propertyPg/:id/"
+          element={<PgPage userDetails={userDetails} />}
+        />
+
         {/* PG */}
-        <Route path="/property/manage/pg/:id/room" element={<RoomDetails />} />
+        <Route
+          path="/property/manage/pg/:id/property"
+          element={<PgDetails />}
+        />
+        <Route
+          path="/property/manage/pg/:id/rental"
+          element={<RentalDetails />}
+        />
         <Route
           path="/property/manage/pg/:id/locality"
           element={<PgLocality />}
         />
         <Route
-          path="/property/manage/pg/:id/pgdetails"
-          element={<PgDetails />}
+          path="/property/manage/pg/:id/amenities"
+          element={<PgAmenities />}
         />
+        <Route path="/property/manage/pg/:id/gallery" element={<PgGallery />} />
         <Route
           path="/verifyEmail/:id/:email/:token"
           element={<VerifyEmail />}

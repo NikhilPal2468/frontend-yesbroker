@@ -262,6 +262,7 @@ function RentDetails() {
                       id="available_from"
                       name="available_from"
                       className="form-control"
+                      min={new Date().toISOString().split("T")[0]}
                       value={values.available_from}
                     />
                     <ErrorMessage
