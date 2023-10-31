@@ -1,11 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./styles.module.css";
-import { RiHotelBedLine } from "react-icons/ri";
-import {
-  HiOutlineBuildingOffice,
-  HiOutlineKey,
-  HiOutlineCake,
-} from "react-icons/hi2";
+import { HiOutlineKey, HiOutlineCake } from "react-icons/hi2";
 import { BsPerson } from "react-icons/bs";
 import { GiHomeGarage } from "react-icons/gi";
 import { TbSofa } from "react-icons/tb";
@@ -21,32 +16,32 @@ import axios from "axios";
 import { setUserDetails } from "../../../store/actions";
 import noPhotoImg from "../../../assets/no-image.png";
 
-const renderAge = (age) => {
-  let propertyAge = "";
+// const renderAge = (age) => {
+//   let propertyAge = "";
 
-  switch (age) {
-    case "Less than 1 year":
-      propertyAge = "<1";
-      break;
-    case "Between 1 to 3 years":
-      propertyAge = "1-3";
-      break;
-    case "Between 3 to 5 years":
-      propertyAge = "3-5";
-      break;
-    case "Between 5 to 10 years":
-      propertyAge = "5-10";
-      break;
-    case "Greater than 10 years":
-      propertyAge = ">10";
-      break;
-    default:
-      propertyAge = "Unknown";
-      break;
-  }
+//   switch (age) {
+//     case "Less than 1 year":
+//       propertyAge = "<1";
+//       break;
+//     case "Between 1 to 3 years":
+//       propertyAge = "1-3";
+//       break;
+//     case "Between 3 to 5 years":
+//       propertyAge = "3-5";
+//       break;
+//     case "Between 5 to 10 years":
+//       propertyAge = "5-10";
+//       break;
+//     case "Greater than 10 years":
+//       propertyAge = ">10";
+//       break;
+//     default:
+//       propertyAge = "Unknown";
+//       break;
+//   }
 
-  return propertyAge;
-};
+//   return propertyAge;
+// };
 
 const addImgCarousel = (idx) => {
   let classname = `carousel-item w-100 ${styles.carouselImgDiv}`;
