@@ -36,7 +36,7 @@ import ManageUsers from "./components/AdminPortal/ManageUsers";
 import PgGallery from "./components/PostProperty/Pg/PgGallery";
 
 // axios.defaults.baseURL = "https://homewale-backend.onrender.com";
-axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.baseURL = "http://localhost:5001";
 // axios.defaults.baseURL = "https://homewale.com/api";
 // axios.defaults.baseURL = "http://13.200.85.135/api";
 axios.defaults.withCredentials = true;

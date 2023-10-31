@@ -15,7 +15,7 @@ const LocateMeButton = () => {
             .then((data) => {
               if (data.status === "OK") {
                 setAddress(data.results[0].formatted_address);
-              } else { 
+              } else {
                 setAddress("Address not found");
               }
             })
