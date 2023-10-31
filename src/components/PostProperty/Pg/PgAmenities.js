@@ -215,7 +215,7 @@ function PgAmenities() {
             onSubmit={onSubmit}
             enableReinitialize
           >
-            {({ values, setFieldValue }) => (
+            {({ values }) => (
               <Form className="w-100 p-2 px-4">
                 {/* Bathroom Count */}
                 <div className="d-flex flex-column flex-sm-row align-items-center justify-content-around w-100 gap-4"></div>
