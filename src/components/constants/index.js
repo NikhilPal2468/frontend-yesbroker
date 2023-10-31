@@ -18,6 +18,7 @@ import {
   faSquareParking,
   faSunPlantWilt,
   faTachographDigital,
+  faToilet,
   faToiletPortable,
   faTv,
   faWifi,
@@ -137,6 +138,99 @@ export const AMENITIES = [
     key: "shopping_center",
     icon: <FontAwesomeIcon icon={faShop} size="xl" />,
     label: "Shopping Center",
+  },
+  {
+    key: "washing_machine",
+    icon: <FontAwesomeIcon icon={faShirt} size="xl" />,
+    label: "Washing Machine",
+  },
+  {
+    key: "gated_security",
+    icon: <FontAwesomeIcon icon={faPersonMilitaryPointing} size="xl" />,
+    label: "Gated Security",
+  },
+];
+
+export const PgAMENITIES = [
+  {
+    key: "lift",
+    icon: <FontAwesomeIcon icon={faElevator} size="xl" />,
+    label: "Lift",
+  },
+  {
+    key: "wifi",
+    icon: <FontAwesomeIcon icon={faWifi} size="xl" />,
+    label: "Wifi",
+  },
+  {
+    key: "gym",
+    icon: <FontAwesomeIcon icon={faDumbbell} size="xl" />,
+    label: "Gym",
+  },
+  {
+    key: "cctv",
+    icon: <FontAwesomeIcon icon={faCompactDisc} size="xl" />,
+    label: "CCTV",
+  },
+  {
+    key: "fridge",
+    icon: <FontAwesomeIcon icon={faToiletPortable} size="xl" />,
+    label: "Fridge",
+  },
+  {
+    key: "tv",
+    icon: <FontAwesomeIcon icon={faTv} size="xl" />,
+    label: "TV",
+  },
+  {
+    key: "ac",
+    icon: <FontAwesomeIcon icon={faTachographDigital} size="xl" />,
+    label: "AC",
+  },
+  {
+    key: "geyser",
+    icon: <FontAwesomeIcon icon={faHotTubPerson} size="xl" />,
+    label: "Geyser",
+  },
+  {
+    key: "Attached Bathroom",
+    icon: <FontAwesomeIcon icon={faToilet} size="xl" />,
+    label: "Attached Bathroom",
+  },
+  {
+    key: "power_backup",
+    icon: <FontAwesomeIcon icon={faCarBattery} size="xl" />,
+    label: "Power Backup",
+  },
+  {
+    key: "gas_pipeline",
+    icon: <FontAwesomeIcon icon={faMaskVentilator} size="xl" />,
+    label: "Gas Pipeline",
+  },
+  {
+    key: "fire_safety",
+    icon: <FontAwesomeIcon icon={faFireExtinguisher} size="xl" />,
+    label: "Fire Security",
+  },
+  {
+    key: "club_house",
+    icon: <FontAwesomeIcon icon={faPuzzlePiece} size="xl" />,
+    label: "Club House",
+  },
+  {
+    key: "visitor_parking",
+    icon: <FontAwesomeIcon icon={faSquareParking} size="xl" />,
+    label: "Parking",
+  },
+  {
+    key: "water_filter",
+    icon: <FontAwesomeIcon icon={faGlassWaterDroplet} size="xl" />,
+    label: "Water Filter",
+  },
+  {
+    key: "furniture",
+    icon: <FontAwesomeIcon icon={faCouch} size="xl" />,
+    label: "Furniture",
   },
   {
     key: "washing_machine",

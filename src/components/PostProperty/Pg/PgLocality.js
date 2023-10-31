@@ -1,46 +1,53 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import { Button } from "react-bootstrap";
 import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Sidebar from "./SideBar/sidebar";
+import { LoadContext } from "../../../context/load-context";
 
 const CITIES = ["Mumbai", "Bangalore", "Gurgaon", "Delhi", "Hyderabad"];
 
-function PgLocality() {
+function LocalityDetails() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { setLoading } = useContext(LoadContext);
 
   const { id: pgId } = useParams();
 
   const [city, setCity] = useState("");
+  const [complete_address, setAddress] = useState("");
+  const [pincode, setPincode] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [locality, setLocality] = useState("");
   const [street, setStreet] = useState("");
   const [suggestionList, setSuggestionList] = useState([]);
+  const [description, setDescription] = useState("");
 
-  //   useEffect(() => {
-  //     try {
-  //       const fetchData = async (pgId) => {
-  //         setLoading(true);
-  //         const { data } = await axios.get(
-  //           `/secure/api/getPg?pgId=${pgId}`
-  //         );
+  useEffect(() => {
+    try {
+      const fetchData = async (pgId) => {
+        setLoading(true);
+        const { data } = await axios.get(`/secure/api/getpg?pgId=${pgId}`);
+        console.log(data);
+        setCity(data?.city);
+        setLocality(data?.locality);
+        setStreet(data?.street);
+        setPincode(data?.pincode);
+        setAddress(data?.complete_address);
+        setDescription(data?.description);
+      };
 
-  //         setLoading(false);
-  //         setCity(data?.city);
-  //         setLocality(data?.locality);
-  //         setStreet(data?.street);
-  //       };
-
-  //       fetchData(pgId);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   }, [pgId]);
+      fetchData(pgId);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  }, [pgId]);
 
   const handleCityChange = (e) => {
-    setCity(e.target.value);
+    setCity(e?.target?.value);
     setSuggestionList([]);
     setLocality("");
     setStreet("");
@@ -64,7 +71,7 @@ function PgLocality() {
         await axios
           .get(`/public/api/autocomplete?city=${city}&text=${locality}`)
           .then((response) => {
-            setSuggestionList(response.data);
+            setSuggestionList(response?.data);
           })
           .catch((error) => {
             console.error(error);
@@ -87,11 +94,14 @@ function PgLocality() {
       locality: locality,
       street: street,
       partNo: "2",
+      pincode: pincode,
+      complete_address: complete_address,
+      description: description,
     };
 
     try {
-      await axios.post(`secure/api/newProperty/pg/update/${pgId}`, payLoad);
-      navigate(`/property/manage/pg/${pgId}/pgdetails`);
+      await axios.post(`/secure/api/newProperty/pg/update/${pgId}`, payLoad);
+      navigate(`/property/manage/pg/${pgId}/rental`);
     } catch (err) {
       console.log(err);
     }
@@ -101,7 +111,7 @@ function PgLocality() {
     <div className="container h-100">
       <div className={`d-flex flex-column flex-sm-row justify-content-center`}>
         <div className={`w-20 ${styles.container}`}>
-          <Sidebar pathname={location.pathname} />
+          <Sidebar pathname={location?.pathname} />
         </div>
         <div
           className={`w-75 ms-2 px-4 d-flex flex-column ${styles.container}`}
@@ -171,7 +181,35 @@ function PgLocality() {
             </div>
             <div className="d-flex flex-row w-100 justify-content-center align-items-center gap-4">
               <div className="mb-3 w-100">
-                <label htmlFor="city">Landmark/Street</label>
+                <label htmlFor="address">Complete Address</label>
+                <input
+                  type="text"
+                  name="address"
+                  id="address"
+                  value={complete_address}
+                  className="form-control"
+                  onChange={(e) => setAddress(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="d-flex flex-row w-100 justify-content-center align-items-center gap-4">
+              <div className="mb-3 w-100">
+                <label htmlFor="pincode">Pincode</label>
+                <input
+                  type="text"
+                  name="pincode"
+                  id="pincode"
+                  value={pincode}
+                  className="form-control"
+                  onChange={(e) => setPincode(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="mb-3 w-100">
+                <label htmlFor="street">Landmark/Street</label>
                 <input
                   type="text"
                   name="street"
@@ -182,9 +220,23 @@ function PgLocality() {
                   required
                 />
               </div>
-              <div className="w-100"></div>
             </div>
 
+            <div className="d-flex flex-row w-100 justify-content-center align-items-center gap-4">
+              <div className="mb-3 w-100">
+                <label htmlFor="description">Description (optional)</label>
+                <textarea
+                  type="text"
+                  name="description"
+                  id="description"
+                  value={description}
+                  className="form-control"
+                  onChange={(e) => {
+                    setDescription(e.target.value);
+                  }}
+                />
+              </div>
+            </div>
             <div className="">
               <Button
                 variant="primary"
@@ -201,4 +253,4 @@ function PgLocality() {
   );
 }
 
-export default PgLocality;
+export default LocalityDetails;
