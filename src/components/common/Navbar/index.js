@@ -119,6 +119,11 @@ const Navbar = ({ userDetails = {} }) => {
                     </Link>
                   </li>
                   <li>
+                    <Link className="dropdown-item" to="/premium">
+                      Tenants Plan
+                    </Link>
+                  </li>
+                  <li>
                     <div
                       className={`dropdown-item ${styles.logout_button}`}
                       href="#"
