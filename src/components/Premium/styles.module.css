@@ -5,12 +5,17 @@
     padding: 20px;
   }
   
-  .plansContainer {
+.plansContainer {
     display: flex;
     justify-content: space-around;
     margin-top: 30px;
-  }
-  
+  } 
+@media (max-width: 768px) {
+ .plansContainer {
+    display: flex;
+    flex-direction: column;
+  } 
+}
   .plan {
     background-color: #f3f3f3;
     padding: 20px;
@@ -18,6 +23,7 @@
     text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: 300px;
+    margin-top: 10px;
   }
   
   .plan h2 {
