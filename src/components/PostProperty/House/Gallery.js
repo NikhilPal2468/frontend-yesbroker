@@ -49,7 +49,6 @@ function Gallery() {
   const handleSubmit = async () => {
     const values = {};
     values.postPropertyPageNo = 5;
-    console.log(values.postPropertyPageNo);
     await axios.post(`secure/api/newProperty/house/update/${houseId}`, values);
     setShowModal(true);
   };

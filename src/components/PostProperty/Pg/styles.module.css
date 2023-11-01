@@ -1,0 +1,131 @@
+.button {
+  background-color: #3356b2;
+  color: white;
+  padding: 2px 4px;
+}
+
+.button:hover {
+  background-color: #2f447a;
+}
+
+.autocomplete_dropdown_container {
+  border-radius: 10px;
+  width: 54%;
+  position: absolute;
+  z-index: 100;
+  background-color: #fbf2f2;
+  top: 38px;
+  overflow-x: auto;
+  height: 197px;
+}
+.remove_dropdown_container {
+  height: 0px;
+}
+
+.container {
+  background-color: #ffffff;
+}
+
+.sticky_city {
+  position: sticky !important;
+  top: 10px;
+}
+
+.image_input {
+  background-color: #6f96ff;
+  border: 2px solid #2f447a;
+  color: #ffffff;
+}
+
+.image_input:hover {
+  background-color: #2f447a;
+}
+
+.icon {
+  color: #3356b2;
+}
+
+.autocomplete_dropdown_container {
+  border-radius: 10px;
+  width: 100%;
+  position: absolute;
+  z-index: 100;
+  background-color: #fbf2f2;
+  top: 62px;
+  overflow-x: auto;
+  height: 197px;
+}
+.remove_dropdown_container {
+  height: 0px;
+}
+.suggestion_item {
+  margin: 5px 0px;
+  cursor: pointer;
+  padding: 5px;
+}
+.suggestion_item:hover {
+  background-color: #e8e4e4;
+}
+
+.selectBox {
+  -webkit-appearance: listbox !important;
+}
+
+.input_checkbox {
+  display: none;
+}
+
+.input_label {
+  border: 2px solid #28438a;
+  border-radius: 5px;
+  padding: 2px 4px;
+  align-items: center;
+  width: 100%;
+}
+
+.input_checkbox:checked + .input_label {
+  background-color: #3356b2;
+  color: white;
+}
+
+.image_container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.card_image {
+  max-width: 200px;
+}
+
+.image {
+  height: 150px;
+}
+
+@media (max-width: 600px) {
+  .container {
+    min-width: 100% !important;
+    margin-left: 0 !important;
+  }
+
+  .card_image {
+    flex-basis: 100%;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 950px) {
+  /* Medium screens: Display 2 cards per row */
+  .card_image {
+    flex-basis: 50%;
+    min-width: 200px;
+  }
+}
+
+@media (min-width: 901px) {
+  /* Large screens: Display 3 cards per row */
+  .card_image {
+    flex-basis: 33.33%;
+  }
+}

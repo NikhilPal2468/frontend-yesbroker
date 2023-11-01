@@ -33,6 +33,8 @@ import Footer from "./components/common/Footer";
 import AdminPortal from "./components/AdminPortal";
 import ErrorPage from "./components/common/ErrorPage";
 import ManageUsers from "./components/AdminPortal/ManageUsers";
+import PgAmenities from "./components/PostProperty/Pg/PgAmenities";
+import PgGallery from "./components/PostProperty/Pg/PgGallery";
 
 // axios.defaults.baseURL = "https://homewale-backend.onrender.com";
 axios.defaults.baseURL = "http://localhost:5000";
@@ -117,6 +119,11 @@ function App() {
           path="/property/manage/pg/:id/pgdetails"
           element={<PgDetails />}
         />
+        <Route
+          path="/property/manage/pg/:id/amenities"
+          element={<PgAmenities />}
+        />
+        <Route path="/property/manage/pg/:id/gallery" element={<PgGallery />} />
         <Route
           path="/verifyEmail/:id/:email/:token"
           element={<VerifyEmail />}

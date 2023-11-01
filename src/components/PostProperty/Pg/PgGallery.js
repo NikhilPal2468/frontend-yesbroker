@@ -4,17 +4,19 @@ import styles from "./styles.module.css";
 import { BsCameraFill } from "react-icons/bs";
 import { MdDelete } from "react-icons/md";
 import { useLocation, useParams } from "react-router-dom";
+import Resizer from "react-image-file-resizer";
 import axios from "axios";
 import FinalModal from "../FinalModal";
 import { LoadContext } from "../../../context/load-context";
 const PICTURE_TYPES = [
-  "Kitchen",
+  "Common Room",
   "Bedroom",
   "Hall",
-  "Dining",
   "Outside",
   "Bathroom",
   "Balcony",
+  "Game Area",
+  "Shared Kitchen",
 ];
 
 function PgGallery() {
@@ -22,9 +24,6 @@ function PgGallery() {
   const { setLoading } = useContext(LoadContext);
 
   const { id: pgId } = useParams();
-  const [postPropertyPageNo, setPostPropertyPageNo] = useState(0);
-
-  let curPageNo = 4;
 
   const [imageFiles, setImageFiles] = useState([]);
   const [uploadedImages, setUploadedImages] = useState([]);
@@ -43,8 +42,10 @@ function PgGallery() {
     }
   };
 
-  const handleSubmit = (e) => {
-    console.log("e:", e);
+  const handleSubmit = async () => {
+    const values = {};
+    values.postPropertyPageNo = 5;
+    await axios.post(`secure/api/newProperty/pg/update/${pgId}`, values);
     setShowModal(true);
   };
 
@@ -53,7 +54,7 @@ function PgGallery() {
     try {
       const fetchImageData = async (pgId) => {
         setLoading(true);
-        const response = await axios.get(`/secure/api/getHouseImage/${pgId}`);
+        const response = await axios.get(`/secure/api/getPgImage/${pgId}`);
         if (response.data) {
           setUploadedImages([...response.data]);
         }
@@ -71,41 +72,91 @@ function PgGallery() {
   useEffect(() => {
     if (!imageFiles || imageFiles.length === 0) return;
 
-    const formData = new FormData();
+    // const uploadImages = async (resizedFiles) => {
+    //   const formData = new FormData();
 
-    for (let i = 0; i < imageFiles.length; i++) {
-      formData.append("image", imageFiles[i]);
-    }
+    //   for (let i = 0; i < resizedFiles.length; i++) {
+    //     formData.append("image", resizedFiles[i]);
+    //   }
+    //   try {
+    //     setLoading(true);
+    //     const response = await axios.post(
+    //       `secure/api/newProperty/house/uploadImage/${houseId}`,
+    //       formData,
+    //       {
+    //         headers: {
+    //           "Content-Type": "multipart/form-data",
+    //         },
+    //       }
+    //     );
+    //     if (response.data) {
+    //       setUploadedImages((prev) => {
+    //         if (prev) return [...prev, ...response.data];
+    //         else return [...response.data];
+    //       });
+    //     }
 
-    const uploadImages = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.post(
-          `secure/api/newProperty/house/uploadImage/${pgId}`,
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
+    //     setImageFiles([]);
+    //   } catch (error) {
+    //     console.error(error);
+    //   } finally {
+    //     setLoading(false);
+    //   }
+    // };
+    const uploadPromises = [];
+
+    imageFiles.forEach((file) => {
+      uploadPromises.push(
+        new Promise((resolve, reject) => {
+          Resizer.imageFileResizer(
+            file,
+            800, // Set your desired maximum width
+            600, // Set your desired maximum height
+            "JPEG", // Output format (JPEG, PNG, WEBP)
+            70, // Output quality (0-100)
+            0, // Rotation angle (in degrees, 0-360)
+            (resizedFile) => {
+              try {
+                const formData = new FormData();
+                formData.append("image", resizedFile, resizedFile.name);
+
+                setLoading(true);
+                axios
+                  .post(
+                    `secure/api/newProperty/pg/uploadImage/${pgId}`,
+                    formData,
+                    {
+                      headers: {
+                        "Content-Type": "multipart/form-data",
+                      },
+                    }
+                  )
+                  .then((response) => {
+                    setUploadedImages((prev) => {
+                      if (prev) return [...prev, ...response.data];
+                      else return [...response.data];
+                    });
+                    resolve(); // Resolve the promise when the upload is successful
+                  })
+                  .catch((error) => {
+                    console.error(error);
+                    reject(error); // Reject the promise if there is an error during the upload
+                  })
+                  .finally(() => {
+                    setLoading(false);
+                  });
+              } catch (error) {
+                console.error(error);
+                reject(error); // Reject the promise if there is an error
+              }
+
+              // setImageFiles([]);
             },
-          }
-        );
-
-        setLoading(false);
-        if (response.data) {
-          setUploadedImages((prev) => {
-            if (prev) return [...prev, ...response.data];
-            else return [...response.data];
-          });
-        }
-
-        setImageFiles([]);
-      } catch (error) {
-        setLoading(false);
-        console.error(error);
-      }
-    };
-
-    uploadImages();
+            "blob" // Output type ('blob' for File object or 'base64' for data URL)
+          );
+        })
+      );
+    });
   }, [imageFiles, pgId]);
 
   // To handle description change for each image
@@ -114,7 +165,7 @@ function PgGallery() {
 
     try {
       await axios.put(
-        `/secure/api/house/uploadImage/change-description/${imageId}`,
+        `/secure/api/pg/uploadImage/change-description/${imageId}`,
         {
           description: description,
         }
@@ -137,13 +188,15 @@ function PgGallery() {
   const handleDelete = async (e, imageId) => {
     try {
       setLoading(true);
-      await axios.delete(`/secure/api/house/deleteImage/${imageId}`);
-      setLoading(false);
+      await axios.delete(`/secure/api/pg/deleteImage/${imageId}`);
+
       setUploadedImages((prevImages) => {
         return prevImages.filter((curPhoto) => curPhoto.id !== imageId);
       });
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -151,7 +204,11 @@ function PgGallery() {
     <div className="container">
       <div className={`d-flex flex-column flex-sm-row justify-content-center`}>
         <div className={`w-20 ${styles.container}`}>
-          <Sidebar pathname={location.pathname} />
+          <Sidebar
+            pathname={location.pathname}
+            pgId={pgId}
+            postPropertyPageNo={5}
+          />
         </div>
         <div
           className={`w-75 ms-2 px-4 d-flex flex-column ${styles.container}`}

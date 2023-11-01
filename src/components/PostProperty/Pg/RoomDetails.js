@@ -59,15 +59,14 @@ function RoomDetails() {
   const [pgObject, setPgObject] = useState(null);
 
   let curPageNo = 3;
+
   useEffect(() => {
     try {
       setLoading(true);
       const fetchData = async (pgId) => {
-        const { data } = await axios.get(`/secure/api/gethouse?pgId=${pgId}`);
-
-        console.log(pgId, data);
+        const { data } = await axios.get(`/secure/api/getPg?pgId=${pgId}`);
         setPgObject(data);
-        setPostPropertyPageNo(data?.postPropertyPageNo);
+        setPostPropertyPageNo(data?.post_property_page_no);
       };
       fetchData(pgId);
       setLoading(false);
@@ -99,13 +98,13 @@ function RoomDetails() {
     formValues = initialValues;
   }
 
-  formValues.partNo = "1";
+  formValues.partNo = "3";
 
   const onSubmit = async (values) => {
     try {
       values.postPropertyPageNo = Math.max(postPropertyPageNo, curPageNo);
       await axios.post(`secure/api/newProperty/pg/update/${pgId}`, values);
-      navigate(`/property/manage/pg/${pgId}/locality`);
+      navigate(`/property/manage/pg/${pgId}/amenities`);
     } catch (err) {
       console.log(err);
     }

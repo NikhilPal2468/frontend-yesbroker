@@ -16,7 +16,7 @@ function PgLocality() {
   const { id: pgId } = useParams();
   const [postPropertyPageNo, setPostPropertyPageNo] = useState(0);
 
-  let curPageNo = 1;
+  let curPageNo = 2;
 
   const [city, setCity] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -29,12 +29,11 @@ function PgLocality() {
       const fetchData = async (pgId) => {
         setLoading(true);
         const { data } = await axios.get(`/secure/api/getPg?pgId=${pgId}`);
-
         setLoading(false);
         setCity(data?.city);
         setLocality(data?.locality);
         setStreet(data?.street);
-        setPostPropertyPageNo(data?.postPropertyPageNo);
+        setPostPropertyPageNo(data?.post_property_page_no);
       };
 
       fetchData(pgId);
@@ -96,7 +95,7 @@ function PgLocality() {
 
     try {
       await axios.post(`secure/api/newProperty/pg/update/${pgId}`, payLoad);
-      navigate(`/property/manage/pg/${pgId}/rooms`);
+      navigate(`/property/manage/pg/${pgId}/room`);
     } catch (err) {
       console.log(err);
     }
@@ -106,7 +105,11 @@ function PgLocality() {
     <div className="container h-100">
       <div className={`d-flex flex-column flex-sm-row justify-content-center`}>
         <div className={`w-20 ${styles.container}`}>
-          <Sidebar pathname={location.pathname} />
+          <Sidebar
+            pathname={location.pathname}
+            pgId={pgId}
+            postPropertyPageNo={postPropertyPageNo}
+          />
         </div>
         <div
           className={`w-75 ms-2 px-4 d-flex flex-column ${styles.container}`}

@@ -9,8 +9,8 @@ import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({ pathname, pgId, postPropertyPageNo }) => {
   const url1 = `/property/manage/pg/${pgId}/pgdetails`;
-  const url2 = `/property/manage/pg/${pgId}/rooms`;
-  const url3 = `/property/manage/pg/${pgId}/rental`;
+  const url2 = `/property/manage/pg/${pgId}/locality`;
+  const url3 = `/property/manage/pg/${pgId}/room`;
   const url4 = `/property/manage/pg/${pgId}/amenities`;
   const url5 = `/property/manage/pg/${pgId}/gallery`;
 
@@ -39,7 +39,6 @@ const Sidebar = ({ pathname, pgId, postPropertyPageNo }) => {
   };
 
   const addIconClass2 = (path) => {
-    console.log("path:", path);
     let classVal = "w-25";
     return classVal;
   };
@@ -191,7 +190,11 @@ const Sidebar = ({ pathname, pgId, postPropertyPageNo }) => {
             )}
           </div>
         </div>
-        <div className={`d-flex w-100 p-2 mx-2 py-4 `}>
+        <div
+          className={`d-flex w-100 p-2 mx-2 py-4 `}
+          role="button"
+          onClick={(e) => handleClick(e, url5, 5)}
+        >
           <div className={`${addIconSmall("gallery")} pb-2`}>
             {currentPath === "gallery" ? (
               <RiGalleryFill size={20} className={`${styles.icon}`} />

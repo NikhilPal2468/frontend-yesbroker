@@ -91,7 +91,6 @@ function RoomDetails() {
   }
 
   formValues.partNo = "1";
-  console.log(formValues);
 
   const onSubmit = async (values) => {
     try {
@@ -107,7 +106,11 @@ function RoomDetails() {
     <div className={`container`}>
       <div className={`d-flex flex-column flex-sm-row justify-content-center`}>
         <div className={`w-20 ${styles.container}`}>
-          <Sidebar pathname={location.pathname} />
+          <Sidebar
+            pathname={location.pathname}
+            pgId={pgId}
+            postPropertyPageNo={postPropertyPageNo}
+          />
         </div>
         <div
           className={`w-75 ms-2 px-4 d-flex flex-column ${styles.container}`}
