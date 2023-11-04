@@ -164,8 +164,8 @@ function LocalityDetails() {
                     })}
                 </select>
               </div>
-              <div className="position-relative mb-3 w-100">
-                <div>
+              <div className="d-flex position-relative mb-3 w-100">
+                <div className="flex-grow-1">
                   <label htmlFor="locality">Locality</label>
                   <input
                     type="text"
@@ -200,8 +200,8 @@ function LocalityDetails() {
                       })}
                   </div>
                 </div>
-                <div>
-                  <LocateMeButton />
+                <div className="d-flex align-items-end ms-2 mb-1">
+                  <LocateMeButton setLocality={setLocality} />
                 </div>
               </div>
             </div>
