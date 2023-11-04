@@ -153,6 +153,7 @@ function App() {
           path="/admin/manageUsers"
           element={userDetails?.is_user_admin ? <ManageUsers /> : <ErrorPage />}
         />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
       <Footer />
     </div>

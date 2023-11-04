@@ -276,7 +276,7 @@ const HomePage = ({ userDetails = {} }) => {
                   </label>
                 </div>
               </div>
-              <div className="col-sm">
+              {/* <div className="col-sm">
                 <div className="form-check form-check-inline">
                   <input
                     className="form-check-input"
@@ -292,7 +292,7 @@ const HomePage = ({ userDetails = {} }) => {
                     Flatmates
                   </label>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="col-12 col-md-5 gap-2 justify-content-center align-items-center">
