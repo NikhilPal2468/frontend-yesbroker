@@ -269,14 +269,14 @@ const HomePage = ({ userDetails = {} }) => {
                     value="pg"
                     checked={propertyType === "pg"}
                     onChange={handlePropertyTypeChange}
-                    disabled
+                    // disabled
                   />
                   <label className="form-check-label" htmlFor="property_type2">
                     PG/Hostel
                   </label>
                 </div>
               </div>
-              <div className="col-sm">
+              {/* <div className="col-sm">
                 <div className="form-check form-check-inline">
                   <input
                     className="form-check-input"
@@ -292,7 +292,7 @@ const HomePage = ({ userDetails = {} }) => {
                     Flatmates
                   </label>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="col-12 col-md-5 gap-2 justify-content-center align-items-center">

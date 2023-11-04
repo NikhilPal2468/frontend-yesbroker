@@ -30,9 +30,10 @@ import PgDetails from "./components/PostProperty/Pg/PgDetails";
 import { useSelector } from "react-redux";
 import VerifyEmail from "./components/Authentication/VerifyEmail";
 import Footer from "./components/common/Footer";
-import AdminPortal from "./components/AdminPortal";
+
 import ErrorPage from "./components/common/ErrorPage";
 import ManageUsers from "./components/AdminPortal/ManageUsers";
+import ManageProperties from "./components/AdminPortal/ManageProperties";
 import PgPage from "./components/SinglePage/Pg/PgPage";
 import PgGallery from "./components/PostProperty/Pg/PgGallery";
 import PaymentPage from "./components/PaymentPage";
@@ -144,12 +145,15 @@ function App() {
         />
         <Route
           path="/admin"
-          element={userDetails?.is_user_admin ? <AdminPortal /> : <ErrorPage />}
+          element={
+            userDetails?.is_user_admin ? <ManageProperties /> : <ErrorPage />
+          }
         />
         <Route
           path="/admin/manageUsers"
           element={userDetails?.is_user_admin ? <ManageUsers /> : <ErrorPage />}
         />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
       <Footer />
     </div>
