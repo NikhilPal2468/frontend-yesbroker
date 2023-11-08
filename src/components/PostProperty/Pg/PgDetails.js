@@ -94,6 +94,7 @@ function RoomDetails() {
 
   const onSubmit = async (values) => {
     try {
+      console.log(values);
       values.postPropertyPageNo = Math.max(postPropertyPageNo, curPageNo);
       await axios.post(`/secure/api/newProperty/pg/update/${pgId}`, values);
       navigate(`/property/manage/pg/${pgId}/locality`);
@@ -191,6 +192,7 @@ function RoomDetails() {
                               name="gender_type" // Updated the name attribute here
                               id="gender_type3"
                               value="any"
+                              checked={values.gender === "any"}
                               onClick={() => {
                                 setFieldValue("gender", "any");
                               }}
@@ -212,7 +214,7 @@ function RoomDetails() {
                           type="checkbox"
                           id="food_available"
                           name="food_available"
-                          checked={values.food_available}
+                          checked={values.food_available ? true : false}
                           onClick={(e) => {
                             setFieldValue("food_available", e.target.checked);
                             if (e.target.checked === false) {
