@@ -8,6 +8,7 @@ import { LoadContext } from "../../../context/load-context";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LocateMeButton from "../../common/LocateMeButton";
 const CITIES = ["Mumbai", "Bangalore", "Gurgaon", "Delhi", "Hyderabad"];
 
 function LocalityDetails() {
@@ -172,39 +173,44 @@ function LocalityDetails() {
                     })}
                 </select>
               </div>
-              <div className="position-relative mb-3 w-100">
-                <label htmlFor="locality">Locality</label>
-                <input
-                  type="text"
-                  name="locality"
-                  id="locality"
-                  className="form-control"
-                  value={locality}
-                  onChange={handleLocalityChange}
-                  required
-                />
-                <div
-                  className={`${styles.autocomplete_dropdown_container} ${
-                    suggestionList.length === 0
-                      ? styles.remove_dropdown_container
-                      : ""
-                  }`}
-                >
-                  {suggestionList &&
-                    suggestionList.map((place) => {
-                      return (
-                        <div
-                          key={place?.placeId}
-                          className={styles.suggestion_item}
-                          role="button"
-                          onClick={() => {
-                            handleCitySelect(place?.description);
-                          }}
-                        >
-                          {place?.description}
-                        </div>
-                      );
-                    })}
+              <div className="d-flex position-relative mb-3 w-100">
+                <div className="flex-grow-1">
+                  <label htmlFor="locality">Locality</label>
+                  <input
+                    type="text"
+                    name="locality"
+                    id="locality"
+                    className="form-control"
+                    value={locality}
+                    onChange={handleLocalityChange}
+                    required
+                  />
+                  <div
+                    className={`${styles.autocomplete_dropdown_container} ${
+                      suggestionList.length === 0
+                        ? styles.remove_dropdown_container
+                        : ""
+                    }`}
+                  >
+                    {suggestionList &&
+                      suggestionList.map((place) => {
+                        return (
+                          <div
+                            key={place?.placeId}
+                            className={styles.suggestion_item}
+                            role="button"
+                            onClick={() => {
+                              handleCitySelect(place?.description);
+                            }}
+                          >
+                            {place?.description}
+                          </div>
+                        );
+                      })}
+                  </div>
+                </div>
+                <div className="d-flex align-items-end ms-2 mb-1">
+                  <LocateMeButton setLocality={setLocality} />
                 </div>
               </div>
             </div>

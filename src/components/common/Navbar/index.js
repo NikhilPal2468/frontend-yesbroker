@@ -37,6 +37,14 @@ const Navbar = ({ userDetails = {} }) => {
     setUser(null);
   };
 
+  const listProperty = () => {
+    if (userDetails) {
+      navigate("/list-your-property-for-rent");
+    } else {
+      setShowLogin(true);
+    }
+  };
+
   return (
     <nav
       className={`${styles.navbar_homewale} navbar navbar-expand-lg navbar-light bg-light card shadow-sm p-3 rounded`}
@@ -47,8 +55,12 @@ const Navbar = ({ userDetails = {} }) => {
             <img src="/images/logo1.svg" alt="logo" />
           </Link>
         </div>
-        <div className="align-items-center justify-content-end w-75">
-          {/* <li className="nav-item">
+        <div className="d-flex align-items-center justify-content-end w-75 gap-4">
+          <Button onClick={listProperty} className={`${styles.Btn}`}>
+            Post your property
+          </Button>
+          <div className="align-items-center justify-content-end">
+            {/* <li className="nav-item">
               <a className="nav-link active" aria-current="page" href="#">
                 Home
               </a>
@@ -63,78 +75,97 @@ const Navbar = ({ userDetails = {} }) => {
                 Pricing
               </a>
             </li> */}
-          {/* <span className="navbar-text">
+            {/* <span className="navbar-text">
             Navbar text with an inline element
           </span> */}
-          {user ? (
-            <div className={`dropdown ${styles.loginUser} pt-1`}>
-              <a
-                className={`d-flex flex-row border border-dark pe-2 rounded-5 border-1 border-left-0 align-items-center justify-content-center gap-2 dropdown-toggle ${styles.userIcon}`}
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <div className="border border-2 px-2 py-1 border-gray rounded-circle">
-                  <FaHouseUser />
-                </div>
-                <p className="my-auto">{user?.name}</p>
-              </a>
-              {/* </button> */}
-              <ul
-                className="dropdown-menu"
-                aria-labelledby="dropdownMenuButton"
-              >
-                <li>
-                  <Link className="dropdown-item" to="/user/myprofile">
-                    Profile
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" to="/user/mylistings/houses">
-                    My listings
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="dropdown-item"
-                    to="/user/myshortlists/houses"
-                  >
-                    My Shortlists
-                  </Link>
-                </li>
-                <li>
-                  <div
-                    className={`dropdown-item ${styles.logout_button}`}
-                    href="#"
-                    onClick={handleLogout}
-                  >
-                    Logout
+
+            {user ? (
+              <div className={`dropdown ${styles.loginUser} pt-1 w-100`}>
+                <a
+                  className={`d-flex flex-row border border-dark pe-2 rounded-5 border-1 border-left-0 align-items-center justify-content-center gap-2 dropdown-toggle ${styles.userIcon}`}
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <div className="border border-2 px-2 py-1 border-gray rounded-circle">
+                    <FaHouseUser />
                   </div>
-                </li>
-              </ul>
-            </div>
-          ) : (
-            <div
-              className={`d-flex justify-content-end align-items-center ${styles.BtnGroup} w-100`}
-            >
-              <Button
-                onClick={() => {
-                  setShowLogin(true);
-                }}
-                className={`m-2 ${styles.AuthBtn}`}
+                  <p className="my-auto">{user?.name}</p>
+                </a>
+                {/* </button> */}
+                <ul
+                  className="dropdown-menu"
+                  aria-labelledby="dropdownMenuButton"
+                >
+                  <li>
+                    <Link className="dropdown-item" to="/user/myprofile">
+                      Profile
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className="dropdown-item"
+                      to="/user/mylistings/houses"
+                    >
+                      My listings
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className="dropdown-item"
+                      to="/user/myshortlists/houses"
+                    >
+                      My Shortlists
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="dropdown-item" to="/premium">
+                      Tenants Plan
+                    </Link>
+                  </li>
+                  <li>
+                    <div
+                      className={`dropdown-item ${styles.logout_button}`}
+                      href="#"
+                      onClick={listProperty}
+                    >
+                      List Property
+                    </div>
+                  </li>
+                  <li>
+                    <div
+                      className={`dropdown-item ${styles.logout_button}`}
+                      href="#"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            ) : (
+              <div
+                className={`d-flex justify-content-end align-items-center ${styles.BtnGroup} w-100`}
               >
-                Log in
-              </Button>
-              <Button
-                onClick={() => {
-                  setShowRegister(true);
-                }}
-                className={`m-2 ${styles.AuthBtn}`}
-              >
-                Sign up
-              </Button>
-            </div>
-          )}
+                <Button
+                  onClick={() => {
+                    setShowLogin(true);
+                  }}
+                  className={`m-2 ${styles.AuthBtn}`}
+                >
+                  Log in
+                </Button>
+                <Button
+                  onClick={() => {
+                    setShowRegister(true);
+                  }}
+                  className={`m-2 ${styles.AuthBtn}`}
+                >
+                  Sign up
+                </Button>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* <button

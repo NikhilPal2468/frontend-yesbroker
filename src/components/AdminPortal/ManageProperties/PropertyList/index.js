@@ -1,14 +1,12 @@
 import React from "react";
+import PropertyCard from "../../../UserDashboard/otherPages/PropertyCard";
 
 const PropertyList = ({ properties }) => {
   return (
-    <div>
-      <h3>Property List</h3>
-      <ul>
-        {properties.map((property) => (
-          <li key={property.id}>{property.name}</li>
-        ))}
-      </ul>
+    <div className="my-2">
+      {properties.map((property) => (
+        <PropertyCard key={property?.id} listing={property} />
+      ))}
     </div>
   );
 };

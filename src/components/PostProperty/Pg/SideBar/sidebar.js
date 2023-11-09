@@ -83,7 +83,7 @@ const Sidebar = ({ pathname, pgId, postPropertyPageNo }) => {
               <BsHouse size={30} className={`${styles.icon}`} />
             )}
           </div>
-          <div className={`${addClass("property")}`}>Property Details</div>
+          <div className={`${addClass("property")}`}>PG Details</div>
         </div>
         <div
           className={`d-flex flex-column flex-sm-row justify-content-center align-items-center w-100 p-2 mx-2 py-4 border-bottom ${addIconClass(

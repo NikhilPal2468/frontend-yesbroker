@@ -116,11 +116,7 @@
   gap: 8px;
 }
 .search_button_show_mobile{
-  display: flex !important;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
+  display: none !important;
 }
 @media (max-width: 768px) {
   .custom_width {
@@ -138,6 +134,13 @@
   }
   .search_button_mobile{
     display: none !important;
+  }
+  .search_button_show_mobile{
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
   }
 }
 

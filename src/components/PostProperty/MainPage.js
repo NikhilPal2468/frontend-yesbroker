@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import PostFormError from "./PostFormError";
@@ -44,7 +44,7 @@ function MainPage() {
           values
         );
         const pg = data.pg;
-        navigate(`/property/manage/pg/${pg.id}/pgdetails`);
+        navigate(`/property/manage/pg/${pg.id}/property`);
       }
     } catch (e) {
       console.log(e);
@@ -139,12 +139,10 @@ function MainPage() {
                       <label
                         htmlFor="propertyType1"
                         className={`${styles.input_label}`}
-                        role="button"
                       >
                         House || Flat
                       </label>
                     </div>
-
                     <div className="w-100">
                       <Field
                         type="radio"

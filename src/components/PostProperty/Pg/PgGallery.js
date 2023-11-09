@@ -24,7 +24,6 @@ function PgGallery() {
   const { setLoading } = useContext(LoadContext);
 
   const { id: pgId } = useParams();
-
   const [imageFiles, setImageFiles] = useState([]);
   const [uploadedImages, setUploadedImages] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -241,7 +240,6 @@ function PgGallery() {
           <div className={`${styles.image_container}`}>
             {uploadedImages &&
               uploadedImages.map((image) => {
-                console.log(image);
                 return (
                   <div
                     className={`card ${styles.card_image}`}
