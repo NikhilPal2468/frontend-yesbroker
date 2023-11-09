@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid;
+  border-radius: 2px;
+  max-width: 400px;
+  margin: 4px auto;
+  margin-top: 18px;
+  justify-content: center;
+  align-items: center;
+}
+
+.status_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.status_img {
+  margin-right: 6px;
+}
+
+.status_content {
+  border-top: 1px solid;
+  width: 100%;
+  margin: 4px;
+  padding: 0 6px;
+}
+
+.status_data {
+  display: flex;
+  justify-content: space-between;
+}
