@@ -30,8 +30,8 @@ const PaymentPage = ({ userDetails = {} }) => {
             currency: `INR`,
             // redirect_url: `https://homewale.com/api`,
             // cancel_url: `https://homewale.com/api`,
-            redirect_url: `http://localhost:5000/public/api/payment-status`,
-            cancel_url: `http://localhost:5000/public/api/payment-status`,
+            redirect_url: `https://homewale.com/api/public/api/payment-status`,
+            cancel_url: `https://homewale.com/api/public/api/payment-status`,
             language: `EN`,
           },
         });
