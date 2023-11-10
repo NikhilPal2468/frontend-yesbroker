@@ -38,6 +38,7 @@ import PgPage from "./components/SinglePage/Pg/PgPage";
 import PgGallery from "./components/PostProperty/Pg/PgGallery";
 import PaymentPage from "./components/PaymentPage";
 import PaymentStatus from "./components/PaymentStatus";
+import Terms from "./components/Terms&Conditions";
 
 // axios.defaults.baseURL = "https://homewale-backend.onrender.com";
 axios.defaults.baseURL = "http://localhost:5000";
@@ -150,6 +151,7 @@ function App() {
             path="/property/manage/pg/:id/gallery"
             element={<PgGallery />}
           />
+          <Route path="/terms-and-conditions" element={<Terms />} />
           <Route
             path="/verifyEmail/:id/:email/:token"
             element={<VerifyEmail />}

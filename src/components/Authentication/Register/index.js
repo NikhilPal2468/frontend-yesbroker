@@ -16,6 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 import { setUserDetails } from "../../../store/actions";
 import { AuthContext } from "../../../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const Register = ({
   showRegister = false,
@@ -202,7 +203,11 @@ const Register = ({
                     <p className="text-center mt-4">
                       <small>
                         By continuing you agree to our{" "}
-                        <span className={styles.terms}>Terms & Conditions</span>
+                        <Link to={"/terms-and-conditions"}>
+                          <span className={styles.terms}>
+                            Terms & Conditions
+                          </span>
+                        </Link>
                       </small>
                     </p>
                   </>
