@@ -136,11 +136,6 @@ const Login = ({
                 </Formik>
                 <div className={styles.forgot_pwd} onClick={handleClose}>
                   <p>
-                    <Link to="/forgotpassword">
-                      <small>Forgot Password?</small>
-                    </Link>
-                  </p>
-                  <p>
                     <span
                       role="button"
                       className="text-primary"
@@ -149,14 +144,21 @@ const Login = ({
                         setShowRegister(true);
                       }}
                     >
-                      <small>Register</small>
+                      <small>Create Account</small>
                     </span>
+                  </p>
+                  <p>
+                    <Link to="/forgotpassword">
+                      <small>Forgot Password?</small>
+                    </Link>
                   </p>
                 </div>
                 <p className="text-center mt-4">
                   <small>
                     By continuing you agree to our{" "}
-                    <span className={styles.terms}>Terms & Conditions</span>
+                    <Link to={"/terms-and-conditions"}>
+                      <span className={styles.terms}>Terms & Conditions</span>
+                    </Link>
                   </small>
                 </p>
               </Col>

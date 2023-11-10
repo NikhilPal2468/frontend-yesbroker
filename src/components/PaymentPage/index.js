@@ -28,13 +28,14 @@ const PaymentPage = ({ userDetails = {} }) => {
             order_id: orderId,
             amount: amount * 1.18,
             currency: `INR`,
-            redirect_url: `https://homewale.com/api`,
-            cancel_url: `https://homewale.com/api`,
+            // redirect_url: `https://homewale.com/api`,
+            // cancel_url: `https://homewale.com/api`,
+            redirect_url: `http://localhost:5000/public/api/payment-status`,
+            cancel_url: `http://localhost:5000/public/api/payment-status`,
             language: `EN`,
           },
         });
         // const { success = false } = data || {};
-        console.log("data:", data);
         setFormHtml(data);
         // console.log("url:", url);
         // window.location.replace(url);

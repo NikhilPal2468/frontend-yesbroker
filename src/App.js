@@ -37,9 +37,11 @@ import PgGallery from "./components/PostProperty/Pg/PgGallery";
 import ManageProperties from "./components/AdminPortal/ManageProperties";
 import PgPage from "./components/SinglePage/Pg/PgPage";
 import PaymentPage from "./components/PaymentPage";
+import PaymentStatus from "./components/PaymentStatus";
+import Terms from "./components/Terms&Conditions";
 
 // axios.defaults.baseURL = "https://homewale-backend.onrender.com";
-axios.defaults.baseURL = "http://localhost:5001";
+axios.defaults.baseURL = "http://localhost:5000";
 // axios.defaults.baseURL = "https://homewale.com/api";
 // axios.defaults.baseURL = "http://13.200.85.135/api";
 axios.defaults.withCredentials = true;
@@ -50,116 +52,125 @@ function App() {
   return (
     <div className={`App Appcontainer`}>
       <Navbar userDetails={userDetails} />
-      <Loader />
-      <Routes>
-        <Route path="/" element={<HomePage userDetails={userDetails} />} />
-        <Route
-          path="/properties"
-          element={<ListProperties userDetails={userDetails} />}
-        />
-        <Route path="/forgotpassword" element={<ForgotPassword />} />
-        <Route path="/resetpassword/:id/:token" element={<ResetPassword />} />
+      <div className={`main-container`}>
+        <Loader />
+        <Routes>
+          <Route path="/" element={<HomePage userDetails={userDetails} />} />
+          <Route
+            path="/properties"
+            element={<ListProperties userDetails={userDetails} />}
+          />
+          <Route path="/forgotpassword" element={<ForgotPassword />} />
+          <Route path="/resetpassword/:id/:token" element={<ResetPassword />} />
 
-        {/* Premium page */}
-        <Route path="/premium" element={<PremiumPage />} />
-        <Route
-          path="/payment"
-          element={<PaymentPage userDetails={userDetails} />}
-        />
+          {/* Premium page */}
+          <Route path="/premium" element={<PremiumPage />} />
+          <Route
+            path="/payment"
+            element={<PaymentPage userDetails={userDetails} />}
+          />
 
-        {/* User Dashboard routes */}
-        <Route
-          path="/user/myprofile"
-          element={<ProfilePage userDetails={userDetails} />}
-        />
-        <Route
-          path="/user/mylistings/:propertyType"
-          element={<YourProperties userDetails={userDetails} />}
-        />
-        <Route
-          path="/user/myshortlists/:propertyType"
-          element={<YourShortlists userDetails={userDetails} />}
-        />
-        <Route
-          path="/user/ownerscontacted"
-          element={<OwnersContacted userDetails={userDetails} />}
-        />
+          {/* Payment Status */}
+          <Route
+            path="/payment/status"
+            element={<PaymentStatus userDetails={userDetails} />}
+          />
 
-        <Route path="/list-your-property-for-rent" element={<MainPage />} />
+          {/* User Dashboard routes */}
+          <Route
+            path="/user/myprofile"
+            element={<ProfilePage userDetails={userDetails} />}
+          />
+          <Route
+            path="/user/mylistings/:propertyType"
+            element={<YourProperties userDetails={userDetails} />}
+          />
+          <Route
+            path="/user/myshortlists/:propertyType"
+            element={<YourShortlists userDetails={userDetails} />}
+          />
+          <Route
+            path="/user/ownerscontacted"
+            element={<OwnersContacted userDetails={userDetails} />}
+          />
 
-        {/* HOUSE */}
-        <Route
-          path="/property/manage/house/:id/property"
-          element={<PropertyDetails />}
-        />
-        <Route
-          path="/property/manage/house/:id/locality"
-          element={<LocalityDetails />}
-        />
-        <Route
-          path="/property/manage/house/:id/rental"
-          element={<RentDetails />}
-        />
-        <Route
-          path="/property/manage/house/:id/amenities"
-          element={<Amenities />}
-        />
-        <Route
-          path="/property/manage/house/:id/gallery"
-          element={<Gallery />}
-        />
+          <Route path="/list-your-property-for-rent" element={<MainPage />} />
 
-        {/* single page for house */}
-        <Route
-          path="/property/:id/"
-          element={<HousePage userDetails={userDetails} />}
-        />
+          {/* HOUSE */}
+          <Route
+            path="/property/manage/house/:id/property"
+            element={<PropertyDetails />}
+          />
+          <Route
+            path="/property/manage/house/:id/locality"
+            element={<LocalityDetails />}
+          />
+          <Route
+            path="/property/manage/house/:id/rental"
+            element={<RentDetails />}
+          />
+          <Route
+            path="/property/manage/house/:id/amenities"
+            element={<Amenities />}
+          />
+          <Route
+            path="/property/manage/house/:id/gallery"
+            element={<Gallery />}
+          />
 
-        {/* single page for pg */}
-        <Route
-          path="/propertyPg/:id/"
-          element={<PgPage userDetails={userDetails} />}
-        />
+          {/* single page for house */}
+          <Route
+            path="/property/:id/"
+            element={<HousePage userDetails={userDetails} />}
+          />
 
-        {/* PG */}
-        <Route
-          path="/property/manage/pg/:id/property"
-          element={<PgDetails />}
-        />
-        <Route
-          path="/property/manage/pg/:id/rental"
-          element={<RentalDetails />}
-        />
-        <Route
-          path="/property/manage/pg/:id/locality"
-          element={<PgLocality />}
-        />
-        <Route
-          path="/property/manage/pg/:id/amenities"
-          element={<PgAmenities />}
-        />
-        <Route path="/property/manage/pg/:id/gallery" element={<PgGallery />} />
-        <Route
-          path="/property/manage/pg/:id/amenities"
-          element={<PgAmenities />}
-        />
-        <Route path="/property/manage/pg/:id/gallery" element={<PgGallery />} />
-        <Route
-          path="/verifyEmail/:id/:email/:token"
-          element={<VerifyEmail />}
-        />
-        <Route
-          path="/admin"
-          element={
-            userDetails?.is_user_admin ? <ManageProperties /> : <ErrorPage />
-          }
-        />
-        <Route
-          path="/admin/manageUsers"
-          element={userDetails?.is_user_admin ? <ManageUsers /> : <ErrorPage />}
-        />
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
+          {/* single page for pg */}
+          <Route
+            path="/propertyPg/:id/"
+            element={<PgPage userDetails={userDetails} />}
+          />
+
+          {/* PG */}
+          <Route
+            path="/property/manage/pg/:id/property"
+            element={<PgDetails />}
+          />
+          <Route
+            path="/property/manage/pg/:id/rental"
+            element={<RentalDetails />}
+          />
+          <Route
+            path="/property/manage/pg/:id/locality"
+            element={<PgLocality />}
+          />
+          <Route
+            path="/property/manage/pg/:id/amenities"
+            element={<PgAmenities />}
+          />
+          <Route
+            path="/property/manage/pg/:id/gallery"
+            element={<PgGallery />}
+          />
+          <Route path="/terms-and-conditions" element={<Terms />} />
+          <Route
+            path="/verifyEmail/:id/:email/:token"
+            element={<VerifyEmail />}
+          />
+          <Route
+            path="/admin"
+            element={
+              userDetails?.is_user_admin ? <ManageProperties /> : <ErrorPage />
+            }
+          />
+          <Route
+            path="/admin/manageUsers"
+            element={
+              userDetails?.is_user_admin ? <ManageUsers /> : <ErrorPage />
+            }
+          />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </div>
       <Footer />
     </div>
   );
