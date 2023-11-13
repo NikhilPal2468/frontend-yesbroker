@@ -236,7 +236,7 @@ function RoomDetails() {
                         <div className="d-flex text-center gap-4">
                           <div className="mb-3 w-100">
                             <input
-                              className={`${styles.input_checkbox1} w-100`}
+                              className={`${styles.input_checkbox} w-100`}
                               type="checkbox"
                               id="breakfast"
                               name="breakfast"
@@ -246,7 +246,7 @@ function RoomDetails() {
                               }}
                             />
                             <label
-                              className={`${styles.input_label1} m-1`}
+                              className={`${styles.input_label} m-1`}
                               htmlFor="breakfast"
                               role="button"
                             >
@@ -255,7 +255,7 @@ function RoomDetails() {
                           </div>
                           <div className="mb-3 w-100">
                             <input
-                              className={`${styles.input_checkbox1} w-100`}
+                              className={`${styles.input_checkbox} w-100`}
                               type="checkbox"
                               id="lunch"
                               name="lunch"
@@ -265,7 +265,7 @@ function RoomDetails() {
                               }}
                             />
                             <label
-                              className={`${styles.input_label1} m-1`}
+                              className={`${styles.input_label} m-1`}
                               htmlFor="lunch"
                               role="button"
                             >
@@ -274,7 +274,7 @@ function RoomDetails() {
                           </div>
                           <div className="mb-3 w-100">
                             <input
-                              className={`${styles.input_checkbox1} w-100`}
+                              className={`${styles.input_checkbox} w-100`}
                               type="checkbox"
                               id="dinner"
                               name="dinner"
@@ -285,7 +285,7 @@ function RoomDetails() {
                               }}
                             />
                             <label
-                              className={`${styles.input_label1} m-1`}
+                              className={`${styles.input_label} m-1`}
                               htmlFor="dinner"
                               role="button"
                             >
@@ -302,7 +302,7 @@ function RoomDetails() {
                       <div className="d-flex text-center gap-4">
                         <div className="mb-3 w-100">
                           <input
-                            className={`${styles.input_checkbox1} w-100`}
+                            className={`${styles.input_checkbox} w-100`}
                             type="checkbox"
                             id="smoking"
                             name="smoking"
@@ -312,7 +312,7 @@ function RoomDetails() {
                             }}
                           />
                           <label
-                            className={`${styles.input_label1} m-1`}
+                            className={`${styles.input_label} m-1`}
                             htmlFor="smoking"
                             role="button"
                           >
@@ -321,7 +321,7 @@ function RoomDetails() {
                         </div>
                         <div className="mb-3 w-100">
                           <input
-                            className={`${styles.input_checkbox1} w-100`}
+                            className={`${styles.input_checkbox} w-100`}
                             type="checkbox"
                             id="drinking"
                             name="drinking"
@@ -331,7 +331,7 @@ function RoomDetails() {
                             }}
                           />
                           <label
-                            className={`${styles.input_label1} m-1`}
+                            className={`${styles.input_label} m-1`}
                             htmlFor="drinking"
                             role="button"
                           >
@@ -340,7 +340,7 @@ function RoomDetails() {
                         </div>
                         <div className="mb-3 w-100">
                           <input
-                            className={`${styles.input_checkbox1} w-100`}
+                            className={`${styles.input_checkbox} w-100`}
                             type="checkbox"
                             id="nonveg"
                             name="nonveg"
@@ -350,7 +350,7 @@ function RoomDetails() {
                             }}
                           />
                           <label
-                            className={`${styles.input_label1} m-1`}
+                            className={`${styles.input_label} m-1`}
                             htmlFor="nonveg"
                             role="button"
                           >

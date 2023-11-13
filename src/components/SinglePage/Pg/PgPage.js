@@ -13,7 +13,6 @@ import { ImCross } from "react-icons/im";
 
 function PgPage({ userDetails = {} }) {
   const { id } = useParams();
-  console.log(id);
   const [property, setProperty] = useState(null);
   const { setLoading } = useContext(LoadContext);
 

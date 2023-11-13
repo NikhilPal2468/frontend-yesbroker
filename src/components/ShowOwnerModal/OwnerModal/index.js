@@ -6,7 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function OwnerModal({ showOwnersContacted, setShowOwnersContacted, houseId }) {
+function OwnerModal({
+  showOwnersContacted,
+  setShowOwnersContacted,
+  propertyId,
+  propertyType,
+}) {
   const [ownerData, setOwnerData] = useState(null);
   const navigate = useNavigate();
 
@@ -15,13 +20,13 @@ function OwnerModal({ showOwnersContacted, setShowOwnersContacted, houseId }) {
   };
 
   useEffect(() => {
-    const fetchData = async (houseId) => {
+    const fetchData = async (propertyId, propertyType) => {
       try {
         const { data } = await axios.post(
           `/secure/api/user/listings/get-owner-details`,
           {
-            houseId,
-            pgId: "",
+            propertyId,
+            propertyType,
           }
         );
 
@@ -40,10 +45,10 @@ function OwnerModal({ showOwnersContacted, setShowOwnersContacted, houseId }) {
         });
       }
     };
-    if (houseId) {
-      fetchData(houseId);
+    if (propertyId) {
+      fetchData(propertyId, propertyType);
     }
-  }, [houseId]);
+  }, [propertyId]);
 
   const handlePremiumClick = () => {
     navigate("/premium");

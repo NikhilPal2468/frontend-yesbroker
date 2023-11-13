@@ -4,9 +4,9 @@ import styles from "./styles.module.css";
 
 function PGFilters() {
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-12 col-md-6 col-lg-4">
+    <div className={`card mb-4 ${styles.sticky_card}`}>
+      <div className="row w-100 d-flex align-items-center justify-content-center">
+        <div className="">
           <div className={`card p-2 ${styles.sticky_card}`}>
             <div className="d-flex flex-row justify-content-between align-items-center pb-2 border-bottom border-3 border-dark">
               <h5 className="card-title my-auto">Filters</h5>
@@ -201,7 +201,6 @@ function PGFilters() {
             </div>
           </div>
         </div>
-        <div className="col-12 col-md-6 col-lg-8"></div>
       </div>
     </div>
   );

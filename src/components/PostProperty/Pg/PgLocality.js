@@ -100,7 +100,7 @@ function LocalityDetails() {
 
     try {
       await axios.post(`secure/api/newProperty/pg/update/${pgId}`, payLoad);
-      navigate(`/property/manage/pg/${pgId}/room`);
+      navigate(`/property/manage/pg/${pgId}/rental`);
     } catch (err) {
       console.log(err);
     }

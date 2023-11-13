@@ -20,10 +20,7 @@ const HouseList = ({
   const [houses, setHouses] = useState([]);
   const { setLoading, isReset, setReset } = useContext(LoadContext);
 
-  const shortlistArray = [
-    ...(userDetails ? userDetails.house_shortlists : []),
-    ...(userDetails ? userDetails.pg_shortlists : []),
-  ];
+  const shortlistArray = [...(userDetails ? userDetails.house_shortlists : [])];
 
   const { query: priceDebounced = [], debounceQuery } = useDebounceQuery();
 
@@ -106,7 +103,7 @@ const HouseList = ({
         return (
           <HouseCard
             key={houses_id}
-            houses_id={houses_id}
+            house_id={houses_id}
             apartment_name={apartment_name}
             locality={locality}
             rent={rent}

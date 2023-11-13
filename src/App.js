@@ -120,13 +120,13 @@ function App() {
 
           {/* single page for house */}
           <Route
-            path="/property/:id/"
+            path="/property/house/:id/"
             element={<HousePage userDetails={userDetails} />}
           />
 
           {/* single page for pg */}
           <Route
-            path="/propertyPg/:id/"
+            path="/property/pg/:id/"
             element={<PgPage userDetails={userDetails} />}
           />
 

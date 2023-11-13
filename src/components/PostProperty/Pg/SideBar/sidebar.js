@@ -8,9 +8,9 @@ import styles from "./styles.module.css";
 import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({ pathname, pgId, postPropertyPageNo }) => {
-  const url1 = `/property/manage/pg/${pgId}/pgdetails`;
+  const url1 = `/property/manage/pg/${pgId}/property`;
   const url2 = `/property/manage/pg/${pgId}/locality`;
-  const url3 = `/property/manage/pg/${pgId}/room`;
+  const url3 = `/property/manage/pg/${pgId}/rental`;
   const url4 = `/property/manage/pg/${pgId}/amenities`;
   const url5 = `/property/manage/pg/${pgId}/gallery`;
 
@@ -77,7 +77,7 @@ const Sidebar = ({ pathname, pgId, postPropertyPageNo }) => {
           onClick={(e) => handleClick(e, url1, 1)}
         >
           <div className={`${addIconClass2("property")}`}>
-            {currentPath === "pgdetails" ? (
+            {currentPath === "property" ? (
               <BsFillHouseFill size={30} className={`${styles.icon}`} />
             ) : (
               <BsHouse size={30} className={`${styles.icon}`} />

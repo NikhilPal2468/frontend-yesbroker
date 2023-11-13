@@ -133,11 +133,22 @@ const HomePage = ({ userDetails = {} }) => {
   const listProperties = () => {
     const localityArray = selectedLocality.map((loc) => loc.description);
     const combinedLocality = localityArray.join(", ");
-    navigate(
-      `/properties?city=${selectedCity}&propertyType=${propertyType}&locality=${combinedLocality}&selectedLocality=${encodeURIComponent(
-        JSON.stringify(selectedLocality)
-      )}`
-    );
+
+    if (propertyType && propertyType === "house") {
+      navigate(
+        `/properties?city=${selectedCity}&propertyType=${propertyType}&locality=${combinedLocality}&selectedLocality=${encodeURIComponent(
+          JSON.stringify(selectedLocality)
+        )}`
+      );
+    } else if (propertyType && propertyType === "pg") {
+      navigate(
+        `/properties?city=${selectedCity}&propertyType=${propertyType}&locality=${combinedLocality}&selectedLocality=${encodeURIComponent(
+          JSON.stringify(selectedLocality)
+        )}`
+      );
+    } else {
+      console.log("Invalid Property Type");
+    }
   };
   const removeChip = (place_id) => {
     setSelectedLocality((prevChips) =>
