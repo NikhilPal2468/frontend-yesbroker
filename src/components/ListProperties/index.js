@@ -154,12 +154,12 @@ const ListProperties = ({ userDetails = {} }) => {
           />
         ) : (
           <PgList
-            city={"Delhi"}
-            locality={"locality"}
-            preferredTenants={"preferredTenants"}
-            price={"price"}
+            city={city}
+            locality={locality}
+            preferredTenants={preferredTenants}
+            price={price}
             parking={parking}
-            withImage={"withImage"}
+            withImage={withImage}
             userDetails={userDetails}
           />
         )}

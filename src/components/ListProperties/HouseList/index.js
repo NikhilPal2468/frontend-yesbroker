@@ -52,8 +52,8 @@ const HouseList = ({
           "/public/api/listProperties",
           payload
         );
-        const { allhouses = [], count = 0 } = data || {};
-        console.log("count:", count);
+        const { allhouses = [], totalCount = 0 } = data || {};
+        console.log("count:", totalCount);
         setHouses(allhouses);
       } catch (error) {
         console.error(error);

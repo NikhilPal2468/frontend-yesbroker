@@ -19,7 +19,7 @@ const PgList = ({
 
   const shortlistArray = [...(userDetails ? userDetails.pg_shortlists : [])];
 
-  const { query: priceDebounced = [], debounceQuery } = useDebounceQuery();
+  const { query: priceDebounced = [] } = useDebounceQuery();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,7 +48,8 @@ const PgList = ({
           payload
         );
 
-        const { allpgs = [], count = 0 } = data || {};
+        const { allpgs = [], totalCount = 0 } = data || {};
+        console.log("totalCount:", totalCount);
         setPgs(allpgs);
       } catch (error) {
         console.error(error);
@@ -64,9 +65,9 @@ const PgList = ({
     }
   }, [city, locality, preferredTenants, priceDebounced, parking, withImage]);
 
-  useEffect(() => {
-    debounceQuery(price);
-  }, [debounceQuery, price]);
+  // useEffect(() => {
+  //   debounceQuery(price);
+  // }, [debounceQuery, price]);
 
   // const pgs = [
   //   {
