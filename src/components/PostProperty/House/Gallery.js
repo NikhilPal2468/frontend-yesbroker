@@ -342,7 +342,8 @@ function Gallery() {
         <FinalModal
           showModal={showModal}
           setShowModal={setShowModal}
-          houseId={houseId}
+          propertyId={houseId}
+          propertyType = {"house"}
         />
       )}
       <ToastContainer />

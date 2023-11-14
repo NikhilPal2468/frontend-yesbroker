@@ -6,6 +6,8 @@ import { RiFridgeLine, RiFridgeFill } from "react-icons/ri";
 import { RiGalleryLine, RiGalleryFill } from "react-icons/ri";
 import styles from "./styles.module.css";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Sidebar = ({ pathname, pgId, postPropertyPageNo }) => {
   const url1 = `/property/manage/pg/${pgId}/property`;
@@ -60,6 +62,16 @@ const Sidebar = ({ pathname, pgId, postPropertyPageNo }) => {
       navigate(url);
     } else {
       e.preventDefault();
+      toast.error("Please Fill current form first", {
+        position: "bottom-center",
+        autoClose: 1500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "colored",
+      });
       return;
     }
   };
@@ -204,7 +216,7 @@ const Sidebar = ({ pathname, pgId, postPropertyPageNo }) => {
           </div>
         </div>
       </div>
-      ;
+      <ToastContainer />
     </div>
   );
 };

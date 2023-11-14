@@ -96,7 +96,8 @@ function PgPage({ userDetails = {} }) {
         <PlaceGalleryPg
           userDetails={userDetails}
           property={property}
-          houses_id={property.pgs_id}
+          propertyId={property.pgs_id}
+          propertyType={"pg"}
         />
       </div>
 

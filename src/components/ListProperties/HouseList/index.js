@@ -20,7 +20,10 @@ const HouseList = ({
   const [houses, setHouses] = useState([]);
   const { setLoading, isReset, setReset } = useContext(LoadContext);
 
-  const shortlistArray = [...(userDetails ? userDetails.house_shortlists : [])];
+  const shortlistArray = [
+    ...(userDetails ? userDetails.house_shortlists : []),
+    ...(userDetails ? userDetails.house_shortlists : []),
+  ];
 
   const { query: priceDebounced = [], debounceQuery } = useDebounceQuery();
 
@@ -39,7 +42,6 @@ const HouseList = ({
           price_less_than: priceDebounced?.[1],
           furnishing_type: furnishing.length === 0 ? undefined : furnishing,
           parking: parking.length === 1 ? undefined : parking,
-
           property_with_image: withImage === false ? undefined : withImage,
         },
       };

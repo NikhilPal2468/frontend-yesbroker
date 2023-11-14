@@ -30,7 +30,7 @@ function YourProperties() {
   }, [propertyType]);
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container}`}>
       <SideBar />
       <div className={`${styles.sidebar_right}`}>
         <div className="container">

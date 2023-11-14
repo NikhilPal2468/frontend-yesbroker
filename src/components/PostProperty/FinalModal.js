@@ -5,7 +5,7 @@ import { Button, Container, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
 
-function FinalModal({ showModal, setShowModal, houseId }) {
+function FinalModal({ showModal, setShowModal, propertyId, propertyType }) {
   const navigate = useNavigate();
 
   const handleModalClose = () => {
@@ -15,7 +15,11 @@ function FinalModal({ showModal, setShowModal, houseId }) {
 
   const redirectToPage = () => {
     setShowModal(false);
-    navigate(`/property/${houseId}/`);
+    if (propertyType === "house") {
+      navigate(`/property/house/${propertyId}/`);
+    } else {
+      navigate(`/property/pg/${propertyId}/`);
+    }
   };
 
   return (

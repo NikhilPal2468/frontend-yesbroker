@@ -291,7 +291,12 @@ function PgGallery() {
         </div>
       </div>
       {showModal && (
-        <FinalModal showModal={showModal} setShowModal={setShowModal} />
+        <FinalModal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          propertyId={pgId}
+          propertyType={"pg"}
+        />
       )}
     </div>
   );

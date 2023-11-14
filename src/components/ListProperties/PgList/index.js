@@ -21,7 +21,10 @@ const PgList = ({
   const [pgs, setPgs] = useState([]);
   const { setLoading, isReset, setReset } = useContext(LoadContext);
 
-  const shortlistArray = [...(userDetails ? userDetails.pg_shortlists : [])];
+  const shortlistArray = [
+    ...(userDetails ? userDetails.pg_shortlists : []),
+    ...(userDetails ? userDetails.house_shortlists : []),
+  ];
 
   const { query: priceDebounced = [] } = useDebounceQuery();
 

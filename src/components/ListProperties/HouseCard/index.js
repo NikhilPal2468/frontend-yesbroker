@@ -53,7 +53,7 @@ const HouseCard = ({
   return (
     <div className="mb-4" key={house_id}>
       <a
-        href={`/property/${house_id}`}
+        href={`/property/house/${house_id}`}
         className="text-decoration-none"
         target="_blank"
         rel="noreferrer"
@@ -69,7 +69,7 @@ const HouseCard = ({
       </a>
       <div className="card rounded-top-0 rounded-bottom-0">
         <a
-          href={`/property/${house_id}`}
+          href={`/property/house/${house_id}`}
           className="text-decoration-none text-dark"
           target="_blank"
           rel="noreferrer"
@@ -161,7 +161,7 @@ const HouseCard = ({
             <div className="col-12 col-lg-8 d-flex justify-contents-center">
               <div className="row w-100 h-100 m-0 m-2 p-2">
                 <a
-                  href={`/property/${house_id}`}
+                  href={`/property/house/${house_id}`}
                   className="text-decoration-none text-dark"
                   target="_blank"
                   rel="noreferrer"
