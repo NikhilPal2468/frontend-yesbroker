@@ -45,6 +45,11 @@ const ListProperties = ({ userDetails = {} }) => {
   const [selectedLocality, setSelectedLocality] = useState([
     ...selectedLocalityArrayData,
   ]);
+  const [preferredTenantsPG, setPreferredTenantsPG] = useState(["Both"]);
+  const [roomType, setRoomType] = useState([]);
+  const [foodType, setFoodType] = useState([]);
+  const [attachedBathroom, setAttachedBathroom] = useState(null);
+  const [selectedGender, setSelectedGender] = useState("");
   const [suggestionList, setSuggestionList] = useState([]);
 
   useEffect(() => {
@@ -111,7 +116,14 @@ const ListProperties = ({ userDetails = {} }) => {
                 setWithImage={setWithImage}
               />
             ) : (
-              <PGFilters />
+              <PGFilters
+                selectedGender={selectedGender}
+                setSelectedGender={setSelectedGender}
+                setAttachedBathroom={setAttachedBathroom}
+                setFoodType={setFoodType}
+                setRoomType={setRoomType}
+                setPreferredTenantsPG={setPreferredTenantsPG}
+              />
             )}
             <button className={styles.apply_filters} onClick={handleClose}>
               Apply Filters
@@ -136,7 +148,14 @@ const ListProperties = ({ userDetails = {} }) => {
               setWithImage={setWithImage}
             />
           ) : (
-            <PGFilters />
+            <PGFilters
+              selectedGender={selectedGender}
+              setSelectedGender={setSelectedGender}
+              setAttachedBathroom={setAttachedBathroom}
+              setFoodType={setFoodType}
+              setRoomType={setRoomType}
+              setPreferredTenantsPG={setPreferredTenantsPG}
+            />
           )}
         </div>
         {propertyType === "house" ? (
@@ -161,6 +180,10 @@ const ListProperties = ({ userDetails = {} }) => {
             parking={parking}
             withImage={withImage}
             userDetails={userDetails}
+            preferredTenantsPG={preferredTenantsPG}
+            foodType={foodType}
+            roomType={roomType}
+            attachedBathroom={attachedBathroom}
           />
         )}
       </div>

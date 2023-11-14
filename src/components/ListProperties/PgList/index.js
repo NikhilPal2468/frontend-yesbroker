@@ -13,6 +13,10 @@ const PgList = ({
   parking = [],
   withImage = false,
   userDetails = {},
+  attachedBathroom = false,
+  preferredTenantsPG = [],
+  foodType = [],
+  roomType = [],
 }) => {
   const [pgs, setPgs] = useState([]);
   const { setLoading, isReset, setReset } = useContext(LoadContext);
@@ -28,15 +32,14 @@ const PgList = ({
         text: [locality],
         pgNo: "1",
         propertyType,
-        // filters: {
-        //   preferred_tenants:
-        //     preferredTenants.length === 1 ? undefined : preferredTenants,
-        //   price_greater_than: priceDebounced?.[0],
-        //   price_less_than: priceDebounced?.[1],
-        //   parking: parking.length === 1 ? undefined : parking,
+        filters: {
+          preferred_tenants:
+            preferredTenantsPG.length === 1 ? undefined : preferredTenantsPG,
+          // price_greater_than: priceDebounced?.[0],
+          // price_less_than: priceDebounced?.[1],
 
-        //   property_with_image: withImage === false ? undefined : withImage,
-        // },
+          property_with_image: withImage === false ? undefined : withImage,
+        },
       };
 
       try {
@@ -49,6 +52,7 @@ const PgList = ({
         );
 
         const { allpgs = [], totalCount = 0 } = data || {};
+        console.log("allpgs:", allpgs);
         console.log("totalCount:", totalCount);
         setPgs(allpgs);
       } catch (error) {
@@ -128,7 +132,7 @@ const PgList = ({
     <div className="p-1 col-12 col-md-7 col-lg-8">
       {pgs.map((pg) => {
         const {
-          pg_id = "",
+          pgs_id = "",
           pg_name = "",
           locality = "",
           preferred_tenants = "",
@@ -159,8 +163,8 @@ const PgList = ({
 
         return (
           <PgCard
-            key={pg_id}
-            pg_id={pg_id}
+            key={pgs_id}
+            pgs_id={pgs_id}
             pg_name={pg_name}
             locality={locality}
             single_room={single_room}
@@ -185,6 +189,10 @@ const PgList = ({
             shortlistArray={shortlistArray}
             images={images}
             propertyType={propertyType}
+            attachedBathroom={attachedBathroom}
+            preferredTenantsPG={preferredTenantsPG}
+            foodType={foodType}
+            roomType={roomType}
           />
         );
       })}

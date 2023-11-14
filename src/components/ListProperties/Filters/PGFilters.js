@@ -3,65 +3,60 @@ import { BsArrowCounterclockwise } from "react-icons/bs";
 import styles from "./styles.module.css";
 import { LoadContext } from "../../../context/load-context";
 import {
-  BHKTYPE,
-  FURNISHING_TYPES,
-  PARKING,
-  PREFERRED_TENANTS,
+  FOOD_INCLUDED,
+  GENDER,
+  PREFERRED_TENANTS_PG,
+  ROOM_TYPE,
 } from "./constants";
 import { Slider } from "@mui/material";
 
 function PGFilters({
-  // bhkType = [],
-  setBhkType = () => {},
-  setPreferredTenants = () => {},
+  setPreferredTenantsPG = () => {},
   price = [0, 100000],
   setPrice = () => {},
-  setFurnishing = () => {},
-  setParking = () => {},
   setWithImage = () => {},
+  setAttachedBathroom = () => {},
+  setFoodType = () => {},
+  setRoomType = () => {},
+  selectedGender = "",
+  setSelectedGender = () => {},
 }) {
   const { setReset } = useContext(LoadContext);
 
   const handlePriceChange = (event, newValue) => {
     setPrice(newValue);
   };
-  const handleBhkTypeChange = (event, item) => {
-    if (event.target.checked) {
-      setBhkType((prev) => [...prev, item]);
-    } else {
-      setBhkType((prev) => prev.filter((i) => i !== item));
-    }
+  const handleGenderChange = (event, item) => {
+    setSelectedGender(item);
   };
   const handlePreferredTenantsChange = (event, item) => {
     if (event.target.checked) {
-      setPreferredTenants((prev) => [...prev, item]);
+      setPreferredTenantsPG((prev) => [...prev, item]);
     } else {
-      setPreferredTenants((prev) => prev.filter((i) => i !== item));
+      setPreferredTenantsPG((prev) => prev.filter((i) => i !== item));
     }
   };
-  const handleFurnishingChange = (event, item) => {
+  const handleRoomTypeChange = (event, item) => {
     if (event.target.checked) {
-      setFurnishing((prev) => [...prev, item]);
+      setRoomType((prev) => [...prev, item]);
     } else {
-      setFurnishing((prev) => prev.filter((i) => i !== item));
+      setRoomType((prev) => prev.filter((i) => i !== item));
     }
   };
 
-  const handleParkingChange = (event, item) => {
+  const handleFoodChange = (event, item) => {
     if (event.target.checked) {
-      setParking((prev) => [...prev, item]);
+      setFoodType((prev) => [...prev, item]);
     } else {
-      setParking((prev) => prev.filter((i) => i !== item));
+      setFoodType((prev) => prev.filter((i) => i !== item));
     }
   };
 
   const resetFilters = () => {
     setReset(true);
-    setBhkType([]);
-    setPreferredTenants(["Both"]);
+    setPreferredTenantsPG(["Both"]);
     setPrice([0, 500000]);
-    setFurnishing([]);
-    setParking(["Both"]);
+
     setWithImage(false);
     document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
       checkbox.checked = false;
@@ -80,36 +75,37 @@ function PGFilters({
       </div>
       <div className="card-body">
         <div className="input-group d-flex flex-column border-bottom border-1 border-dark">
-          <h6 className="text-start">BHK Type</h6>
+          <h6 className="text-start">PG for</h6>
           <div className="grid pb-2 mx-auto justify-content-center align-items-center text-start">
-            {BHKTYPE.map((bhk_type) => (
+            {GENDER.map((gender) => (
               <div
-                key={bhk_type}
+                key={gender}
                 className="form-check form-check-inline text-center"
               >
                 <input
                   className={`${styles.input_checkbox1}`}
-                  type="checkbox"
-                  id={bhk_type}
-                  name={bhk_type}
-                  value={bhk_type}
-                  onChange={(event) => handleBhkTypeChange(event, bhk_type)}
+                  type="radio"
+                  id={gender}
+                  name={gender}
+                  value={gender}
+                  checked={gender === selectedGender}
+                  onChange={(event) => handleGenderChange(event, gender)}
                 />
                 <label
                   className={`${styles.input_label1} m-1`}
-                  htmlFor={bhk_type}
+                  htmlFor={gender}
                   role="button"
                 >
-                  {bhk_type}
+                  {gender}
                 </label>
               </div>
             ))}
           </div>
         </div>
         <div className="input-group d-flex flex-column mt-2 pt-1 border-bottom border-1 border-dark">
-          <h6 className="text-start">Preferred Tenant</h6>
+          <h6 className="text-start">Preferred For</h6>
           <div className="d-flex pb-2 flex-row justify-content-between align-items-center text-start">
-            {PREFERRED_TENANTS.map((preferred_tenant) => (
+            {PREFERRED_TENANTS_PG.map((preferred_tenant) => (
               <div
                 key={preferred_tenant}
                 className="form-check flex-grow-1 form-check-inline"
@@ -154,58 +150,54 @@ function PGFilters({
           </div>
         </div>
         <div className="input-group d-flex flex-column mt-2 pt-1 border-bottom border-1 border-dark">
-          <h6 className="text-start">Furnishing</h6>
-          <div className="d-flex pb-2 flex-row justify-content-between align-items-center text-start">
-            {FURNISHING_TYPES.map((furnishing_type) => (
+          <h6 className="text-start">Room Type</h6>
+          <div className="grid pb-2 mx-auto justify-content-between align-items-center text-start">
+            {ROOM_TYPE.map((room_type) => (
               <div
-                key={furnishing_type}
+                key={room_type}
                 className="form-check flex-grow-1 form-check-inline"
               >
                 <input
                   className={`${styles.input_checkbox1}`}
                   type="checkbox"
-                  id={furnishing_type}
-                  name={furnishing_type}
-                  value={furnishing_type}
-                  onChange={(event) =>
-                    handleFurnishingChange(event, furnishing_type)
-                  }
+                  id={room_type}
+                  name={room_type}
+                  value={room_type}
+                  onChange={(event) => handleRoomTypeChange(event, room_type)}
                 />
                 <label
                   className={`${styles.filterOption} ${styles.input_label1} m-2`}
-                  htmlFor={furnishing_type}
+                  htmlFor={room_type}
                   role="button"
                 >
-                  {furnishing_type}
+                  {room_type}
                 </label>
               </div>
             ))}
           </div>
         </div>
         <div className="input-group d-flex flex-column mt-2 pt-1 border-bottom border-1 border-dark">
-          <h6 className="text-start">Parking</h6>
+          <h6 className="text-start">Food Included</h6>
           <div className="d-flex pb-2 flex-row justify-content-between align-items-center text-start">
-            {PARKING.map((parking) => (
+            {FOOD_INCLUDED.map((food) => (
               <div
-                key={parking.dbName}
+                key={food}
                 className="form-check flex-grow-1 form-check-inline"
               >
                 <input
                   className={`${styles.input_checkbox1}`}
                   type="checkbox"
-                  id={parking.dbName}
-                  value={parking.dbName}
-                  name={parking.dbName}
-                  onChange={(event) =>
-                    handleParkingChange(event, parking.dbName)
-                  }
+                  id={food}
+                  value={food}
+                  name={food}
+                  onChange={(event) => handleFoodChange(event, food)}
                 />
                 <label
                   className={`${styles.filterOption} ${styles.input_label1} m-1`}
-                  htmlFor={parking.dbName}
+                  htmlFor={food}
                   role="button"
                 >
-                  {parking.viewName}
+                  {food}
                 </label>
               </div>
             ))}
@@ -229,6 +221,23 @@ function PGFilters({
                 role="button"
               >
                 With Image
+              </label>
+            </div>
+            <div className="form-check flex-grow-1 form-check-inline">
+              <input
+                className={`${styles.input_checkbox1}`}
+                type="checkbox"
+                id="attachedBathroom"
+                name="attachedBathroom"
+                value="attachedBathroom"
+                onChange={(event) => setAttachedBathroom(event.target.checked)}
+              />
+              <label
+                className={`${styles.filterOption} ${styles.input_label1} m-1`}
+                htmlFor="attachedBathroom"
+                role="button"
+              >
+                Attached Bathroom
               </label>
             </div>
           </div>

@@ -13,35 +13,39 @@ import noPhotoImg from "../../../assets/no-image.png";
 const PgCard = ({
   userDetails = {},
   propertyType = "pg",
-  pg_id = "",
+  pgs_id = "",
   pg_name = "",
   locality = "",
-  single_room = true,
+  // single_room = true,
   single_room_rent = 20000,
   single_room_deposit = 20000,
 
-  double_room = true,
-  double_room_rent = 20000,
-  double_room_deposit = 20000,
+  // double_room = true,
+  // double_room_rent = 20000,
+  // double_room_deposit = 20000,
 
-  triple_room = true,
-  triple_room_rent = 20000,
-  triple_room_deposit = 20000,
+  // triple_room = true,
+  // triple_room_rent = 20000,
+  // triple_room_deposit = 20000,
 
-  four_room = true,
-  four_room_rent = 20000,
-  four_room_deposit = 20000,
+  // four_room = true,
+  // four_room_rent = 20000,
+  // four_room_deposit = 20000,
 
   food_available = true,
 
-  breakfast = true,
-  lunch = false,
-  dinner = true,
+  // breakfast = true,
+  // lunch = false,
+  // dinner = true,
   preferred_tenants = "",
   available_from = "",
   shortlistArray,
   setShortlistedProperty = () => {},
   images,
+  // attachedBathroom = false,
+  // preferredTenantsPG = [],
+  // foodType = [],
+  // roomType = [],
 }) => {
   const { setShowLogin } = useContext(AuthContext);
   const [showOwnersContacted, setShowOwnersContacted] = useState(false);
@@ -56,7 +60,7 @@ const PgCard = ({
     return classname;
   };
 
-  const handlePgClicked = (e) => {
+  const handlePgClicked = () => {
     if (userDetails) {
       setShowOwnersContacted(true);
     } else {
@@ -65,9 +69,9 @@ const PgCard = ({
   };
 
   return (
-    <div className="mb-4" key={pg_id}>
+    <div className="mb-4" key={pgs_id}>
       <a
-        href={`/property/${pg_id}`}
+        href={`/property/${pgs_id}`}
         className="text-decoration-none"
         target="_blank"
         rel="noreferrer"
@@ -83,7 +87,7 @@ const PgCard = ({
       </a>
       <div className="card rounded-top-0 rounded-bottom-0">
         <a
-          href={`/property/${pg_id}`}
+          href={`/property/${pgs_id}`}
           className="text-decoration-none text-dark"
           target="_blank"
           rel="noreferrer"
@@ -110,7 +114,7 @@ const PgCard = ({
         <div className="card rounded-top-0">
           <div className="d-flex flex-column flex-lg-row p-3 gap-2">
             <div className="col-12 col-lg-4">
-              <div id={pg_id} className="carousel slide">
+              <div className="carousel slide">
                 <div
                   className={`carousel-inner overflow-hidden ${styles.listImageDiv}`}
                 >
@@ -139,7 +143,7 @@ const PgCard = ({
                 <button
                   className="carousel-control-prev text-dark"
                   type="button"
-                  data-bs-target={`#${pg_id}`}
+                  data-bs-target={`#${pgs_id}`}
                   data-bs-slide="prev"
                 ></button>
 
@@ -151,7 +155,7 @@ const PgCard = ({
                 <button
                   className="carousel-control-next text-dark"
                   type="button"
-                  data-bs-target={`#${pg_id}`}
+                  data-bs-target={`#${pgs_id}`}
                   data-bs-slide="next"
                 >
                   <span
@@ -166,7 +170,7 @@ const PgCard = ({
             <div className="col-12 col-lg-8 d-flex justify-contents-center">
               <div className="row w-100 h-100 m-0 m-2 p-2">
                 <a
-                  href={`/property/${pg_id}`}
+                  href={`/property/${pgs_id}`}
                   className="text-decoration-none text-dark"
                   target="_blank"
                   rel="noreferrer"
@@ -247,9 +251,9 @@ const PgCard = ({
                     </div>
 
                     <LikeHandler
-                      propertyId={pg_id}
+                      propertyId={pgs_id}
                       propertyType={propertyType}
-                      shortlisted={shortlistArray?.includes(pg_id)}
+                      shortlisted={shortlistArray?.includes(pgs_id)}
                       userDetails={userDetails}
                       setShortlistedProperty={setShortlistedProperty}
                     />
@@ -264,7 +268,7 @@ const PgCard = ({
         <OwnerModal
           showOwnersContacted={showOwnersContacted}
           setShowOwnersContacted={setShowOwnersContacted}
-          propertyId={pg_id}
+          propertyId={pgs_id}
           propertyType={propertyType}
         />
       )}

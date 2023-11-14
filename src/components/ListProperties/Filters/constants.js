@@ -10,3 +10,13 @@ export const PARKING = [
   { dbName: "Car", viewName: "4 wheeler" },
 ];
 // export const FACING = ["EAST", "NORTH", "WEST", "SOUTH"];
+
+export const GENDER = ["Male", "Female", "Anyone"];
+export const PREFERRED_TENANTS_PG = ["Student", "Professonal"];
+export const ROOM_TYPE = [
+  "Single Room",
+  "Double Room",
+  "Triple Room",
+  "Four Room",
+];
+export const FOOD_INCLUDED = ["Breakfast", "Lunch", "Dinner"];

@@ -13,7 +13,7 @@ import noPhotoImg from "../../../assets/no-image.png";
 const HouseCard = ({
   userDetails = {},
   house_id = "",
-  apartment_name = "",
+  // apartment_name = "",
   locality = "",
   rent = 0,
   rent_negotiable = false,
