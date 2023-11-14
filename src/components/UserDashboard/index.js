@@ -16,8 +16,12 @@ const UserDashboard = () => {
 
   return (
     <div className={styles.user_dashboard}>
-      <SideBar navigation={navigation} setNavigation={setNavigation} />
-      {NAVIGATION_MAPPING[navigation]}
+      <SideBar
+        navigation={navigation}
+        setNavigation={setNavigation}
+        className={`styles.pageLeft`}
+      />
+      <div className={`styles.pageRight`}>{NAVIGATION_MAPPING[navigation]}</div>
     </div>
   );
 };

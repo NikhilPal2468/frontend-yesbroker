@@ -15,8 +15,6 @@ const PropertyCard = ({
   propertyType,
   propertyId,
 }) => {
-  console.log(propertyType);
-
   const {
     bhk_type = "",
     locality = "",

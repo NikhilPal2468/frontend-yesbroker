@@ -76,7 +76,8 @@ function HousePage({ userDetails = {} }) {
         <PlaceGallery
           userDetails={userDetails}
           property={property}
-          houses_id={property.houses_id}
+          propertyId={property.houses_id}
+          propertyType={"house"}
         />
       </div>
 

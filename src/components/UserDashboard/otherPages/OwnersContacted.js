@@ -34,7 +34,7 @@ function OwnersContacted({ userDetails = {} }) {
             <button
               type="button"
               className={`btn btn-outline-primary me-2 ${
-                propertyType === "houses" ? "active" : ""
+                propertyType === "house" ? "active" : ""
               }`}
             >
               Houses
@@ -44,7 +44,7 @@ function OwnersContacted({ userDetails = {} }) {
             <button
               type="button"
               className={`btn btn-outline-primary me-2 ${
-                propertyType === "pgs" ? "active" : ""
+                propertyType === "pg" ? "active" : ""
               }`}
             >
               PG/Hostel
@@ -55,8 +55,8 @@ function OwnersContacted({ userDetails = {} }) {
         <div className="row gap-4 py-2 my-2">
           <p>
             {listings?.length === 0
-              ? "You have not listed any property"
-              : `You have posted ${listings?.length}
+              ? "You have not contacted any property"
+              : `You have contacted ${listings?.length}
             ${listings?.length === 1 ? "property" : "properties"}`}
           </p>
         </div>
@@ -69,6 +69,8 @@ function OwnersContacted({ userDetails = {} }) {
                   key={listing.id}
                   listing={listing}
                   userDetails={userDetails}
+                  propertyId={listing.id}
+                  propertyType={listing.propertyType}
                 />
               );
             })}
