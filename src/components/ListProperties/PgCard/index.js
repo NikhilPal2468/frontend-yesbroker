@@ -16,19 +16,19 @@ const PgCard = ({
   pgs_id = "",
   pg_name = "",
   locality = "",
-  // single_room = true,
+  single_room = true,
   single_room_rent = 20000,
   single_room_deposit = 20000,
 
-  // double_room = true,
+  double_room = true,
   // double_room_rent = 20000,
   // double_room_deposit = 20000,
 
-  // triple_room = true,
+  triple_room = true,
   // triple_room_rent = 20000,
   // triple_room_deposit = 20000,
 
-  // four_room = true,
+  four_room = true,
   // four_room_rent = 20000,
   // four_room_deposit = 20000,
 
@@ -97,6 +97,23 @@ const PgCard = ({
               className={`col-6 col-md d-flex flex-column ${styles.borderOpt2}`}
             >
               <h6 className="card-title mb-0">₹ {single_room_rent}</h6>
+              <p className="mb-0">
+                <small>Rent/month</small>
+              </p>
+            </div>
+            <div
+              className={`col-6 col-md d-flex flex-column ${styles.borderOpt2}`}
+            >
+              <h6 className="card-title mb-0">
+                {single_room && (double_room || triple_room || four_room)
+                  ? "Single and Shared"
+                  : single_room
+                  ? "Single Room Available"
+                  : "Shared Room Available"}
+              </h6>
+              <p className="mb-0">
+                <small>Room Type available</small>
+              </p>
             </div>
             <div
               className={`col-6 col-md d-flex flex-column ${styles.borderOpt2}`}

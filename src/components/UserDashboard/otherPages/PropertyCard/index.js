@@ -27,26 +27,26 @@ const PropertyCard = ({
     preferred_tenants = "",
     rent_negotiable = false,
 
-    single_room = false,
+    // single_room = false,
     single_room_rent,
     single_room_deposit,
 
-    double_room = false,
-    double_room_rent,
-    double_room_deposit,
+    // double_room = false,
+    // double_room_rent,
+    // double_room_deposit,
 
-    triple_room = false,
-    triple_room_rent,
-    triple_room_deposit,
+    // triple_room = false,
+    // triple_room_rent,
+    // triple_room_deposit,
 
-    four_room = false,
-    four_room_rent,
-    four_room_deposit,
+    // four_room = false,
+    // four_room_rent,
+    // four_room_deposit,
 
     food_available,
-    breakfast = false,
-    lunch = false,
-    dinner = false,
+    // breakfast = false,
+    // lunch = false,
+    // dinner = false,
 
     pg_name,
   } = listing;
@@ -64,7 +64,7 @@ const PropertyCard = ({
   const { setShowLogin } = useContext(AuthContext);
   const [showOwnersContacted, setShowOwnersContacted] = useState(false);
 
-  const handlePropertyClicked = (e) => {
+  const handlePropertyClicked = () => {
     if (userDetails) {
       setShowOwnersContacted(true);
     } else {
@@ -130,7 +130,7 @@ const PropertyCard = ({
             <div className="card rounded-top-0">
               <div className="d-flex flex-column flex-lg-row p-3 gap-2">
                 <div className="col-12 col-lg-4">
-                  <div propertyId={propertyId} className="carousel slide">
+                  <div className="carousel slide">
                     <div
                       className={`carousel-inner overflow-hidden ${styles.listImageDiv}`}
                     >
@@ -338,7 +338,7 @@ const PropertyCard = ({
             <div className="card rounded-top-0">
               <div className="d-flex flex-column flex-lg-row p-3 gap-2">
                 <div className="col-12 col-lg-4">
-                  <div propertyId={propertyId} className="carousel slide">
+                  <div className="carousel slide">
                     <div
                       className={`carousel-inner overflow-hidden ${styles.listImageDiv}`}
                     >
