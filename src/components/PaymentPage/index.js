@@ -6,7 +6,6 @@ import { RiSecurePaymentLine } from "react-icons/ri";
 
 import { AuthContext } from "../../context/AuthContext";
 import { LoadContext } from "../../context/load-context";
-import Loader from "../Loader";
 
 const PaymentPage = ({ userDetails = {} }) => {
   const [planData, setPlanData] = useState(null);
