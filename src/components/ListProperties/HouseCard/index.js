@@ -51,7 +51,7 @@ const HouseCard = ({
   };
 
   return (
-    <div className="mb-4" key={house_id}>
+    <div className="mb-4 w-100" key={house_id}>
       <a
         href={`/property/house/${house_id}`}
         className="text-decoration-none"
