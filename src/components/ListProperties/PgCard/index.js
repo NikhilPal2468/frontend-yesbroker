@@ -65,7 +65,7 @@ const PgCard = ({
   };
 
   return (
-    <div className="mb-4" key={pg_id}>
+    <div className="mb-4 w-100" key={pg_id}>
       <a
         href={`/property/pg/${pg_id}`}
         className="text-decoration-none"

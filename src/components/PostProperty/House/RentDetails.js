@@ -11,6 +11,7 @@ import { LoadContext } from "../../../context/load-context";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 const FURNISHING_TYPE = [
   { key: "Fully Furnished" },
   { key: "Semi Furnished" },
