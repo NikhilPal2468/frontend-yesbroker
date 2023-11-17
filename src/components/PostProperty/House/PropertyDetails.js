@@ -172,12 +172,16 @@ const validationSchema = Yup.object({
   builtup_area: Yup.number().required("Built Up Area is Required"),
 });
 
+let curPageNo = 1;
+
 function PropertyDetails() {
   const navigate = useNavigate();
   const location = useLocation();
   const { setLoading } = useContext(LoadContext);
 
   const [houseObject, setHouseObject] = useState(null);
+  const [postPropertyPageNo, setPostPropertyPageNo] = useState(0);
+
   const { id: houseId } = useParams();
 
   useEffect(() => {
@@ -189,6 +193,7 @@ function PropertyDetails() {
         );
 
         // console.log(houseId, data);
+        setPostPropertyPageNo(data?.post_property_page_no);
         setHouseObject(data);
       };
       fetchData(houseId);
@@ -227,6 +232,7 @@ function PropertyDetails() {
     try {
       values.floor = parseInt(values.floor);
       values.total_floors = parseInt(values.total_floors);
+      values.postPropertyPageNo = Math.max(postPropertyPageNo, curPageNo);
 
       if (values.floor > values.total_floors) {
         toast.error("Floor value must be smaller than Total Floors", {
@@ -259,7 +265,11 @@ function PropertyDetails() {
     <div className={`container`}>
       <div className={`d-flex flex-column flex-sm-row justify-content-center`}>
         <div className={`w-20 ${styles.container}`}>
-          <Sidebar pathname={location.pathname} />
+          <Sidebar
+            pathname={location.pathname}
+            houseId={houseId}
+            postPropertyPageNo={postPropertyPageNo}
+          />
         </div>
         <div
           className={`w-75 ms-2 px-4 d-flex flex-column ${styles.container}`}

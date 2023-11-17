@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Sidebar from "./SideBar/sidebar";
 import styles from "./styles.module.css";
 import * as Yup from "yup";
@@ -74,20 +74,25 @@ function PgAmenities() {
 
   const [pgObject, setPgObject] = useState(null);
   const { id: pgId } = useParams();
+  const [postPropertyPageNo, setPostPropertyPageNo] = useState(0);
+
+  let curPageNo = 4;
 
   useEffect(() => {
     try {
       const fetchData = async (pgId) => {
         setLoading(true);
         const { data } = await axios.get(`/secure/api/getpg?pgId=${pgId}`);
+
         setPgObject(data);
+
+        setPostPropertyPageNo(data?.post_property_page_no);
+        setLoading(false);
       };
 
       fetchData(pgId);
     } catch (err) {
       console.log(err);
-    } finally {
-      setLoading(false);
     }
   }, [pgId]);
 
@@ -117,7 +122,8 @@ function PgAmenities() {
 
   const onSubmit = async (values) => {
     try {
-      await axios.post(`/secure/api/newProperty/pg/update/${pgId}`, values);
+      values = Math.max(postPropertyPageNo, curPageNo);
+      await axios.post(`secure/api/newProperty/pg/update/${pgId}`, values);
 
       navigate(`/property/manage/pg/${pgId}/gallery`);
     } catch (err) {
@@ -203,7 +209,11 @@ function PgAmenities() {
     <div className="container">
       <div className={`d-flex flex-column flex-sm-row justify-content-center`}>
         <div className={`w-20 ${styles.container}`}>
-          <Sidebar pathname={location.pathname} />
+          <Sidebar
+            pathname={location.pathname}
+            pgId={pgId}
+            postPropertyPageNo={postPropertyPageNo}
+          />
         </div>
         <div
           className={`w-75 ms-2  px-4 d-flex flex-column ${styles.container}`}

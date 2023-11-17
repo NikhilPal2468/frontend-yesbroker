@@ -29,6 +29,9 @@ function Gallery() {
   const [imageFiles, setImageFiles] = useState([]);
   const [uploadedImages, setUploadedImages] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [postPropertyPageNo, setPostPropertyPageNo] = useState(0);
+
+  // let curPageNo = 5;
 
   const handleInputChange = async (e) => {
     if (!e.target.files || e.target.files.length === 0) return;
@@ -43,7 +46,10 @@ function Gallery() {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    const values = {};
+    values.postPropertyPageNo = 5;
+    await axios.post(`secure/api/newProperty/house/update/${houseId}`, values);
     setShowModal(true);
   };
 
@@ -75,6 +81,36 @@ function Gallery() {
         progress: undefined,
         theme: "colored",
       });
+    }
+  }, [houseId]);
+
+  // To fetch house data
+  useEffect(() => {
+    try {
+      const fetchData = async (houseId) => {
+        setLoading(true);
+        const { data } = await axios.get(
+          `/secure/api/gethouse?houseId=${houseId}`
+        );
+
+        setPostPropertyPageNo(data?.post_property_page_no);
+      };
+
+      fetchData(houseId);
+    } catch (e) {
+      toast.error(e?.response?.data?.message, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      console.log(e);
+    } finally {
+      setLoading(false);
     }
   }, [houseId]);
 
@@ -213,7 +249,11 @@ function Gallery() {
     <div className="container">
       <div className={`d-flex flex-column flex-sm-row justify-content-center`}>
         <div className={`w-20 ${styles.container}`}>
-          <Sidebar pathname={location.pathname} />
+          <Sidebar
+            pathname={location.pathname}
+            houseId={houseId}
+            postPropertyPageNo={postPropertyPageNo}
+          />
         </div>
         <div
           className={`w-75 ms-2 px-4 d-flex flex-column ${styles.container}`}
@@ -302,7 +342,8 @@ function Gallery() {
         <FinalModal
           showModal={showModal}
           setShowModal={setShowModal}
-          houseId={houseId}
+          propertyId={houseId}
+          propertyType={"house"}
         />
       )}
       <ToastContainer />

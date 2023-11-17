@@ -3,34 +3,55 @@ import styles from "./styles.module.css";
 import { GrUserManager } from "react-icons/gr";
 import { GiFamilyHouse } from "react-icons/gi";
 import { TbSofa } from "react-icons/tb";
-import { VscKey } from "react-icons/vsc";
 
 import OwnerModal from "../../ShowOwnerModal/OwnerModal";
 import LikeHandler from "../../likeHandler";
 import { AuthContext } from "../../../context/AuthContext";
 import noPhotoImg from "../../../assets/no-image.png";
+import { FaWifi } from "react-icons/fa";
 
-const HouseCard = ({
+const PgCard = ({
   userDetails = {},
-  house_id = "",
-  // apartment_name = "",
+  propertyType = "pg",
+  pgs_id = "",
+  pg_name = "",
   locality = "",
-  rent = 0,
-  rent_negotiable = false,
-  deposit = 0,
-  builtup_area = "",
-  furnishing_type = "",
-  bhk_type = "",
+  single_room = false,
+  single_room_rent = 20000,
+  single_room_deposit = 20000,
+
+  double_room = false,
+  // double_room_rent = 20000,
+  // double_room_deposit = 20000,
+
+  triple_room = false,
+  // triple_room_rent = 20000,
+  // triple_room_deposit = 20000,
+
+  four_room = true,
+  // four_room_rent = 20000,
+  // four_room_deposit = 20000,
+
+  food_available = false,
+
+  breakfast = false,
+  lunch = false,
+  dinner = false,
   preferred_tenants = "",
   available_from = "",
-  propertyType = "",
   shortlistArray,
   setShortlistedProperty = () => {},
   images,
+  // attachedBathroom = false,
+  // preferredTenantsPG = [],
+  // foodType = [],
+  // roomType = [],
+  wifi = false,
 }) => {
+  console.log("available_from:", available_from);
   const { setShowLogin } = useContext(AuthContext);
   const [showOwnersContacted, setShowOwnersContacted] = useState(false);
-  const [houseId, setHouseId] = useState("");
+
   const addImgCarousel = (index) => {
     let classname = "carousel-item h-100";
 
@@ -41,26 +62,40 @@ const HouseCard = ({
     return classname;
   };
 
-  const handleHouseClicked = (e, houseId) => {
+  const handlePgClicked = () => {
     if (userDetails) {
-      setHouseId(houseId);
       setShowOwnersContacted(true);
     } else {
       setShowLogin(true);
     }
   };
 
+  const mealAvailable = () => {
+    let meals = "";
+    if (breakfast) meals += "Breakfast";
+    if (lunch) {
+      if (meals === "") meals += "Lunch";
+      else meals += ", Lunch";
+    }
+    if (dinner) {
+      if (meals === "") meals += "Dinner";
+      else meals += ", Dinner";
+    }
+    if (breakfast && lunch && dinner) return "All meals";
+    else return meals;
+  };
+
   return (
-    <div className="mb-4 w-100" key={house_id}>
+    <div className="mb-4" key={pgs_id}>
       <a
-        href={`/property/house/${house_id}`}
+        href={`/property/pg/${pgs_id}`}
         className="text-decoration-none"
         target="_blank"
         rel="noreferrer"
       >
         <div className="card border-bottom-0 rounded-bottom-0">
           <div className="card-body">
-            <h5 className="card-title text-start">{`${bhk_type} in ${locality}`}</h5>
+            <h5 className="card-title text-start">{`PG in ${locality}`}</h5>
             <h6 className="font-weight-light mb-2 text-muted text-start">
               {/* <small>{house?.headline}</small> */}
             </h6>
@@ -69,7 +104,7 @@ const HouseCard = ({
       </a>
       <div className="card rounded-top-0 rounded-bottom-0">
         <a
-          href={`/property/house/${house_id}`}
+          href={`/property/pg/${pgs_id}`}
           className="text-decoration-none text-dark"
           target="_blank"
           rel="noreferrer"
@@ -78,35 +113,42 @@ const HouseCard = ({
             <div
               className={`col-6 col-md d-flex flex-column ${styles.borderOpt2}`}
             >
-              <h6 className="card-title mb-0">₹ {rent}</h6>
+              <h6 className="card-title mb-0">₹ {single_room_rent}</h6>
               <p className="mb-0">
-                <small>{`Rent (${
-                  rent_negotiable ? "Negotiable" : "Non-Negotiable"
-                })`}</small>
+                <small>Rent/month</small>
               </p>
             </div>
             <div
               className={`col-6 col-md d-flex flex-column ${styles.borderOpt2}`}
             >
-              <h6 className="card-title mb-0">₹ {deposit}</h6>
+              <h6 className="card-title mb-0">
+                {single_room && (double_room || triple_room || four_room)
+                  ? "Single and Shared"
+                  : single_room
+                  ? "Single Room Available"
+                  : "Shared Room Available"}
+              </h6>
               <p className="mb-0">
-                <small>Deposit</small>
+                <small>Room Type available</small>
               </p>
             </div>
-            <div className="col-12 col-md d-flex flex-column d-none d-md-flex">
-              <h6 className="card-title mb-0">{builtup_area}</h6>
+            <div
+              className={`col-6 col-md d-flex flex-column ${styles.borderOpt2}`}
+            >
+              <h6 className="card-title mb-0">₹ {single_room_deposit}</h6>
               <p className="mb-0">
-                <small>Builtup(sqft)</small>
+                <small>Deposit</small>
               </p>
             </div>
           </div>
         </a>
       </div>
+
       <div className="card rounded-top-0">
         <div className="card rounded-top-0">
           <div className="d-flex flex-column flex-lg-row p-3 gap-2">
             <div className="col-12 col-lg-4">
-              <div id={house_id} className="carousel slide">
+              <div className="carousel slide">
                 <div
                   className={`carousel-inner overflow-hidden ${styles.listImageDiv}`}
                 >
@@ -135,25 +177,26 @@ const HouseCard = ({
                 <button
                   className="carousel-control-prev text-dark"
                   type="button"
-                  data-bs-target={`#${house_id}`}
+                  data-bs-target={`#${pgs_id}`}
                   data-bs-slide="prev"
-                >
-                  <span
-                    className="carousel-control-prev-icon"
-                    aria-hidden="true"
-                  ></span>
-                  <span className="visually-hidden">Previous</span>
-                </button>
+                ></button>
+
+                <span
+                  className="carousel-control-prev-icon"
+                  aria-hidden="true"
+                ></span>
+                <span className="visually-hidden">Previous</span>
                 <button
                   className="carousel-control-next text-dark"
                   type="button"
-                  data-bs-target={`#${house_id}`}
+                  data-bs-target={`#${pgs_id}`}
                   data-bs-slide="next"
                 >
                   <span
                     className="carousel-control-next-icon"
                     aria-hidden="true"
                   ></span>
+
                   <span className="visually-hidden">Next</span>
                 </button>
               </div>
@@ -161,7 +204,7 @@ const HouseCard = ({
             <div className="col-12 col-lg-8 d-flex justify-contents-center">
               <div className="row w-100 h-100 m-0 m-2 p-2">
                 <a
-                  href={`/property/house/${house_id}`}
+                  href={`/property/pg/${pgs_id}`}
                   className="text-decoration-none text-dark"
                   target="_blank"
                   rel="noreferrer"
@@ -176,9 +219,9 @@ const HouseCard = ({
                         <TbSofa size={28} />
                       </div>
                       <div>
-                        <p className="mb-0">{furnishing_type}</p>
+                        <p className="mb-0">{pg_name}</p>
                         <p className="card-title mb-0 text-bold">
-                          <small>Furnishing</small>
+                          <small>PG Name</small>
                         </p>
                       </div>
                     </div>
@@ -187,9 +230,11 @@ const HouseCard = ({
                         <GiFamilyHouse size={28} />
                       </div>
                       <div>
-                        <p className="mb-0">{bhk_type}</p>
+                        <p className="mb-0">
+                          {food_available ? mealAvailable() : "Not available"}
+                        </p>
                         <p className="card-title mb-0 text-bold">
-                          <small>Apartment Type</small>
+                          <small>Food Available</small>
                         </p>
                       </div>
                     </div>
@@ -212,18 +257,19 @@ const HouseCard = ({
                     </div>
                     <div className="w-50 d-flex flex-row justify-content-start ms-2 align-items-center">
                       <div className="px-2">
-                        <VscKey size={28} />
+                        <FaWifi size={28} />
                       </div>
                       <div>
                         <p className="mb-0">
-                          {new Date(available_from).toLocaleString("en-US", {
+                          {wifi ? "Wifi Available" : "Wifi not available"}
+                          {/* {new Date(wifi).toLocaleString("en-US", {
                             day: "numeric",
                             month: "long",
                             year: "numeric",
-                          })}
+                          })} */}
                         </p>
                         <p className="card-title mb-0 text-bold">
-                          <small>Available From</small>
+                          <small>Wifi Availibility</small>
                         </p>
                       </div>
                     </div>
@@ -235,16 +281,16 @@ const HouseCard = ({
                       className={`flex-grow-1 p-2 text-white text-center rounded ${styles.primary_color}`}
                       role="button"
                       onClick={(e) => {
-                        handleHouseClicked(e, house_id);
+                        handlePgClicked(e);
                       }}
                     >
                       Get Owner Details
                     </div>
 
                     <LikeHandler
-                      propertyId={house_id}
+                      propertyId={pgs_id}
                       propertyType={propertyType}
-                      shortlisted={shortlistArray?.includes(house_id)}
+                      shortlisted={shortlistArray?.includes(pgs_id)}
                       userDetails={userDetails}
                       setShortlistedProperty={setShortlistedProperty}
                     />
@@ -259,7 +305,7 @@ const HouseCard = ({
         <OwnerModal
           showOwnersContacted={showOwnersContacted}
           setShowOwnersContacted={setShowOwnersContacted}
-          propertyId={houseId}
+          propertyId={pgs_id}
           propertyType={propertyType}
         />
       )}
@@ -267,4 +313,4 @@ const HouseCard = ({
   );
 };
 
-export default HouseCard;
+export default PgCard;

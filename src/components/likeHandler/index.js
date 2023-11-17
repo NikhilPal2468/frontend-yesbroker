@@ -7,7 +7,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function LikeHandler({
-  houses_id,
+  propertyId,
+  propertyType,
   shortlisted,
   userDetails = {},
   setShortlistedProperty = () => {},
@@ -27,27 +28,29 @@ function LikeHandler({
     }
     setShowPopover(true);
   };
+
   const handleHidePopover = () => {
     setShowPopover(false);
   };
 
-  const likeHandler = async (houses_id) => {
+  const likeHandler = async (propertyId, propertyType) => {
     if (userDetails)
       try {
         const { data } = await axios.post(
           "/secure/api/user/property/shortlist",
           {
-            propertyId: houses_id,
-            propertyType: "house",
+            propertyId: propertyId,
+            propertyType: propertyType,
           }
         );
-        console.log("data:", data);
+
         setShortlistedProperty((prevList) => {
           let newShortlists = prevList?.filter(({ id }) => {
-            return id !== houses_id;
+            return id !== propertyId;
           });
           return newShortlists;
         });
+
         setLiked((prev) => !prev);
       } catch (e) {
         console.log(e);
@@ -80,7 +83,7 @@ function LikeHandler({
         className={`p-1 rounded ms-2 ${styles.likeBorder}`}
         role="button"
         onClick={() => {
-          likeHandler(houses_id);
+          likeHandler(propertyId, propertyType);
         }}
       >
         {liked ? (

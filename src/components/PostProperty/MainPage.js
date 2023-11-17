@@ -155,6 +155,7 @@ function MainPage() {
                       <label
                         htmlFor="propertyType2"
                         className={`${styles.input_label}`}
+                        role="button"
                       >
                         Hostel || PG
                       </label>

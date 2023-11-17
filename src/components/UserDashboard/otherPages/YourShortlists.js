@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SideBar from "../SideBar";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import HouseCard from "../../ListProperties/HouseCard";
 import styles from "../styles.module.css";
+import { LoadContext } from "../../../context/load-context";
 
 function YourShortlists({ userDetails = {} }) {
   const { propertyType } = useParams();
@@ -11,16 +12,22 @@ function YourShortlists({ userDetails = {} }) {
     ...(userDetails ? userDetails.house_shortlists : []),
     ...(userDetails ? userDetails.pg_shortlists : []),
   ];
+
   const [shortlistedProperty, setShortlistedProperty] = useState([]);
+  const { setLoading } = useContext(LoadContext);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const { data } = await axios.get(
           `/secure/api/user/myshortlists?propertyType=${propertyType}`
         );
+
+        setLoading(false);
         setShortlistedProperty(data?.data);
       } catch (err) {
+        setLoading(false);
         console.log(err.message);
       }
     };
@@ -29,41 +36,43 @@ function YourShortlists({ userDetails = {} }) {
   }, [propertyType]);
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container}`}>
       <SideBar />
       <div className={`${styles.sidebar_right}`}>
         <div className="container">
           <p className="fw-bold border-bottom py-4">My Shortlists</p>
         </div>
         <div className="container">
-          <Link to={"/user/myshortlists/houses"}>
+          <Link to={"/user/myshortlists/house"}>
             <button
               type="button"
               className={`btn btn-outline-primary me-2 ${
-                propertyType === "houses" ? "active" : ""
+                propertyType === "house" ? "active" : ""
               }`}
             >
               Houses
             </button>
           </Link>
-          <Link to={"/user/myshortlists/pgs"}>
+          <Link to={"/user/myshortlists/pg"}>
             <button
               type="button"
               className={`btn btn-outline-primary me-2 ${
-                propertyType === "pgs" ? "active" : ""
+                propertyType === "pg" ? "active" : ""
               }`}
             >
               PG/Hostel
             </button>
           </Link>
         </div>
-        <div>
-          {shortlistedProperty?.length === 0
-            ? "You have not shortlisted any property"
-            : `You have shortlisted ${shortlistedProperty?.length || "0"}
+        <div className="row gap-4 py-2 my-2">
+          <p>
+            {shortlistedProperty?.length === 0
+              ? "You have not shortlisted any property"
+              : `You have shortlisted ${shortlistedProperty?.length || "0"}
             ${shortlistedProperty?.length === 1 ? "property" : "properties"}`}
+          </p>
         </div>
-        <div>
+        <div className={`container flex-column flex-md-row ${styles.cards}`}>
           {(shortlistedProperty || []).map(
             ({
               id = "",

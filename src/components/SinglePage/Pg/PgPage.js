@@ -13,7 +13,6 @@ import { ImCross } from "react-icons/im";
 
 function PgPage({ userDetails = {} }) {
   const { id } = useParams();
-  console.log(id);
   const [property, setProperty] = useState(null);
   const { setLoading } = useContext(LoadContext);
 
@@ -97,7 +96,8 @@ function PgPage({ userDetails = {} }) {
         <PlaceGalleryPg
           userDetails={userDetails}
           property={property}
-          houses_id={property.pgs_id}
+          propertyId={property.pgs_id}
+          propertyType={"pg"}
         />
       </div>
 

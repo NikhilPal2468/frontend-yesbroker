@@ -27,6 +27,9 @@ function LocalityDetails() {
   const [street, setStreet] = useState("");
   const [suggestionList, setSuggestionList] = useState([]);
   const [description, setDescription] = useState("");
+  const [postPropertyPageNo, setPostPropertyPageNo] = useState(0);
+
+  let curPageNo = 2;
 
   useEffect(() => {
     try {
@@ -43,6 +46,7 @@ function LocalityDetails() {
         setPincode(data?.pincode);
         setAddress(data?.address);
         setDescription(data?.description);
+        setPostPropertyPageNo(data?.post_property_page_no);
       };
 
       fetchData(houseId);
@@ -105,6 +109,7 @@ function LocalityDetails() {
       houseNo: houseNo,
       address: address,
       description: description,
+      postPropertyPageNo: Math.max(postPropertyPageNo, curPageNo),
     };
 
     try {
@@ -132,7 +137,11 @@ function LocalityDetails() {
     <div className="container h-100">
       <div className={`d-flex flex-column flex-sm-row justify-content-center`}>
         <div className={`w-20 ${styles.container}`}>
-          <Sidebar pathname={location.pathname} />
+          <Sidebar
+            pathname={location.pathname}
+            houseId={houseId}
+            postPropertyPageNo={postPropertyPageNo}
+          />
         </div>
         <div
           className={`w-75 ms-2 px-4 d-flex flex-column ${styles.container}`}

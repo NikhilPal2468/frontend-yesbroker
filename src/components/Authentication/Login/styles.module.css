@@ -9,9 +9,12 @@
 .forgot_pwd {
   width: 100%;
   text-align: right;
-  margin-right: 14px;
+  padding: 4px 8px;
   cursor: pointer;
+  display: flex;
+  justify-content: space-between;
 }
+
 .primary_color {
   background-color: #6c63ff;
 }

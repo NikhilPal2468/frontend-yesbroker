@@ -16,11 +16,11 @@ function SideBar() {
 
   const urls = {
     profile: "/user/myprofile",
-    listedHouses: "/user/mylistings/houses",
-    listedPgs: "/user/mylistings/pgs",
+    listedHouses: "/user/mylistings/house",
+    listedPgs: "/user/mylistings/pg",
     ownersContacted: "/user/ownerscontacted",
-    shortlistHouses: "/user/myshortlists/houses",
-    shortlistPgs: "/user/myshortlists/pgs",
+    shortlistHouses: "/user/myshortlists/house",
+    shortlistPgs: "/user/myshortlists/pg",
   };
 
   return (
