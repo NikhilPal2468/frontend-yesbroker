@@ -49,7 +49,7 @@ const PgList = ({
             preferredTenantsPG.length === 1 ? undefined : preferredTenantsPG,
           price_greater_than: priceDebounced?.[0],
           price_less_than: priceDebounced?.[1],
-          gender: selectedGender ? selectedGender : undefined,
+          gender: selectedGender ? selectedGender.toLowerCase() : undefined,
           attached_bathroom: attachedBathroom ? attachedBathroom : undefined,
           single_room: singleRoom ? singleRoom : undefined,
           double_room: doubleRoom ? doubleRoom : undefined,
