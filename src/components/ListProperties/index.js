@@ -47,9 +47,17 @@ const ListProperties = ({ userDetails = {} }) => {
   ]);
   const [preferredTenantsPG, setPreferredTenantsPG] = useState(["Both"]);
   const [roomType, setRoomType] = useState([]);
+  const [singleRoom, setSingleRoom] = useState(false);
+  const [doubleRoom, setDoubleRoom] = useState(false);
+  const [tripleRoom, setTripleRoom] = useState(false);
+  const [fourRoom, setFourRoom] = useState(false);
+
   const [foodType, setFoodType] = useState([]);
+  const [breakfast, setBreakfast] = useState(false);
+  const [lunch, setLunch] = useState(false);
+  const [dinner, setDinner] = useState(false);
   const [attachedBathroom, setAttachedBathroom] = useState(null);
-  const [selectedGender, setSelectedGender] = useState("");
+  const [selectedGender, setSelectedGender] = useState(null);
   const [suggestionList, setSuggestionList] = useState([]);
 
   useEffect(() => {
@@ -123,6 +131,16 @@ const ListProperties = ({ userDetails = {} }) => {
                 setFoodType={setFoodType}
                 setRoomType={setRoomType}
                 setPreferredTenantsPG={setPreferredTenantsPG}
+                setWithImage={setWithImage}
+                setSingleRoom={setSingleRoom}
+                setDoubleRoom={setDoubleRoom}
+                setTripleRoom={setTripleRoom}
+                setFourRoom={setFourRoom}
+                setBreakfast={setBreakfast}
+                setLunch={setLunch}
+                setDinner={setDinner}
+                price={price}
+                setPrice={setPrice}
               />
             )}
             <button className={styles.apply_filters} onClick={handleClose}>
@@ -155,6 +173,16 @@ const ListProperties = ({ userDetails = {} }) => {
               setFoodType={setFoodType}
               setRoomType={setRoomType}
               setPreferredTenantsPG={setPreferredTenantsPG}
+              setWithImage={setWithImage}
+              setSingleRoom={setSingleRoom}
+              setDoubleRoom={setDoubleRoom}
+              setTripleRoom={setTripleRoom}
+              setFourRoom={setFourRoom}
+              setBreakfast={setBreakfast}
+              setLunch={setLunch}
+              setDinner={setDinner}
+              price={price}
+              setPrice={setPrice}
             />
           )}
         </div>
@@ -184,6 +212,14 @@ const ListProperties = ({ userDetails = {} }) => {
             foodType={foodType}
             roomType={roomType}
             attachedBathroom={attachedBathroom}
+            selectedGender={selectedGender}
+            singleRoom={singleRoom}
+            doubleRoom={doubleRoom}
+            tripleRoom={tripleRoom}
+            fourRoom={fourRoom}
+            breakfast={breakfast}
+            lunch={lunch}
+            dinner={dinner}
           />
         )}
       </div>
