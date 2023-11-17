@@ -1,48 +1,75 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { LoadContext } from "../../context/load-context";
+
+// const paymentPlans = [
+//   {
+//     plan_type: "Basic",
+//     price: 599,
+//     number_of_contacts: 25,
+//     plan_description: ["Access to basic features", "Limited support"],
+//   },
+//   {
+//     plan_type: "Standard",
+//     price: 999,
+//     number_of_contacts: 50,
+//     plan_description: ["Access to advanced features", "Priority support"],
+//   },
+//   {
+//     plan_type: "Premium",
+//     price: 1599,
+//     number_of_contacts: 100,
+//     plan_description: ["Access to all features", "24/7 premium support"],
+//   },
+// ];
 
 const Premium = () => {
+  const [paymentPlans, setPaymentPlans] = useState([]);
+  const { setLoading } = useContext(LoadContext);
+
+  useEffect(() => {
+    try {
+      setLoading(true);
+      const fetchPlans = async () => {
+        const { data } = await axios.get("/secure/api/payment-plans");
+        setPaymentPlans(data);
+      };
+
+      fetchPlans();
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   return (
     <div className={styles.pricingPage}>
       <h1>Pricing</h1>
       <div className={styles.plansContainer}>
-        <div className={styles.plan}>
-          <h2>Basic</h2>
-          <div className={styles.planDetails}>
-            <p>Price: ₹599</p>
-            <p>Number of Contacts upto 25</p>
-            <p>Access to basic features</p>
-            <p>Limited support</p>
-          </div>
-          <Link to="/payment?amount=599">
-            <button className={styles.planButton}>Choose Plan</button>
-          </Link>
-        </div>
-        <div className={styles.plan}>
-          <h2>Standard</h2>
-          <div className={styles.planDetails}>
-            <p>Price: ₹999</p>
-            <p>Number of Contacts upto 50</p>
-            <p>Access to advanced features</p>
-            <p>Priority support</p>
-          </div>
-          <Link to="/payment?amount=999">
-            <button className={styles.planButton}>Choose Plan</button>
-          </Link>
-        </div>
-        <div className={styles.plan}>
-          <h2>Premium</h2>
-          <div className={styles.planDetails}>
-            <p>Price: ₹1599</p>
-            <p>Number of Contacts upto 100</p>
-            <p>Access to all features</p>
-            <p>24/7 premium support</p>
-          </div>
-          <Link to="/payment?amount=1599">
-            <button className={styles.planButton}>Choose Plan</button>
-          </Link>
-        </div>
+        {paymentPlans.length > 0 &&
+          paymentPlans.map((currentPlan) => {
+            return (
+              <div key={currentPlan.plan_type} className={`${styles.plan}`}>
+                <h2>{currentPlan?.plan_type}</h2>
+                <div className={styles.planDetails}>
+                  <p>Price: ₹{currentPlan?.price}</p>
+                  <p>
+                    Number of Contacts upto {currentPlan?.number_of_contacts}
+                  </p>
+                  {currentPlan?.plan_description &&
+                    currentPlan.plan_description.map((description) => {
+                      return <p key={description}>{description}</p>;
+                    })}
+                </div>
+                <Link to={`/payment?planId=${currentPlan?.id}`}>
+                  <button className={styles.planButton}>Choose Plan</button>
+                </Link>
+              </div>
+            );
+          })}
       </div>
     </div>
   );

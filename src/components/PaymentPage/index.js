@@ -1,20 +1,41 @@
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PaymentForm from "../PaymentForm";
 import styles from "./styles.module.css";
 import { RiSecurePaymentLine } from "react-icons/ri";
 
 import { AuthContext } from "../../context/AuthContext";
+import { LoadContext } from "../../context/load-context";
 
 const PaymentPage = ({ userDetails = {} }) => {
+  const [planData, setPlanData] = useState(null);
   const { setShowLogin } = useContext(AuthContext);
   const [formHtml, setFormHtml] = useState("");
-
+  const { setLoading } = useContext(LoadContext);
   const urlSearchParams = new URLSearchParams(window.location.search);
   const params = Object.fromEntries(urlSearchParams.entries());
 
   // Extract the 'amount' parameter
-  const amount = params.amount || 599;
+  const planId = params.planId;
+
+  useEffect(() => {
+    const fetchPlanData = async (planId) => {
+      try {
+        setLoading(true);
+        const { data } = await axios.get(
+          `/secure/api/plan-data?planId=${planId}`
+        );
+        setPlanData(data);
+      } catch (e) {
+        console.log(e);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPlanData(planId);
+  }, [planId]);
+
   const onPayment = async (e) => {
     e.preventDefault();
     const id = userDetails?.id;
@@ -26,12 +47,13 @@ const PaymentPage = ({ userDetails = {} }) => {
           data: {
             merchant_id: 2902324,
             order_id: orderId,
-            amount: amount * 1.18,
+            amount: planData?.price * 1.18,
+            plan_type: planData?.plan_type,
             currency: `INR`,
-            // redirect_url: `https://homewale.com/api`,
-            // cancel_url: `https://homewale.com/api`,
-            redirect_url: `https://homewale.com/api/public/api/payment-status`,
-            cancel_url: `https://homewale.com/api/public/api/payment-status`,
+            redirect_url: `http://localhost:5000/public/api/payment-status`,
+            cancel_url: `http://localhost:5000/public/api/payment-status`,
+            // redirect_url: `https://homewale.com/api/public/api/payment-status`,
+            // cancel_url: `https://homewale.com/api/public/api/payment-status`,
             language: `EN`,
           },
         });
@@ -84,15 +106,15 @@ const PaymentPage = ({ userDetails = {} }) => {
           <h2>Plan Details</h2>
           <div className="d-flex justify-content-between w-50">
             <div>Total Amount:</div>
-            <div>{amount}</div>
+            <div>{planData?.price}</div>
           </div>
           <div className="d-flex justify-content-between w-50">
             <div>GST:</div>
-            <div>{(amount * 0.18).toFixed(2)}</div>
+            <div>{(planData?.price * 0.18).toFixed(2)}</div>
           </div>
           <div className="d-flex justify-content-between w-50">
             <div>Total Amount:</div>
-            <div>{(amount * 1.18).toFixed(2)}</div>
+            <div>{(planData?.price * 1.18).toFixed(2)}</div>
           </div>
           {/* Order summary details */}
         </div>

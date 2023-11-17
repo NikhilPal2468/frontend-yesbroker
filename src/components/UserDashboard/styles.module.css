@@ -71,20 +71,21 @@
 
 .sidebar {
   background-color: #f3f4f6;
-  width: 320px;
   position: sticky !important;
   top: 10px;
   overflow-y: auto;
   height: 500px;
   transition: transform 0.3s ease-in-out;
+  flex: 0.2;
   /* transform: translateX(-320px); */
 }
+
 .sidebar_right {
-  flex-grow: 0.6;
-  /* margin-left: 350px; */
   background-color: #fff;
   padding: 20px;
+  flex: 0.8;
 }
+
 @media (max-width: 768px) {
   .sidebar {
     position: unset !important;

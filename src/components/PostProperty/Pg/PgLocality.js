@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styles from "./styles.module.css";
 import { Button } from "react-bootstrap";
 import axios from "axios";
@@ -14,6 +14,9 @@ function LocalityDetails() {
   const { setLoading } = useContext(LoadContext);
 
   const { id: pgId } = useParams();
+  const [postPropertyPageNo, setPostPropertyPageNo] = useState(0);
+
+  let curPageNo = 2;
 
   const [city, setCity] = useState("");
   const [complete_address, setAddress] = useState("");
@@ -28,14 +31,12 @@ function LocalityDetails() {
     try {
       const fetchData = async (pgId) => {
         setLoading(true);
-        const { data } = await axios.get(`/secure/api/getpg?pgId=${pgId}`);
-        console.log(data);
+        const { data } = await axios.get(`/secure/api/getPg?pgId=${pgId}`);
+        setLoading(false);
         setCity(data?.city);
         setLocality(data?.locality);
         setStreet(data?.street);
-        setPincode(data?.pincode);
-        setAddress(data?.complete_address);
-        setDescription(data?.description);
+        setPostPropertyPageNo(data?.post_property_page_no);
       };
 
       fetchData(pgId);
@@ -94,13 +95,11 @@ function LocalityDetails() {
       locality: locality,
       street: street,
       partNo: "2",
-      pincode: pincode,
-      complete_address: complete_address,
-      description: description,
+      postPropertyPageNo: Math.max(postPropertyPageNo, curPageNo),
     };
 
     try {
-      await axios.post(`/secure/api/newProperty/pg/update/${pgId}`, payLoad);
+      await axios.post(`secure/api/newProperty/pg/update/${pgId}`, payLoad);
       navigate(`/property/manage/pg/${pgId}/rental`);
     } catch (err) {
       console.log(err);
@@ -111,7 +110,11 @@ function LocalityDetails() {
     <div className="container h-100">
       <div className={`d-flex flex-column flex-sm-row justify-content-center`}>
         <div className={`w-20 ${styles.container}`}>
-          <Sidebar pathname={location?.pathname} />
+          <Sidebar
+            pathname={location.pathname}
+            pgId={pgId}
+            postPropertyPageNo={postPropertyPageNo}
+          />
         </div>
         <div
           className={`w-75 ms-2 px-4 d-flex flex-column ${styles.container}`}

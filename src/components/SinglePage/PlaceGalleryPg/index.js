@@ -54,7 +54,12 @@ const addImgCarousel = (idx) => {
   return classname;
 };
 
-const PlaceGalleryPg = ({ userDetails, property, houses_id }) => {
+const PlaceGalleryPg = ({
+  userDetails,
+  property,
+  propertyId,
+  propertyType,
+}) => {
   const [showAllPhotos, setShowAllPhotos] = useState(false);
   const dispatch = useDispatch();
   const { setLoading } = useContext(LoadContext);
@@ -120,7 +125,7 @@ const PlaceGalleryPg = ({ userDetails, property, houses_id }) => {
             </button>
           </div>
           <div
-            id={houses_id}
+            id={propertyId}
             className={`carousel slide w-75 ${styles.carouselContainer}`}
           >
             <div
@@ -145,7 +150,7 @@ const PlaceGalleryPg = ({ userDetails, property, houses_id }) => {
             <button
               className={`carousel-control-prev text-dark ${styles.carouselButton}`}
               type="button"
-              data-bs-target={`#${houses_id}`}
+              data-bs-target={`#${propertyId}`}
               data-bs-slide="prev"
             >
               <span
@@ -157,7 +162,7 @@ const PlaceGalleryPg = ({ userDetails, property, houses_id }) => {
             <button
               className={`carousel-control-next text-dark ${styles.carouselButton}`}
               type="button"
-              data-bs-target={`#${houses_id}`}
+              data-bs-target={`#${propertyId}`}
               data-bs-slide="next"
             >
               <span
@@ -310,8 +315,9 @@ const PlaceGalleryPg = ({ userDetails, property, houses_id }) => {
                 Get Owner Details
               </div>
               <LikeHandler
-                houses_id={property.houses_id}
-                shortlisted={shortlistArray.includes(houses_id)}
+                propertyId={propertyId}
+                propertyType={propertyType}
+                shortlisted={shortlistArray.includes(propertyId)}
                 userDetails={userDetails}
               />
             </div>
@@ -323,7 +329,8 @@ const PlaceGalleryPg = ({ userDetails, property, houses_id }) => {
           <OwnerModal
             showOwnersContacted={showOwnersContacted}
             setShowOwnersContacted={setShowOwnersContacted}
-            houseId={houses_id}
+            propertyId={propertyId}
+            propertyType={propertyType}
           />
         )}
       </div>

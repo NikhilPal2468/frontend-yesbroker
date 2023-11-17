@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import HouseFilters from "./Filters/HouseFilters";
+import PGFilters from "./Filters/PGFilters";
 import { useLocation } from "react-router-dom";
 import HouseList from "./HouseList";
 import styles from "./styles.module.css";
@@ -12,11 +13,14 @@ import InputLocationSearch from "../HomePage/InputLocationSearch";
 import CloseIcon from "@mui/icons-material/Close";
 import { FiFilter } from "react-icons/fi";
 
+import PgList from "./PgList";
 // const Transition = React.forwardRef(function Transition(props, ref) {
 //   return <Slide direction="up" ref={ref} {...props} />;
 // });
 const ListProperties = ({ userDetails = {} }) => {
   const location = useLocation();
+
+  // Attributes recieved from navigation url
   const searchParams = new URLSearchParams(location.search);
   const city = searchParams.get("city");
   const propertyType = searchParams.get("propertyType");
@@ -25,21 +29,35 @@ const ListProperties = ({ userDetails = {} }) => {
   const selectedLocalityArrayData =
     JSON.parse(decodeURIComponent(selectedLocalityArray)) || [];
 
+  // For House Filters
   const [bhkType, setBhkType] = useState([]);
   const [preferredTenants, setPreferredTenants] = useState(["Both"]);
   const [parking, setParking] = useState(["Both"]);
-  const [price, setPrice] = useState([0, 100000]);
   const [furnishing, setFurnishing] = useState([]);
 
-  const [withImage, setWithImage] = useState(false);
   const dispatch = useDispatch();
   const { setLoading } = useContext(LoadContext);
 
+  const [withImage, setWithImage] = useState(false);
+  const [price, setPrice] = useState([0, 100000]);
   const [selectedCity, setSelectedCity] = useState(city);
   const [searchValue, setSearchValue] = useState("");
   const [selectedLocality, setSelectedLocality] = useState([
     ...selectedLocalityArrayData,
   ]);
+  const [preferredTenantsPG, setPreferredTenantsPG] = useState(["Both"]);
+  const [roomType, setRoomType] = useState([]);
+  const [singleRoom, setSingleRoom] = useState(false);
+  const [doubleRoom, setDoubleRoom] = useState(false);
+  const [tripleRoom, setTripleRoom] = useState(false);
+  const [fourRoom, setFourRoom] = useState(false);
+
+  const [foodType, setFoodType] = useState([]);
+  const [breakfast, setBreakfast] = useState(false);
+  const [lunch, setLunch] = useState(false);
+  const [dinner, setDinner] = useState(false);
+  const [attachedBathroom, setAttachedBathroom] = useState(null);
+  const [selectedGender, setSelectedGender] = useState(null);
   const [suggestionList, setSuggestionList] = useState([]);
 
   useEffect(() => {
@@ -91,6 +109,49 @@ const ListProperties = ({ userDetails = {} }) => {
               className={styles.cursor_pointer}
               onClick={handleClose}
             />
+            {propertyType === "house" ? (
+              <HouseFilters
+                bhkType={bhkType}
+                setBhkType={setBhkType}
+                preferredTenants={preferredTenants}
+                setPreferredTenants={setPreferredTenants}
+                price={price}
+                setPrice={setPrice}
+                furnishing={furnishing}
+                parking={parking}
+                setFurnishing={setFurnishing}
+                setParking={setParking}
+                setWithImage={setWithImage}
+              />
+            ) : (
+              <PGFilters
+                selectedGender={selectedGender}
+                setSelectedGender={setSelectedGender}
+                setAttachedBathroom={setAttachedBathroom}
+                setFoodType={setFoodType}
+                setRoomType={setRoomType}
+                setPreferredTenantsPG={setPreferredTenantsPG}
+                setWithImage={setWithImage}
+                setSingleRoom={setSingleRoom}
+                setDoubleRoom={setDoubleRoom}
+                setTripleRoom={setTripleRoom}
+                setFourRoom={setFourRoom}
+                setBreakfast={setBreakfast}
+                setLunch={setLunch}
+                setDinner={setDinner}
+                price={price}
+                setPrice={setPrice}
+              />
+            )}
+            <button className={styles.apply_filters} onClick={handleClose}>
+              Apply Filters
+            </button>
+          </div>
+        )}
+      </div>
+      <div className={`d-flex px-3 py-2 ${styles.list_properties}`}>
+        <div className={`p-1 col-12 col-md-5 col-lg-4 ${styles.hide_filters}`}>
+          {propertyType === "house" ? (
             <HouseFilters
               bhkType={bhkType}
               setBhkType={setBhkType}
@@ -104,40 +165,63 @@ const ListProperties = ({ userDetails = {} }) => {
               setParking={setParking}
               setWithImage={setWithImage}
             />
-            <button className={styles.apply_filters} onClick={handleClose}>
-              Apply Filters
-            </button>
-          </div>
-        )}
-      </div>
-      <div className={`d-flex px-3 py-2 ${styles.list_properties}`}>
-        <div className={`p-1 col-12 col-md-5 col-lg-4 ${styles.hide_filters}`}>
-          <HouseFilters
+          ) : (
+            <PGFilters
+              selectedGender={selectedGender}
+              setSelectedGender={setSelectedGender}
+              setAttachedBathroom={setAttachedBathroom}
+              setFoodType={setFoodType}
+              setRoomType={setRoomType}
+              setPreferredTenantsPG={setPreferredTenantsPG}
+              setWithImage={setWithImage}
+              setSingleRoom={setSingleRoom}
+              setDoubleRoom={setDoubleRoom}
+              setTripleRoom={setTripleRoom}
+              setFourRoom={setFourRoom}
+              setBreakfast={setBreakfast}
+              setLunch={setLunch}
+              setDinner={setDinner}
+              price={price}
+              setPrice={setPrice}
+            />
+          )}
+        </div>
+        {propertyType === "house" ? (
+          <HouseList
+            city={city}
+            locality={locality}
+            propertyType={propertyType}
             bhkType={bhkType}
-            setBhkType={setBhkType}
             preferredTenants={preferredTenants}
-            setPreferredTenants={setPreferredTenants}
             price={price}
-            setPrice={setPrice}
             furnishing={furnishing}
             parking={parking}
-            setFurnishing={setFurnishing}
-            setParking={setParking}
-            setWithImage={setWithImage}
+            withImage={withImage}
+            userDetails={userDetails}
           />
-        </div>
-        <HouseList
-          city={city}
-          locality={locality}
-          propertyType={propertyType}
-          bhkType={bhkType}
-          preferredTenants={preferredTenants}
-          price={price}
-          furnishing={furnishing}
-          parking={parking}
-          withImage={withImage}
-          userDetails={userDetails}
-        />
+        ) : (
+          <PgList
+            city={city}
+            locality={locality}
+            preferredTenants={preferredTenants}
+            price={price}
+            parking={parking}
+            withImage={withImage}
+            userDetails={userDetails}
+            preferredTenantsPG={preferredTenantsPG}
+            foodType={foodType}
+            roomType={roomType}
+            attachedBathroom={attachedBathroom}
+            selectedGender={selectedGender}
+            singleRoom={singleRoom}
+            doubleRoom={doubleRoom}
+            tripleRoom={tripleRoom}
+            fourRoom={fourRoom}
+            breakfast={breakfast}
+            lunch={lunch}
+            dinner={dinner}
+          />
+        )}
       </div>
     </div>
   );

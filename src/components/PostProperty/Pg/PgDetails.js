@@ -48,6 +48,9 @@ function RoomDetails() {
 
   const [pgObject, setPgObject] = useState(null);
   const { id: pgId } = useParams();
+  const [postPropertyPageNo, setPostPropertyPageNo] = useState(0);
+
+  let curPageNo = 1;
 
   useEffect(() => {
     try {
@@ -55,6 +58,7 @@ function RoomDetails() {
       const fetchData = async (pgId) => {
         const { data } = await axios.get(`/secure/api/getpg?pgId=${pgId}`);
         setPgObject(data);
+        setPostPropertyPageNo(data?.post_property_page_no);
       };
       fetchData(pgId);
     } catch (err) {
@@ -87,11 +91,11 @@ function RoomDetails() {
   }
 
   formValues.partNo = "1";
-  console.log(formValues);
 
   const onSubmit = async (values) => {
     try {
       console.log(values);
+      values.postPropertyPageNo = Math.max(postPropertyPageNo, curPageNo);
       await axios.post(`/secure/api/newProperty/pg/update/${pgId}`, values);
       navigate(`/property/manage/pg/${pgId}/locality`);
     } catch (err) {
@@ -103,7 +107,11 @@ function RoomDetails() {
     <div className={`container`}>
       <div className={`d-flex flex-column flex-sm-row justify-content-center`}>
         <div className={`w-20 ${styles.container}`}>
-          <Sidebar pathname={location.pathname} />
+          <Sidebar
+            pathname={location.pathname}
+            pgId={pgId}
+            postPropertyPageNo={postPropertyPageNo}
+          />
         </div>
         <div
           className={`w-75 ms-2 px-4 d-flex flex-column ${styles.container}`}
@@ -184,6 +192,7 @@ function RoomDetails() {
                               name="gender_type" // Updated the name attribute here
                               id="gender_type3"
                               value="any"
+                              checked={values.gender === "any"}
                               onClick={() => {
                                 setFieldValue("gender", "any");
                               }}
@@ -205,7 +214,7 @@ function RoomDetails() {
                           type="checkbox"
                           id="food_available"
                           name="food_available"
-                          checked={values.food_available}
+                          checked={values.food_available ? true : false}
                           onClick={(e) => {
                             setFieldValue("food_available", e.target.checked);
                             if (e.target.checked === false) {
@@ -227,7 +236,7 @@ function RoomDetails() {
                         <div className="d-flex text-center gap-4">
                           <div className="mb-3 w-100">
                             <input
-                              className={`${styles.input_checkbox1} w-100`}
+                              className={`${styles.input_checkbox} w-100`}
                               type="checkbox"
                               id="breakfast"
                               name="breakfast"
@@ -237,7 +246,7 @@ function RoomDetails() {
                               }}
                             />
                             <label
-                              className={`${styles.input_label1} m-1`}
+                              className={`${styles.input_label} m-1`}
                               htmlFor="breakfast"
                               role="button"
                             >
@@ -246,7 +255,7 @@ function RoomDetails() {
                           </div>
                           <div className="mb-3 w-100">
                             <input
-                              className={`${styles.input_checkbox1} w-100`}
+                              className={`${styles.input_checkbox} w-100`}
                               type="checkbox"
                               id="lunch"
                               name="lunch"
@@ -256,7 +265,7 @@ function RoomDetails() {
                               }}
                             />
                             <label
-                              className={`${styles.input_label1} m-1`}
+                              className={`${styles.input_label} m-1`}
                               htmlFor="lunch"
                               role="button"
                             >
@@ -265,7 +274,7 @@ function RoomDetails() {
                           </div>
                           <div className="mb-3 w-100">
                             <input
-                              className={`${styles.input_checkbox1} w-100`}
+                              className={`${styles.input_checkbox} w-100`}
                               type="checkbox"
                               id="dinner"
                               name="dinner"
@@ -276,7 +285,7 @@ function RoomDetails() {
                               }}
                             />
                             <label
-                              className={`${styles.input_label1} m-1`}
+                              className={`${styles.input_label} m-1`}
                               htmlFor="dinner"
                               role="button"
                             >
@@ -293,7 +302,7 @@ function RoomDetails() {
                       <div className="d-flex text-center gap-4">
                         <div className="mb-3 w-100">
                           <input
-                            className={`${styles.input_checkbox1} w-100`}
+                            className={`${styles.input_checkbox} w-100`}
                             type="checkbox"
                             id="smoking"
                             name="smoking"
@@ -303,7 +312,7 @@ function RoomDetails() {
                             }}
                           />
                           <label
-                            className={`${styles.input_label1} m-1`}
+                            className={`${styles.input_label} m-1`}
                             htmlFor="smoking"
                             role="button"
                           >
@@ -312,7 +321,7 @@ function RoomDetails() {
                         </div>
                         <div className="mb-3 w-100">
                           <input
-                            className={`${styles.input_checkbox1} w-100`}
+                            className={`${styles.input_checkbox} w-100`}
                             type="checkbox"
                             id="drinking"
                             name="drinking"
@@ -322,7 +331,7 @@ function RoomDetails() {
                             }}
                           />
                           <label
-                            className={`${styles.input_label1} m-1`}
+                            className={`${styles.input_label} m-1`}
                             htmlFor="drinking"
                             role="button"
                           >
@@ -331,7 +340,7 @@ function RoomDetails() {
                         </div>
                         <div className="mb-3 w-100">
                           <input
-                            className={`${styles.input_checkbox1} w-100`}
+                            className={`${styles.input_checkbox} w-100`}
                             type="checkbox"
                             id="nonveg"
                             name="nonveg"
@@ -341,7 +350,7 @@ function RoomDetails() {
                             }}
                           />
                           <label
-                            className={`${styles.input_label1} m-1`}
+                            className={`${styles.input_label} m-1`}
                             htmlFor="nonveg"
                             role="button"
                           >
