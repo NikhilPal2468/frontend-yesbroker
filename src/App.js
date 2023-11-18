@@ -41,7 +41,7 @@ import PaymentStatus from "./components/PaymentStatus";
 import Terms from "./components/Terms&Conditions";
 
 // axios.defaults.baseURL = "https://homewale-backend.onrender.com";
-axios.defaults.baseURL = "http://localhost:5001";
+axios.defaults.baseURL = "http://localhost:5000";
 // axios.defaults.baseURL = "https://homewale.com/api";
 // axios.defaults.baseURL = "http://13.200.85.135/api";
 axios.defaults.withCredentials = true;
