@@ -3,12 +3,12 @@ import styles from "./styles.module.css";
 import { GrUserManager } from "react-icons/gr";
 import { GiFamilyHouse } from "react-icons/gi";
 import { TbSofa } from "react-icons/tb";
-import { VscKey } from "react-icons/vsc";
 
 import OwnerModal from "../../ShowOwnerModal/OwnerModal";
 import LikeHandler from "../../likeHandler";
 import { AuthContext } from "../../../context/AuthContext";
 import noPhotoImg from "../../../assets/no-image.png";
+import { FaWifi } from "react-icons/fa";
 
 const PgCard = ({
   userDetails = {},
@@ -16,15 +16,15 @@ const PgCard = ({
   pgs_id = "",
   pg_name = "",
   locality = "",
-  single_room = true,
+  single_room = false,
   single_room_rent = 20000,
   single_room_deposit = 20000,
 
-  double_room = true,
+  double_room = false,
   // double_room_rent = 20000,
   // double_room_deposit = 20000,
 
-  triple_room = true,
+  triple_room = false,
   // triple_room_rent = 20000,
   // triple_room_deposit = 20000,
 
@@ -32,11 +32,11 @@ const PgCard = ({
   // four_room_rent = 20000,
   // four_room_deposit = 20000,
 
-  food_available = true,
+  food_available = false,
 
-  // breakfast = true,
-  // lunch = false,
-  // dinner = true,
+  breakfast = false,
+  lunch = false,
+  dinner = false,
   preferred_tenants = "",
   available_from = "",
   shortlistArray,
@@ -46,7 +46,9 @@ const PgCard = ({
   // preferredTenantsPG = [],
   // foodType = [],
   // roomType = [],
+  wifi = false,
 }) => {
+  console.log("available_from:", available_from);
   const { setShowLogin } = useContext(AuthContext);
   const [showOwnersContacted, setShowOwnersContacted] = useState(false);
 
@@ -66,6 +68,21 @@ const PgCard = ({
     } else {
       setShowLogin(true);
     }
+  };
+
+  const mealAvailable = () => {
+    let meals = "";
+    if (breakfast) meals += "Breakfast";
+    if (lunch) {
+      if (meals === "") meals += "Lunch";
+      else meals += ", Lunch";
+    }
+    if (dinner) {
+      if (meals === "") meals += "Dinner";
+      else meals += ", Dinner";
+    }
+    if (breakfast && lunch && dinner) return "All meals";
+    else return meals;
   };
 
   return (
@@ -196,7 +213,7 @@ const PgCard = ({
                     className={`col-12 d-flex flex-row ${styles.borderOpt1}`}
                   >
                     <div
-                      className={`w-50 d-flex flex-row justify-content-center align-items-center ${styles.borderOpt2}`}
+                      className={`w-50 d-flex flex-row justify-content-start ms-2 align-items-center ${styles.borderOpt2}`}
                     >
                       <div className="px-2">
                         <TbSofa size={28} />
@@ -208,12 +225,14 @@ const PgCard = ({
                         </p>
                       </div>
                     </div>
-                    <div className="w-50 d-flex flex-row justify-content-center align-items-center">
+                    <div className="w-50 d-flex flex-row justify-content-start ms-2 align-items-center">
                       <div className="px-2">
                         <GiFamilyHouse size={28} />
                       </div>
                       <div>
-                        <p className="mb-0">{food_available}</p>
+                        <p className="mb-0">
+                          {food_available ? mealAvailable() : "Not available"}
+                        </p>
                         <p className="card-title mb-0 text-bold">
                           <small>Food Available</small>
                         </p>
@@ -224,7 +243,7 @@ const PgCard = ({
                     className={`col-12 d-flex flex-row ${styles.borderOpt1} border-top-0`}
                   >
                     <div
-                      className={`w-50 d-flex flex-row justify-content-center align-items-center ${styles.borderOpt2}`}
+                      className={`w-50 d-flex flex-row justify-content-start ms-2 align-items-center ${styles.borderOpt2}`}
                     >
                       <div className="px-2">
                         <GrUserManager size={28} />
@@ -236,20 +255,21 @@ const PgCard = ({
                         </p>
                       </div>
                     </div>
-                    <div className="w-50 d-flex flex-row justify-content-center align-items-center">
+                    <div className="w-50 d-flex flex-row justify-content-start ms-2 align-items-center">
                       <div className="px-2">
-                        <VscKey size={28} />
+                        <FaWifi size={28} />
                       </div>
                       <div>
                         <p className="mb-0">
-                          {new Date(available_from).toLocaleString("en-US", {
+                          {wifi ? "Wifi Available" : "Wifi not available"}
+                          {/* {new Date(wifi).toLocaleString("en-US", {
                             day: "numeric",
                             month: "long",
                             year: "numeric",
-                          })}
+                          })} */}
                         </p>
                         <p className="card-title mb-0 text-bold">
-                          <small>Available From</small>
+                          <small>Wifi Availibility</small>
                         </p>
                       </div>
                     </div>

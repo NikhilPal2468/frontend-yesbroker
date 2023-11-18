@@ -14,9 +14,13 @@ export const PARKING = [
 export const GENDER = ["Male", "Female", "Anyone"];
 export const PREFERRED_TENANTS_PG = ["Student", "Professonal"];
 export const ROOM_TYPE = [
-  "Single Room",
-  "Double Room",
-  "Triple Room",
-  "Four Room",
+  { dbName: "single_room", viewName: "Single Room" },
+  { dbName: "double_room", viewName: "Double Room" },
+  { dbName: "triple_room", viewName: "Triple Room" },
+  { dbName: "four_room", viewName: "Four Room" },
 ];
-export const FOOD_INCLUDED = ["Breakfast", "Lunch", "Dinner"];
+export const FOOD_INCLUDED = [
+  { dbName: "breakfast", viewName: "Breakfast" },
+  { dbName: "lunch", viewName: "Lunch" },
+  { dbName: "dinner", viewName: "Dinner" },
+];

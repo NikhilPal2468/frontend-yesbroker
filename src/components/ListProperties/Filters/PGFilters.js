@@ -16,10 +16,16 @@ function PGFilters({
   setPrice = () => {},
   setWithImage = () => {},
   setAttachedBathroom = () => {},
-  setFoodType = () => {},
-  setRoomType = () => {},
-  selectedGender = "",
+
+  selectedGender = null,
   setSelectedGender = () => {},
+  setSingleRoom = () => {},
+  setDoubleRoom = () => {},
+  setTripleRoom = () => {},
+  setFourRoom = () => {},
+  setBreakfast = () => {},
+  setLunch = () => {},
+  setDinner = () => {},
 }) {
   const { setReset } = useContext(LoadContext);
 
@@ -37,18 +43,24 @@ function PGFilters({
     }
   };
   const handleRoomTypeChange = (event, item) => {
-    if (event.target.checked) {
-      setRoomType((prev) => [...prev, item]);
-    } else {
-      setRoomType((prev) => prev.filter((i) => i !== item));
+    if (item === "single_room") {
+      event.target.checked ? setSingleRoom(true) : setSingleRoom(false);
+    } else if (item === "double_room") {
+      event.target.checked ? setDoubleRoom(true) : setDoubleRoom(false);
+    } else if (item === "triple_room") {
+      event.target.checked ? setTripleRoom(true) : setTripleRoom(false);
+    } else if (item === "four_room") {
+      event.target.checked ? setFourRoom(true) : setFourRoom(false);
     }
   };
 
   const handleFoodChange = (event, item) => {
-    if (event.target.checked) {
-      setFoodType((prev) => [...prev, item]);
-    } else {
-      setFoodType((prev) => prev.filter((i) => i !== item));
+    if (item === "breakfast") {
+      event.target.checked ? setBreakfast(true) : setBreakfast(false);
+    } else if (item === "lunch") {
+      event.target.checked ? setLunch(true) : setLunch(false);
+    } else if (item === "dinner") {
+      event.target.checked ? setDinner(true) : setDinner(false);
     }
   };
 
@@ -58,6 +70,14 @@ function PGFilters({
     setPrice([0, 500000]);
 
     setWithImage(false);
+    setSelectedGender(null);
+    setSingleRoom(false);
+    setDoubleRoom(false);
+    setTripleRoom(false);
+    setFourRoom(false);
+    setBreakfast(false);
+    setLunch(false);
+    setDinner(false);
     document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
       checkbox.checked = false;
     });
@@ -74,9 +94,9 @@ function PGFilters({
         </p>
       </div>
       <div className="card-body">
-        <div className="input-group d-flex flex-column border-bottom border-1 border-dark">
+        <div className="input-group d-flex flex-column mt-2 pt-1 border-bottom border-1 border-dark">
           <h6 className="text-start">PG for</h6>
-          <div className="grid pb-2 mx-auto justify-content-center align-items-center text-start">
+          <div className="d-flex pb-2 flex-row justify-content-center align-items-center text-start">
             {GENDER.map((gender) => (
               <div
                 key={gender}
@@ -154,23 +174,25 @@ function PGFilters({
           <div className="grid pb-2 mx-auto justify-content-between align-items-center text-start">
             {ROOM_TYPE.map((room_type) => (
               <div
-                key={room_type}
+                key={room_type.dbName}
                 className="form-check flex-grow-1 form-check-inline"
               >
                 <input
                   className={`${styles.input_checkbox1}`}
                   type="checkbox"
-                  id={room_type}
-                  name={room_type}
-                  value={room_type}
-                  onChange={(event) => handleRoomTypeChange(event, room_type)}
+                  id={room_type.dbName}
+                  name={room_type.dbName}
+                  value={room_type.dbName}
+                  onChange={(event) =>
+                    handleRoomTypeChange(event, room_type.dbName)
+                  }
                 />
                 <label
                   className={`${styles.filterOption} ${styles.input_label1} m-2`}
-                  htmlFor={room_type}
+                  htmlFor={room_type.dbName}
                   role="button"
                 >
-                  {room_type}
+                  {room_type.viewName}
                 </label>
               </div>
             ))}
@@ -181,23 +203,23 @@ function PGFilters({
           <div className="d-flex pb-2 flex-row justify-content-between align-items-center text-start">
             {FOOD_INCLUDED.map((food) => (
               <div
-                key={food}
+                key={food.dbName}
                 className="form-check flex-grow-1 form-check-inline"
               >
                 <input
                   className={`${styles.input_checkbox1}`}
                   type="checkbox"
-                  id={food}
-                  value={food}
-                  name={food}
-                  onChange={(event) => handleFoodChange(event, food)}
+                  id={food.dbName}
+                  value={food.dbName}
+                  name={food.dbName}
+                  onChange={(event) => handleFoodChange(event, food.dbName)}
                 />
                 <label
                   className={`${styles.filterOption} ${styles.input_label1} m-1`}
-                  htmlFor={food}
+                  htmlFor={food.dbName}
                   role="button"
                 >
-                  {food}
+                  {food.viewName}
                 </label>
               </div>
             ))}

@@ -52,7 +52,7 @@ const Premium = () => {
         {paymentPlans.length > 0 &&
           paymentPlans.map((currentPlan) => {
             return (
-              <div className={`${styles.plan}`}>
+              <div key={currentPlan.plan_type} className={`${styles.plan}`}>
                 <h2>{currentPlan?.plan_type}</h2>
                 <div className={styles.planDetails}>
                   <p>Price: ₹{currentPlan?.price}</p>
@@ -61,7 +61,7 @@ const Premium = () => {
                   </p>
                   {currentPlan?.plan_description &&
                     currentPlan.plan_description.map((description) => {
-                      return <p>{description}</p>;
+                      return <p key={description}>{description}</p>;
                     })}
                 </div>
                 <Link to={`/payment?planId=${currentPlan?.id}`}>
