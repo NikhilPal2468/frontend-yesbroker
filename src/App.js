@@ -40,6 +40,8 @@ import PaymentPage from "./components/PaymentPage";
 import PaymentStatus from "./components/PaymentStatus";
 import PaymentPlans from "./components/AdminPortal/PaymentPlans";
 import Terms from "./components/Terms&Conditions";
+import CreatePlan from "./components/AdminPortal/PaymentPlans/CreatePlan";
+import EditPlan from "./components/AdminPortal/PaymentPlans/EditPlan";
 
 // axios.defaults.baseURL = "https://homewale-backend.onrender.com";
 axios.defaults.baseURL = "http://localhost:5000";
@@ -177,6 +179,10 @@ function App() {
             //   userDetails?.is_user_admin ? <ManageUsers /> : <ErrorPage />
             // }
           />
+          <Route path="/admin/create-plan" element={<CreatePlan />} />
+
+          <Route path="/admin/edit-plan/:id" element={<EditPlan />} />
+
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </div>

@@ -1,8 +1,17 @@
 .cardsContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
   margin: 2px 12px;
   padding: 2px 16px;
+}
+
+.createBtnContainer {
+  display: flex;
+  width: 100%;
+  flex-direction: row-reverse;
+}
+
+.createButton {
+  margin-right: 24px;
+  border-radius: 4px;
+  color: white;
+  background-color: rgb(11, 131, 195);
 }

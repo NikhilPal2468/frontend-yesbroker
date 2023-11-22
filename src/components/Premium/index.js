@@ -52,7 +52,7 @@ const Premium = () => {
         {paymentPlans.length > 0 &&
           paymentPlans.map((currentPlan) => {
             return (
-              <div className={`${styles.plan}`}>
+              <div className={`${styles.plan}`} key={currentPlan?.id}>
                 <h2>{currentPlan?.plan_type}</h2>
                 <div className={styles.planDetails}>
                   <p>Price: ₹{currentPlan?.price}</p>
