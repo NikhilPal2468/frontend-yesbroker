@@ -38,6 +38,7 @@ import ManageProperties from "./components/AdminPortal/ManageProperties";
 import PgPage from "./components/SinglePage/Pg/PgPage";
 import PaymentPage from "./components/PaymentPage";
 import PaymentStatus from "./components/PaymentStatus";
+import PaymentPlans from "./components/AdminPortal/PaymentPlans";
 import Terms from "./components/Terms&Conditions";
 
 // axios.defaults.baseURL = "https://homewale-backend.onrender.com";
@@ -167,6 +168,14 @@ function App() {
             element={
               userDetails?.is_user_admin ? <ManageUsers /> : <ErrorPage />
             }
+          />
+
+          <Route
+            path="/admin/payment-plans"
+            element={<PaymentPlans />}
+            // element={
+            //   userDetails?.is_user_admin ? <ManageUsers /> : <ErrorPage />
+            // }
           />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
