@@ -3,8 +3,6 @@ import styles from "./styles.module.css";
 import { HiOutlineKey, HiOutlineCake } from "react-icons/hi2";
 import { BsPerson } from "react-icons/bs";
 import { GiHomeGarage } from "react-icons/gi";
-import { TbSofa } from "react-icons/tb";
-import { AiOutlineCompass } from "react-icons/ai";
 import { Backdrop } from "@mui/material";
 import OwnerModal from "../../ShowOwnerModal/OwnerModal";
 import LikeHandler from "../../likeHandler";

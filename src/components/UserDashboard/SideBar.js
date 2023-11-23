@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import { Link, useLocation } from "react-router-dom";
+import axios from "axios";
 
 function SideBar() {
   let location = useLocation();
@@ -13,6 +14,24 @@ function SideBar() {
 
     return classes;
   };
+  const [allTransactions, setAllTransactions] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data: transactions } = await axios.get(
+          `/secure/api/getAllTransactionByUser`
+        );
+        setAllTransactions(transactions);
+        console.log("data:", transactions);
+      } catch (e) {
+        console.log(e?.response?.data?.message);
+        // setErrMsg(e?.response?.data?.message);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const urls = {
     profile: "/user/myprofile",
@@ -20,6 +39,7 @@ function SideBar() {
     listedPgs: "/user/mylistings/pg",
     ownersContacted: "/user/ownerscontacted",
     shortlistHouses: "/user/myshortlists/house",
+    transactions: "/user/transactions",
     shortlistPgs: "/user/myshortlists/pg",
   };
 
@@ -51,6 +71,14 @@ function SideBar() {
         >
           My Shortlists
         </Link>
+        {allTransactions && (
+          <Link
+            to={urls.transactions}
+            className={`${linkClasses(urls.transactions)}`}
+          >
+            My Transactions
+          </Link>
+        )}
         <Link
           to={urls.ownersContacted}
           className={linkClasses(urls.ownersContacted)}

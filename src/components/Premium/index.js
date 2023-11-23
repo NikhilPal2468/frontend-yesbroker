@@ -34,6 +34,9 @@ const Premium = () => {
       setLoading(true);
       const fetchPlans = async () => {
         const { data } = await axios.get("/secure/api/payment-plans");
+        data.sort(function (a, b) {
+          return parseFloat(a.price) - parseFloat(b.price);
+        });
         setPaymentPlans(data);
       };
 

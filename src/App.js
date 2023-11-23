@@ -39,6 +39,7 @@ import PgPage from "./components/SinglePage/Pg/PgPage";
 import PaymentPage from "./components/PaymentPage";
 import PaymentStatus from "./components/PaymentStatus";
 import Terms from "./components/Terms&Conditions";
+import YourTransactions from "./components/UserDashboard/otherPages/YourTransactions";
 
 // axios.defaults.baseURL = "https://homewale-backend.onrender.com";
 axios.defaults.baseURL = "http://localhost:5000";
@@ -88,6 +89,10 @@ function App() {
           <Route
             path="/user/myshortlists/:propertyType"
             element={<YourShortlists userDetails={userDetails} />}
+          />
+          <Route
+            path="/user/transactions"
+            element={<YourTransactions userDetails={userDetails} />}
           />
           <Route
             path="/user/ownerscontacted"

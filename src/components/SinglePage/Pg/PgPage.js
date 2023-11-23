@@ -112,12 +112,12 @@ function PgPage({ userDetails = {} }) {
             </h5>
           </div>
           <div className="d-flex flex-row justify-content-between flex-md-row w-100 align-items-center justify-content-center ps-2">
-            <div d-flex flex row>
+            <div className="d-flex flex row">
               <h5> Rent For Single Occupancy</h5>{" "}
               <h5> ₹ {property?.single_room_rent}</h5>
             </div>
 
-            <div d-flex flex row>
+            <div className="d-flex flex row">
               <h5> Deposit For Single Occupancy</h5>{" "}
               <h5> ₹ {property?.single_room_deposit}</h5>
             </div>
@@ -163,12 +163,12 @@ function PgPage({ userDetails = {} }) {
             </h5>
           </div>
           <div className="d-flex flex-row justify-content-between flex-md-row w-100 align-items-center justify-content-center ps-2">
-            <div d-flex flex row>
+            <div className="d-flex flex row">
               <h5> Rent For Double Occupancy</h5>{" "}
               <h5> ₹ {property?.double_room_rent}</h5>
             </div>
 
-            <div d-flex flex row>
+            <div className="d-flex flex row">
               <h5> Deposit For Double Occupancy</h5>{" "}
               <h5> ₹ {property?.double_room_deposit}</h5>
             </div>
@@ -214,12 +214,12 @@ function PgPage({ userDetails = {} }) {
             </h5>
           </div>
           <div className="d-flex flex-row justify-content-between flex-md-row w-100 align-items-center justify-content-center ps-2">
-            <div d-flex flex row>
+            <div className="d-flex flex row">
               <h5> Rent For Triple Occupancy</h5>{" "}
               <h5> ₹ {property?.triple_room_rent}</h5>
             </div>
 
-            <div d-flex flex row>
+            <div className="d-flex flex row">
               <h5> Deposit For Triple Occupancy</h5>{" "}
               <h5> ₹ {property?.triple_room_deposit}</h5>
             </div>
@@ -265,12 +265,12 @@ function PgPage({ userDetails = {} }) {
             </h5>
           </div>
           <div className="d-flex flex-row justify-content-between flex-md-row w-100 align-items-center justify-content-center ps-2">
-            <div d-flex flex row>
+            <div className="d-flex flex row">
               <h5> Rent For Four Occupancy</h5>{" "}
               <h5> ₹ {property?.four_room_rent}</h5>
             </div>
 
-            <div d-flex flex row>
+            <div className="d-flex flex row">
               <h5> Deposit For Four Occupancy</h5>{" "}
               <h5> ₹ {property?.four_room_deposit}</h5>
             </div>
