@@ -9,10 +9,23 @@ const PgList = ({
   propertyType = "pg",
   city = "",
   locality = "",
-  preferredTenants = [],
-  parking = [],
+  price = [],
+  // preferredTenants = [],
+  // parking = [],
   withImage = false,
   userDetails = {},
+  attachedBathroom = false,
+  preferredTenantsPG = [],
+  foodType = [],
+  roomType = [],
+  selectedGender = undefined,
+  singleRoom = false,
+  doubleRoom = false,
+  tripleRoom = false,
+  fourRoom = false,
+  breakfast = false,
+  lunch = false,
+  dinner = false,
 }) => {
   const [pgs, setPgs] = useState([]);
   const { setLoading, isReset, setReset } = useContext(LoadContext);
@@ -31,15 +44,22 @@ const PgList = ({
         text: [locality],
         pgNo: "1",
         propertyType,
-        // filters: {
-        //   preferred_tenants:
-        //     preferredTenants.length === 1 ? undefined : preferredTenants,
-        //   price_greater_than: priceDebounced?.[0],
-        //   price_less_than: priceDebounced?.[1],
-        //   parking: parking.length === 1 ? undefined : parking,
-
-        //   property_with_image: withImage === false ? undefined : withImage,
-        // },
+        filters: {
+          preferred_tenants:
+            preferredTenantsPG.length === 1 ? undefined : preferredTenantsPG,
+          price_greater_than: priceDebounced?.[0],
+          price_less_than: priceDebounced?.[1],
+          gender: selectedGender ? selectedGender.toLowerCase() : undefined,
+          attached_bathroom: attachedBathroom ? attachedBathroom : undefined,
+          single_room: singleRoom ? singleRoom : undefined,
+          double_room: doubleRoom ? doubleRoom : undefined,
+          triple_room: tripleRoom ? tripleRoom : undefined,
+          four_room: fourRoom ? fourRoom : undefined,
+          breakfast: breakfast ? breakfast : undefined,
+          lunch: lunch ? lunch : undefined,
+          dinner: dinner ? dinner : undefined,
+          property_with_image: withImage ? 1 : undefined,
+        },
       };
 
       try {
@@ -50,8 +70,11 @@ const PgList = ({
           "/public/api/listProperties",
           payload
         );
+        console.log("data:", data);
 
-        const { allpgs = [], count = 0 } = data || {};
+        const { allpgs = [], totalCount = 0 } = data || {};
+        console.log("allpgs:", allpgs);
+        console.log("totalCount:", totalCount);
         setPgs(allpgs);
       } catch (error) {
         console.error(error);
@@ -65,7 +88,22 @@ const PgList = ({
     } else {
       setReset(false);
     }
-  }, [city, locality, preferredTenants, priceDebounced, parking, withImage]);
+  }, [
+    city,
+    locality,
+    preferredTenantsPG,
+    priceDebounced,
+    withImage,
+    selectedGender,
+    singleRoom,
+    doubleRoom,
+    tripleRoom,
+    fourRoom,
+    breakfast,
+    lunch,
+    dinner,
+    attachedBathroom,
+  ]);
 
   useEffect(() => {
     debounceQuery(price);
@@ -130,7 +168,7 @@ const PgList = ({
     <div className="p-1 col-12 col-md-7 col-lg-8">
       {pgs.map((pg) => {
         const {
-          pg_id = "",
+          pgs_id = "",
           pg_name = "",
           locality = "",
           preferred_tenants = "",
@@ -157,12 +195,13 @@ const PgList = ({
           lunch = false,
           dinner = true,
           available_from,
+          wifi = false,
         } = pg || {};
 
         return (
           <PgCard
-            key={pg_id}
-            pg_id={pg_id}
+            key={pgs_id}
+            pgs_id={pgs_id}
             pg_name={pg_name}
             locality={locality}
             single_room={single_room}
@@ -187,6 +226,11 @@ const PgList = ({
             shortlistArray={shortlistArray}
             images={images}
             propertyType={propertyType}
+            attachedBathroom={attachedBathroom}
+            preferredTenantsPG={preferredTenantsPG}
+            foodType={foodType}
+            roomType={roomType}
+            wifi={wifi}
           />
         );
       })}

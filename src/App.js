@@ -42,6 +42,7 @@ import PaymentPlans from "./components/AdminPortal/PaymentPlans";
 import Terms from "./components/Terms&Conditions";
 import CreatePlan from "./components/AdminPortal/PaymentPlans/CreatePlan";
 import EditPlan from "./components/AdminPortal/PaymentPlans/EditPlan";
+import YourTransactions from "./components/UserDashboard/otherPages/YourTransactions";
 
 // axios.defaults.baseURL = "https://homewale-backend.onrender.com";
 axios.defaults.baseURL = "http://localhost:5000";
@@ -91,6 +92,10 @@ function App() {
           <Route
             path="/user/myshortlists/:propertyType"
             element={<YourShortlists userDetails={userDetails} />}
+          />
+          <Route
+            path="/user/transactions"
+            element={<YourTransactions userDetails={userDetails} />}
           />
           <Route
             path="/user/ownerscontacted"

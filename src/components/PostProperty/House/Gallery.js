@@ -31,7 +31,7 @@ function Gallery() {
   const [showModal, setShowModal] = useState(false);
   const [postPropertyPageNo, setPostPropertyPageNo] = useState(0);
 
-  let curPageNo = 5;
+  // let curPageNo = 5;
 
   const handleInputChange = async (e) => {
     if (!e.target.files || e.target.files.length === 0) return;
@@ -343,7 +343,7 @@ function Gallery() {
           showModal={showModal}
           setShowModal={setShowModal}
           propertyId={houseId}
-          propertyType = {"house"}
+          propertyType={"house"}
         />
       )}
       <ToastContainer />

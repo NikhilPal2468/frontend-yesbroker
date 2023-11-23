@@ -13,7 +13,7 @@ import noPhotoImg from "../../../assets/no-image.png";
 const HouseCard = ({
   userDetails = {},
   house_id = "",
-  apartment_name = "",
+  // apartment_name = "",
   locality = "",
   rent = 0,
   rent_negotiable = false,
@@ -170,7 +170,7 @@ const HouseCard = ({
                     className={`col-12 d-flex flex-row ${styles.borderOpt1}`}
                   >
                     <div
-                      className={`w-50 d-flex flex-row justify-content-center align-items-center ${styles.borderOpt2}`}
+                      className={`w-50 d-flex flex-row justify-content-start ms-2 align-items-center ${styles.borderOpt2}`}
                     >
                       <div className="px-2">
                         <TbSofa size={28} />
@@ -182,7 +182,7 @@ const HouseCard = ({
                         </p>
                       </div>
                     </div>
-                    <div className="w-50 d-flex flex-row justify-content-center align-items-center">
+                    <div className="w-50 d-flex flex-row justify-content-start ms-2 align-items-center">
                       <div className="px-2">
                         <GiFamilyHouse size={28} />
                       </div>
@@ -198,7 +198,7 @@ const HouseCard = ({
                     className={`col-12 d-flex flex-row ${styles.borderOpt1} border-top-0`}
                   >
                     <div
-                      className={`w-50 d-flex flex-row justify-content-center align-items-center ${styles.borderOpt2}`}
+                      className={`w-50 d-flex flex-row justify-content-start ms-2 align-items-center ${styles.borderOpt2}`}
                     >
                       <div className="px-2">
                         <GrUserManager size={28} />
@@ -210,7 +210,7 @@ const HouseCard = ({
                         </p>
                       </div>
                     </div>
-                    <div className="w-50 d-flex flex-row justify-content-center align-items-center">
+                    <div className="w-50 d-flex flex-row justify-content-start ms-2 align-items-center">
                       <div className="px-2">
                         <VscKey size={28} />
                       </div>

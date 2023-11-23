@@ -10,6 +10,9 @@ import { LoadContext } from "../../../context/load-context";
 import { CiPaperplane } from "react-icons/ci";
 import { FaCheckCircle } from "react-icons/fa";
 import { ImCross } from "react-icons/im";
+import { PiTelevisionSimpleFill } from "react-icons/pi";
+import { GiServerRack } from "react-icons/gi";
+import { MdBathroom } from "react-icons/md";
 
 function PgPage({ userDetails = {} }) {
   const { id } = useParams();
@@ -40,23 +43,23 @@ function PgPage({ userDetails = {} }) {
     let rent = 100000,
       deposit = 100000;
 
-    if (property.single_room && rent > property.single_room_rent) {
+    if (property?.single_room && rent > property?.single_room_rent) {
       rent = property?.single_room_rent;
       deposit = property?.single_room_deposit;
     }
 
-    if (property.double_room && rent > property.double_room_rent) {
-      rent = property.double_room_rent;
+    if (property?.double_room && rent > property?.double_room_rent) {
+      rent = property?.double_room_rent;
       deposit = property?.double_room_deposit;
     }
 
-    if (property.triple_room && rent > property.triple_room_rent) {
-      rent = property.triple_room_rent;
+    if (property?.triple_room && rent > property?.triple_room_rent) {
+      rent = property?.triple_room_rent;
       deposit = property?.triple_room_deposit;
     }
 
-    if (property.four_room && rent > property.four_room_rent) {
-      rent = property.four_room_rent;
+    if (property?.four_room && rent > property?.four_room_rent) {
+      rent = property?.four_room_rent;
       deposit = property?.four_room_deposit;
     }
 
@@ -75,8 +78,8 @@ function PgPage({ userDetails = {} }) {
           <div className="w-75 px-2 py-1">
             <h5 className="m-0">
               {property?.title
-                ? property.title
-                : `PG in ${property.locality?.slice(0, 12)}...`}
+                ? property?.title
+                : `PG in ${property?.locality?.slice(0, 12)}...`}
             </h5>
             <small>{property?.locality}</small>
           </div>
@@ -96,10 +99,213 @@ function PgPage({ userDetails = {} }) {
         <PlaceGalleryPg
           userDetails={userDetails}
           property={property}
-          propertyId={property.pgs_id}
+          propertyId={property?.pgs_id}
           propertyType={"pg"}
         />
       </div>
+      {/* Single Room Details */}
+      {property?.single_room && (
+        <div className={`mt-4 card p-2 m-2`}>
+          <div className="d-flex justify-content-center">
+            <h5 className="fw-bold p-1 ml-4">
+              <u>Single Sharing Room Details </u>
+            </h5>
+          </div>
+          <div className="d-flex flex-row justify-content-between flex-md-row w-100 align-items-center justify-content-center ps-2">
+            <div className="d-flex flex row">
+              <h5> Rent For Single Occupancy</h5>{" "}
+              <h5> ₹ {property?.single_room_rent}</h5>
+            </div>
+
+            <div className="d-flex flex row">
+              <h5> Deposit For Single Occupancy</h5>{" "}
+              <h5> ₹ {property?.single_room_deposit}</h5>
+            </div>
+          </div>
+          <div className="d-flex flex-column flex-md-row w-100 align-items-center justify-content-center ps-2">
+            <div className="w-100">
+              <p className="d-flex gap-1">
+                <div>{<GiServerRack />}</div>
+                <div className="fw-bold w-100">CupBoard</div>
+                <div className="w-100">
+                  {property?.cupboard ? <FaCheckCircle /> : <ImCross />}
+                </div>
+              </p>
+              <p className="d-flex gap-1">
+                <div>{<PiTelevisionSimpleFill />}</div>
+                <div className="fw-bold w-100">Tv</div>
+                <div className="w-100">
+                  {property?.tv ? <FaCheckCircle /> : <ImCross />}
+                </div>
+              </p>
+              <p className="d-flex gap-1">
+                <div>{<MdBathroom />}</div>
+                <div className="fw-bold w-100"> Attached Bathroom</div>
+                <div className="w-100">
+                  {property?.attached_bathroom ? (
+                    <FaCheckCircle />
+                  ) : (
+                    <ImCross />
+                  )}
+                </div>
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Double Room Details */}
+      {property?.double_room && (
+        <div className={`mt-4 card p-2 m-2`}>
+          <div className="d-flex justify-content-center">
+            <h5 className="fw-bold p-1 ml-4">
+              <u>Double Sharing Room Details </u>
+            </h5>
+          </div>
+          <div className="d-flex flex-row justify-content-between flex-md-row w-100 align-items-center justify-content-center ps-2">
+            <div className="d-flex flex row">
+              <h5> Rent For Double Occupancy</h5>{" "}
+              <h5> ₹ {property?.double_room_rent}</h5>
+            </div>
+
+            <div className="d-flex flex row">
+              <h5> Deposit For Double Occupancy</h5>{" "}
+              <h5> ₹ {property?.double_room_deposit}</h5>
+            </div>
+          </div>
+          <div className="d-flex flex-column flex-md-row w-100 align-items-center justify-content-center ps-2">
+            <div className="w-100">
+              <p className="d-flex gap-1">
+                <div>{<GiServerRack />}</div>
+                <div className="fw-bold w-100">CupBoard</div>
+                <div className="w-100">
+                  {property?.cupboard ? <FaCheckCircle /> : <ImCross />}
+                </div>
+              </p>
+              <p className="d-flex gap-1">
+                <div>{<PiTelevisionSimpleFill />}</div>
+                <div className="fw-bold w-100">Tv</div>
+                <div className="w-100">
+                  {property?.tv ? <FaCheckCircle /> : <ImCross />}
+                </div>
+              </p>
+              <p className="d-flex gap-1">
+                <div>{<MdBathroom />}</div>
+                <div className="fw-bold w-100"> Attached Bathroom</div>
+                <div className="w-100">
+                  {property?.attached_bathroom ? (
+                    <FaCheckCircle />
+                  ) : (
+                    <ImCross />
+                  )}
+                </div>
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Triple Room Details */}
+      {property?.triple_room && (
+        <div className={`mt-4 card p-2 m-2`}>
+          <div className="d-flex justify-content-center">
+            <h5 className="fw-bold p-1 ml-4">
+              <u>Triple Sharing Room Details </u>
+            </h5>
+          </div>
+          <div className="d-flex flex-row justify-content-between flex-md-row w-100 align-items-center justify-content-center ps-2">
+            <div className="d-flex flex row">
+              <h5> Rent For Triple Occupancy</h5>{" "}
+              <h5> ₹ {property?.triple_room_rent}</h5>
+            </div>
+
+            <div className="d-flex flex row">
+              <h5> Deposit For Triple Occupancy</h5>{" "}
+              <h5> ₹ {property?.triple_room_deposit}</h5>
+            </div>
+          </div>
+          <div className="d-flex flex-column flex-md-row w-100 align-items-center justify-content-center ps-2">
+            <div className="w-100">
+              <p className="d-flex gap-1">
+                <div>{<GiServerRack />}</div>
+                <div className="fw-bold w-100">CupBoard</div>
+                <div className="w-100">
+                  {property?.cupboard ? <FaCheckCircle /> : <ImCross />}
+                </div>
+              </p>
+              <p className="d-flex gap-1">
+                <div>{<PiTelevisionSimpleFill />}</div>
+                <div className="fw-bold w-100">Tv</div>
+                <div className="w-100">
+                  {property?.tv ? <FaCheckCircle /> : <ImCross />}
+                </div>
+              </p>
+              <p className="d-flex gap-1">
+                <div>{<MdBathroom />}</div>
+                <div className="fw-bold w-100"> Attached Bathroom</div>
+                <div className="w-100">
+                  {property?.attached_bathroom ? (
+                    <FaCheckCircle />
+                  ) : (
+                    <ImCross />
+                  )}
+                </div>
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Four Room Details */}
+      {property?.four_room && (
+        <div className={`mt-4 card p-2 m-2`}>
+          <div className="d-flex justify-content-center">
+            <h5 className="fw-bold p-1 ml-4">
+              <u>Triple Sharing Room Details </u>
+            </h5>
+          </div>
+          <div className="d-flex flex-row justify-content-between flex-md-row w-100 align-items-center justify-content-center ps-2">
+            <div className="d-flex flex row">
+              <h5> Rent For Four Occupancy</h5>{" "}
+              <h5> ₹ {property?.four_room_rent}</h5>
+            </div>
+
+            <div className="d-flex flex row">
+              <h5> Deposit For Four Occupancy</h5>{" "}
+              <h5> ₹ {property?.four_room_deposit}</h5>
+            </div>
+          </div>
+          <div className="d-flex flex-column flex-md-row w-100 align-items-center justify-content-center ps-2">
+            <div className="w-100">
+              <p className="d-flex gap-1">
+                <div>{<GiServerRack />}</div>
+                <div className="fw-bold w-100">CupBoard</div>
+                <div className="w-100">
+                  {property?.cupboard ? <FaCheckCircle /> : <ImCross />}
+                </div>
+              </p>
+              <p className="d-flex gap-1">
+                <div>{<PiTelevisionSimpleFill />}</div>
+                <div className="fw-bold w-100">Tv</div>
+                <div className="w-100">
+                  {property?.tv ? <FaCheckCircle /> : <ImCross />}
+                </div>
+              </p>
+              <p className="d-flex gap-1">
+                <div>{<MdBathroom />}</div>
+                <div className="fw-bold w-100"> Attached Bathroom</div>
+                <div className="w-100">
+                  {property?.attached_bathroom ? (
+                    <FaCheckCircle />
+                  ) : (
+                    <ImCross />
+                  )}
+                </div>
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Details */}
       <div className={`mt-4 card p-2 m-2`}>
@@ -185,7 +391,7 @@ function PgPage({ userDetails = {} }) {
         </h5>
         <p>
           {property?.description ||
-            `Luxorious Pg in ${property.locality}  at just  ₹ ${
+            `Luxorious Pg in ${property?.locality}  at just  ₹ ${
               minRent().rent
             }`}
         </p>

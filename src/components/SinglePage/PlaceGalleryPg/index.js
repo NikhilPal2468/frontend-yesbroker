@@ -3,8 +3,6 @@ import styles from "./styles.module.css";
 import { HiOutlineKey, HiOutlineCake } from "react-icons/hi2";
 import { BsPerson } from "react-icons/bs";
 import { GiHomeGarage } from "react-icons/gi";
-import { TbSofa } from "react-icons/tb";
-import { AiOutlineCompass } from "react-icons/ai";
 import { Backdrop } from "@mui/material";
 import OwnerModal from "../../ShowOwnerModal/OwnerModal";
 import LikeHandler from "../../likeHandler";
@@ -15,7 +13,8 @@ import { LoadContext } from "../../../context/load-context";
 import axios from "axios";
 import { setUserDetails } from "../../../store/actions";
 import noPhotoImg from "../../../assets/no-image.png";
-
+import { GiLift } from "react-icons/gi";
+import { MdOutlineFoodBank } from "react-icons/md";
 // const renderAge = (age) => {
 //   let propertyAge = "";
 
@@ -284,7 +283,7 @@ const PlaceGalleryPg = ({
             <div className="d-flex w-100 border">
               <div className="d-flex w-100 p-2 border-end">
                 <div className="w-25">
-                  <TbSofa size={20} />
+                  <GiLift size={20} />
                 </div>
                 <div className="w-75">
                   <p className="m-0">
@@ -295,7 +294,7 @@ const PlaceGalleryPg = ({
               </div>
               <div className="d-flex w-100 p-2">
                 <div className="w-25">
-                  <AiOutlineCompass size={20} />
+                  <MdOutlineFoodBank size={20} />
                 </div>
                 <div className="w-75">
                   <p className="m-0">{property?.food_available}</p>

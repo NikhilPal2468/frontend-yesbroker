@@ -45,6 +45,19 @@ const ListProperties = ({ userDetails = {} }) => {
   const [selectedLocality, setSelectedLocality] = useState([
     ...selectedLocalityArrayData,
   ]);
+  const [preferredTenantsPG, setPreferredTenantsPG] = useState(["Both"]);
+  const [roomType, setRoomType] = useState([]);
+  const [singleRoom, setSingleRoom] = useState(false);
+  const [doubleRoom, setDoubleRoom] = useState(false);
+  const [tripleRoom, setTripleRoom] = useState(false);
+  const [fourRoom, setFourRoom] = useState(false);
+
+  const [foodType, setFoodType] = useState([]);
+  const [breakfast, setBreakfast] = useState(false);
+  const [lunch, setLunch] = useState(false);
+  const [dinner, setDinner] = useState(false);
+  const [attachedBathroom, setAttachedBathroom] = useState(null);
+  const [selectedGender, setSelectedGender] = useState(null);
   const [suggestionList, setSuggestionList] = useState([]);
 
   useEffect(() => {
@@ -111,7 +124,24 @@ const ListProperties = ({ userDetails = {} }) => {
                 setWithImage={setWithImage}
               />
             ) : (
-              <PGFilters />
+              <PGFilters
+                selectedGender={selectedGender}
+                setSelectedGender={setSelectedGender}
+                setAttachedBathroom={setAttachedBathroom}
+                setFoodType={setFoodType}
+                setRoomType={setRoomType}
+                setPreferredTenantsPG={setPreferredTenantsPG}
+                setWithImage={setWithImage}
+                setSingleRoom={setSingleRoom}
+                setDoubleRoom={setDoubleRoom}
+                setTripleRoom={setTripleRoom}
+                setFourRoom={setFourRoom}
+                setBreakfast={setBreakfast}
+                setLunch={setLunch}
+                setDinner={setDinner}
+                price={price}
+                setPrice={setPrice}
+              />
             )}
             <button className={styles.apply_filters} onClick={handleClose}>
               Apply Filters
@@ -136,7 +166,24 @@ const ListProperties = ({ userDetails = {} }) => {
               setWithImage={setWithImage}
             />
           ) : (
-            <PGFilters />
+            <PGFilters
+              selectedGender={selectedGender}
+              setSelectedGender={setSelectedGender}
+              setAttachedBathroom={setAttachedBathroom}
+              setFoodType={setFoodType}
+              setRoomType={setRoomType}
+              setPreferredTenantsPG={setPreferredTenantsPG}
+              setWithImage={setWithImage}
+              setSingleRoom={setSingleRoom}
+              setDoubleRoom={setDoubleRoom}
+              setTripleRoom={setTripleRoom}
+              setFourRoom={setFourRoom}
+              setBreakfast={setBreakfast}
+              setLunch={setLunch}
+              setDinner={setDinner}
+              price={price}
+              setPrice={setPrice}
+            />
           )}
         </div>
         {propertyType === "house" ? (
@@ -154,13 +201,25 @@ const ListProperties = ({ userDetails = {} }) => {
           />
         ) : (
           <PgList
-            city={"Delhi"}
-            locality={"locality"}
-            preferredTenants={"preferredTenants"}
-            price={"price"}
+            city={city}
+            locality={locality}
+            preferredTenants={preferredTenants}
+            price={price}
             parking={parking}
-            withImage={"withImage"}
+            withImage={withImage}
             userDetails={userDetails}
+            preferredTenantsPG={preferredTenantsPG}
+            foodType={foodType}
+            roomType={roomType}
+            attachedBathroom={attachedBathroom}
+            selectedGender={selectedGender}
+            singleRoom={singleRoom}
+            doubleRoom={doubleRoom}
+            tripleRoom={tripleRoom}
+            fourRoom={fourRoom}
+            breakfast={breakfast}
+            lunch={lunch}
+            dinner={dinner}
           />
         )}
       </div>

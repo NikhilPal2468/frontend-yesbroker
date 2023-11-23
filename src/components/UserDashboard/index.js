@@ -7,9 +7,7 @@ import OwnersContacted from "./otherPages/OwnersContacted";
 import styles from "./styles.module.css";
 const UserDashboard = () => {
   const [navigation, setNavigation] = useState("profile");
-
-  console.log(navigation);
-
+  console.log("navigation:", navigation);
   const NAVIGATION_MAPPING = {
     profile: <ProfilePage />,
     properties: <YourProperties />,

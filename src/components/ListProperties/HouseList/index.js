@@ -42,7 +42,7 @@ const HouseList = ({
           price_less_than: priceDebounced?.[1],
           furnishing_type: furnishing.length === 0 ? undefined : furnishing,
           parking: parking.length === 1 ? undefined : parking,
-          property_with_image: withImage === false ? undefined : withImage,
+          property_with_image: withImage ? 1 : undefined,
         },
       };
 
@@ -54,8 +54,9 @@ const HouseList = ({
           "/public/api/listProperties",
           payload
         );
-        const { allhouses = [], count = 0 } = data || {};
-        console.log("count:", count);
+        const { allhouses = [], totalCount = 0 } = data || {};
+        console.log("allhouses:", allhouses);
+        console.log("count:", totalCount);
         setHouses(allhouses);
       } catch (error) {
         console.error(error);

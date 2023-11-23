@@ -34,6 +34,9 @@ const Premium = () => {
       setLoading(true);
       const fetchPlans = async () => {
         const { data } = await axios.get("/secure/api/payment-plans");
+        data.sort(function (a, b) {
+          return parseFloat(a.price) - parseFloat(b.price);
+        });
         setPaymentPlans(data);
       };
 
@@ -61,7 +64,7 @@ const Premium = () => {
                   </p>
                   {currentPlan?.plan_description &&
                     currentPlan.plan_description.map((description) => {
-                      return <p>{description}</p>;
+                      return <p key={description}>{description}</p>;
                     })}
                 </div>
                 <Link to={`/payment?planId=${currentPlan?.id}`}>
