@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import styles from "./styles.module.css";
+import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
 import success from "../../assets/success.png";
 import failure from "../../assets/failure.png";
+import ReactPDF from "@react-pdf/renderer";
 
 function PaymentStatus() {
   const location = useLocation();
@@ -19,6 +21,8 @@ function PaymentStatus() {
 
         // Parse the JSON from the decoded string
         const jsonData = JSON.parse(decodedString);
+
+        console.log(jsonData);
 
         // Set the parsed JSON data in the state
         setDecodedData(jsonData);
