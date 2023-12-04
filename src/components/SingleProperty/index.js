@@ -21,10 +21,9 @@ import { useParams } from "react-router-dom";
 // import Footer from "../common/LastFooter";
 import axios from "axios";
 function convertDateStringToFormattedDate(dateString) {
-  const date = new Date(dateString);
+  const date = new Date().toISOString;
   const options = { day: "numeric", month: "long" };
   const formattedDate = date.toLocaleDateString("en-US", options);
-
   return formattedDate;
 }
 

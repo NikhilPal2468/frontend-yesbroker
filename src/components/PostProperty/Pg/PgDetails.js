@@ -21,7 +21,7 @@ const initialValues = {
   nonveg: false,
   party: false,
   opposite_gender: false,
-  preferred_tenant: "any",
+  preferred_tenants: "any",
   warden_facilities: false,
 };
 
@@ -57,6 +57,7 @@ function RoomDetails() {
       setLoading(true);
       const fetchData = async (pgId) => {
         const { data } = await axios.get(`/secure/api/getpg?pgId=${pgId}`);
+        console.log(data);
         setPgObject(data);
         setPostPropertyPageNo(data?.post_property_page_no);
       };

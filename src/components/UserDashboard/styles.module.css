@@ -126,3 +126,33 @@
 .sidebar_open .sidebar{
   transform: translateX(0);
 } */
+
+table{
+  width: 80%;
+}
+.table_header{
+  border: 1px solid black;
+}
+.table_cell{
+  border: 1px solid black;
+}
+.transaction{
+  cursor: pointer;
+  color: #1b13ee;
+}
+
+.details_header{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 30px;
+}
+
+.details_container{
+  display: flex;
+  justify-content: space-between;
+}
+.details_div{
+  display: flex;
+    flex-direction: column;
+    align-items: baseline;
+}

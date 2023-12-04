@@ -36,6 +36,8 @@ function LocalityDetails() {
         setCity(data?.city);
         setLocality(data?.locality);
         setStreet(data?.street);
+        setAddress(data?.complete_address);
+        setPincode(data?.pincode);
         setPostPropertyPageNo(data?.post_property_page_no);
       };
 
@@ -95,6 +97,8 @@ function LocalityDetails() {
       locality: locality,
       street: street,
       partNo: "2",
+      pincode: pincode,
+      complete_address: complete_address,
       postPropertyPageNo: Math.max(postPropertyPageNo, curPageNo),
     };
 
