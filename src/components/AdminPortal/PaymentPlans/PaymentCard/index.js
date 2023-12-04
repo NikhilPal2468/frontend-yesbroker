@@ -3,7 +3,7 @@ import styles from "./styles.module.css"; // Import your CSS file for styling
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const Card = ({ plan, plans, setPlans }) => {
+const Card = ({ plan, setPlans }) => {
   const { id, plan_type, price, no_of_contacts, plan_description, status } =
     plan;
 
@@ -45,18 +45,18 @@ const Card = ({ plan, plans, setPlans }) => {
         </Link>
         <button className={`${styles.delete}`}>Delete</button>
       </div>
-      <div class="form-check form-switch">
+      <div className="form-check form-switch">
         <input
-          class="form-check-input"
+          className="form-check-input"
           type="checkbox"
           role="button"
           id="flexSwitchCheckDefault"
           checked={status}
-          onChange={(e) => {
+          onChange={() => {
             handleStatusChange(id);
           }}
         />
-        <label class="form-check-label" for="flexSwitchCheckDefault">
+        <label className="form-check-label" htmlFor="flexSwitchCheckDefault">
           Active
         </label>
       </div>
