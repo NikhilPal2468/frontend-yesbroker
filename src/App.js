@@ -179,10 +179,10 @@ function App() {
 
           <Route
             path="/admin/payment-plans"
-            element={<PaymentPlans />}
-            // element={
-            //   userDetails?.is_user_admin ? <ManageUsers /> : <ErrorPage />
-            // }
+            // element={<PaymentPlans />}
+            element={
+              userDetails?.is_user_admin ? <PaymentPlans /> : <ErrorPage />
+            }
           />
           <Route path="/admin/create-plan" element={<CreatePlan />} />
 
