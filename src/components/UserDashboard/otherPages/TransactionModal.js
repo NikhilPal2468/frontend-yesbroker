@@ -48,7 +48,7 @@ const styles1 = StyleSheet.create({
   companyName: {
     fontSize: 18,
     fontWeight: "bold",
-    marginLeft: 100,
+    marginLeft: 50,
   },
   transactionId: {
     fontSize: 14,
@@ -79,7 +79,7 @@ const MyDocument = () => (
     <Page size="A4" style={styles1.page}>
       {/* Left Section (Billing Information) */}
       <View>
-        <Text style={styles1.companyName}>HOMEWALE</Text>
+        <Text style={styles.companyName}>HOMEWALE</Text>
         <Text style={styles1.invoiceHeading}>Invoice</Text>
       </View>
 
