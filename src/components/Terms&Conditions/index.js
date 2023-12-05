@@ -40,7 +40,7 @@ function Terms() {
       </p>
 
       <p>
-        <strong>Broker</strong> means and includes all brokers, channel
+        <strong>Broker</strong> means and includes all brokers, channel
         partners, sales agencies and other third parties who/ which negotiate or
         act on behalf of one person in a transaction of transfer including sale,
         purchase, leave and license, lease or such other form of transfer in
@@ -55,7 +55,7 @@ function Terms() {
       </p>
 
       <p>
-        <strong>Computer Virus</strong> means and includes any computer
+        <strong>Computer Virus</strong> means and includes any computer
         instruction, information, data or programme that destroys, damages,
         degrades or adversely affects the performance of a computer resource or
         attaches itself to another computer resource and operates when a
@@ -63,7 +63,7 @@ function Terms() {
         place in that computer resource.
       </p>
       <p>
-        <strong>Confidential Information</strong> means and includes all
+        <strong>Confidential Information</strong> means and includes all
         information that is not in the public domain, in spoken, printed,
         electronic or any other form or medium, relating directly or indirectly
         to, the assets, business processes, practices, methods, policies,
@@ -88,11 +88,11 @@ function Terms() {
         in confidence.
       </p>
       <p>
-        <strong>Content</strong> means and includes any information all data and
+        <strong>Content</strong> means and includes any information all data and
         information on the Site.
       </p>
       <p>
-        <strong>Government Authority</strong> means and includes any government,
+        <strong>Government Authority</strong> means and includes any government,
         any state or other political subdivision thereof, any entity exercising
         executive, legislative, judicial, regulatory or administrative functions
         of or pertaining to government, or any other government authority,
@@ -103,12 +103,12 @@ function Terms() {
         over the Agreement and the Services contemplated under the Agreement.
       </p>
       <p>
-        <strong>Information Technology Act</strong> means the Information
+        <strong>Information Technology Act</strong> means the Information
         Technology Act, 2000.
       </p>
 
       <p>
-        <strong>Intellectual Property</strong> means and includes patents,
+        <strong>Intellectual Property</strong> means and includes patents,
         inventions, know how, trade secrets, trademarks, service marks, designs,
         tools, devices, models, methods, procedures, processes, systems,
         principles, algorithms, works of authorship, flowcharts, drawings, and
@@ -121,7 +121,7 @@ function Terms() {
         within public domain.
       </p>
       <p>
-        <strong>Intellectual Property Rights</strong> mean and include (a) all
+        <strong>Intellectual Property Rights</strong> mean and include (a) all
         right, title, and interest under including but not limited to patent,
         trademark, copyright under the Patents Act, 1970, Trademarks Act, 1999
         and Copyright Act, 1957 respectively; any statute or under common law
@@ -138,17 +138,17 @@ function Terms() {
         recover the same; (g) any Confidential Information.
       </p>
       <p>
-        <strong>Properties for Rent</strong> means and includes Properties for
+        <strong>Properties for Rent</strong> means and includes Properties for
         Rent, a company incorporated under the Companies Act, 2013 having its
         registered office at Bangalore, Karnataka India including its officers,
         employees and representatives along with its Site.
       </p>
       <p>
-        <strong>Privacy Policy</strong> means and includes the privacy policy of
+        <strong>Privacy Policy</strong> means and includes the privacy policy of
         Properties for Rent more particularly described in Section II.
       </p>
       <p>
-        <strong>Prohibited Conduct</strong> means and includes the User’s use of
+        <strong>Prohibited Conduct</strong> means and includes the User’s use of
         the Service in contravention of the Agreement and Applicable Law;
         violation of or the abetment of violation of third party rights;
         infringement or misappropriation of Properties for Rent’s or any persons
@@ -167,20 +167,20 @@ function Terms() {
         User Information.
       </p>
       <p>
-        <strong>Registration Data</strong> means and includes the mobile number,
+        <strong>Registration Data</strong> means and includes the mobile number,
         e-mail address, username and such other particulars and/or information
         as may be required by Properties for Rent and supplied by the User on
         initial application and subscription.
       </p>
       <p>
-        <strong>Personal Information</strong> means and includes details of
+        <strong>Personal Information</strong> means and includes details of
         Aadhaar Card, PAN Card, biometric information, financial information
         such as bank account, debit card, credit card details and such other
         sensitive information, of the User, and/or concerned person which
         personally identifies such User and/or person.
       </p>
       <p>
-        <strong>Services</strong> means and includes the services provided by
+        <strong>Services</strong> means and includes the services provided by
         Properties for Rent within the territory of India to the User of the
         Site and shall include the provision of (a) connecting tenants and
         owners to find each other without paying any brokerage, (b) services to
@@ -201,31 +201,31 @@ function Terms() {
         Providers for the provision of other related services.
       </p>
       <p>
-        <strong>Site</strong> means and includes the website owned, operated and
+        <strong>Site</strong> means and includes the website owned, operated and
         managed by Properties for Rent at the URL www.homewale.com and also
         includes the mobile application owned, operated and managed by
         Properties for Rent Technologies Solutions Private Limited.
       </p>
       <p>
-        <strong>Terms and Conditions</strong> means and includes the terms and
+        <strong>Terms and Conditions</strong> means and includes the terms and
         conditions contained in the Agreement more particularly set out in
         Section I.
       </p>
       <p>
-        <strong>Third Party Service Provider</strong> means and includes any
+        <strong>Third Party Service Provider</strong> means and includes any
         service provider with whom Properties for Rent has an agreement for the
         purposes of making services in addition to the Services available for
         the User.
       </p>
       <p>
-        <strong>User</strong> means any person who accesses the Site or avails
+        <strong>User</strong> means any person who accesses the Site or avails
         Services on the Site for the purposes of hosting, publishing, sharing,
         transacting, displaying or uploading information or views and whether as
         a tenant or as an owner looking for potential tenants includes other
         persons jointly participating in using the Site.
       </p>
       <p>
-        <strong>User Information</strong> means and includes Registration Data,
+        <strong>User Information</strong> means and includes Registration Data,
         Personal Information and any other data, details or information in
         relation to the User, provided by the User to Properties for Rent in
         relation to the Services, whether through the Site, e-mail or any other
@@ -254,7 +254,7 @@ function Terms() {
         words or matters specifically referred to.
       </p>
       <p>
-        <strong>3. ACCEPTANCE OF THE TERMS AND CONDITIONS</strong>
+        <strong>3. ACCEPTANCE OF THE TERMS AND CONDITIONS</strong>
         1.Properties for Rent agrees to provide to the User and the User agrees
         to avail from Properties for Rent the Services in accordance with and on
         the basis of this Agreement and the User’s acceptance of the Terms and
@@ -274,7 +274,7 @@ function Terms() {
         verifying if the User is at least 18 (eighteen) years of age.
       </p>
       <p>
-        <strong>4. ACCESS TO THE SITE</strong>
+        <strong>4. ACCESS TO THE SITE</strong>
         1.First time Users can access the Site for preliminary browsing without
         creating an Account. 2.The User undertakes and agrees to provide User
         Information, uploading Content and create an Account in order to
@@ -285,7 +285,7 @@ function Terms() {
       </p>
 
       <p>
-        <strong>5. SUBSCRIPTION PLANS</strong>
+        <strong>5. SUBSCRIPTION PLANS</strong>
         1.Properties for Rent offers a combination of Services which the User
         may subscribe to, subject to the need of the User, upon payment of
         applicable fees. 2.The subscription fee paid by the User is
@@ -298,7 +298,7 @@ function Terms() {
       </p>
 
       <p>
-        <strong>6. USER INFORMATION</strong>
+        <strong>6. USER INFORMATION</strong>
         1.Properties for Rent shall not be responsible for the accuracy,
         quality, integrity, legality, reliability, appropriateness and
         Intellectual Property Rights of and/or in relation to the User
@@ -314,7 +314,7 @@ function Terms() {
       </p>
 
       <p>
-        <strong>7. RIGHTS OF HomeWale.com</strong>
+        <strong>7. RIGHTS OF HomeWale.com</strong>
         1.Properties for Rent, at all times, reserves the right, to reject or
         disable an Account in the event of the User’s violation of any
         Applicable Law or anything done by the User in contravention of this
@@ -349,7 +349,7 @@ function Terms() {
       </p>
 
       <p>
-        <strong>8. UNAUTHORIZED ACCESS</strong>
+        <strong>8. UNAUTHORIZED ACCESS</strong>
         1.The User shall be liable for all acts conducted through the User’s
         Account and shall be responsible for the safekeeping of the details and
         password of the Account. 2.Subject to Applicable Law, the User is
@@ -369,7 +369,7 @@ function Terms() {
       </p>
 
       <p>
-        <strong>9. USE OF INFORMATION</strong>
+        <strong>9. USE OF INFORMATION</strong>
         1.Properties for Rent undertakes that the procurement, storage, usage
         and dissemination of all information including User Information and/or
         Content, as the case may be, pursuant to this Agreement, shall at all
@@ -441,14 +441,14 @@ function Terms() {
         Site, including payment and delivery of goods or services, and any other
         terms, conditions, warranties or representations associated with such
         dealings, are solely between the Users and the Third Party Service
-        Providers. In no event shall Properties for Rent be liable for any
+        Providers. In no event shall Properties for Rent be liable for any
         damages arising out of any interaction between the User and such Third
         Party Service Provider. The information provided on the Site is provided
         to the Users on an “AS IS, WHERE IS” basis.
       </p>
 
       <p>
-        <strong>10. PROPERTIESONRENT PLATFORM</strong>
+        <strong>10. PROPERTIESONRENT PLATFORM</strong>
         The Users agree and acknowledge that Properties for Rent is only an
         online platform that allows the Users to interact with each other for
         the purpose of listing their property on the Site and/or searching for
@@ -491,7 +491,7 @@ function Terms() {
       </p>
 
       <p>
-        <strong>11. HomeWale TERMS & CONDITIONS</strong>
+        <strong>11. HomeWale TERMS & CONDITIONS</strong>
         1.Role: Any registered User of the Site may choose to make rent
         payments, maintenance payments and payment of security deposit/ token
         amounts, through the payment gateway(s) authorized by Properties for
@@ -595,7 +595,7 @@ function Terms() {
       </p>
 
       <p>
-        <strong>12. CONTENT ON THE SITE</strong>
+        <strong>12. CONTENT ON THE SITE</strong>
         Properties for Rent shall endeavor to ensure that the Content on its
         Site is monitored to ensure that the same is not in contravention of
         Applicable Law and this Agreement. In this regard, the Users represent
@@ -652,8 +652,8 @@ function Terms() {
       </p>
 
       <p>
-        <strong>13. USER GENERATED CONTENT</strong> The Site may contain user
-        generated content (“UGC”) which Properties for Rent does not pre-screen
+        <strong>13. USER GENERATED CONTENT</strong> The Site may contain user
+        generated content (“UGC”) which Properties for Rent does not pre-screen
         and which contains views that may be opinions of Users and also of
         experts. These views do not represent Properties for Rent’s views,
         opinions, beliefs, morals or values. Properties for Rent does not claim
@@ -673,7 +673,7 @@ function Terms() {
       </p>
 
       <p>
-        <strong>14. INTELLECTUAL PROPERTY</strong>
+        <strong>14. INTELLECTUAL PROPERTY</strong>
         <li>
           1.Properties for Rent respects the Intellectual Property Rights of
           others and asks its Users to do the same. The User shall have the sole
@@ -705,7 +705,7 @@ function Terms() {
       </p>
 
       <p>
-        <strong>15. OPERATIONAL HAZARDS/ COMPUTER VIRUS ATTACKS </strong>
+        <strong>15. OPERATIONAL HAZARDS/ COMPUTER VIRUS ATTACKS </strong>
         <li>
           1.Properties for Rent does not warrant in any manner whatsoever that
           the Site or any other software utilized by Properties for Rent for
@@ -732,7 +732,7 @@ function Terms() {
       </p>
 
       <p>
-        <strong>16. DISCLAIMER</strong>
+        <strong>16. DISCLAIMER</strong>
         <li>
           (a) The information and opinions available on the Site in relation to
           the Services are mere guidelines for the purposes of providing general
@@ -838,7 +838,7 @@ function Terms() {
       </p>
 
       <p>
-        <strong>17. LIMITATION OF LIABILITY</strong> ‘Properties for Rent’s
+        <strong>17. LIMITATION OF LIABILITY</strong> ‘Properties for Rent’s
         total aggregate liability under this Agreement and in relation to
         anything which Properties for Rent has done or not done in relation with
         this Agreement shall be limited to the fees paid by the User for
@@ -847,7 +847,7 @@ function Terms() {
       </p>
 
       <p>
-        <strong>18. INDEMNITY</strong> Properties for Rent and its officers,
+        <strong>18. INDEMNITY</strong> Properties for Rent and its officers,
         directors, employees and agents collectively at all times shall be held
         indemnified against any losses, costs, expenses, claims, suits and/or
         damages (including reasonable attorney fees)incurred and/or suffered by
@@ -876,7 +876,7 @@ function Terms() {
       </p>
 
       <p>
-        <strong>19. REAL ESTATE REGULATORY AUTHORITY</strong>
+        <strong>19. REAL ESTATE REGULATORY AUTHORITY</strong>
         <li>
           (a) For the purposes of this Agreement and Services related thereto,
           it shall be deemed that the Users are aware about the rules and
@@ -897,7 +897,7 @@ function Terms() {
       </p>
 
       <p>
-        <strong>20. WAIVER AND SEVERABILITY</strong>
+        <strong>20. WAIVER AND SEVERABILITY</strong>
         <li>
           1.No failure or delay on the part of Properties for Rent in exercising
           any right or remedy shall operate as a waiver of such right or remedy.{" "}
@@ -914,7 +914,7 @@ function Terms() {
       </p>
 
       <p>
-        <strong>21. AMENDMENT</strong>
+        <strong>21. AMENDMENT</strong>
         <li>
           (a) Properties for Rent shall change, update or modify this Agreement,
           in whole or in part, without any prior notice to the User, provided,
@@ -929,7 +929,7 @@ function Terms() {
       </p>
 
       <p>
-        <strong>22. GOVERNING LAW AND JURISDICTION</strong> Any action, claim,
+        <strong>22. GOVERNING LAW AND JURISDICTION</strong> Any action, claim,
         dispute or difference arising out of or in connection with this
         Agreement, including any question regarding its existence, validity or
         termination (Dispute) shall be governed by and construed in accordance

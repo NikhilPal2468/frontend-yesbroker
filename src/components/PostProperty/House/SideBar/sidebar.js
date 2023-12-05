@@ -40,7 +40,7 @@ const Sidebar = ({ pathname, houseId, postPropertyPageNo }) => {
     return classVal;
   };
 
-  const addIconClass2 = (path) => {
+  const addIconClass2 = () => {
     let classVal = "w-25";
     return classVal;
   };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "../styles.module.css";
-import { Container, Modal, Button } from "react-bootstrap";
+import { Container, Modal } from "react-bootstrap";
 import axios from "axios";
 import {
   PDFDownloadLink,
@@ -9,7 +9,6 @@ import {
   View,
   Document,
   StyleSheet,
-  Image,
 } from "@react-pdf/renderer";
 
 // Create styles
@@ -105,20 +104,19 @@ const MyDocument = () => (
   </Document>
 );
 
-function Download() {
-  <PDFDownloadLink document={<MyDocument />} fileName="somename.pdf">
-    {({ blob, url, loading, error }) =>
-      loading ? "Loading document..." : "Download Invoice"
-    }
-  </PDFDownloadLink>;
-}
+// function Download() {
+//   <PDFDownloadLink document={<MyDocument />} fileName="somename.pdf">
+//     {({ blob, url, loading, error }) =>
+//       loading ? "Loading document..." : "Download Invoice"
+//     }
+//   </PDFDownloadLink>;
+// }
 
 const TransactionModal = ({ showModal, setShowModal, orderId }) => {
   const handleModalClose = () => {
     setShowModal(false);
   };
   const [transactionStatus, setTransactionStatus] = useState(null);
-  console.log("transactionStatus:", transactionStatus);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -174,7 +172,7 @@ const TransactionModal = ({ showModal, setShowModal, orderId }) => {
             <div>
               {/* Use PDFDownloadLink to create a download link with custom styling */}
               <PDFDownloadLink document={<MyDocument />} fileName="invoice.pdf">
-                {({ blob, url, loading, error }) =>
+                {({ loading }) =>
                   loading ? (
                     "Loading document..."
                   ) : (

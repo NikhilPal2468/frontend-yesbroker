@@ -23,7 +23,6 @@ function SideBar() {
           `/secure/api/getAllTransactionByUser`
         );
         setAllTransactions(transactions);
-        console.log("data:", transactions);
       } catch (e) {
         console.log(e?.response?.data?.message);
         // setErrMsg(e?.response?.data?.message);

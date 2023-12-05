@@ -43,6 +43,7 @@ function LikeHandler({
             propertyType: propertyType,
           }
         );
+        console.log("data:", data);
 
         setShortlistedProperty((prevList) => {
           let newShortlists = prevList?.filter(({ id }) => {

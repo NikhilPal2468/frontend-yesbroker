@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SideBar from "../SideBar";
 import styles from "../styles.module.css";
 import axios from "axios";
-import TransactionModal from "./TransactionModal";
+// import TransactionModal from "./TransactionModal";
 import TransactionReciept from "./TransactionReciept";
 
 const YourTransactions = ({ userDetails }) => {

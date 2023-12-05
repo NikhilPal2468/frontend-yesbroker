@@ -1,9 +1,7 @@
 import React from "react";
 import styles from "../styles.module.css";
 
-function Invoice({ transactionData, userDetails }) {
-  console.log(userDetails);
-
+function Invoice({ transactionData, userDetails, planDetails }) {
   return (
     <div className="container">
       <div className="row">
@@ -11,12 +9,12 @@ function Invoice({ transactionData, userDetails }) {
           <div className={`${styles.card}`}>
             <div className="card-body">
               <div className="invoice-title">
-                <h4 className="float-end font-size-15">
+                {/* <h4 className="float-end font-size-15">
                   Invoice #DS0204{" "}
                   <span className="badge bg-success font-size-12 ms-2">
                     Paid
                   </span>
-                </h4>
+                </h4> */}
                 <div className="mb-4">
                   <h2 className="mb-1 text-muted">HomeWale</h2>
                 </div>
@@ -27,7 +25,7 @@ function Invoice({ transactionData, userDetails }) {
                     info@homewale.com
                   </p>
                   <p>
-                    <i className="uil uil-phone me-1"></i> 012-345-6789
+                    <i className="uil uil-phone me-1"></i> +91 8884004204
                   </p>
                 </div>
               </div>
@@ -47,10 +45,10 @@ function Invoice({ transactionData, userDetails }) {
                 {/* <!-- end col --> */}
                 <div className="col-sm-6">
                   <div className="text-muted text-sm-end">
-                    <div>
+                    {/* <div>
                       <h5 className="font-size-15 mb-1">Invoice No:</h5>
                       <p>{transactionData?.order_no}</p>
-                    </div>
+                    </div> */}
                     <div className="mt-4">
                       <h5 className="font-size-15 mb-1">Invoice Date:</h5>
                       <p>12 Oct, 2020</p>
@@ -88,60 +86,58 @@ function Invoice({ transactionData, userDetails }) {
                         <td>
                           <div>
                             <h5 className="text-truncate font-size-14 mb-1">
-                              Black Strap A012
+                              {planDetails?.plan_type} Plan
                             </h5>
-                            <p className="text-muted mb-0">Watch, Black</p>
+                            {/* <p className="text-muted mb-0">Watch, Black</p> */}
                           </div>
                         </td>
                         <td>{transactionData?.order_amt}</td>
                         <td>1</td>
-                        <td className="text-end">
-                          {transactionData?.order_amt}
-                        </td>
+                        <td className="text-end">{planDetails?.price}</td>
                       </tr>
 
                       {/* <!-- end tr --> */}
                       <tr>
-                        <th scope="row" colspan="4" className="text-end">
+                        <th scope="row" colSpan="4" className="text-end">
                           Sub Total
                         </th>
-                        <td className="text-end">
-                          {transactionData?.order_amt}
+                        <td className="text-end">{planDetails?.price}</td>
+                      </tr>
+                      {/* <!-- end tr --> */}
+                      <tr>
+                        <th
+                          scope="row"
+                          colSpan="4"
+                          className="border-0 text-end"
+                        >
+                          Discount :
+                        </th>
+                        <td className="border-0 text-end">0</td>
+                      </tr>
+                      <tr>
+                        <th
+                          scope="row"
+                          colSpan="4"
+                          className="border-0 text-end"
+                        >
+                          GST
+                        </th>
+                        <td className="border-0 text-end">
+                          {planDetails?.gst}
                         </td>
                       </tr>
                       {/* <!-- end tr --> */}
                       <tr>
                         <th
                           scope="row"
-                          colspan="4"
-                          className="border-0 text-end"
-                        >
-                          Discount :
-                        </th>
-                        <td className="border-0 text-end">- $25.50</td>
-                      </tr>
-                      <tr>
-                        <th
-                          scope="row"
-                          colspan="4"
-                          className="border-0 text-end"
-                        >
-                          Tax
-                        </th>
-                        <td className="border-0 text-end">$12.00</td>
-                      </tr>
-                      {/* <!-- end tr --> */}
-                      <tr>
-                        <th
-                          scope="row"
-                          colspan="4"
+                          colSpan="4"
                           className="border-0 text-end"
                         >
                           Total
                         </th>
                         <td className="border-0 text-end">
                           <h4 className="m-0 fw-semibold">
-                            {transactionData?.order_amt}
+                            {planDetails?.total_price}
                           </h4>
                         </td>
                       </tr>

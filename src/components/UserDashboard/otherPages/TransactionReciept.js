@@ -22,7 +22,7 @@ const TransactionReciept = ({
     setShowModal(false);
   };
   const [transactionStatus, setTransactionStatus] = useState(null);
-  console.log("transactionStatus:", transactionStatus);
+  const [planDetails, setPlanDetails] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,7 +30,10 @@ const TransactionReciept = ({
         const { data } = await axios.get(
           `/secure/api/paymentTransactionStatus?order_no=${orderId}`
         );
-        setTransactionStatus(JSON.parse(data));
+        const { status, planDetails } = data;
+        console.log("data:", data);
+        setPlanDetails(planDetails);
+        setTransactionStatus(JSON.parse(status));
       } catch (e) {
         console.log(e?.response?.data?.message);
         // setErrMsg(e?.response?.data?.message);
@@ -100,6 +103,7 @@ const TransactionReciept = ({
             <Invoice
               transactionData={transactionStatus}
               userDetails={userDetails}
+              planDetails={planDetails}
             />
           </div>
         </Container>

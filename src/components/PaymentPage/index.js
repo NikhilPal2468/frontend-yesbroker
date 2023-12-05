@@ -57,6 +57,7 @@ const PaymentPage = ({ userDetails = {} }) => {
             language: `EN`,
           },
           no_of_contacts: planData.no_of_contacts,
+          plan_id: planData.id,
         });
         // const { success = false } = data || {};
         setFormHtml(data);
