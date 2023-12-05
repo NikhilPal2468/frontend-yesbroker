@@ -12,39 +12,39 @@ import { LoadContext } from "../../../context/load-context";
 import { BiBed } from "react-icons/bi";
 
 const initialValues = {
-  single_room: false,
-  single_room_rent: 0,
-  single_room_deposit: 0,
+  single_room: null,
+  single_room_rent: null,
+  single_room_deposit: null,
 
-  double_room: false,
-  double_room_rent: 0,
-  double_room_deposit: 0,
+  double_room: null,
+  double_room_rent: null,
+  double_room_deposit: null,
 
-  triple_room: false,
-  triple_room_rent: 0,
-  triple_room_deposit: 0,
+  triple_room: null,
+  triple_room_rent: null,
+  triple_room_deposit: null,
 
-  four_room: false,
-  four_room_rent: 0,
-  four_room_deposit: 0,
+  four_room: null,
+  four_room_rent: null,
+  four_room_deposit: null,
 };
 
 const validationSchema = Yup.object({
-  single_room: Yup.boolean(),
-  single_room_rent: Yup.number().min(0),
-  single_room_deposit: Yup.number().min(0),
+  single_room: Yup.boolean().nullable(),
+  single_room_rent: Yup.number().min(0).nullable(),
+  single_room_deposit: Yup.number().min(0).nullable(),
 
-  double_room_rent: Yup.number().min(0),
-  double_room: Yup.boolean(),
-  double_room_deposit: Yup.number().min(0),
+  double_room: Yup.boolean().nullable(),
+  double_room_rent: Yup.number().min(0).nullable(),
+  double_room_deposit: Yup.number().min(0).nullable(),
 
-  triple_room: Yup.boolean(),
-  triple_room_rent: Yup.number().min(0),
-  triple_room_deposit: Yup.number().min(0),
+  triple_room: Yup.boolean().nullable(),
+  triple_room_rent: Yup.number().min(0).nullable(),
+  triple_room_deposit: Yup.number().min(0).nullable(),
 
-  four_room: Yup.boolean(),
-  four_room_rent: Yup.number().min(0),
-  four_room_deposit: Yup.number().min(0),
+  four_room: Yup.boolean().nullable(),
+  four_room_rent: Yup.number().min(0).nullable(),
+  four_room_deposit: Yup.number().min(0).nullable(),
 });
 
 function RentalDetails() {

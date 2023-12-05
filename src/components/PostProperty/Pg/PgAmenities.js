@@ -122,7 +122,8 @@ function PgAmenities() {
 
   const onSubmit = async (values) => {
     try {
-      values = Math.max(postPropertyPageNo, curPageNo);
+      values.postPropertyPageNo = Math.max(postPropertyPageNo, curPageNo);
+      console.log(values);
       await axios.post(`secure/api/newProperty/pg/update/${pgId}`, values);
 
       navigate(`/property/manage/pg/${pgId}/gallery`);
@@ -130,6 +131,7 @@ function PgAmenities() {
       console.log(err);
     }
   };
+
   const renderAmenities = () => {
     const renderedItems = [];
 
