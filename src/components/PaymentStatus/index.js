@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import styles from "./styles.module.css";
+
 import success from "../../assets/success.png";
 import failure from "../../assets/failure.png";
+
 import axios from "axios";
 
 function PaymentStatus() {

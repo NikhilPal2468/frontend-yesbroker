@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import SideBar from "../SideBar";
 import styles from "../styles.module.css";
 import axios from "axios";
-import TransactionModal from "./TransactionModal";
-const YourTransactions = () => {
+// import TransactionModal from "./TransactionModal";
+import TransactionReciept from "./TransactionReciept";
+
+const YourTransactions = ({ userDetails }) => {
   const [allTransactions, setAllTransactions] = useState([]);
   const [showTransaction, setShowTransaction] = useState(false);
   const [orderId, setOrderId] = useState("");
@@ -74,10 +76,11 @@ const YourTransactions = () => {
         </div>
       </div>
       {showTransaction && (
-        <TransactionModal
+        <TransactionReciept
           showModal={showTransaction}
           setShowModal={setShowTransaction}
           orderId={orderId}
+          userDetails={userDetails}
         />
       )}
     </div>
