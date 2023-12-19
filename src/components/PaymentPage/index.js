@@ -47,16 +47,16 @@ const PaymentPage = ({ userDetails = {} }) => {
           data: {
             merchant_id: 2902324,
             order_id: orderId,
-            amount: planData?.price * (1.18 - planData.discount / 100.0),
-            no_of_contacts: planData?.no_of_contacts,
-            currency: `INR`,
+            // amount: planData?.price * (1.18 - planData.discount / 100.0),
+            // no_of_contacts: planData?.no_of_contacts,
+            // currency: `INR`,
             // redirect_url: `http://localhost:5000/public/api/payment-status`,
             // cancel_url: `http://localhost:5000/public/api/payment-status`,
-            redirect_url: `https://homewale.com/api/public/api/payment-status`,
-            cancel_url: `https://homewale.com/api/public/api/payment-status`,
-            language: `EN`,
+            // redirect_url: `https://homewale.com/api/public/api/payment-status`,
+            // cancel_url: `https://homewale.com/api/public/api/payment-status`,
+            // language: `EN`,
           },
-          no_of_contacts: planData.no_of_contacts,
+          // no_of_contacts: planData.no_of_contacts,
           plan_id: planData.id,
         });
         // const { success = false } = data || {};

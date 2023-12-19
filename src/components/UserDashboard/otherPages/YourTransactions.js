@@ -35,7 +35,7 @@ const YourTransactions = ({ userDetails }) => {
       <SideBar />
       <div className={`${styles.sidebar_right}`}>
         <div className="container">
-          <p className="fw-bold border-bottom py-4">My Shortlists</p>
+          <p className="fw-bold border-bottom py-4">My Transactions</p>
         </div>
 
         <div className="row gap-4 py-2 my-2"></div>

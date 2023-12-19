@@ -1,9 +1,10 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import styles from "../styles.module.css";
 import { Container, Modal, Button } from "react-bootstrap";
 import axios from "axios";
 import Invoice from "./Invoice";
 import { useReactToPrint } from "react-to-print";
+import { LoadContext } from "../../../context/load-context";
 
 const TransactionReciept = ({
   showModal,
@@ -11,6 +12,7 @@ const TransactionReciept = ({
   orderId,
   userDetails,
 }) => {
+  const { loading, setLoading } = useContext(LoadContext);
   const componentRef = useRef();
   const [printInvoice, setPrint] = useState(false);
 
@@ -27,6 +29,7 @@ const TransactionReciept = ({
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const { data } = await axios.get(
           `/secure/api/paymentTransactionStatus?order_no=${orderId}`
         );
@@ -38,6 +41,7 @@ const TransactionReciept = ({
         console.log(e?.response?.data?.message);
         // setErrMsg(e?.response?.data?.message);
       }
+      setLoading(false);
     };
 
     fetchData();
@@ -71,12 +75,12 @@ const TransactionReciept = ({
               <div>Payment Status: {transactionStatus?.order_status}</div>
               {/* <div>Payent Details</div> */}
             </div>
-            <div className={styles.details_div}>
+            {/* <div className={styles.details_div}>
               <div>Transaction Details</div>
               <div>Tracking Id : {transactionStatus?.order_no}</div>
               <div>Amount: {transactionStatus?.order_amt}</div>
               <div>Payment Status: {transactionStatus?.order_status}</div>
-            </div>
+            </div> */}
 
             <div>
               <Button
@@ -90,6 +94,7 @@ const TransactionReciept = ({
                     setPrint(false);
                   }, 200);
                 }}
+                disabled={loading}
               >
                 Download Invoice
               </Button>
