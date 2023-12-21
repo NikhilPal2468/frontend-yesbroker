@@ -40,13 +40,13 @@ const PaymentPage = ({ userDetails = {} }) => {
     e.preventDefault();
     const id = userDetails?.id;
     if (id) {
-      const timestamp = Date.now();
-      const orderId = `${id.slice(0, 5)}-${timestamp}`;
+      // const timestamp = Date.now();
+      // const orderId = `${id.slice(0, 5)}-${timestamp}`;
       try {
         const { data } = await axios.post("/secure/api/payment", {
           data: {
-            merchant_id: 2902324,
-            order_id: orderId,
+            // merchant_id: 2902324,
+            // order_id: orderId,
             // amount: planData?.price * (1.18 - planData.discount / 100.0),
             // no_of_contacts: planData?.no_of_contacts,
             // currency: `INR`,
