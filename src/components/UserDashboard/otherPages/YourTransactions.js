@@ -16,7 +16,15 @@ const YourTransactions = ({ userDetails }) => {
         const { data: transactions } = await axios.get(
           `/secure/api/getAllTransactionByUser`
         );
-        setAllTransactions(transactions);
+        const uniqueTransactions = transactions
+          .sort((a, b) => a.order_id - b.order_id)
+          .filter((transaction, index, array) => {
+            return (
+              index === 0 || transaction.order_id !== array[index - 1].order_id
+            );
+          });
+        setAllTransactions(uniqueTransactions);
+        // setAllTransactions(transactions);
         console.log("data:", transactions);
       } catch (e) {
         console.log(e?.response?.data?.message);
