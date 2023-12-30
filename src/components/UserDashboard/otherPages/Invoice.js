@@ -91,7 +91,7 @@ function Invoice({ transactionData, userDetails, planDetails }) {
                             {/* <p className="text-muted mb-0">Watch, Black</p> */}
                           </div>
                         </td>
-                        <td>{transactionData?.order_amt}</td>
+                        <td>{planDetails?.price}</td>
                         <td>1</td>
                         <td className="text-end">{planDetails?.price}</td>
                       </tr>
